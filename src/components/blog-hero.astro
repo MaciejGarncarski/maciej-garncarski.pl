@@ -1,0 +1,112 @@
+---
+import { Picture } from "astro:assets";
+import { getCollection } from "astro:content";
+import { calculateReadingTime } from "../utils/calculate-read-time";
+
+type Props = {
+  text: string;
+};
+
+const { text } = Astro.props;
+
+const allBlogPosts = await getCollection("blog");
+const currPost = allBlogPosts.find((post) => post.data.title === text);
+const formattedPubDate = new Intl.DateTimeFormat("pl").format(
+  new Date(currPost?.data.pubDate || "")
+);
+const formattedUpdateDate = currPost?.data.updatedDate
+  ? new Intl.DateTimeFormat("pl").format(new Date(currPost.data.updatedDate))
+  : null;
+
+const readTime = calculateReadingTime(currPost?.body || "");
+---
+
+<header
+  class="relative flex h-80 flex-col items-center justify-center gap-4 overflow-hidden md:overflow-visible lg:mx-auto lg:h-100 lg:w-3/4">
+  {
+    currPost?.data.heroImage && (
+      <>
+        <div
+          data-blog-hero-bg
+          class="absolute top-0 left-0 -z-10 mx-auto hidden h-full w-full opacity-4 blur-xl md:block md:rounded-4xl md:blur-2xl">
+          <div class="bg-blog-hero-gradient absolute top-0 left-0 h-full w-full" />
+          <Picture
+            formats={["avif", "webp"]}
+            src={currPost.data.heroImage}
+            alt={text}
+            width={512}
+            height={512}
+            class="h-full w-full border mask-[url(/mask-test.svg)] mask-luminance mask-cover mask-center object-cover"
+            priority={true}
+          />
+        </div>
+        <Picture
+          formats={["avif", "webp"]}
+          src={currPost.data.heroImage}
+          transition:name={`blog-image-${currPost.id}`}
+          width={512}
+          height={512}
+          alt={text}
+          class="h-42 w-42 rounded-sm"
+          priority={true}
+        />
+      </>
+    )
+  }
+  <div
+    class="z-30 flex flex-col gap-2 text-center text-balance"
+    transition:name={`blog-header-${currPost?.id}`}>
+    <h1
+      class="text-foreground z-50 max-w-[20rem] px-5 text-center text-xl font-bold md:max-w-full lg:max-w-[35rem] lg:text-2xl">
+      {text}
+    </h1>
+    <p class="text-center text-base">
+      🗓️
+      <time
+        datetime={new Date(currPost?.data.pubDate || "").toISOString()}
+        class="tracking-tighter lg:tracking-tight">
+        {formattedPubDate}
+      </time>
+      {
+        currPost?.data.updatedDate && (
+          <>
+            (aktualizacja:{" "}
+            <time
+              datetime={new Date(currPost.data.updatedDate).toISOString()}
+              class="tracking-tighter lg:tracking-tight">
+              {formattedUpdateDate}
+            </time>
+            )
+          </>
+        )
+      }
+    </p>
+    {readTime} min. czytania
+  </div>
+</header>
+
+<style>
+  @keyframes blog-hero-bg-fade-in {
+    0% {
+      opacity: 0;
+      transform: scale(1.15);
+    }
+    100% {
+      opacity: 0.25;
+      transform: scale(1);
+    }
+  }
+
+  [data-blog-hero-bg] {
+    animation: blog-hero-bg-fade-in 1s ease-out forwards;
+    animation-delay: 0.17s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-blog-hero-bg] {
+      animation: none;
+      opacity: 0.07;
+      transform: scale(1);
+    }
+  }
+</style>

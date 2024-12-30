@@ -1,0 +1,61 @@
+---
+const defaultTitle = "Maciej Garncarski";
+
+const defaultDescription =
+  "Specjalizuję się w tworzeniu nowoczesnych i wydajnych aplikacji internetowych. Moje doświadczenie obejmuje pracę z technologiami frontendowymi i backendowymi, co pozwala mi na dostarczanie kompleksowych rozwiązań dla klientów.";
+
+const defaultKeywords = [
+  "Strony internetowe",
+  "Fullstack",
+  "Full-stack",
+  "developer",
+  "internet",
+  "frontend",
+  "backend",
+  "postgres",
+  "redis",
+  "react",
+  "html",
+  "css",
+  "js",
+  "ts",
+  "tailwind",
+  "blog",
+  "NGINX",
+  "linux"
+];
+
+type Props = {
+  title?: string;
+  description?: string;
+  keywords?: Array<string>;
+  canonicalUrl?: string;
+  ogImage?: string;
+};
+
+const {
+  description = defaultDescription,
+  title = defaultTitle,
+  keywords = defaultKeywords,
+  ogImage = "https://maciej-garncarski.pl/og.png"
+} = Astro.props;
+
+const canonicalUrl = "https://maciej-garncarski.pl" + Astro.url.pathname;
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="keywords" content={keywords.join(", ")} />
+<link rel="canonical" href={canonicalUrl} />
+
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
+{ogImage && <meta property="og:image" content={ogImage} />}
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:domain" content="maciej-garncarski.pl" />
+<meta name="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+{ogImage && <meta name="twitter:image" content={ogImage} />}
+<meta name="og:title" content={title} />

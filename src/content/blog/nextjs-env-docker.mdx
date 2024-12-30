@@ -1,0 +1,101 @@
+---
+title: "Wstrzykiwanie zmiennych środowiskowych Next.js w Dockerze"
+pubDate: 2025-11-10
+description: "Jak poprawnie wstrzykiwać zmienne środowiskowe do aplikacji Next.js działającej w kontenerze Docker."
+heroImage: "../../assets/blog/nextjs-env-docker/hero.png"
+tags: ["Next.js", "Docker"]
+keywords: ["Next.js", "Docker", "Environment Variables", "NGINX", "Configuration"]
+---
+
+Zakładając, że masz aplikację Next.js i chcesz ją uruchomić w kontenerze Docker, możesz napotkać problem z wstrzykiwaniem zmiennych środowiskowych. W tym artykule pokażę Ci, jak to zrobić poprawnie.
+
+
+Problem: chcemy mieć dostęp do `process.env.NEXT_PUBLIC_API_URL` w aplikacji.
+
+Next.js wymaga, aby publiczne zmienne środowiskowe były dostępne podczas budowania aplikacji. Oznacza to, że musimy przekazać te zmienne w czasie budowania obrazu Docker.
+
+Aby to zrobić, możemy użyć argumentów budowania Docker (`ARG`) i ustawić je jako zmienne środowiskowe (`ENV`) w etapie budowania.
+
+## Przykładowy Dockerfile
+
+```dockerfile showLineNumbers title="Dockerfile.web"
+ARG NODE_VERSION=24.11.0
+ARG PNPM_VERSION=10.18.2
+
+# -----------------------------
+# Base image with Node + pnpm
+# -----------------------------
+FROM node:${NODE_VERSION}-alpine AS base
+RUN corepack enable && corepack prepare pnpm@${PNPM_VERSION} --activate
+WORKDIR /app
+
+# -----------------------------
+# Install dependencies & build
+# -----------------------------
+FROM base AS builder
+# Install OS deps
+RUN apk add --no-cache libc6-compat
+
+# Copy all files (including workspace packages)
+COPY . .
+
+# Install dependencies and build the web package
+# Set environment variables for build
+# [!code ++]
+ARG NEXT_PUBLIC_API_URL
+# [!code ++]
+ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+RUN pnpm install --frozen-lockfile
+RUN pnpm --filter=web build
+
+# -----------------------------
+# Production image
+# -----------------------------
+FROM node:${NODE_VERSION}-alpine AS runner
+WORKDIR /app
+
+# Set production env
+ENV NODE_ENV=production
+ENV PORT=3000
+
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs && adduser -S nextjs -u 1001
+
+# Copy only what we need from builder
+COPY --from=builder /app/web/public ./web/public
+COPY --from=builder --chown=nextjs:nodejs /app/web/.next/standalone ./ 
+COPY --from=builder --chown=nextjs:nodejs /app/web/.next/static ./web/.next/static
+
+USER nextjs
+
+EXPOSE 3000
+CMD ["node", "web/server.js"]
+```
+
+```yml title="docker-compose.yml" showLineNumbers
+services:
+  next-app:
+    container_name: next-app-prod
+    environment:
+    # [!code ++]
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+      SUPER_SECRET_SECRET: ${SUPER_SECRET_SECRET}
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.web
+      args:
+    # [!code ++]
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+        NODE_ENV: production
+    ports:
+      - "3000:3000"
+```
+
+W powyższym przykładzie:
+- Używamy `ARG NEXT_PUBLIC_API_URL` w etapie budowania, aby przekazać wartość zmiennej środowiskowej do procesu budowania Next.js.
+- Ustawiamy `ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}`, aby Next.js mógł uzyskać dostęp do tej zmiennej podczas budowania.
+- W `docker-compose.yml` przekazujemy zmienną środowiskową zarówno jako argument budowania, jak i jako zmienną środowiskową kontenera.
+
+
+## Podsumowanie
+Wstrzykiwanie zmiennych środowiskowych do aplikacji Next.js działającej w Dockerze wymaga przekazania ich podczas etapu budowania. Używając `ARG` i `ENV` w Dockerfile oraz odpowiednio konfigurując `docker-compose.yml`, możemy zapewnić, że nasze zmienne środowiskowe będą dostępne w aplikacji.

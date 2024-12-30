@@ -1,0 +1,73 @@
+---
+import "../styles/global.css";
+import "../styles/bg-mesh.css";
+
+import Navigation from "../components/navigation.astro";
+import Footer from "../components/footer.astro";
+import SEO from "../components/seo.astro";
+import { Font, getImage } from "astro:assets";
+import { getCollection } from "astro:content";
+import photoapp from "../assets/projects/photoapp.png";
+import coincontrol from "../assets/projects/coincontrol.png";
+
+const allBlogPosts = await getCollection("blog");
+
+const blogPostImages = allBlogPosts.map(({ data }) => data.heroImage);
+const projectImages = [photoapp, coincontrol];
+const allImages = [...blogPostImages, ...projectImages];
+
+const optimizedImages = await Promise.all(
+  allImages.map(async (image) => {
+    const optimizedImage = await getImage({
+      src: image,
+      format: "webp",
+      width: 512,
+      height: 512
+    });
+
+    return optimizedImage;
+  })
+);
+---
+
+<!doctype html>
+<html lang="pl">
+  <head>
+    <Font cssVariable="--font-ui" preload />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+    <slot name="head">
+      {
+        optimizedImages.map((optimizedImage) => {
+          return <link rel="prefetch" href={optimizedImage.src} as="image" />;
+        })
+      }
+      <SEO />
+    </slot>
+  </head>
+  <body class="text-foreground bg-mesh min-h-screen p-3 lg:p-10">
+    <div class="mx-auto flex max-w-[80rem] flex-col gap-10 py-3">
+      <Navigation />
+      <main class="flex min-h-[40rem] flex-col gap-8 lg:gap-10">
+        <slot />
+      </main>
+    </div>
+    <Footer />
+  </body>
+</html>
+
+<style is:inline>
+  @view-transition {
+    navigation: auto;
+  }
+</style>

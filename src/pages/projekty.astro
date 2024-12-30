@@ -1,42 +1,132 @@
 ---
-import Button from "../components/Button.astro";
-import Layout from "../layouts/Layout.astro";
+import Layout from "../layouts/layout.astro";
+import photoapp from "../assets/projects/photoapp.png";
+import coincontrol from "../assets/projects/coincontrol.png";
+import fetcher from "../assets/projects/fetcher.jpg";
+import kanban from "../assets/projects/kanban.png";
+import nextTracker from "../assets/projects/next-tracker.png";
+import githubActionsWidget from "../assets/projects/github-actions-widget.png";
+import { Picture } from "astro:assets";
 
-type Project = {
-    repo?: string;
-    live?: string;
-    description: string;
-    name: string;
-}
-
-const projects: Array<Project> = [
-    {
-        name: 'Serwer plików',
-        description: 'Interfejs użytkownika dla dysku zamontowanego poprzez SSHFS na VPS. Aplikacja posiada proste uwierzytelnianie użytkownika za pomocą hasła. Sesje użytkownika zapisywane są do bazy danych Redis. Dysk jest zamontowany przez SSHFS, ale wszystkie operacje polegają na systemie Linux, nie po SSHFS. Zdecydowałem się na takie rozwiązanie ze względu na 20-krotny wzrost wydajności w porównaniu do SSHFS. Serwer nginx używany jest do serwowania plików statycznych z tego dysku. Użytkownik może tworzyć nowe katalogi, przesyłać pliki, wyświetlać pliki na stronie (audio, wideo, kod, PDF) oraz je pobierać.',
-    },
-    {
-        name: 'Photo App',
-        description: 'PhotoApp to aplikacja społecznościowa inspirowana aplikacją Instagram. Użytkownik może tworzyć posty, polubiać je i dodawać do nich komentarze. W aplikacji dostępny jest chat, który używa WebSocket do komunikacji. Do stworzenia frontendu użyłem frameworka Next.js, TypeScript, Tanstack Query i TailwindCSS, natomiast do backendu użyłem Fastify, TypeScript oraz ImageKit do przechowywania obrazów dodanych przez użytkowników. Do komunikacji z bazą użyłem PostgreSQL i Prisma. Do komunikacji pomiędzy frontendem i backendem użyłem openapi-typescript.',
-        live: 'https://photoapp.maciej-garncarski.pl/',
-        repo: 'https://github.com/MaciejGarncarski/photo-app'
-    }
-]
-
+const projects = [
+  {
+    title: "CoinControl",
+    description:
+      "CoinControl to aplikacja do śledzenia budżetu zaprojektowana, aby pomóc użytkownikom monitorować ich dochody i wydatki.",
+    demo: "https://coincontrol.maciej-garncarski.pl",
+    github: "https://github.com/MaciejGarncarski/coin-control",
+    tags: ["React", "Tailwind CSS", "Zustand", "Express", "BullMQ", "Prisma"],
+    image: coincontrol
+  },
+  {
+    title: "Kanban",
+    description:
+      "Aplikacja Kanban stworzona w NestJS z zastosowaniem wzorców CQRS, Domain-Driven Design (DDD) oraz architektury hexagonalnej.",
+    demo: "https://kanban.maciej-garncarski.pl",
+    github: "https://github.com/MaciejGarncarski/kanban",
+    tags: ["Next.js", "NestJS", "Drizzle ORM", "Mantine UI", "JWT"],
+    image: kanban
+  },
+  {
+    title: "Is There New Next.js",
+    description:
+      "Narzędzie do śledzenia najnowszych wydanych wersji Next.js. Automatycznie pobiera informacje o aktualnych wersjach, changelogach oraz datach wydań.",
+    demo: "https://is-there-new-nextjs.vercel.app/",
+    github: "https://github.com/MaciejGarncarski/is-there-new-nextjs",
+    tags: ["Next.js", "Tailwind CSS", "REST", "Markdown"],
+    image: nextTracker
+  },
+  {
+    title: "GitHub Actions Widget",
+    description:
+      "Widget do wyświetlania GitHub Actions w jednym miejscu. Stworzyłem tę aplikację, ponieważ GitHub działa tak wolno, że nie mogłem tego znieść.",
+    demo: "https://github-actions-widget.vercel.app/",
+    github: "https://github.com/maciejgarncarski/github-actions-widget",
+    tags: ["React", "Next.js", "Tailwind CSS", "REST"],
+    image: githubActionsWidget
+  },
+  {
+    title: "Fetcher",
+    description:
+      "Fetcher to lekka, typowana nakładka na fetch, zaprojektowana z myślą o prostocie. Ułatwia pisanie przejrzystych zapytań HTTP z walidacją odpowiedzi.",
+    github: "https://github.com/MaciejGarncarski/fetcher",
+    tags: ["TypeScript", "Zod", "HTTP", "REST"],
+    image: fetcher
+  },
+  {
+    title: "Photo App",
+    description:
+      "PhotoApp to aplikacja społecznościowa inspirowana Instagramem. Użytkownicy mogą tworzyć posty, lajkować je i dodawać do nich komentarze. Aplikacja posiada funkcję czatu, która do komunikacji wykorzystuje WebSocket.",
+    github: "https://github.com/MaciejGarncarski/photo-app",
+    tags: ["Next.js", "React", "Fastify", "Prisma", "Socket.IO", "PostgreSQL"],
+    image: photoapp
+  }
+];
 ---
 
 <Layout>
-    <div class="p-4 flex flex-col gap-8">
-        {projects.map((p) => {
-            return <article class="flex flex-col gap-2">
-                <h2>
-                    {p.name}
+  <h1
+    class="text-foreground text-left text-2xl font-bold text-balance lg:text-3xl">
+    Moje najciekawsze projekty
+  </h1>
+  <ul class="grid gap-12 lg:grid-cols-2">
+    {
+      projects.map((project) => {
+        return (
+          <li class="h-full">
+            <article class="glass flex h-full flex-col gap-8">
+              <header class="aling-center z-40 flex items-start justify-between text-base">
+                <h2 class="text-2xl font-semibold text-pretty">
+                  {project.title}
                 </h2>
-                <p class="text-sm">{p.description}</p>
-                <div class="flex gap-2">
-                {p.live && <a target="_blank" class="border p-1 text-sm" href={p.live}>Demo</a>}
-                {p.repo && <a target="_blank" class="border p-1 text-sm" href={p.repo}>Repozytorium</a>}
+              </header>
+              <div class="flex flex-wrap gap-2">
+                {project.tags.map((tag) => {
+                  return (
+                    <span class="bg-foreground text-background rounded-md px-2 py-1 text-sm font-semibold text-pretty md:text-base">
+                      {tag}
+                    </span>
+                  );
+                })}
+              </div>
+              <div class="flex h-full flex-col gap-4">
+                {project.image ? (
+                  <Picture
+                    formats={["avif", "webp"]}
+                    layout="full-width"
+                    src={project.image}
+                    alt={project.title}
+                    class="border-foreground/10 mx-auto w-auto grow rounded-md border object-contain lg:shadow"
+                  />
+                ) : (
+                  <div class="border-foreground/10 bg-background/30 mx-auto flex h-40 w-full grow items-center justify-center rounded-md border text-center md:h-72 lg:shadow">
+                    <p>Brak podglądu.</p>
+                  </div>
+                )}
+                <p class="text-foreground/85 min-h-16 text-left text-base">
+                  {project.description}
+                </p>
+                <div class="mt-auto flex gap-4 font-semibold md:gap-8 md:text-lg">
+                  {project.demo ? (
+                    <a
+                      href={project.demo}
+                      class="border-foreground/8 bg-background/15 inline-block rounded-md border px-4 py-1 text-pretty"
+                      target="_blank">
+                      Demo
+                    </a>
+                  ) : null}
+                  <a
+                    href={project.github}
+                    class="border-foreground/8 bg-background/15 inline-block rounded-md border px-4 py-1 text-pretty"
+                    target="_blank">
+                    GitHub
+                  </a>
                 </div>
+              </div>
             </article>
-        })}
-    </div>
+          </li>
+        );
+      })
+    }
+  </ul>
 </Layout>

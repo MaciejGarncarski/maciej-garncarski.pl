@@ -1,67 +1,26 @@
 ---
-import Layout from "../layouts/Layout.astro";
+export const prerender = true;
 
-const skills = [
-  "HTML",
-  "CSS",
-  "JavaScript",
-  "React",
-  "TypeScript",
-  "TailwindCSS",
-  "Node.js",
-  "Linux"
-];
-
-const description =
-  "Specjalizuję się w tworzeniu nowoczesnych i wydajnych aplikacji internetowych. Moje doświadczenie obejmuje pracę z technologiami frontendowymi i backendowymi, co pozwala mi na dostarczanie kompleksowych rozwiązań dla klientów.";
+import Header from "../components/about-page/header.astro";
+import Exp from "../components/about-page/exp.astro";
+import OpenSource from "../components/about-page/open-source.astro";
+import Skills from "../components/about-page/skills.astro";
+import HomeSection from "../components/home-section.astro";
+import Layout from "../layouts/layout.astro";
 ---
 
 <Layout>
-  <section class="border-b-4 p-4" aria-labelledby="O mnie">
-    <p>
-      {description}
-    </p>
-  </section>
+  <Header />
 
-  <section class="flex flex-col gap-4 border-b-4 p-4">
-    <h2 class="text-lg">Doświadczenie</h2>
-    <ul>
-      <li class="flex flex-col">
-        <div class="flex justify-between">
-          <p class="text-sm md:text-base max-w-48">Freelancer</p>
-          <p class="text-sm md:text-base text-right">lis. 2023 - lip. 2024</p>
-        </div>
-        <p class="text-xs md:text-sm">Tworzenie panelu administratora dla największego serwera Minecraft w Polsce.</p>
-      </li>
-    </ul>
-  </section>
+  <HomeSection>
+    <Exp />
+  </HomeSection>
 
-  <section class="flex flex-col gap-4 border-b-4 p-4">
-    <h2 class="text-lg">Edukacja</h2>
-    <ul class="flex flex-col gap-4">
-      <li class="flex flex-col">
-        <div class="flex justify-between gap-4">
-          <p class="text-sm md:text-base max-w-48 md:max-w-full leading-none md:leading-normal">Politechnika Rzeszowska im. Ignacego Łukasiewicza</p>
-          <p class="text-sm md:text-base text-right">paź. 2024 - dziś</p>
-        </div>
-        <p class="text-xs md:text-sm">Informatyka.</p>
-      </li>
-    </ul>
-  </section>
+  <HomeSection>
+    <OpenSource />
+  </HomeSection>
 
-
-  <section class="flex flex-col gap-2 p-4">
-    <h2 class="text-lg">Technologie</h2>
-    <ul class="grid-cols-custom grid gap-2">
-      {
-        skills.map((s) => {
-          return (
-            <li class="bg-black px-3 py-1 text-sm text-white dark:bg-white dark:text-black">
-              {s}
-            </li>
-          );
-        })
-      }
-    </ul>
-  </section>
+  <HomeSection>
+    <Skills />
+  </HomeSection>
 </Layout>

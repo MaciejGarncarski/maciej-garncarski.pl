@@ -1,0 +1,100 @@
+@reference "./global.css";
+
+code:not([data-language]) {
+  @apply rounded border border-gray-200/10 bg-gray-700/80 px-2 py-0.25;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+pre[data-language] {
+  @apply border-foreground/10 rounded-md border;
+}
+
+[data-rehype-pretty-code-figure] code {
+  @apply w-full min-w-[100px] overflow-x-auto py-3 text-sm text-nowrap;
+}
+
+[data-rehype-pretty-code-title] {
+  @apply relative top-2 -left-1 w-fit max-w-full rounded border border-gray-200/10 bg-gray-700/80 px-3 py-1 text-sm break-words;
+}
+
+[data-rehype-pretty-code-caption] {
+  text-align: center;
+  @apply mt-2 text-xs italic;
+}
+
+[data-line] {
+  @apply bg-(--shiki-light-bg) px-3 leading-7;
+}
+
+[data-code-line] {
+  @apply text-(--shiki-light);
+}
+
+[data-highlighted-line] {
+  @apply bg-foreground text-background opacity-70;
+}
+
+.has-diff [data-line] {
+  @apply pr-3 pl-0;
+}
+
+[data-rehype-pretty-code-figure] code[data-line-numbers] {
+  counter-reset: line;
+}
+
+[data-rehype-pretty-code-figure] code[data-line-numbers] > [data-line]::before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  text-align: right;
+  margin-left: 4px;
+  margin-right: 1rem;
+  width: 2rem;
+}
+
+[data-diff="add"] {
+  @apply bg-success/40 border-success/80 border-l-4;
+}
+
+[data-rehype-pretty-code-figure]
+  code[data-line-numbers]
+  > [data-diff="add"]::before {
+  margin-left: 0;
+  content: "+ " counter(line);
+}
+
+[data-diff="add"]::before {
+  margin-left: 0;
+  content: "+";
+}
+
+[data-diff="remove"] {
+  @apply bg-destructive/40 border-destructive/80 border-l-4;
+}
+
+[data-rehype-pretty-code-figure]
+  code[data-line-numbers]
+  > [data-diff="remove"]::before {
+  margin-left: 0;
+  content: "- " counter(line);
+}
+
+[data-diff="remove"]::before {
+  margin-left: 0;
+  content: "-";
+}
+
+.has-focused [data-line]:not([data-focused]) {
+  filter: blur(1.5px);
+  opacity: 0.7;
+  transition:
+    filter 0.35s,
+    opacity 0.35s;
+}
+
+.has-focused:hover [data-line],
+[data-rehype-pretty-code-title]:hover + pre [data-line] {
+  filter: none;
+  opacity: 1;
+}

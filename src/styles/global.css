@@ -1,13 +1,90 @@
 @import "tailwindcss";
 
 @theme {
-  --font-mono: "JetBrains Mono Variable", monospace;
-  --grid-template-columns-custom:  repeat(auto-fill, minmax(5rem, 7rem));
   --width-half: 50%;
+  --list-style-type-hyphen: "– ";
+  --background-image-blog-gradient: var(--blog-gradient);
+  --background-image-blog-hero-gradient: var(--blog-hero-gradient);
+
+  --color-success: var(--sucess);
+  --color-destructive: var(--destructive);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
 }
 
-@layer base{
-  body{
-    font-family: var(--font-mono);
+@layer components {
+  [data-blog-content] *:is(h2, h3, h4, h5, h6) {
+    @apply text-foreground w-fit scroll-mt-8 items-center font-semibold;
+  }
+
+  [data-blog-content] *:is(h2) {
+    @apply text-xl;
+  }
+
+  [data-blog-content] *:is(h3, h4, h5, h6) {
+    @apply text-lg;
+  }
+
+  [data-blog-content] a:not(h1 a, h2 a, h3 a, h4 a, h5 a, h6) {
+    @apply underline;
+  }
+
+  [data-anchor] {
+    @apply flex items-center justify-center gap-3;
+  }
+
+  [data-anchor-link] {
+    @apply flex gap-3;
+  }
+
+  [data-anchor-link]:hover > [data-anchor-hash] {
+    @apply opacity-100;
+  }
+
+  [data-anchor-hash] {
+    @apply opacity-40 transition-opacity duration-300;
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    --font-sans: var(--font-ui);
+  }
+
+  :root {
+    color-scheme: dark;
+    --background-base: 20.64% 0.025 274.13;
+    --background: oklch(var(--background-base));
+
+    --foreground-base: 92.64% 0.04 264.13;
+    --foreground: oklch(var(--foreground-base));
+
+    --color-success-base: 45% 0.07 180.11;
+    --color-success: oklch(var(--color-success-base) / 0.9);
+
+    --color-destructive-base: 45% 0.095 10;
+    --color-destructive: oklch(var(--color-destructive-base));
+  }
+}
+
+@layer components {
+  .glass {
+    @apply rounded-xl border border-gray-200/7 bg-gray-200/10 p-4 md:bg-gray-200/5 md:p-5;
+    @apply md:shadow-[0_4px_30px_rgba(0,0,0,0.1)];
+  }
+
+  .glass-footer {
+    @apply rounded-xl border border-gray-200/7 bg-gray-200/10 px-4 py-3 md:bg-gray-200/5;
+    @apply md:shadow-[0_4px_30px_rgba(0,0,0,0.1)];
+  }
+
+  .glass-blog-content {
+    @apply rounded-xl border border-gray-200/7 bg-gray-200/10 p-3 md:bg-gray-200/5 md:p-5;
+    @apply md:shadow-[0_4px_30px_rgba(0,0,0,0.1)];
   }
 }

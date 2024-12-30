@@ -1,0 +1,72 @@
+---
+import type { ImageMetadata } from "astro";
+import github from "../assets/github.svg";
+import xIcon from "../assets/x.svg";
+import linkedin from "../assets/linkedin.svg";
+import { Picture } from "astro:assets";
+
+type Social = {
+  url: string;
+  icon: ImageMetadata;
+  name: string;
+};
+
+const socials: Array<Social> = [
+  {
+    name: "GitHub",
+    icon: github,
+    url: "https://github.com/maciejgarncarski"
+  },
+  {
+    name: "LinkedIn",
+    icon: linkedin,
+    url: "https://www.linkedin.com/in/maciejgarncarski/"
+  },
+  {
+    name: "X",
+    icon: xIcon,
+    url: "https://x.com/MGarncarski"
+  }
+];
+---
+
+<footer
+  class="mx-auto mt-4 flex max-w-[80rem] flex-col items-center justify-between gap-4 lg:mt-8 lg:flex-row"
+  transition:name="footer">
+  <div class="glass-footer flex h-[5rem] w-[15rem] flex-col gap-4 md:w-[15rem]">
+    <div class="flex justify-center gap-6 md:justify-start">
+      {
+        socials.map((s) => {
+          return (
+            <a href={s.url} target="_blank" class="w-fit" title={s.name}>
+              <Picture
+                src={s.icon}
+                alt=""
+                width="24"
+                height="24"
+                class="h-5 invert-100 lg:h-6"
+              />
+              <span class="sr-only">{s.name}</span>
+            </a>
+          );
+        })
+      }
+    </div>
+    <p class="text-center text-xs lg:text-left">
+      Commit: {
+        (
+          import.meta.env.PUBLIC_VERCEL_GIT_COMMIT_SHA || "devDEVdevDEVdevDEV"
+        ).slice(0, 18)
+      }
+    </p>
+  </div>
+
+  <div class="glass-footer flex h-[5rem] w-[15rem] flex-col gap-4 md:w-[15rem]">
+    <p class="text-center text-sm lg:ml-auto lg:text-right">
+      &copy; 2025 Maciej Garncarski
+    </p>
+    <p class="text-center text-xs lg:text-right">
+      Built with {Astro.generator} 🚀
+    </p>
+  </div>
+</footer>

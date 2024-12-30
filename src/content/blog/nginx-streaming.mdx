@@ -1,0 +1,30 @@
+---
+title: "Konfiguracja streamingu HTTP w NGINX"
+pubDate: 2025-02-05
+description: "NGINX - Jak skonfigurować streaming HTTP? (Next.js, TanStack Start)"
+heroImage: "../../assets/blog/nginx-streaming/hero.png"
+tags: ["NGINX"]
+keywords: ["NGINX", "streaming", "html", "http", "proxy_buffering"]
+---
+
+**TL;DR**
+
+Aby włączyć streaming HTTP w NGINX, należy dodać jedną linijkę w konfiguracji serwera.
+
+```nginx showLineNumbers
+server {
+    #...kod...
+    location / {
+        #...kod...
+        proxy_buffering off; # [!code ++]
+    }
+}
+```
+
+## Co to jest streaming HTTP?
+
+Streaming HTTP to technika, dzięki której można wyświetlać treść strony
+internetowej, zanim cała strona zostanie pobrana. Dzięki temu użytkownik widzi
+treść strony szybciej, a nie musi czekać na załadowanie całej strony.
+
+Kiedyś kodowałem sobie aplikację w frameworku TanStack Start, zauważyłem, że brakuje efektu doładowywania się niektórych dynamicznych elementów, czyli tzw. streamingu HTTP. Na Vercelu i innych hostingach tego nie zauważyłem, więc zacząłem szukać rozwiązania. Okazało się, że wystarczy dodać jedną linijkę w konfiguracji NGINX <a class="text-foreground underline" href="https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_buffering" target="_blank">`proxy_buffering off;`</a>.

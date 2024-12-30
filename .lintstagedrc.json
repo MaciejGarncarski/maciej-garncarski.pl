@@ -1,0 +1,3 @@
+{
+  "*.{js,jsx,ts,tsx,astro}": ["pnpm eslint --fix", "pnpm prettier --write"]
+}

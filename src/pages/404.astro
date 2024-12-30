@@ -1,0 +1,22 @@
+---
+import { Picture } from "astro:assets";
+import Layout from "../layouts/layout.astro";
+import notFound from "../assets/not-found.jpg";
+---
+
+<Layout>
+  <figure class="mx-auto flex flex-col gap-6 text-center">
+    <Picture
+      formats={["avif", "webp"]}
+      src={notFound}
+      width={512}
+      height={512}
+      class="w-full rounded"
+      alt={"Kot trzymający tekst not found"}
+    />
+    <figcaption>
+      <p>Strona, której szukasz, nie istnieje.</p>
+    </figcaption>
+    <a href="/">Kliknij, aby wrócić na główną.</a>
+  </figure>
+</Layout>

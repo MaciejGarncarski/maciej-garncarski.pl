@@ -1,0 +1,49 @@
+---
+export const prerender = true;
+
+import "../../styles/codeblock.css";
+import { getCollection, type CollectionEntry } from "astro:content";
+import { render } from "astro:content";
+import Layout from "../../layouts/layout.astro";
+import BlogList from "../../components/blog-list.astro";
+import SEO from "../../components/seo.astro";
+import BlogHero from "../../components/blog-hero.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: post
+  }));
+}
+
+type Props = CollectionEntry<"blog">;
+
+const post = Astro.props;
+
+const { Content } = await render(post);
+
+const components = {
+  ul: BlogList
+};
+---
+
+<Layout>
+  <SEO
+    slot="head"
+    description={post.data.description}
+    title={post.data.title}
+    keywords={post.data.keywords}
+    ogImage={`/blog/${post.id}/og.png`}
+  />
+
+  <article class="flex flex-col gap-4">
+    <BlogHero text={post.data.title} />
+    <div
+      class="glass-blog-content text-foreground/90 mx-auto flex max-w-full flex-col gap-4 pb-14 leading-7 text-pretty md:max-w-[80ch] lg:relative"
+      data-blog-content>
+      <Content components={components} />
+    </div>
+  </article>
+</Layout>
