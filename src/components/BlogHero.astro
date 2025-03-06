@@ -45,7 +45,6 @@ const readTime = calculateReadingTime(currPost?.body || "");
   {
     currPost?.data.heroImage && (
       <Picture
-        data-hero
         src={currPost.data.heroImage}
         width={512}
         height={512}
@@ -58,21 +57,17 @@ const readTime = calculateReadingTime(currPost?.body || "");
 
   <div class="z-30 flex flex-col gap-2 text-center text-balance transition-all">
     <h1
-      data-hero
       class="text-foreground z-50 max-w-full px-5 text-center text-xl font-bold lg:max-w-prose lg:text-2xl">
       {text}
     </h1>
     <p
-      data-hero
       class="text-muted-foreground text-center text-sm tracking-tighter lg:tracking-tight">
       <time datetime={formattedTime}>
         {formattedTime}
       </time>
       | {readTime} min. czytania
       <Views server:defer postId={currPost?.id || ""}>
-        <span slot="fallback" class="inline-block w-[6rem]">
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </span>
+        <span slot="fallback" class="inline-block w-[6ch]"></span>
       </Views>
     </p>
   </div>
@@ -80,7 +75,7 @@ const readTime = calculateReadingTime(currPost?.body || "");
 
 <style>
   [data-blog-hero-bg] {
-    animation: blog-hero 0.9s ease-out forwards;
+    animation: blog-hero 1.2s ease-out forwards;
   }
 
   @keyframes blog-hero {
@@ -89,23 +84,6 @@ const readTime = calculateReadingTime(currPost?.body || "");
     }
     100% {
       opacity: 0.35;
-    }
-  }
-
-  [data-hero] {
-    opacity: 0;
-    filter: blur(2px);
-    animation: views 1s ease-out forwards;
-  }
-
-  @keyframes views {
-    0% {
-      opacity: 0;
-      filter: blur(3px);
-    }
-    100% {
-      opacity: 1;
-      filter: none;
     }
   }
 </style>

@@ -47,9 +47,15 @@ const formatter = new Intl.NumberFormat("pl-PL", {
 });
 
 const formattedViews = formatter.format(views);
+
+await new Promise<void>((resolve, reject) => {
+  setTimeout(() => {
+    resolve();
+  }, 500);
+});
 ---
 
-<span title={`Wyświetlenia: ${views}`} class="inline-block w-[6rem] text-left">
+<span title={`Wyświetlenia: ${views}`} data-views>
   |
   <span class="inline-flex items-center justify-start gap-2 align-bottom">
     <svg
@@ -70,3 +76,20 @@ const formattedViews = formatter.format(views);
     {formattedViews}
   </span>
 </span>
+
+<style>
+  [data-views] {
+    animation: views 1s ease forwards;
+  }
+
+  @keyframes views {
+    0% {
+      filter: blur(1px);
+      opacity: 0;
+    }
+    100% {
+      filter: blur(0px);
+      opacity: 1;
+    }
+  }
+</style>
