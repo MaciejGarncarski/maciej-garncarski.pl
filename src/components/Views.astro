@@ -58,6 +58,8 @@ await new Promise<void>((resolve, reject) => {
     resolve();
   }, 200);
 });
+
+Astro.response.headers.set("Cache-Control", "no-store");
 ---
 
 <span title={`Wyświetlenia: ${views}`} data-views>
