@@ -1,12 +1,15 @@
 ---
 import { REDIS_URL, REDIS_PASS } from "astro:env/server";
 import { Redis } from "@upstash/redis";
+import { isbot } from "isbot";
 
 type Props = {
   postId: string;
 };
 
 const { postId } = Astro.props;
+
+const isBot = isbot(Astro.request.headers.get("user-agent"));
 
 const clientIP = Astro.clientAddress;
 const blogViewKey = `blog:views:${postId}:viewed:${clientIP}`;
@@ -17,24 +20,26 @@ const redisClient = new Redis({
 });
 
 const viewedCookie = Astro.cookies.get("blogView" + postId);
+
 const hasViewedCookie = viewedCookie?.value === "true";
+
 const hasViewed = hasViewedCookie
   ? true
   : await redisClient.get<boolean>(blogViewKey);
 
 const isDevIp = clientIP === "127.0.0.1";
 
-const ONE_WEEK = 60 * 60 * 24 * 7;
+const ONE_DAY = 60 * 60 * 24;
 
-if (!hasViewed && !isDevIp) {
+if (!isBot && !hasViewed && !isDevIp) {
   await redisClient.incr(`blog:views:${postId}`);
   await redisClient.set(blogViewKey, "true", {
-    ex: ONE_WEEK
+    ex: ONE_DAY
   });
 }
 
 Astro.cookies.set("blogView-" + postId, "true", {
-  maxAge: ONE_WEEK,
+  maxAge: ONE_DAY,
   httpOnly: true,
   sameSite: "strict",
   secure: import.meta.env.NODE_ENV === "development" ? false : true
@@ -47,6 +52,12 @@ const formatter = new Intl.NumberFormat("pl-PL", {
 });
 
 const formattedViews = formatter.format(views);
+
+await new Promise<void>((resolve, reject) => {
+  setTimeout(() => {
+    resolve();
+  }, 200);
+});
 ---
 
 <span title={`Wyświetlenia: ${views}`} data-views>
