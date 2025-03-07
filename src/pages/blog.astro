@@ -4,7 +4,6 @@ export const prerender = true;
 import { Picture } from "astro:assets";
 import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
-import { mainEntrance } from "../utils/animation";
 
 const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
@@ -24,6 +23,7 @@ const posts = (await getCollection("blog")).sort(
           return (
             <a
               href={"/blog/" + post.id}
+              data-astro-reload
               class="transition-transform duration-300 lg:hover:-translate-y-1 lg:focus:scale-[0.98]">
               <article class="shadow-blog bg-muted relative flex h-30 flex-col gap-4 overflow-hidden rounded p-4">
                 <div class="before:bg-blog-gradient absolute top-0 right-0 z-20 flex h-full items-center justify-end opacity-50 before:absolute before:h-full before:w-full before:content-[''] lg:opacity-80">
