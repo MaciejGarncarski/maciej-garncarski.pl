@@ -8,8 +8,6 @@ import PreventThemeFlash from "../components/PreventThemeFlash.astro";
 import SEO from "../components/SEO.astro";
 import { ClientRouter } from "astro:transitions";
 
-import { fade } from "astro:transitions";
-
 import { mainEntrance } from "../utils/animation";
 ---
 
@@ -50,9 +48,7 @@ import { mainEntrance } from "../utils/animation";
       });
     </script>
   </head>
-  <body
-    class="text-foreground bg-background p-5 lg:p-0"
-    transition:animate={fade({ duration: "0.1s" })}>
+  <body class="text-foreground bg-background p-5 lg:p-0">
     <div class="mx-auto flex max-w-[58rem] flex-col gap-10 py-3 lg:py-10">
       <Navigation />
 
@@ -70,43 +66,10 @@ import { mainEntrance } from "../utils/animation";
 <style is:global>
   @keyframes mainEntrance {
     0% {
+      scale: 0.9;
       opacity: 0;
-      transform: translate3d(0, 1rem, 0);
-    }
-
-    100% {
-      opacity: 1;
-      transform: translate3d(0, 0, 0);
-    }
-  }
-
-  @keyframes mainEntranceOut {
-    0% {
-      opacity: 1;
-    }
-
-    50% {
-      opacity: 0;
-    }
-
-    100% {
-      opacity: 0;
-    }
-  }
-
-  @media (width >= 64rem) {
-    @keyframes mainEntrance {
-      0% {
-        opacity: 0.2;
-        transform: translate3d(0, 2rem, 0);
-        filter: blur(10px);
-      }
-
-      100% {
-        opacity: 1;
-        transform: translate3d(0, 0rem, 0);
-        filter: blur(0px);
-      }
+      translate: 0 4lh;
+      filter: blur(10px);
     }
   }
 </style>
