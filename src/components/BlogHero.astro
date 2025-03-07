@@ -68,7 +68,7 @@ const readTime = calculateReadingTime(currPost?.body || "");
         {formattedTime}
       </time>
       | {readTime} min. czytania
-      <Views postId={currPost?.id || ""} server:defer />
+      <Views postId={currPost?.id || ""} server:defer transition:persist />
     </p>
   </div>
 </header>
