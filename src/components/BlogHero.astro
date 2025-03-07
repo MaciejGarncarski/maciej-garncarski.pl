@@ -3,7 +3,6 @@ import { Picture } from "astro:assets";
 import { getCollection } from "astro:content";
 import { calculateReadingTime } from "../utils/calculate-read-time";
 import Views from "./Views.astro";
-import { mainEntrance } from "../utils/animation";
 
 type Props = {
   text: string;
@@ -55,26 +54,25 @@ const readTime = calculateReadingTime(currPost?.body || "");
     )
   }
 
-  <div class="z-30 flex flex-col gap-2 text-center text-balance">
+  <div class="z-30 flex flex-col gap-2 text-center text-balance transition-all">
     <h1
       class="text-foreground z-50 max-w-full px-5 text-center text-xl font-bold lg:max-w-prose lg:text-2xl">
       {text}
     </h1>
-    <p class="text-muted-foreground text-center text-sm" data-views>
+    <p
+      class="text-muted-foreground text-center text-sm tracking-tighter lg:tracking-tight">
       <time datetime={formattedTime}>
         {formattedTime}
       </time>
       | {readTime} min. czytania
-      <Views server:defer postId={currPost?.id || ""}>
-        <span slot="fallback"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-      </Views>
+      <Views postId={currPost?.id || ""} server:defer />
     </p>
   </div>
 </header>
 
 <style>
   [data-blog-hero-bg] {
-    animation: blog-hero 1s ease-out forwards;
+    animation: blog-hero 0.6s forwards;
   }
 
   @keyframes blog-hero {
@@ -83,24 +81,6 @@ const readTime = calculateReadingTime(currPost?.body || "");
     }
     100% {
       opacity: 0.35;
-    }
-  }
-
-  [data-views] {
-    opacity: 0;
-    filter: blur(2px);
-    animation: views forwards 1.2s ease;
-    animation-delay: 300ms;
-  }
-
-  @keyframes views {
-    0% {
-      opacity: 0;
-      filter: blur(2px);
-    }
-    100% {
-      opacity: 1;
-      filter: none;
     }
   }
 </style>

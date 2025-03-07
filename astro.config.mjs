@@ -18,15 +18,8 @@ export default defineConfig({
       REDIS_PASS: envField.string({ context: "server", access: "secret" })
     }
   },
-
   site: "https://maciej-garncarski.pl",
-
   integrations: [sitemap(), mdx()],
-
-  experimental: {
-    responsiveImages: true
-  },
-
   markdown: {
     syntaxHighlight: false,
     rehypePlugins: [
