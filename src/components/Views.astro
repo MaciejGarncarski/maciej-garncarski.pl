@@ -52,14 +52,6 @@ const formatter = new Intl.NumberFormat("pl-PL", {
 });
 
 const formattedViews = formatter.format(views);
-
-await new Promise<void>((resolve, reject) => {
-  setTimeout(() => {
-    resolve();
-  }, 200);
-});
-
-Astro.response.headers.set("Cache-Control", "no-store");
 ---
 
 <span title={`Wyświetlenia: ${views}`} data-views>
