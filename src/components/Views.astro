@@ -85,12 +85,12 @@ const formattedViews = formatter.format(views);
     const astroIsland = document.querySelector("[data-island-id]");
 
     const copiedIslandScript = astroIsland?.cloneNode(true);
+    const newScript = document.createElement("script");
+    newScript.textContent = copiedIslandScript?.textContent || "";
 
-    console.log(copiedIslandScript);
-    if (copiedIslandScript) {
-      astroIsland?.parentElement?.appendChild(copiedIslandScript);
-      astroIsland?.remove();
-    }
+    console.log(astroIsland?.parentElement);
+    astroIsland?.parentElement?.appendChild(newScript);
+    astroIsland?.remove();
   };
 
   remakeScript();
