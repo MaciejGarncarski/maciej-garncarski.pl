@@ -77,7 +77,20 @@ const formattedViews = formatter.format(views);
     >
     {formattedViews}
   </span>
+  <script data-astro-exec></script>
 </span>
+
+<script>
+  const astroIsland = document.querySelector("[data-astro-exec]");
+
+  const copiedIslandScript = astroIsland?.cloneNode(true);
+
+  console.log(copiedIslandScript);
+  if (copiedIslandScript) {
+    astroIsland?.parentElement?.appendChild(copiedIslandScript);
+    astroIsland?.remove();
+  }
+</script>
 
 <style>
   [data-views] {
