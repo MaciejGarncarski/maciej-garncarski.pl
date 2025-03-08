@@ -80,32 +80,6 @@ const formattedViews = formatter.format(views);
   <script data-astro-exec></script>
 </span>
 
-<!-- <script>
-  const remakeScript = () => {
-    const astroIsland = document.querySelector("[data-island-id]");
-    const islandId = astroIsland?.getAttribute('data-server-')
-
-    const copiedIslandScript = astroIsland?.cloneNode(true);
-    const newScript = document.createElement("script");
-    newScript.textContent = `
-async function workaround(){
-  ${copiedIslandScript?.textContent || ""}
-  return "workaround completed"
-}
-
-workaround().then((el) => console.log(el));
-    `;
-
-    console.log(astroIsland?.parentElement);
-    astroIsland?.parentElement?.appendChild(newScript);
-    astroIsland?.remove();
-  };
-
-  remakeScript();
-
-  document.addEventListener("astro:after-swap", remakeScript);
-</script> -->
-
 <style>
   [data-views] {
     animation: views 0.2s forwards;
