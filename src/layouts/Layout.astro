@@ -75,7 +75,21 @@ import { mainEntrance } from "../utils/animation";
 </style>
 
 <script>
-  const remakeScript = () => {
+  const remakeScript = async () => {
+    await new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(null);
+      }, 300);
+    });
+
+    const viewsElement = document.querySelector("[data-views]");
+
+    console.log({ viewsElement });
+
+    if (viewsElement) {
+      return;
+    }
+
     const islandScript = document.querySelector("[data-island-id]");
     const scriptAtributes = islandScript?.attributes;
 
@@ -93,15 +107,12 @@ async function workaround(){
   return "workaround completed"
 }
 
-workaround().then((el) => console.log(el));
+workaround()
     `;
 
-    console.log(islandScript?.parentElement);
-    islandScript?.parentElement?.appendChild(newScript);
     islandScript?.remove();
+    islandScript?.parentElement?.appendChild(newScript);
   };
-
-  remakeScript();
 
   document.addEventListener("astro:after-swap", remakeScript);
 </script>
