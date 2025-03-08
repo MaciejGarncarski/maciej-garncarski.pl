@@ -81,15 +81,21 @@ const formattedViews = formatter.format(views);
 </span>
 
 <script>
-  const astroIsland = document.querySelector("[data-astro-exec]");
+  const remakeScript = () => {
+    const astroIsland = document.querySelector("[data-island-id]");
 
-  const copiedIslandScript = astroIsland?.cloneNode(true);
+    const copiedIslandScript = astroIsland?.cloneNode(true);
 
-  console.log(copiedIslandScript);
-  if (copiedIslandScript) {
-    astroIsland?.parentElement?.appendChild(copiedIslandScript);
-    astroIsland?.remove();
-  }
+    console.log(copiedIslandScript);
+    if (copiedIslandScript) {
+      astroIsland?.parentElement?.appendChild(copiedIslandScript);
+      astroIsland?.remove();
+    }
+  };
+
+  remakeScript();
+
+  document.addEventListener("astro:after-swap", remakeScript);
 </script>
 
 <style>
