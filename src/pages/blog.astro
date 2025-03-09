@@ -12,7 +12,9 @@ const posts = (await getCollection("blog")).sort(
 
 <Layout>
   <div class="mx-auto flex flex-col gap-8 pb-8 lg:w-[45rem]">
-    <h1 class="text-center text-balance lg:text-lg">Luźny mikro blog</h1>
+    <h1 class="text-left text-xl font-semibold text-balance">
+      Luźny mikro blog
+    </h1>
     <div class="flex flex-col gap-6 text-sm lg:gap-8">
       {
         posts.map((post) => {

@@ -27,7 +27,7 @@ const readTime = calculateReadingTime(currPost?.body || "");
     currPost?.data.heroImage && (
       <div
         data-blog-hero-bg
-        class="absolute top-0 left-0 -z-10 mx-auto h-full w-full overflow-hidden rounded blur-sm lg:blur lg:saturate-150">
+        class="absolute top-0 left-0 -z-10 mx-auto h-full w-full overflow-hidden rounded opacity-40 blur-sm lg:blur lg:saturate-150">
         <div class="bg-blog-hero-gradient absolute top-0 left-0 h-full w-full" />
         <Picture
           src={currPost.data.heroImage}
@@ -66,23 +66,8 @@ const readTime = calculateReadingTime(currPost?.body || "");
       </time>
       | {readTime} min. czytania
       <Views postId={currPost?.id || ""} server:defer>
-        <span class="inline-block w-[6ch]"></span>
+        <span class="inline-block min-w-[6.8ch]" slot="fallback"></span>
       </Views>
     </p>
   </div>
 </header>
-
-<style>
-  [data-blog-hero-bg] {
-    animation: blog-hero 0.6s forwards;
-  }
-
-  @keyframes blog-hero {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 0.35;
-    }
-  }
-</style>
