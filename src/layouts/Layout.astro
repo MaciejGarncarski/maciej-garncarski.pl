@@ -32,7 +32,8 @@ import { mainEntrance } from "../utils/animation";
 
     <PreventThemeFlash />
 
-    <ClientRouter fallback="swap" />
+    <!-- <ClientRouter fallback="swap" /> -->
+    <!-- disabled until server islands are fixed -->
 
     <script is:inline>
       document.addEventListener("astro:after-swap", function () {
@@ -74,7 +75,7 @@ import { mainEntrance } from "../utils/animation";
   }
 </style>
 
-<script>
+<!-- <script>
   const remakeScript = () => {
     const islandScript = document.querySelector("[data-island-id]");
     const scriptAtributes = islandScript?.attributes;
@@ -101,4 +102,4 @@ workaround()
   };
 
   document.addEventListener("astro:after-swap", remakeScript);
-</script>
+</script> -->

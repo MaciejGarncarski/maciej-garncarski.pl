@@ -87,12 +87,17 @@ const formattedViews = formatter.format(views);
 
   @keyframes views {
     0% {
-      filter: blur(10px);
+      filter: blur(0px);
       opacity: 0;
+      translate: 0 0.5lh;
+    }
+    30% {
+      filter: blur(5px);
     }
     100% {
       filter: blur(0px);
       opacity: 1;
+      translate: 0 0lh;
     }
   }
 </style>
