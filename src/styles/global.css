@@ -145,7 +145,7 @@
       oklch(var(--muted-base) / 1) 0%,
       oklch(var(--muted-base) / 0.96) 15%,
       oklch(var(--muted-base) / 0.7) 80%,
-      oklch(var(--muted-base) / 0) 100%
+      oklch(var(--muted-base) / 0.5) 100%
     );
 
     --blog-hero-gradient: linear-gradient(
