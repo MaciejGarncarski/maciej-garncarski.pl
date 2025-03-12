@@ -82,22 +82,15 @@ const formattedViews = formatter.format(views);
 
 <style>
   [data-views] {
-    animation: views 0.2s forwards;
+    animation: views 0.7s forwards;
   }
 
   @keyframes views {
     0% {
-      filter: blur(0px);
       opacity: 0;
-      scale: 0.8;
-    }
-    30% {
-      filter: blur(10px);
     }
     100% {
-      filter: blur(0px);
       opacity: 1;
-      scale: 1;
     }
   }
 </style>

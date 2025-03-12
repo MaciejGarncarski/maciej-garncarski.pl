@@ -1,13 +1,12 @@
 ---
 import "../styles/global.css";
 import "@fontsource-variable/jetbrains-mono";
+import fontPrelaod from "@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-ext-wght-normal.woff2?url";
 
 import Navigation from "../components/Navigation.astro";
 import Footer from "../components/Footer.astro";
 import PreventThemeFlash from "../components/PreventThemeFlash.astro";
 import SEO from "../components/SEO.astro";
-import { ClientRouter } from "astro:transitions";
-
 import { mainEntrance } from "../utils/animation";
 ---
 
@@ -25,6 +24,13 @@ import { mainEntrance } from "../utils/animation";
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href={fontPrelaod}
+      crossorigin="anonymous"
+    />
 
     <slot name="head">
       <SEO />
