@@ -20,6 +20,9 @@ export default defineConfig({
   },
   site: "https://maciej-garncarski.pl",
   integrations: [sitemap(), mdx()],
+  prefetch: {
+    defaultStrategy: "viewport"
+  },
   markdown: {
     syntaxHighlight: false,
     rehypePlugins: [

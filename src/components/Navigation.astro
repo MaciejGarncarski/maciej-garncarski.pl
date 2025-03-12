@@ -41,6 +41,7 @@ const subpath = pathname.match(/[^\/]+/g);
           <li>
             <a
               href={n.url}
+              data-astro-prefetch
               class={clsx(
                 "rounded px-2 py-1 transition-colors lg:px-3",
                 isActive || isBlogPageActive
