@@ -25,7 +25,6 @@ const posts = (await getCollection("blog")).sort(
           return (
             <a
               href={"/blog/" + post.id}
-              data-astro-prefetch
               class="transition-transform duration-300 lg:hover:scale-[0.99] lg:focus:scale-[0.98]">
               <article class="shadow-blog bg-muted relative flex h-30 flex-col gap-4 overflow-hidden rounded p-4">
                 <div class="before:bg-blog-gradient absolute top-0 right-0 z-20 flex h-full items-center justify-end opacity-50 before:absolute before:h-full before:w-full before:content-[''] lg:opacity-80">
