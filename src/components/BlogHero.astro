@@ -11,13 +11,10 @@ type Props = {
 const { text } = Astro.props;
 
 const allBlogPosts = await getCollection("blog");
-
 const currPost = allBlogPosts.find((post) => post.data.title === text);
-
 const formattedTime = new Intl.DateTimeFormat("pl").format(
   currPost?.data.pubDate
 );
-
 const readTime = calculateReadingTime(currPost?.body || "");
 ---
 
@@ -38,11 +35,6 @@ const readTime = calculateReadingTime(currPost?.body || "");
           class="h-full w-full object-cover"
         />
       </div>
-    )
-  }
-
-  {
-    currPost?.data.heroImage && (
       <Picture
         src={currPost.data.heroImage}
         width={512}
@@ -53,7 +45,6 @@ const readTime = calculateReadingTime(currPost?.body || "");
       />
     )
   }
-
   <div class="z-30 flex flex-col gap-2 text-center text-balance transition-all">
     <h1
       class="text-foreground z-50 max-w-full px-5 text-center text-xl font-bold lg:max-w-prose lg:text-2xl">
