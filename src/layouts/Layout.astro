@@ -80,32 +80,3 @@ import { mainEntrance } from "../utils/animation";
     }
   }
 </style>
-
-<!-- <script>
-  const remakeScript = () => {
-    const islandScript = document.querySelector("[data-island-id]");
-    const scriptAtributes = islandScript?.attributes;
-
-    const copiedIslandScript = islandScript?.cloneNode(true);
-
-    const newScript = document.createElement("script");
-
-    [...Array.from(scriptAtributes || [])].forEach(({ name, value }) =>
-      newScript.setAttribute(name, value)
-    );
-
-    newScript.textContent = `
-async function workaround(){
-  ${copiedIslandScript?.textContent || ""}
-  return "workaround completed"
-}
-
-workaround()
-    `;
-
-    islandScript?.parentElement?.appendChild(newScript);
-    islandScript?.remove();
-  };
-
-  document.addEventListener("astro:after-swap", remakeScript);
-</script> -->
