@@ -2,7 +2,7 @@
 import { Picture } from "astro:assets";
 import { getCollection } from "astro:content";
 import { calculateReadingTime } from "../utils/calculate-read-time";
-import Views from "./Views.astro";
+import { mainEntrance } from "../utils/animation";
 
 type Props = {
   text: string;
@@ -47,7 +47,9 @@ const readTime = calculateReadingTime(currPost?.body || "");
   }
   <div class="z-30 flex flex-col gap-2 text-center text-balance transition-all">
     <h1
-      class="text-foreground z-50 max-w-full px-5 text-center text-xl font-bold lg:max-w-prose lg:text-2xl">
+    transition:animate={mainEntrance}
+    transition:name={`blog-title-${currPost?.id}`}
+    class="text-foreground z-50 max-w-full px-5 text-center text-xl font-bold lg:max-w-prose lg:text-2xl">
       {text}
     </h1>
     <p
@@ -56,9 +58,6 @@ const readTime = calculateReadingTime(currPost?.body || "");
         {formattedTime}
       </time>
       | {readTime} min. czytania
-      <Views postId={currPost?.id || ""} server:defer>
-        <span class="inline-block min-w-[6.8ch]" slot="fallback"></span>
-      </Views>
     </p>
   </div>
 </header>

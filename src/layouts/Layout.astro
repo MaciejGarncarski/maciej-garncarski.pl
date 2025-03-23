@@ -8,6 +8,7 @@ import Footer from "../components/Footer.astro";
 import PreventThemeFlash from "../components/PreventThemeFlash.astro";
 import SEO from "../components/SEO.astro";
 import { mainEntrance } from "../utils/animation";
+import ClientRouter from "astro/components/ClientRouter.astro";
 ---
 
 <!doctype html>
@@ -37,9 +38,7 @@ import { mainEntrance } from "../utils/animation";
     </slot>
 
     <PreventThemeFlash />
-
-    <!-- <ClientRouter fallback="swap" /> -->
-    <!-- disabled until server islands are fixed -->
+    <ClientRouter fallback="swap" />
 
     <script is:inline>
       document.addEventListener("astro:after-swap", function () {
@@ -73,10 +72,8 @@ import { mainEntrance } from "../utils/animation";
 <style is:global>
   @keyframes mainEntrance {
     0% {
-      scale: 0.96;
       opacity: 0;
-      translate: 0 4lh;
-      filter: blur(10px);
+      translate: 0 1lh;
     }
   }
 </style>

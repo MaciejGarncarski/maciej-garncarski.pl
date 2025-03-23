@@ -12,12 +12,6 @@ import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
-  env: {
-    schema: {
-      REDIS_URL: envField.string({ context: "server", access: "secret" }),
-      REDIS_PASS: envField.string({ context: "server", access: "secret" })
-    }
-  },
   site: "https://maciej-garncarski.pl",
   integrations: [sitemap(), mdx()],
   markdown: {
