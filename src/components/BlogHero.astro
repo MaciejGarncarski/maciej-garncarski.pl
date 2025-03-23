@@ -22,34 +22,36 @@ const readTime = calculateReadingTime(currPost?.body || "");
   class="relative -mx-5 flex h-80 flex-col items-center justify-center gap-4 lg:mx-0 lg:h-84">
   {
     currPost?.data.heroImage && (
-      <div
-        data-blog-hero-bg
-        class="absolute top-0 left-0 -z-10 mx-auto h-full w-full overflow-hidden rounded opacity-40 blur-sm lg:blur lg:saturate-150">
-        <div class="bg-blog-hero-gradient absolute top-0 left-0 h-full w-full" />
+      <>
+        <div
+          data-blog-hero-bg
+          class="absolute top-0 left-0 -z-10 mx-auto h-full w-full overflow-hidden rounded opacity-40 blur-sm lg:blur lg:saturate-150">
+          <div class="bg-blog-hero-gradient absolute top-0 left-0 h-full w-full" />
+          <Picture
+            src={currPost.data.heroImage}
+            alt={text}
+            width={200}
+            height={100}
+            format="avif"
+            class="h-full w-full object-cover"
+          />
+        </div>
         <Picture
           src={currPost.data.heroImage}
+          width={512}
+          height={512}
           alt={text}
-          width={200}
-          height={100}
           format="avif"
-          class="h-full w-full object-cover"
+          class="shadow-blog h-42 w-42 rounded-sm"
         />
-      </div>
-      <Picture
-        src={currPost.data.heroImage}
-        width={512}
-        height={512}
-        alt={text}
-        format="avif"
-        class="shadow-blog h-42 w-42 rounded-sm"
-      />
+      </>
     )
   }
   <div class="z-30 flex flex-col gap-2 text-center text-balance transition-all">
     <h1
-    transition:animate={mainEntrance}
-    transition:name={`blog-title-${currPost?.id}`}
-    class="text-foreground z-50 max-w-full px-5 text-center text-xl font-bold lg:max-w-prose lg:text-2xl">
+      transition:animate={mainEntrance}
+      transition:name={`blog-title-${currPost?.id}`}
+      class="text-foreground z-50 max-w-full px-5 text-center text-xl font-bold lg:max-w-prose lg:text-2xl">
       {text}
     </h1>
     <p
