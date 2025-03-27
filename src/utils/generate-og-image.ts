@@ -1,4 +1,5 @@
 import satori from "satori";
+import { Resvg } from "@resvg/resvg-js";
 
 type OgImage = {
   imageBuffer: Buffer;
@@ -7,12 +8,6 @@ type OgImage = {
 
 export async function generateOgImage({ imageBuffer, title }: OgImage) {
   const imageBase64 = `data:image/png;base64,${imageBuffer.toString("base64")}`;
-
-  const Resvg = await import(
-    process.env.NODE_ENV === "development"
-      ? "@cf-wasm/resvg/node"
-      : "@cf-wasm/resvg"
-  ).then((m) => m.Resvg);
 
   const svg = await satori(
     {
