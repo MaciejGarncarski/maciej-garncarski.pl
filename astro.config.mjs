@@ -8,7 +8,8 @@ import {
   transformerNotationFocus
 } from "@shikijs/transformers";
 import { rehypeHeadingIds } from "@astrojs/markdown-remark";
-import cloudflare from "@astrojs/cloudflare";
+
+import vercel from "@astrojs/vercel";
 
 // https://astro.build/config
 export default defineConfig({
@@ -95,12 +96,5 @@ export default defineConfig({
     }
   },
   output: "server",
-  adapter: cloudflare({
-    cloudflareModules: true,
-    imageService: "compile",
-    platformProxy: {
-      enabled: true,
-      configPath: "wrangler.toml"
-    }
-  })
+  adapter: vercel()
 });
