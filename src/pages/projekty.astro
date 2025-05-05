@@ -1,0 +1,91 @@
+---
+import Layout from "../layouts/Layout.astro";
+import photoapp from "../assets/projects/photoapp.png";
+import coincontrol from "../assets/projects/coincontrol.png";
+import { Picture } from "astro:assets";
+
+const projects = [
+  {
+    title: "CoinControl",
+    description:
+      "CoinControl to aplikacja do śledzenia budżetu zaprojektowana, aby pomóc użytkownikom monitorować ich dochody i wydatki. Odpowiada na powszechny problem braku kontroli nad finansami osobistymi, dostarczając narzędzia do efektywnego zarządzania pieniędzmi.",
+    demo: "http://coincontrol.maciej-garncarski.pl",
+    github: "https://github.com/MaciejGarncarski/coin-control",
+    tags: [
+      "React",
+      "TailwindCSS",
+      "Zustand",
+      "Vite",
+      "Zod",
+      "React Testing Library",
+      "Express",
+      "BullMQ",
+      "Prisma"
+    ],
+    image: coincontrol
+  },
+  {
+    title: "Photo App",
+    description:
+      "PhotoApp to aplikacja społecznościowa inspirowana Instagramem. Użytkownicy mogą tworzyć posty, lajkować je i dodawać do nich komentarze. Aplikacja posiada funkcję czatu, która do komunikacji wykorzystuje WebSocket.",
+    demo: "http://photoapp.maciej-garncarski.pl",
+    github: "https://github.com/MaciejGarncarski/photo-app",
+    tags: [
+      "Next.js",
+      "React",
+      "CSS Modules",
+      "Fastify",
+      "Prisma",
+      "Socket.IO",
+      "PostgreSQL"
+    ],
+    image: photoapp
+  }
+];
+---
+
+<Layout>
+  <h1 class="text-left text-xl font-semibold text-balance">Projekty</h1>
+  {
+    projects.map((project) => {
+      return (
+        <article class="shadow-blog bg-muted flex min-h-58 flex-col gap-8 overflow-hidden rounded p-4">
+          <header class="aling-center z-40 flex items-start justify-between text-base">
+            <h2 class="text-foreground w-[65%] text-xl font-semibold text-pretty">
+              {project.title}
+            </h2>
+          </header>
+          <div class="flex flex-col gap-4">
+            <Picture
+              format="avif"
+              src={project.image}
+              width={1024}
+              height={1024}
+              alt={project.title}
+              class="mx-auto w-full grow rounded shadow"
+            />
+            <p class="text-left text-sm">{project.description}</p>
+            <div class="flex gap-8 font-semibold">
+              <a href={project.demo} target="_blank">
+                <span class="text-sm text-pretty underline">Zobacz demo</span>
+              </a>
+              <a href={project.github} target="_blank">
+                <span class="text-sm text-pretty underline">Kod źródłowy</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="mt-auto flex flex-wrap gap-2">
+            {project.tags.map((tag) => {
+              return (
+                <span class="bg-foreground text-background rounded-md px-2 py-1 text-xs font-semibold text-pretty">
+                  {tag}
+                </span>
+              );
+            })}
+          </div>
+        </article>
+      );
+    })
+  }
+</Layout>
