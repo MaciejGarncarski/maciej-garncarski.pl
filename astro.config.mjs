@@ -95,6 +95,6 @@ export default defineConfig({
       external: ["node:fs", "node:path"]
     }
   },
-  output: "server",
+  output: "static",
   adapter: vercel()
 });
