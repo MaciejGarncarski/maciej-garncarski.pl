@@ -6,7 +6,7 @@ import type {
 
 export const mainEntranceAnimationIn: TransitionAnimation = {
   name: "mainEntrance",
-  duration: "0.25s"
+  duration: "0.3s"
 };
 
 export const mainEntranceAnimationOut: TransitionAnimation = {

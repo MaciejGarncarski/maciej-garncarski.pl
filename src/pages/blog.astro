@@ -39,10 +39,7 @@ const posts = (await getCollection("blog")).sort(
                   />
                 </div>
                 <header class="aling-center z-40 flex items-start justify-between text-base">
-                  <h2
-                    class="text-foreground w-[65%] text-sm font-semibold text-pretty lg:text-base"
-                    transition:animate={mainEntrance}
-                    transition:name={`blog-title-${post.id}`}>
+                  <h2 class="text-foreground z-20 w-[65%] text-sm font-semibold text-pretty lg:text-base">
                     {post.data.title}
                   </h2>
                   <p class="before:bg-background/90 relative text-sm before:absolute before:top-0 before:left-0 before:-z-10 before:h-full before:w-full before:blur-lg lg:text-base">
