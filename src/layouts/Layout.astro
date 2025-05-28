@@ -73,9 +73,18 @@ import ClientRouter from "astro/components/ClientRouter.astro";
   @keyframes mainEntrance {
     0% {
       scale: 0.9;
-      filter: blur(2px);
       opacity: 0;
       translate: 0 1lh;
+      filter: blur(2px);
+    }
+  }
+
+  @media screen and (max-width: 50rem) {
+    @keyframes mainEntrance {
+      0% {
+        scale: 0.9;
+        opacity: 0;
+      }
     }
   }
 </style>
