@@ -1,7 +1,7 @@
 {
   "headers": [
     {
-      "source": "/_astro",
+      "source": "/_astro/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
