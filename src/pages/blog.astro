@@ -41,7 +41,7 @@ const posts = (await getCollection("blog")).sort(
                   <h2 class="text-foreground z-20 w-[65%] text-sm font-semibold text-pretty lg:text-base">
                     {post.data.title}
                   </h2>
-                  <p class="before:bg-background/90 relative text-sm before:absolute before:top-0 before:left-0 before:-z-10 before:h-full before:w-full before:blur-lg lg:text-base">
+                  <p class="before:bg-background/90 relative text-sm font-semibold before:absolute before:top-0 before:left-0 before:-z-10 before:h-full before:w-full before:blur-lg lg:text-base">
                     <time datetime={formattedTime}>{formattedTime}</time>
                   </p>
                 </header>

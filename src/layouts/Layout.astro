@@ -57,13 +57,11 @@ import ClientRouter from "astro/components/ClientRouter.astro";
   <body class="text-foreground bg-background p-5 lg:p-0">
     <div class="mx-auto flex max-w-[45rem] flex-col gap-10 py-3 lg:py-10">
       <Navigation />
-
       <main
         class="flex min-h-[40rem] flex-col gap-8 lg:gap-9"
         transition:animate={mainEntrance}>
         <slot />
       </main>
-
       <Footer />
     </div>
   </body>

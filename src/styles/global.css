@@ -91,9 +91,9 @@
 
     --blog-gradient: linear-gradient(
       to right,
-      oklch(var(--muted-base)) 0%,
-      oklch(var(--muted-base) / 0.9) 35%,
-      oklch(var(--muted-base) / 0.6) 70%,
+      oklch(var(--muted-base)) 5%,
+      oklch(var(--muted-base) / 0.95) 25%,
+      oklch(var(--muted-base) / 0.67) 70%,
       oklch(var(--muted-base) / 0.5) 100%
     );
 

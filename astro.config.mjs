@@ -13,6 +13,9 @@ import vercel from "@astrojs/vercel";
 
 // https://astro.build/config
 export default defineConfig({
+  prefetch: {
+    prefetchAll: true
+  },
   site: "https://maciej-garncarski.pl",
   integrations: [sitemap(), mdx()],
   markdown: {
