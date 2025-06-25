@@ -69,7 +69,7 @@
   }
 
   :root {
-    --background-base: 96.1% 0.02 270.11;
+    --background-base: 99.4% 0.0019 217.4;
     --background: oklch(var(--background-base));
     --foreground-base: 30.47% 0.02 207.53;
     --foreground: oklch(var(--foreground-base));
@@ -80,14 +80,16 @@
     --color-destructive-base: 60% 0.09 20;
     --color-destructive: oklch(var(--color-destructive-base));
 
-    --muted-base: 94.5% 0.022 270.11;
+    --muted-base: 96.4% 0.0029 217.4;
     --muted-foreground-base: 40.75% 0.011 270.11;
 
     --muted: oklch(var(--muted-base));
     --muted-foreground: oklch(var(--muted-foreground-base));
 
     --code-bg: var(--shiki-light-bg);
-    --shadow-blog: 0 0 0 1px oklch(var(--foreground-base) / 0.15);
+    --shadow-blog:
+      0 0 0 1px oklch(var(--foreground-base) / 0.1),
+      0 8px 10px 5px oklch(var(--foreground-base) / 0.15);
 
     --blog-gradient: linear-gradient(
       to right,

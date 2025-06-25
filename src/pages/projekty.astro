@@ -24,18 +24,13 @@ const projects = [
     ],
     image: coincontrol
   },
-    {
+  {
     title: "Fetcher",
     description:
       "Fetcher to lekka, typowana nakładka na fetch, zaprojektowana z myślą o prostocie i bezpieczeństwie. Ułatwia pisanie przejrzystych zapytań HTTP z walidacją odpowiedzi. Sprawdza się zarówno w aplikacjach frontendowych, jak i backendowych.",
     demo: "https://github.com/maciejgarncarski/fetcher?tab=readme-ov-file#example-usage",
     github: "https://github.com/MaciejGarncarski/fetcher",
-    tags: [
-      "TypeScript",
-      "Zod",
-      "HTTP",
-      "REST",
-    ],
+    tags: ["TypeScript", "Zod", "HTTP", "REST"],
     image: null
   },
   {
@@ -63,22 +58,22 @@ const projects = [
   {
     projects.map((project) => {
       return (
-        <article class="shadow-blog bg-muted flex min-h-58 flex-col gap-8 overflow-hidden rounded p-4">
+        <article class="shadow-blog bg-muted flex min-h-58 flex-col gap-8 overflow-hidden rounded-md p-4">
           <header class="aling-center z-40 flex items-start justify-between text-base">
             <h2 class="text-foreground w-[65%] text-xl font-semibold text-pretty">
               {project.title}
             </h2>
           </header>
           <div class="flex flex-col gap-4">
-          {project.image ? (
-            <Picture
-              src={project.image}
-              width={1024}
-              height={1024}
-              alt={project.title}
-              class="mx-auto w-full grow rounded shadow"
-            />
-          ) : null}
+            {project.image ? (
+              <Picture
+                src={project.image}
+                width={1024}
+                height={1024}
+                alt={project.title}
+                class="mx-auto w-full grow rounded shadow"
+              />
+            ) : null}
             <p class="text-left text-sm">{project.description}</p>
             <div class="flex gap-8 font-semibold">
               <a href={project.demo} target="_blank">
