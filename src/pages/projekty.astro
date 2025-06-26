@@ -28,7 +28,6 @@ const projects = [
     title: "Fetcher",
     description:
       "Fetcher to lekka, typowana nakładka na fetch, zaprojektowana z myślą o prostocie i bezpieczeństwie. Ułatwia pisanie przejrzystych zapytań HTTP z walidacją odpowiedzi. Sprawdza się zarówno w aplikacjach frontendowych, jak i backendowych.",
-    demo: "https://github.com/maciejgarncarski/fetcher?tab=readme-ov-file#example-usage",
     github: "https://github.com/MaciejGarncarski/fetcher",
     tags: ["TypeScript", "Zod", "HTTP", "REST"],
     image: null
@@ -37,7 +36,6 @@ const projects = [
     title: "Photo App",
     description:
       "PhotoApp to aplikacja społecznościowa inspirowana Instagramem. Użytkownicy mogą tworzyć posty, lajkować je i dodawać do nich komentarze. Aplikacja posiada funkcję czatu, która do komunikacji wykorzystuje WebSocket.",
-    demo: "http://photoapp.maciej-garncarski.pl",
     github: "https://github.com/MaciejGarncarski/photo-app",
     tags: [
       "Next.js",
@@ -76,9 +74,11 @@ const projects = [
             ) : null}
             <p class="text-left text-sm">{project.description}</p>
             <div class="flex gap-8 font-semibold">
-              <a href={project.demo} target="_blank">
-                <span class="text-sm text-pretty underline">Zobacz demo</span>
-              </a>
+              {project.demo ? (
+                <a href={project.demo} target="_blank">
+                  <span class="text-sm text-pretty underline">Zobacz demo</span>
+                </a>
+              ) : null}
               <a href={project.github} target="_blank">
                 <span class="text-sm text-pretty underline">Kod źródłowy</span>
               </a>
