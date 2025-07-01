@@ -9,6 +9,25 @@ import PreventThemeFlash from "../components/PreventThemeFlash.astro";
 import SEO from "../components/SEO.astro";
 import { mainEntrance } from "../utils/animation";
 import ClientRouter from "astro/components/ClientRouter.astro";
+import { getImage } from "astro:assets";
+import { getCollection } from "astro:content";
+
+const allBlogPosts = await getCollection("blog");
+
+const allImages = allBlogPosts.map(({ data }) => data.heroImage);
+
+const optimizedImages = await Promise.all(
+  allImages.map(async (image) => {
+    const optimizedImage = await getImage({
+      src: image,
+      format: "webp",
+      width: 512,
+      height: 512
+    });
+
+    return optimizedImage;
+  })
+);
 ---
 
 <!doctype html>
@@ -34,6 +53,11 @@ import ClientRouter from "astro/components/ClientRouter.astro";
     />
 
     <slot name="head">
+      {
+        optimizedImages.map((optimizedImage) => {
+          return <link rel="preload" href={optimizedImage.src} as="image" />;
+        })
+      }
       <SEO />
     </slot>
 

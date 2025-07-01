@@ -2,7 +2,6 @@
 import { Picture } from "astro:assets";
 import { getCollection } from "astro:content";
 import { calculateReadingTime } from "../utils/calculate-read-time";
-import { mainEntrance } from "../utils/animation";
 
 type Props = {
   text: string;
@@ -30,8 +29,8 @@ const readTime = calculateReadingTime(currPost?.body || "");
           <Picture
             src={currPost.data.heroImage}
             alt={text}
-            width={200}
-            height={100}
+            width={512}
+            height={512}
             class="h-full w-full object-cover"
           />
         </div>
