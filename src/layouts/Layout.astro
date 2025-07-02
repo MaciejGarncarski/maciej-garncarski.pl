@@ -11,10 +11,14 @@ import { mainEntrance } from "../utils/animation";
 import ClientRouter from "astro/components/ClientRouter.astro";
 import { getImage } from "astro:assets";
 import { getCollection } from "astro:content";
+import photoapp from "../assets/projects/photoapp.png";
+import coincontrol from "../assets/projects/coincontrol.png";
 
 const allBlogPosts = await getCollection("blog");
 
-const allImages = allBlogPosts.map(({ data }) => data.heroImage);
+const blogPostImages = allBlogPosts.map(({ data }) => data.heroImage);
+const projectImages = [photoapp, coincontrol];
+const allImages = [...blogPostImages, ...projectImages];
 
 const optimizedImages = await Promise.all(
   allImages.map(async (image) => {
