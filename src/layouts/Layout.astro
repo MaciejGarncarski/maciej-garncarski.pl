@@ -59,7 +59,7 @@ const optimizedImages = await Promise.all(
     <slot name="head">
       {
         optimizedImages.map((optimizedImage) => {
-          return <link rel="preload" href={optimizedImage.src} as="image" />;
+          return <link rel="prefetch" href={optimizedImage.src} as="image" />;
         })
       }
       <SEO />

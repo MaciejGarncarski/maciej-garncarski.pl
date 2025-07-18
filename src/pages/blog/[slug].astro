@@ -1,7 +1,7 @@
 ---
 export const prerender = true;
 
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 import { render } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import BlogList from "../../components/BlogList.astro";
@@ -40,7 +40,7 @@ const components = {
   <article class="text-muted-foreground flex flex-col gap-4">
     <BlogHero text={post.data.title} />
     <div
-      class="mx-auto flex max-w-full flex-col gap-6 pb-14 leading-7 text-pretty md:max-w-prose"
+      class="mx-auto flex max-w-full flex-col gap-4 pb-14 leading-7 text-pretty md:max-w-prose"
       data-blog-content>
       <Content components={components} />
     </div>

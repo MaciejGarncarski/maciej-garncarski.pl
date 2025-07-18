@@ -47,11 +47,11 @@
   }
 
   [data-anchor-link] {
-    @apply flex gap-3;
+    @apply mt-4 flex gap-3;
   }
 
   [data-anchor-link]:hover > [data-anchor-hash] {
-    @apply opacity-100;
+    @apply opacity-101;
   }
 
   [data-anchor-hash] {

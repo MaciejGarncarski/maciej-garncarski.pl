@@ -1,0 +1,102 @@
+---
+title: "Fetcher - biblioteka do zapytań HTTP"
+pubDate: 2025-07-18
+description: "Lekka, typowana biblioteka TypeScript do wykonywania zapytań HTTP z użyciem znajomego API fetch."
+heroImage: "../../assets/blog/fetcher/hero.png"
+keywords:
+  [
+    "fetch",
+    "http",
+    "typescript",
+    "api",
+    "client",
+    "lightweight",
+    "zod",
+    "nodejs",
+    "browser",
+    "standard-schema",
+    "fetch-wrapper"
+  ]
+tags: ["TypeScript", "HTTP"]
+---
+
+W świecie nowoczesnych aplikacji webowych wykonywanie zapytań HTTP to codzienność. Choć wbudowane API fetch w JavaScript jest bardzo przydatne, z czasem może okazać się zbyt niskopoziomowe - brakuje w nim np. typowania odpowiedzi czy obsługi schematów. Na ratunek przychodzi Fetcher - minimalistyczna, typowana nakładka na fetch, stworzona z myślą o prostocie i wygodzie.
+
+## Co to jest fetcher?
+
+Fetcher to lekka biblioteka dla Node.js i przeglądarki, która upraszcza wykonywanie zapytań HTTP, jednocześnie pozostając bardzo blisko natywnego API fetch.
+
+Jej główne zalety to:
+
+- obsługa walidacji danych poprzez standard-schema.
+- mapowanie danych do konkretnego typu `responseType: 'arrayBuffer' | 'json' | 'text'`
+- lepsza automatyczna obsługa błędów
+
+
+## Instalacja
+
+```bash
+pnpm add @maciekdev/fetcher
+# lub
+npm install @maciekdev/fetcher
+# lub
+yarn add @maciekdev/fetcher
+# lub
+bun add @maciekdev/fetcher
+```
+
+
+## Przykład użycia
+
+```ts
+import { z } from "zod/v4";
+import { createFetcherInstance } from "@maciekdev/fetcher";
+
+// Tworzymy instancję fetchera z bazowym URL-em
+export const fetcher = createFetcherInstance({
+  baseURL: "https://yourApiPath.com",
+});
+
+// Definiujemy schemat walidacji odpowiedzi
+const zodSchema = z.object({
+  username: z.string(),
+});
+
+// Wysyłamy zapytanie GET z walidacją odpowiedzi
+const myData = await fetcher({
+  method: "GET",
+  url: "/test-endpoint",
+  schema: zodSchema,
+});
+
+console.log(myData?.data.username); // username: string | undefined
+```
+
+Jak widzisz, jest prosto, czytelnie i odpowiedź jest typowana.
+
+## Dlaczego warto użyć fetchera
+Fetcher świetnie sprawdzi się w projektach TypeScriptowych, gdzie zależy Ci na typowaniu odpowiedzi z API i czytelności kodu. Jest idealny do aplikacji frontendowych (Next.js, Vite) oraz serwerowych (Node.js, Bun).
+
+## Licencja
+Fetcher jest dostępny na licencji MIT. Możesz go używać zarówno w projektach open source, jak i komercyjnych.
+
+
+## 🤝 Współtwórz Fetchera
+Fetcher to projekt open source, otwarty na kontrybucje społeczności. Jeśli masz pomysł na nową funkcjonalność, poprawkę błędu lub chcesz poprawić dokumentację, to zapraszam do zgłaszania issue i tworzenia pull requestów na GitHubie!
+
+
+<div style="display: flex; gap: 2rem;">
+
+<a
+  target="_blank"
+  href="https://github.com/maciejgarncarski/fetcher">
+  Kod źródłowy
+</a>
+
+<a
+  target="_blank"
+  href="https://www.npmjs.com/package/@maciekdev/fetcher">
+  biblioteka na NPM
+</a>
+
+</div>

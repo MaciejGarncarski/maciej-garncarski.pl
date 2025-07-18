@@ -76,12 +76,12 @@ export default defineConfig({
         {
           behavior: "wrap",
           content: {
+            children: [{ type: "text", value: "#" }],
             type: "element",
             tagName: "span",
             properties: {
               ["data-anchor-hash"]: ""
-            },
-            children: [{ type: "text", value: "#" }]
+            }
           },
           headingProperties: {
             ["data-anchor"]: ""
