@@ -11,6 +11,8 @@ import { rehypeHeadingIds } from "@astrojs/markdown-remark";
 
 import vercel from "@astrojs/vercel";
 
+import tailwindcss from "@tailwindcss/vite";
+
 // https://astro.build/config
 export default defineConfig({
   prefetch: {
@@ -96,7 +98,9 @@ export default defineConfig({
   vite: {
     ssr: {
       external: ["node:fs", "node:path"]
-    }
+    },
+
+    plugins: [tailwindcss()]
   },
   output: "static",
   adapter: vercel()

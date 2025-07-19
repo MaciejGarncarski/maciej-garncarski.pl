@@ -32,6 +32,7 @@ const readTime = calculateReadingTime(currPost?.body || "");
             width={512}
             height={512}
             class="h-full w-full object-cover"
+            priority={true}
           />
         </div>
         <Picture
@@ -40,6 +41,7 @@ const readTime = calculateReadingTime(currPost?.body || "");
           height={512}
           alt={text}
           class="shadow-blog h-42 w-42 rounded-sm"
+          priority={true}
         />
       </>
     )
