@@ -34,9 +34,9 @@ export default defineConfig({
               matchAlgorithm: "v3"
             })
           ],
-          keepBackground: false,
+          keepBackground: true,
           theme: {
-            light: "github-light",
+            light: "catppuccin-latte",
             dark: "nord"
           },
           onVisitLine(element) {
@@ -96,10 +96,6 @@ export default defineConfig({
     ]
   },
   vite: {
-    ssr: {
-      external: ["node:fs", "node:path"]
-    },
-
     plugins: [tailwindcss()]
   },
   output: "static",

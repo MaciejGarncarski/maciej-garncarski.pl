@@ -6,6 +6,7 @@ code:not([data-language]) {
 
 [data-rehype-pretty-code-figure] code {
   @apply shadow-blog w-full min-w-[100px] overflow-x-auto rounded py-3 text-sm text-nowrap;
+  @apply bg-(--shiki-light-bg) text-(--shiki-light) dark:bg-(--shiki-dark-bg) dark:text-(--shiki-dark);
 }
 
 [data-rehype-pretty-code-title] {
@@ -18,11 +19,11 @@ code:not([data-language]) {
 }
 
 [data-line] {
-  @apply px-3 leading-7;
+  @apply bg-(--shiki-light-bg) px-3 leading-7 dark:bg-(--shiki-dark-bg);
 }
 
 [data-code-line] {
-  @apply bg-(--shiki-light-bg) text-(--shiki-light) dark:bg-(--shiki-dark-bg) dark:text-(--shiki-dark);
+  @apply text-(--shiki-light) dark:text-(--shiki-dark);
 }
 
 [data-highlighted-line] {
