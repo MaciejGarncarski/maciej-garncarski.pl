@@ -1,4 +1,4 @@
-import { defineConfig, envField } from "astro/config";
+import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import mdx from "@astrojs/mdx";
 import rehypePrettyCode from "rehype-pretty-code";
@@ -15,9 +15,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
-  prefetch: {
-    prefetchAll: true
-  },
+  prefetch: true,
   site: "https://maciej-garncarski.pl",
   integrations: [sitemap(), mdx()],
   markdown: {
