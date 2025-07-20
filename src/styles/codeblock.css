@@ -2,6 +2,8 @@
 
 code:not([data-language]) {
   @apply shadow-blog bg-muted rounded px-1.5 py-0.25;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
 
 [data-rehype-pretty-code-figure] code {
