@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import photoapp from "../assets/projects/photoapp.png";
 import coincontrol from "../assets/projects/coincontrol.png";
+import githubActionsWidget from "../assets/projects/github-actions-widget.png";
 import { Picture } from "astro:assets";
 
 const projects = [
@@ -23,6 +24,15 @@ const projects = [
       "Prisma"
     ],
     image: coincontrol
+  },
+  {
+    title: "GitHub Actions Widget",
+    description:
+      "Widget do wyświetlania GitHub Actions w jednym miejscu. Stworzyłem tę aplikację, ponieważ GitHub działa tak wolno, że nie mogłem tego znieść.",
+    demo: "https://github-actions-widget.vercel.app/",
+    github: "https://github.com/maciejgarncarski/github-actions-widget",
+    tags: ["React", "Next.js", "Tailwind CSS", "REST"],
+    image: githubActionsWidget
   },
   {
     title: "Fetcher",

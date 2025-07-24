@@ -16,12 +16,12 @@
     "@astrojs/markdown-remark": "^6.3.3",
     "@astrojs/mdx": "^4.3.1",
     "@astrojs/sitemap": "^3.4.1",
-    "@astrojs/vercel": "^8.2.2",
+    "@astrojs/vercel": "^8.2.3",
     "@fontsource-variable/jetbrains-mono": "^5.2.6",
     "@resvg/resvg-js": "^2.6.2",
     "@tailwindcss/postcss": "4.0.8",
     "@tailwindcss/vite": "^4.1.11",
-    "astro": "^5.12.0",
+    "astro": "^5.12.3",
     "clsx": "^2.1.1",
     "cva": "1.0.0-beta.3",
     "isbot": "^5.1.28",
@@ -49,7 +49,7 @@
     "prettier-plugin-tailwindcss": "^0.6.14",
     "tailwindcss": "^4.1.11",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.37.0"
+    "typescript-eslint": "^8.38.0"
   },
   "packageManager": "pnpm@10.6.5+sha512.cdf928fca20832cd59ec53826492b7dc25dc524d4370b6b4adbf65803d32efaa6c1c88147c0ae4e8d579a6c9eec715757b50d4fa35eea179d868eada4ed043af"
 }
