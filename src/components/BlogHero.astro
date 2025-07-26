@@ -18,13 +18,13 @@ const readTime = calculateReadingTime(currPost?.body || "");
 ---
 
 <header
-  class="relative -mx-5 flex h-80 flex-col items-center justify-center gap-4 lg:mx-0 lg:mx-auto lg:h-120 lg:w-3/4">
+  class="relative -mx-5 flex h-80 flex-col items-center justify-center gap-4 lg:mx-auto lg:h-100 lg:w-3/4">
   {
     currPost?.data.heroImage && (
       <>
         <div
           data-blog-hero-bg
-          class="absolute top-0 left-0 -z-10 mx-auto h-full w-full overflow-hidden rounded opacity-40 blur-sm lg:blur lg:saturate-150">
+          class="absolute top-0 left-0 -z-10 mx-auto h-full w-full overflow-hidden opacity-10 blur-sm md:rounded-4xl lg:blur-xl">
           <div class="bg-blog-hero-gradient absolute top-0 left-0 h-full w-full" />
           <Picture
             src={currPost.data.heroImage}
@@ -40,7 +40,7 @@ const readTime = calculateReadingTime(currPost?.body || "");
           width={512}
           height={512}
           alt={text}
-          class="shadow-blog h-42 w-42 rounded-sm"
+          class="h-42 w-42 rounded-sm"
           priority={true}
         />
       </>

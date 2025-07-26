@@ -483,8 +483,33 @@
       var(--c-9) var(--s-start-9),
       transparent var(--s-end-9)
     );
-  animation: hero-gradient-animation 25s linear infinite alternate-reverse;
+  animation: hero-gradient-animation 30s linear infinite alternate-reverse;
   background-blend-mode:
     normal, normal, normal, normal, normal, normal, normal, normal, normal,
     normal;
+}
+
+@media (max-width: 768px) {
+  .bg-mesh {
+    --y-0: 0%;
+    --x-0: 63%;
+    --y-1: 0%;
+    --x-1: -7%;
+    --y-2: 100%;
+    --x-2: 7%;
+    --y-3: 50%;
+    --x-3: 5%;
+    --y-4: 0%;
+    --x-4: 96%;
+    --y-5: 100%;
+    --x-5: 90%;
+    --y-6: 100%;
+    --x-6: 61%;
+    --y-7: 0%;
+    --x-7: 59%;
+    --y-8: 0%;
+    --x-8: 48%;
+    --y-9: 100%;
+    --x-9: 78%;
+  }
 }

@@ -42,7 +42,7 @@ export default defineConfig({
             })
           ],
           keepBackground: true,
-          theme: "nord",
+          themes: "nord",
           onVisitLine(element) {
             element.children.forEach((el) => {
               if (el.type === "element") {
@@ -102,7 +102,6 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()]
   },
-
   output: "static",
   adapter: vercel()
 });

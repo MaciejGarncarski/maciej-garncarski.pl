@@ -1,18 +1,17 @@
 @reference "./global.css";
 
 code:not([data-language]) {
-  @apply shadow-blog rounded px-1.5 py-0.25;
+  @apply rounded bg-gray-700/80 px-1.5 py-0.25;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
 
 [data-rehype-pretty-code-figure] code {
-  @apply shadow-blog w-full min-w-[100px] overflow-x-auto rounded py-3 text-sm text-nowrap;
-  @apply bg-(--shiki-light-bg) text-(--shiki-light);
+  @apply w-full min-w-[100px] overflow-x-auto rounded py-3 text-sm text-nowrap;
 }
 
 [data-rehype-pretty-code-title] {
-  @apply shadow-blog relative top-2 -left-1 w-fit max-w-full rounded px-3 py-1 text-sm break-words;
+  @apply relative top-2 -left-1 w-fit max-w-full rounded bg-gray-700/80 px-3 py-1 text-sm break-words;
 }
 
 [data-rehype-pretty-code-caption] {

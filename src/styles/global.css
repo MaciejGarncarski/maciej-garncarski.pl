@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 @theme {
   --width-half: 50%;
   --list-style-type-hyphen: "– ";
@@ -19,9 +17,6 @@
 
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
-
-  --shadow-blog: var(--shadow-blog);
-  --color-code-bg: var(--code-bg);
 }
 
 @layer components {
@@ -76,40 +71,17 @@
 
     --color-destructive-base: 45% 0.095 10;
     --color-destructive: oklch(var(--color-destructive-base));
-
-    --code-bg: var(--shiki-dark-bg);
-    --shadow-blog: 0 0 0 1px oklch(var(--foreground-base) / 0.15);
-
-    --blog-gradient: linear-gradient(
-      to right,
-      oklch(var(--background-base) / 1) 0%,
-      oklch(var(--background-base) / 0.96) 15%,
-      oklch(var(--background-base) / 0.7) 80%,
-      oklch(var(--background-base) / 0.5) 100%
-    );
-
-    --blog-hero-gradient: linear-gradient(
-      to bottom,
-      oklch(var(--background-base) / 1) 0%,
-      oklch(var(--background-base) / 0.6) 30%,
-      oklch(var(--background-base) / 0.6) 50%,
-      oklch(var(--background-base) / 1) 100%
-    );
-
-    @media (width >= 64rem) {
-      --blog-hero-gradient: linear-gradient(
-        to bottom,
-        oklch(var(--background-base) / 1) 0%,
-        oklch(var(--background-base) / 0.65) 30%,
-        oklch(var(--background-base) / 1) 100%
-      );
-    }
   }
 }
 
 @layer components {
   .glass {
-    @apply rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-2xl;
+    @apply rounded-xl border border-white/10 bg-gray-200/5 p-4 backdrop-blur-2xl;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .glass-blog {
+    @apply rounded-xl border border-white/10 bg-black/30 p-4 backdrop-blur-3xl md:p-6;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   }
 }

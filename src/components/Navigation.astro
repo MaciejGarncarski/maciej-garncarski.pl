@@ -32,7 +32,13 @@ const subpath = pathname.match(/[^\/]+/g);
   class="flex items-center justify-start"
   transition:animate={fade({ duration: "0.2s" })}>
   <a href="/">
-    <Image src={logoIcon} alt="Strona główna" height={48} width={48} />
+    <Image
+      src={logoIcon}
+      alt="Strona główna"
+      height={48}
+      width={48}
+      class={"size-10 md:size-12"}
+    />
     <span class="sr-only">Strona główna</span>
   </a>
   <ul class="ml-auto flex gap-x-4 gap-y-4 tracking-tight lg:gap-x-8">
