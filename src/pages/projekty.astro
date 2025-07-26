@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import photoapp from "../assets/projects/photoapp.png";
 import coincontrol from "../assets/projects/coincontrol.png";
+import fetcher from "../assets/projects/fetcher.png";
 import githubActionsWidget from "../assets/projects/github-actions-widget.png";
 import { Picture } from "astro:assets";
 
@@ -39,7 +40,7 @@ const projects = [
       "Fetcher to lekka, typowana nakładka na fetch, zaprojektowana z myślą o prostocie i bezpieczeństwie. Ułatwia pisanie przejrzystych zapytań HTTP z walidacją odpowiedzi. Sprawdza się zarówno w aplikacjach frontendowych, jak i backendowych.",
     github: "https://github.com/MaciejGarncarski/fetcher",
     tags: ["TypeScript", "Zod", "HTTP", "REST"],
-    image: null
+    image: fetcher
   },
   {
     title: "Photo App",
@@ -84,11 +85,11 @@ const projects = [
                     width={1024}
                     height={1024}
                     alt={project.title}
-                    class="border-foreground/10 mx-auto w-full grow rounded-md border shadow"
+                    class="border-foreground/10 mx-auto h-40 w-full grow rounded-md border object-cover shadow md:h-74"
                   />
                 ) : (
                   <div class="border-foreground/10 bg-background/30 mx-auto flex h-40 w-full grow items-center justify-center rounded-md border text-center shadow md:h-72">
-                    <p>No image.</p>
+                    <p>Brak podglądu.</p>
                   </div>
                 )}
                 <p class="text-foreground/80 text-left text-base">

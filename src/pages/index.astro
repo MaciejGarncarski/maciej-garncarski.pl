@@ -49,15 +49,29 @@ const skills = [
           <p class="grow md:text-right">lis. 2023 - gru. 2024</p>
         </div>
         <p class="text-lg">Kokscraft</p>
-        <!-- TODO: create list of tasks instead of text -->
-        <p class="text-foreground/80 text-left text-pretty">
-          Tworzenie oraz utrzymanie panelu administratora dla największego
-          serwera Minecraft w Polsce.
-          <br />
-          Pracowałem z następującymi technologiami: React, TypeScript, Node.js, Fastify,
-          Prisma, MySQL, WebSocket. Panel obsługuje role i uprawnienia do uwierzytelniania
-          i autoryzacji oraz statusy użytkowników (online/offline) w oparciu o WebSocket.
-        </p>
+        <ul
+          class="text-foreground/80 list-inside list-disc text-left text-pretty">
+          <li>
+            Zbudowanie systemu ról i uprawnień z precyzyjną kontrolą dostępu
+            (autoryzacja i uwierzytelnianie)
+          </li>
+          <li>
+            Integracja WebSocket do śledzenia statusu graczy (online/offline) w
+            czasie rzeczywistym
+          </li>
+          <li>Panel do zarządzania użytkownikami i nadawania im ról</li>
+          <li>Rejestrowanie i przeglądanie logów akcji</li>
+          <li>
+            Tworzenie API w Fastify do komunikacji między frontendem a backendem
+          </li>
+          <li>
+            Projektowanie interfejsu w React + TypeScript z zachowaniem
+            spójności UI/UX
+          </li>
+          <li>Integracja z zewnętrznymi API</li>
+          <li>Wydajne zarządzanie danymi przy użyciu Prisma i MySQL</li>
+          <li>Tworzenie kompleksowych tabel danych oraz paginacji</li>
+        </ul>
       </li>
     </ul>
   </HomeSection>
