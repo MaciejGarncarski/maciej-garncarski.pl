@@ -17,6 +17,21 @@ const skills = [
   "Node.js",
   "Linux"
 ];
+
+// TODO: Add icons and colors
+// type Skill = {
+//   name: string;
+//   color: string;
+//   icon: string;
+// };
+
+// const skills: Skill[] = [
+//   {
+//     color: "#E34F26",
+//     icon: "",
+//     name: "HTML"
+//   }
+// ];
 ---
 
 <Layout>
@@ -46,9 +61,13 @@ const skills = [
           <h3 class="grow font-semibold lg:max-w-96">
             Full-stack developer (part-time)
           </h3>
-          <p class="grow md:text-right">lis. 2023 - gru. 2024</p>
         </div>
-        <p class="text-lg">Kokscraft</p>
+        <div class="flex gap-4">
+          <p>Kokscraft</p>
+          <span>•</span>
+          <p>lis. 2023 - gru. 2024</p>
+        </div>
+
         <ul
           class="text-foreground/80 list-inside list-disc text-left text-pretty">
           <li>
