@@ -95,7 +95,9 @@ const projects = [
                     class="border-foreground/20 mx-auto w-full grow rounded-md border shadow"
                   />
                 ) : null}
-                <p class="text-left text-sm">{project.description}</p>
+                <p class="text-foreground/80 text-left text-base">
+                  {project.description}
+                </p>
                 <div class="flex gap-8 text-xl font-semibold">
                   {project.demo ? (
                     <a href={project.demo} target="_blank">

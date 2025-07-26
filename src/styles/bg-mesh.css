@@ -429,8 +429,9 @@
   --y-9: 78%;
   --x-9: 96%;
   background-color: hsla(262, 82%, 3%, 1);
-  background-size: 100% 100%;
   background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
   background-image:
     radial-gradient(
       circle at var(--x-0) var(--y-0),
@@ -482,7 +483,7 @@
       var(--c-9) var(--s-start-9),
       transparent var(--s-end-9)
     );
-  animation: hero-gradient-animation 15s linear infinite alternate-reverse;
+  animation: hero-gradient-animation 25s linear infinite alternate-reverse;
   background-blend-mode:
     normal, normal, normal, normal, normal, normal, normal, normal, normal,
     normal;
