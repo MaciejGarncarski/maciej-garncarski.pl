@@ -12,10 +12,7 @@ const posts = (await getCollection("blog")).sort(
 
 <Layout>
   <div class="mx-auto flex w-full flex-col gap-8 pb-8">
-    <h1 class="text-left text-xl font-semibold text-balance">
-      Luźny mikro blog
-    </h1>
-    <div class="flex flex-col gap-6 text-sm lg:gap-8">
+    <div class="grid grid-cols-2 gap-8">
       {
         posts.map((post) => {
           const formattedTime = new Intl.DateTimeFormat("pl").format(
@@ -26,14 +23,14 @@ const posts = (await getCollection("blog")).sort(
             <a
               href={"/blog/" + post.id}
               class="transition-transform duration-300 lg:hover:scale-[0.99] lg:focus:scale-[0.98]">
-              <article class="shadow-blog bg-muted relative flex h-30 flex-col gap-4 overflow-hidden rounded p-4">
+              <article class="shadow-blog relative flex h-42 flex-col gap-4 overflow-hidden rounded p-4">
                 <div class="before:bg-blog-gradient absolute top-0 right-0 z-20 flex h-full items-center justify-end opacity-50 before:absolute before:h-full before:w-full before:content-[''] lg:opacity-80">
                   <Picture
                     src={post.data.heroImage}
                     width={256}
                     height={256}
                     alt={post.data.title}
-                    class="h-40 w-40"
+                    class="h-50 w-50"
                   />
                 </div>
                 <header class="aling-center z-40 flex items-start justify-between text-base">
@@ -44,7 +41,7 @@ const posts = (await getCollection("blog")).sort(
                     <time datetime={formattedTime}>{formattedTime}</time>
                   </p>
                 </header>
-                <p class="text-muted-foreground z-20 text-xs text-pretty lg:max-w-[28rem] lg:text-sm">
+                <p class="z-20 text-xs text-pretty lg:max-w-[28rem] lg:text-sm">
                   {post.data.description}
                 </p>
               </article>

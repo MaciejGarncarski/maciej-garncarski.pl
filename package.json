@@ -17,7 +17,6 @@
     "@astrojs/mdx": "^4.3.1",
     "@astrojs/sitemap": "^3.4.1",
     "@astrojs/vercel": "^8.2.3",
-    "@fontsource-variable/jetbrains-mono": "^5.2.6",
     "@resvg/resvg-js": "^2.6.2",
     "@tailwindcss/postcss": "4.0.8",
     "@tailwindcss/vite": "^4.1.11",

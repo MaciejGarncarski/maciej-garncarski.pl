@@ -37,7 +37,9 @@ const socials: Array<Social> = [
 ];
 ---
 
-<footer class="flex flex-col gap-3 lg:mt-10 lg:gap-6" transition:name="footer">
+<footer
+  class="glass mx-auto flex max-w-[80rem] flex-col gap-3 rounded-lg p-4 lg:mt-10 lg:gap-6"
+  transition:name="footer">
   <div class="flex flex-col gap-3 lg:flex-row lg:gap-6">
     <div class="flex justify-center gap-6">
       {
@@ -49,7 +51,7 @@ const socials: Array<Social> = [
                 alt=""
                 width="24"
                 height="24"
-                class="h-5 lg:h-6 dark:invert-100"
+                class="h-5 invert-100 lg:h-6"
               />
               <span class="sr-only">{s.name}</span>
             </a>
@@ -58,17 +60,16 @@ const socials: Array<Social> = [
       }
     </div>
     <p class="text-center text-sm lg:ml-auto lg:text-right">
-      &copy; 2025 Maciej Garncarski. <br /> Wszelkie prawa zastrzeżone.
+      &copy; 2025 Maciej Garncarski.
     </p>
   </div>
   <div class="flex flex-col justify-between lg:flex-row">
-    <p class="text-muted-foreground text-center text-xs lg:text-left">
+    <p class="text-center text-xs lg:text-left">
       Commit: {
         (import.meta.env.PUBLIC_VERCEL_GIT_COMMIT_SHA || "dev").slice(0, 10)
       }
     </p>
-
-    <p class="text-muted-foreground text-center text-xs lg:text-right">
+    <p class="text-center text-xs lg:text-right">
       Built with {Astro.generator} 🚀
     </p>
   </div>

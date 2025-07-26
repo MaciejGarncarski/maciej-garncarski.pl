@@ -1,4 +1,4 @@
-import { defineConfig } from "astro/config";
+import { defineConfig, fontProviders } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import mdx from "@astrojs/mdx";
 import rehypePrettyCode from "rehype-pretty-code";
@@ -15,6 +15,15 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
+  experimental: {
+    fonts: [
+      {
+        provider: fontProviders.google(),
+        name: "Lato",
+        cssVariable: "--font-ui"
+      }
+    ]
+  },
   prefetch: true,
   site: "https://maciej-garncarski.pl",
   integrations: [sitemap(), mdx()],
@@ -33,10 +42,7 @@ export default defineConfig({
             })
           ],
           keepBackground: true,
-          theme: {
-            light: "catppuccin-latte",
-            dark: "nord"
-          },
+          theme: "nord",
           onVisitLine(element) {
             element.children.forEach((el) => {
               if (el.type === "element") {
@@ -96,6 +102,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()]
   },
+
   output: "static",
   adapter: vercel()
 });

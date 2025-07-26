@@ -1,4 +1,6 @@
 ---
+import { Font } from "astro:assets";
+
 const defaultTitle = "Maciej Garncarski";
 
 const defaultDescription =
@@ -44,7 +46,6 @@ const canonicalUrl = "https://maciej-garncarski.pl" + Astro.url.pathname;
 ---
 
 <title>{title}</title>
-
 <meta name="description" content={description} />
 <meta name="keywords" content={keywords.join(", ")} />
 <link rel="canonical" href={canonicalUrl} />

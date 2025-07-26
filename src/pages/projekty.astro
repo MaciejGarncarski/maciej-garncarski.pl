@@ -62,50 +62,55 @@ const projects = [
 ---
 
 <Layout>
-  <h1 class="text-left text-xl font-semibold text-balance">Projekty</h1>
-  {
-    projects.map((project) => {
-      return (
-        <article class="shadow-blog bg-muted flex min-h-58 flex-col gap-8 overflow-hidden rounded-md p-4">
-          <header class="aling-center z-40 flex items-start justify-between text-base">
-            <h2 class="text-foreground w-[65%] text-xl font-semibold text-pretty">
-              {project.title}
-            </h2>
-          </header>
-          <div class="flex flex-col gap-4">
-            {project.image ? (
-              <Picture
-                src={project.image}
-                width={1024}
-                height={1024}
-                alt={project.title}
-                class="mx-auto w-full grow rounded shadow"
-              />
-            ) : null}
-            <p class="text-left text-sm">{project.description}</p>
-            <div class="flex gap-8 font-semibold">
-              {project.demo ? (
-                <a href={project.demo} target="_blank">
-                  <span class="text-sm text-pretty underline">Zobacz demo</span>
-                </a>
-              ) : null}
-              <a href={project.github} target="_blank">
-                <span class="text-sm text-pretty underline">Kod źródłowy</span>
-              </a>
-            </div>
-          </div>
-
-          <div class="mt-auto flex flex-wrap gap-2">
-            {project.tags.map((tag) => {
-              return (
-                <span class="bg-foreground text-background rounded-md px-2 py-1 text-xs font-semibold text-pretty">
-                  {tag}
-                </span>
-              );
-            })}
-          </div>
-        </article>
-      );
-    })
-  }
+  <h1 class="text-foreground text-left text-3xl font-bold text-balance">
+    Moje najciekawsze projekty
+  </h1>
+  <ul class="grid grid-cols-2 gap-8">
+    {
+      projects.map((project) => {
+        return (
+          <li class="h-full">
+            <article class="glass flex h-full flex-col gap-8">
+              <header class="aling-center z-40 flex items-start justify-between text-base">
+                <h2 class="text-2xl font-semibold text-pretty">
+                  {project.title}
+                </h2>
+              </header>
+              <div class="flex flex-wrap gap-2">
+                {project.tags.map((tag) => {
+                  return (
+                    <span class="bg-foreground text-background rounded-md px-2 py-1 text-xs font-semibold text-pretty">
+                      {tag}
+                    </span>
+                  );
+                })}
+              </div>
+              <div class="flex flex-col gap-4">
+                {project.image ? (
+                  <Picture
+                    src={project.image}
+                    width={1024}
+                    height={1024}
+                    alt={project.title}
+                    class="border-foreground/20 mx-auto w-full grow rounded-md border shadow"
+                  />
+                ) : null}
+                <p class="text-left text-sm">{project.description}</p>
+                <div class="flex gap-8 text-xl font-semibold">
+                  {project.demo ? (
+                    <a href={project.demo} target="_blank">
+                      <span class="text-pretty">Zobacz demo</span>
+                    </a>
+                  ) : null}
+                  <a href={project.github} target="_blank">
+                    <span class="text-pretty">Kod źródłowy</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+          </li>
+        );
+      })
+    }
+  </ul>
 </Layout>

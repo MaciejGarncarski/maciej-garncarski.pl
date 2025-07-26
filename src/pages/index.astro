@@ -17,37 +17,40 @@ const skills = [
   "Node.js",
   "Linux"
 ];
-
-const description =
-  "Specjalizuję się w tworzeniu nowoczesnych i wydajnych aplikacji internetowych. Moje doświadczenie obejmuje pracę z technologiami frontendowymi i backendowymi, co pozwala mi na dostarczanie kompleksowych rozwiązań dla klientów.";
 ---
 
 <Layout>
-  <header class="text-primary-foreground flex flex-col gap-5">
+  <header class="text-primary-foreground glass flex flex-col gap-6">
     <div
-      class="flex flex-col gap-0 font-bold md:flex-row md:gap-5 lg:items-center">
-      <h1 class="text-2xl uppercase">Maciej Garncarski</h1>
-      <span class="hidden md:inline">&#x2022;</span>
-      <p class="uppecase text-2xl">Full-stack developer</p>
+      class="text-foreground flex flex-col gap-0 font-bold md:flex-row md:gap-5 lg:items-center">
+      <h1 class="text-2xl">Krótko o mnie</h1>
     </div>
-
-    <p class="text-muted-foreground text-left text-pretty">
-      {description}
+    <p class="text-foreground/80 text-left text-pretty">
+      Hej! Jestem Maciej, mam 21 lat. Specjalizuję się w tworzeniu nowoczesnych
+      i wydajnych aplikacji internetowych, od atrakcyjnego interfejsu po solidne
+      zaplecze techniczne. Dzięki doświadczeniu w pracy zarówno z frontendem,
+      jak i backendem, potrafię dostarczać kompletne, dopracowane rozwiązania
+      dopasowane do potrzeb klienta. Stawiam na jakość, przejrzystość i dobrą
+      komunikację. Zawsze szukam praktycznych rozwiązań i dbam o to, by każdy
+      projekt był nie tylko funkcjonalny, ale też przyjazny dla użytkownika.
+      Jeśli potrzebujesz zaangażowanego i wszechstronnego dewelopera, to chętnie
+      pomogę!
     </p>
   </header>
 
   <HomeSection>
-    <h2 class="text-lg font-bold">Doświadczenie</h2>
+    <h2 class="text-2xl font-semibold">Doświadczenie</h2>
     <ul>
       <li class="flex flex-col gap-2">
-        <div class="flex justify-between gap-1">
-          <p class="grow font-semibold lg:max-w-96">
+        <div class="flex justify-between gap-1 text-xl">
+          <h3 class="grow font-semibold lg:max-w-96">
             Full-stack developer (part-time)
-          </p>
+          </h3>
           <p class="grow text-right">lis. 2023 - gru. 2024</p>
         </div>
-        <p>Kokscraft</p>
-        <p class="text-muted-foreground text-sm">
+        <p class="text-lg">Kokscraft</p>
+        <!-- TODO: create list of tasks instead of text -->
+        <p class="text-foreground/80 text-left text-pretty">
           Tworzenie oraz utrzymanie panelu administratora dla największego
           serwera Minecraft w Polsce.
           <br />
@@ -60,29 +63,29 @@ const description =
   </HomeSection>
 
   <HomeSection>
-    <h2 class="text-lg font-bold">Kontrybucje open source</h2>
+    <h2 class="text-2xl font-semibold">Kontrybucje open source</h2>
     <ul>
-      <li class="flex flex-col gap-2">
-        <div class="flex justify-between">
-          <p class="max-w-48 font-semibold">TanStack Router</p>
-          <a
-            target="_blank"
-            href="https://github.com/TanStack/router/pull/2247"
-            class="underline">Link</a
-          >
-        </div>
-        <p class="text-muted-foreground text-sm">
-          Rozwiązałem problem w bibliotece TanStack Router, który powodował
-          blokowanie wyświetlania komponentu ładowania "pendingComponent", gdy
-          był ustawiony tryb przedwczesnego doładowywania (preload="intent").
-        </p>
+      <li>
+        <a
+          class="flex flex-col gap-2"
+          target="_blank"
+          href="https://github.com/TanStack/router/pull/2247">
+          <h3 class="max-w-3/4 justify-between text-xl font-semibold">
+            TanStack Router | ⭐ 10k+
+          </h3>
+          <p class="text-foreground/80 text-left text-pretty">
+            Rozwiązałem problem w bibliotece TanStack Router, który powodował
+            blokowanie wyświetlania komponentu ładowania "pendingComponent", gdy
+            był ustawiony tryb przedwczesnego doładowywania (preload="intent").
+          </p>
+        </a>
       </li>
     </ul>
   </HomeSection>
 
   <HomeSection>
-    <h2 class="text-lg font-bold">Technologie</h2>
-    <ul class="grid grid-cols-3 gap-2 md:grid-cols-4 lg:grid-cols-4 lg:gap-3">
+    <h2 class="text-2xl font-semibold">Technologie</h2>
+    <ul class="lg:grid-cols- grid grid-cols-3 gap-2 md:grid-cols-8 lg:gap-3">
       {
         skills.map((s) => {
           return (

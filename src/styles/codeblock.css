@@ -1,18 +1,18 @@
 @reference "./global.css";
 
 code:not([data-language]) {
-  @apply shadow-blog bg-muted rounded px-1.5 py-0.25;
+  @apply shadow-blog rounded px-1.5 py-0.25;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
 
 [data-rehype-pretty-code-figure] code {
   @apply shadow-blog w-full min-w-[100px] overflow-x-auto rounded py-3 text-sm text-nowrap;
-  @apply bg-(--shiki-light-bg) text-(--shiki-light) dark:bg-(--shiki-dark-bg) dark:text-(--shiki-dark);
+  @apply bg-(--shiki-light-bg) text-(--shiki-light);
 }
 
 [data-rehype-pretty-code-title] {
-  @apply bg-muted shadow-blog relative top-2 -left-1 w-fit max-w-full rounded px-3 py-1 text-sm break-words;
+  @apply shadow-blog relative top-2 -left-1 w-fit max-w-full rounded px-3 py-1 text-sm break-words;
 }
 
 [data-rehype-pretty-code-caption] {
@@ -21,11 +21,11 @@ code:not([data-language]) {
 }
 
 [data-line] {
-  @apply bg-(--shiki-light-bg) px-3 leading-7 dark:bg-(--shiki-dark-bg);
+  @apply bg-(--shiki-light-bg) px-3 leading-7;
 }
 
 [data-code-line] {
-  @apply text-(--shiki-light) dark:text-(--shiki-dark);
+  @apply text-(--shiki-light);
 }
 
 [data-highlighted-line] {

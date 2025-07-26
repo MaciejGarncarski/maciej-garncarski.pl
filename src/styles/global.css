@@ -3,7 +3,6 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-mono: "JetBrains Mono Variable", monospace;
   --width-half: 50%;
   --list-style-type-hyphen: "– ";
   --background-image-blog-gradient: var(--blog-gradient);
@@ -21,11 +20,7 @@
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
 
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-
   --shadow-blog: var(--shadow-blog);
-
   --color-code-bg: var(--code-bg);
 }
 
@@ -65,62 +60,12 @@
   }
 
   body {
-    font-family: var(--font-mono);
+    --font-sans: var(--font-ui);
   }
 
   :root {
-    --background-base: 99.4% 0.0019 217.4;
-    --background: oklch(var(--background-base));
-    --foreground-base: 30.47% 0.02 207.53;
-    --foreground: oklch(var(--foreground-base));
-
-    --color-success-base: 80% 0.09 180;
-    --color-success: oklch(var(--color-success-base) / 0.7);
-
-    --color-destructive-base: 60% 0.09 20;
-    --color-destructive: oklch(var(--color-destructive-base));
-
-    --muted-base: 96.4% 0.0019 217.4;
-    --muted-foreground-base: 40.75% 0.011 270.11;
-
-    --muted: oklch(var(--muted-base));
-    --muted-foreground: oklch(var(--muted-foreground-base));
-
-    --code-bg: var(--shiki-light-bg);
-    --shadow-blog:
-      0 0 0 1px oklch(var(--foreground-base) / 0.05),
-      0 4px 10px 2px oklch(var(--foreground-base) / 0.08);
-
-    --blog-gradient: linear-gradient(
-      to right,
-      oklch(var(--muted-base)) 5%,
-      oklch(var(--muted-base) / 0.95) 25%,
-      oklch(var(--muted-base) / 0.67) 70%,
-      oklch(var(--muted-base) / 0.5) 100%
-    );
-
-    --blog-hero-gradient: linear-gradient(
-      to bottom,
-      oklch(var(--background-base) / 1) 0%,
-      oklch(var(--background-base) / 0.6) 30%,
-      oklch(var(--background-base) / 0.6) 50%,
-      oklch(var(--background-base) / 1) 100%
-    );
-
-    @media (width >= 64rem) {
-      --blog-hero-gradient: linear-gradient(
-        to bottom,
-        oklch(var(--background-base) / 1) 0%,
-        oklch(var(--background-base) / 0.65) 30%,
-        oklch(var(--background-base) / 0.65) 50%,
-        oklch(var(--background-base) / 1) 100%
-      );
-    }
-  }
-
-  .dark {
     color-scheme: dark;
-    --background-base: 26.64% 0.035 264.13;
+    --background-base: 20.64% 0.025 274.13;
     --background: oklch(var(--background-base));
 
     --foreground-base: 92.64% 0.04 264.13;
@@ -132,22 +77,15 @@
     --color-destructive-base: 45% 0.095 10;
     --color-destructive: oklch(var(--color-destructive-base));
 
-    --muted-base: 30.64% 0.035 264.13;
-    --muted-foreground-base: 80.64% 0.04 264.13;
-
-    --muted: oklch(var(--muted-base));
-    --muted-foreground: oklch(var(--muted-foreground-base));
-
     --code-bg: var(--shiki-dark-bg);
-
     --shadow-blog: 0 0 0 1px oklch(var(--foreground-base) / 0.15);
 
     --blog-gradient: linear-gradient(
       to right,
-      oklch(var(--muted-base) / 1) 0%,
-      oklch(var(--muted-base) / 0.96) 15%,
-      oklch(var(--muted-base) / 0.7) 80%,
-      oklch(var(--muted-base) / 0.5) 100%
+      oklch(var(--background-base) / 1) 0%,
+      oklch(var(--background-base) / 0.96) 15%,
+      oklch(var(--background-base) / 0.7) 80%,
+      oklch(var(--background-base) / 0.5) 100%
     );
 
     --blog-hero-gradient: linear-gradient(
@@ -166,5 +104,12 @@
         oklch(var(--background-base) / 1) 100%
       );
     }
+  }
+}
+
+@layer components {
+  .glass {
+    @apply rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-2xl;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   }
 }
