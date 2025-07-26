@@ -76,12 +76,12 @@
 
 @layer components {
   .glass {
-    @apply rounded-xl border border-white/10 bg-gray-200/5 p-4 backdrop-blur-2xl;
+    @apply rounded-xl border border-white/10 bg-gray-200/5 p-4 backdrop-blur-md md:backdrop-blur-2xl;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   }
 
   .glass-blog {
-    @apply rounded-xl border border-white/10 bg-black/30 p-4 backdrop-blur-3xl md:p-6;
+    @apply rounded-xl border border-white/10 bg-black/30 p-4 backdrop-blur-lg md:p-6 lg:backdrop-blur-3xl;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   }
 }
