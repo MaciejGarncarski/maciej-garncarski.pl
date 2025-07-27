@@ -11,6 +11,26 @@ import Tanstack from "../technologies/tanstack.astro";
 import AstroIcon from "../technologies/astroicon.astro";
 import Nodedotjs from "../technologies/node.astro";
 import Linux from "../technologies/linux.astro";
+import Shadcn from "../technologies/shadcnui.astro";
+import Bun from "../technologies/bun.astro";
+import SocketIO from "../technologies/socketdotio.astro";
+import Fastify from "../technologies/fastify.astro";
+import Express from "../technologies/express.astro";
+import Cypress from "../technologies/cypress.astro";
+import Vitest from "../technologies/vitest.astro";
+import Vite from "../technologies/vite.astro";
+import Docker from "../technologies/docker.astro";
+import Prisma from "../technologies/prisma.astro";
+import Drizzle from "../technologies/drizzle.astro";
+import Zod from "../technologies/zod.astro";
+import PostgreSQL from "../technologies/postgresql.astro";
+import Figma from "../technologies/figma.astro";
+import Nginx from "../technologies/nginx.astro";
+import ESlint from "../technologies/eslint.astro";
+import prettier from "../technologies/prettier.astro";
+import redis from "../technologies/redis.astro";
+import testingLib from "../technologies/testinglibrary.astro";
+import git from "../technologies/git.astro";
 
 type Skill = {
   name: string;
@@ -27,9 +47,29 @@ const skills = [
   { name: "Tailwind CSS", color: "#06B6D4", icon: Tailwindcss },
   { name: "Next.js", color: "#000000", icon: Nextdotjs },
   { name: "TanStack", color: "#232323", icon: Tanstack },
+  { name: "shadcn/ui", color: "#000000", icon: Shadcn },
   { name: "Astro", color: "#BC52EE", icon: AstroIcon },
   { name: "Node.js", color: "#5FA04E", icon: Nodedotjs },
-  { name: "Linux", color: "#FCC624", icon: Linux }
+  { name: "Bun", color: "#000000", icon: Bun },
+  { name: "ESlint", color: "#4B32C3", icon: ESlint },
+  { name: "Prettier", color: "#F7B93E", icon: prettier },
+  { name: "Socket.io", color: "#010101", icon: SocketIO },
+  { name: "Linux", color: "#FCC624", icon: Linux },
+  { name: "Fastify", color: "#000000", icon: Fastify },
+  { name: "Express", color: "#000000", icon: Express },
+  { name: "Cypress", color: "#69D3A7", icon: Cypress },
+  { name: "Vitest", color: "#6E9F18", icon: Vitest },
+  { name: "Zod", color: "#3E67B1", icon: Zod },
+  { name: "Vite", color: "#646CFF", icon: Vite },
+  { name: "Testing library", color: "#E33332", icon: testingLib },
+  { name: "Git", color: "#F05032", icon: git },
+  { name: "Docker", color: "#2496ED", icon: Docker },
+  { name: "Redis", color: "#FF4438", icon: redis },
+  { name: "PostgreSQL", color: "#4169E1", icon: PostgreSQL },
+  { name: "Prisma", color: "#2D3748", icon: Prisma },
+  { name: "Drizzle", color: "#C5F74F", icon: Drizzle },
+  { name: "Figma", color: "#F24E1E", icon: Figma },
+  { name: "NGINX", color: "#009639", icon: Nginx }
 ] satisfies Skill[];
 ---
 
