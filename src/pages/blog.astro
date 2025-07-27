@@ -28,7 +28,7 @@ const posts = (await getCollection("blog")).sort(
                   <h2 class="text-foreground z-20 text-lg font-semibold text-pretty lg:text-xl">
                     {post.data.title}
                   </h2>
-                  <p class="before:bg-background/90 text-foreground/90 relative text-base font-semibold before:absolute before:top-0 before:left-0 before:-z-10 before:h-full before:w-full before:blur-lg lg:text-base">
+                  <p class="text-foreground/90 relative text-base font-semibold lg:text-base">
                     <time datetime={formattedTime}>{formattedTime}</time>
                   </p>
                   <p class="text-foreground/90 z-20 text-base text-pretty lg:max-w-[28rem]">
