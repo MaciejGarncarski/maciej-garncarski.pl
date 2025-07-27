@@ -22,26 +22,28 @@ const posts = (await getCollection("blog")).sort(
           return (
             <a
               href={"/blog/" + post.id}
-              class="transition-transform duration-300 lg:hover:scale-[0.99] lg:focus:scale-[0.98]">
-              <article class="glass flex min-h-42 flex-col justify-between gap-4 overflow-hidden md:flex-row">
-                <header class="flex flex-col gap-1">
+              class="inline-block h-full transition-transform duration-300 lg:hover:scale-[0.99] lg:focus:scale-[0.98]">
+              <article class="glass flex h-full min-h-42 flex-col justify-between gap-4 overflow-hidden md:flex-row">
+                <header class="flex flex-col gap-2">
                   <h2 class="text-foreground z-20 text-lg font-semibold text-pretty lg:text-xl">
                     {post.data.title}
                   </h2>
-                  <p class="before:bg-background/90 relative text-base font-semibold before:absolute before:top-0 before:left-0 before:-z-10 before:h-full before:w-full before:blur-lg lg:text-base">
+                  <p class="before:bg-background/90 text-foreground/90 relative text-base font-semibold before:absolute before:top-0 before:left-0 before:-z-10 before:h-full before:w-full before:blur-lg lg:text-base">
                     <time datetime={formattedTime}>{formattedTime}</time>
                   </p>
-                  <p class="z-20 text-base text-pretty lg:max-w-[28rem] lg:text-sm">
+                  <p class="text-foreground/90 z-20 text-base text-pretty lg:max-w-[28rem]">
                     {post.data.description}
                   </p>
                 </header>
-                <Picture
-                  src={post.data.heroImage}
-                  width={256}
-                  height={256}
-                  alt={post.data.title}
-                  class="border-foreground/30 hidden h-32 w-32 rounded-lg border md:block"
-                />
+                <div class="hidden shrink-0 md:block">
+                  <Picture
+                    src={post.data.heroImage}
+                    width={256}
+                    height={256}
+                    alt={post.data.title}
+                    class="border-foreground/10 h-20 w-20 rounded-lg border lg:h-32 lg:w-32"
+                  />
+                </div>
               </article>
             </a>
           );

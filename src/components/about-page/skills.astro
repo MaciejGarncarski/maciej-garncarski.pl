@@ -1,0 +1,53 @@
+---
+import type { AstroComponentFactory } from "astro/runtime/server/index.js";
+import Html from "../technologies/html.astro";
+import Css from "../technologies/css.astro";
+import Javascript from "../technologies/javascript.astro";
+import React from "../technologies/react.astro";
+import Typescript from "../technologies/typescript.astro";
+import Tailwindcss from "../technologies/tailwind.astro";
+import Nextdotjs from "../technologies/next.astro";
+import Tanstack from "../technologies/tanstack.astro";
+import AstroIcon from "../technologies/astroicon.astro";
+import Nodedotjs from "../technologies/node.astro";
+import Linux from "../technologies/linux.astro";
+
+type Skill = {
+  name: string;
+  color: string;
+  icon: AstroComponentFactory;
+};
+
+const skills = [
+  { name: "HTML", color: "#E34F26", icon: Html },
+  { name: "CSS", color: "#663399", icon: Css },
+  { name: "JavaScript", color: "#F7DF1E", icon: Javascript },
+  { name: "React", color: "#61DAFB", icon: React },
+  { name: "TypeScript", color: "#3178C6", icon: Typescript },
+  { name: "Tailwind CSS", color: "#06B6D4", icon: Tailwindcss },
+  { name: "Next.js", color: "#000000", icon: Nextdotjs },
+  { name: "TanStack", color: "#232323", icon: Tanstack },
+  { name: "Astro", color: "#BC52EE", icon: AstroIcon },
+  { name: "Node.js", color: "#5FA04E", icon: Nodedotjs },
+  { name: "Linux", color: "#FCC624", icon: Linux }
+] satisfies Skill[];
+---
+
+<h2 class="text-2xl font-semibold">Technologie 🛠️</h2>
+<ul
+  class="lg:grid-cols- grid grid-cols-2 gap-2 md:grid-cols-5 lg:grid-cols-6 lg:gap-3">
+  {
+    skills.map(({ color, icon: Icon, name }) => {
+      return (
+        <li
+          style={`--bg-skill: ${color}`}
+          class="text-foreground flex items-center gap-3 rounded-md border border-white/5 bg-(--bg-skill)/30 fill-white px-3 py-2 font-semibold backdrop-blur-md transition-transform hover:scale-95">
+          <div class="size-6">
+            <Icon />
+          </div>
+          {name}
+        </li>
+      );
+    })
+  }
+</ul>

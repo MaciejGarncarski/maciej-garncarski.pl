@@ -1,133 +1,26 @@
 ---
 export const prerender = true;
 
+import Header from "../components/about-page/header.astro";
+import Exp from "../components/about-page/exp.astro";
+import OpenSource from "../components/about-page/open-source.astro";
+import Skills from "../components/about-page/skills.astro";
 import HomeSection from "../components/HomeSection.astro";
 import Layout from "../layouts/Layout.astro";
-
-const skills = [
-  "HTML",
-  "CSS",
-  "JavaScript",
-  "React",
-  "TypeScript",
-  "Tailwind CSS",
-  "Next.js",
-  "TanStack",
-  "Astro",
-  "Node.js",
-  "Linux"
-];
-
-// TODO: Add icons and colors
-// type Skill = {
-//   name: string;
-//   color: string;
-//   icon: string;
-// };
-
-// const skills: Skill[] = [
-//   {
-//     color: "#E34F26",
-//     icon: "",
-//     name: "HTML"
-//   }
-// ];
 ---
 
 <Layout>
-  <header class="text-primary-foreground glass flex flex-col gap-6">
-    <div
-      class="text-foreground flex flex-col gap-0 font-bold md:flex-row md:gap-5 lg:items-center">
-      <h1 class="text-2xl">Krótko o mnie 📌</h1>
-    </div>
-    <p class="text-foreground/80 text-left text-pretty">
-      Hej! Jestem Maciej, mam 21 lat. Specjalizuję się w tworzeniu nowoczesnych
-      i wydajnych aplikacji internetowych, od atrakcyjnego interfejsu po solidne
-      zaplecze techniczne. Dzięki doświadczeniu w pracy zarówno z frontendem,
-      jak i backendem, potrafię dostarczać kompletne, dopracowane rozwiązania
-      dopasowane do potrzeb klienta. Stawiam na jakość, przejrzystość i dobrą
-      komunikację. Zawsze szukam praktycznych rozwiązań i dbam o to, by każdy
-      projekt był nie tylko funkcjonalny, ale też przyjazny dla użytkownika.
-      Jeśli potrzebujesz zaangażowanego i wszechstronnego dewelopera, to chętnie
-      pomogę!
-    </p>
-  </header>
+  <Header />
 
   <HomeSection>
-    <h2 class="text-2xl font-semibold">Doświadczenie ✨</h2>
-    <ul>
-      <li class="flex flex-col gap-2">
-        <div class="flex flex-col justify-between gap-1 text-xl md:flex-row">
-          <h3 class="grow font-semibold lg:max-w-96">
-            Full-stack developer (part-time)
-          </h3>
-        </div>
-        <div class="flex gap-4">
-          <p>Kokscraft</p>
-          <span>•</span>
-          <p>lis. 2023 - gru. 2024</p>
-        </div>
-
-        <ul
-          class="text-foreground/80 list-inside list-disc text-left text-pretty">
-          <li>
-            Zbudowanie systemu ról i uprawnień z precyzyjną kontrolą dostępu
-            (autoryzacja i uwierzytelnianie)
-          </li>
-          <li>
-            Integracja WebSocket do śledzenia statusu graczy (online/offline) w
-            czasie rzeczywistym
-          </li>
-          <li>Panel do zarządzania użytkownikami i nadawania im ról</li>
-          <li>Rejestrowanie i przeglądanie logów akcji</li>
-          <li>
-            Tworzenie API w Fastify do komunikacji między frontendem a backendem
-          </li>
-          <li>
-            Projektowanie interfejsu w React + TypeScript z zachowaniem
-            spójności UI/UX
-          </li>
-          <li>Integracja z zewnętrznymi API</li>
-          <li>Wydajne zarządzanie danymi przy użyciu Prisma i MySQL</li>
-          <li>Tworzenie kompleksowych tabel danych oraz paginacji</li>
-        </ul>
-      </li>
-    </ul>
+    <Exp />
   </HomeSection>
 
   <HomeSection>
-    <h2 class="text-2xl font-semibold">Kontrybucje open source 🧑‍💻</h2>
-    <ul>
-      <li>
-        <a
-          class="flex flex-col gap-2"
-          target="_blank"
-          href="https://github.com/TanStack/router/pull/2247">
-          <h3 class="justify-between text-xl font-semibold">
-            TanStack Router | ⭐ 10k+
-          </h3>
-          <p class="text-foreground/80 text-left text-pretty">
-            Rozwiązałem problem w bibliotece TanStack Router, który powodował
-            blokowanie wyświetlania komponentu ładowania "pendingComponent", gdy
-            był ustawiony tryb przedwczesnego doładowywania (preload="intent").
-          </p>
-        </a>
-      </li>
-    </ul>
+    <OpenSource />
   </HomeSection>
 
   <HomeSection>
-    <h2 class="text-2xl font-semibold">Technologie 🛠️</h2>
-    <ul class="lg:grid-cols- grid grid-cols-3 gap-2 md:grid-cols-8 lg:gap-3">
-      {
-        skills.map((s) => {
-          return (
-            <li class="bg-foreground text-background rounded px-3 py-1 text-xs font-semibold transition-transform hover:scale-95 md:text-sm">
-              {s}
-            </li>
-          );
-        })
-      }
-    </ul>
+    <Skills />
   </HomeSection>
 </Layout>
