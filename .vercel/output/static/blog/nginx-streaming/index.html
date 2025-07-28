@@ -1,0 +1,154 @@
+<!DOCTYPE html><html lang="pl" data-astro-transition-scope="astro-iaqcb4am-1"> <head><link rel="preload" href="/_astro/fonts/0ed716a82412c144.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/_astro/fonts/376e9da146bdf904.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/_astro/fonts/b81f9cbe95edf1c6.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/_astro/fonts/c96dc695097dabbf.woff2" as="font" type="font/woff2" crossorigin><style>@font-face{font-family:Lato-8036453b14101c73;src:url("/_astro/fonts/0ed716a82412c144.woff2") format("woff2");font-display:swap;unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:400;font-style:italic;}@font-face{font-family:Lato-8036453b14101c73;src:url("/_astro/fonts/376e9da146bdf904.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:italic;}@font-face{font-family:Lato-8036453b14101c73;src:url("/_astro/fonts/b81f9cbe95edf1c6.woff2") format("woff2");font-display:swap;unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:400;font-style:normal;}@font-face{font-family:Lato-8036453b14101c73;src:url("/_astro/fonts/c96dc695097dabbf.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:normal;}@font-face{font-family:"Lato-8036453b14101c73 fallback: Arial";src:local("Arial");font-display:swap;font-weight:400;font-style:italic;size-adjust:107.5593%;ascent-override:91.7634%;descent-override:19.803%;line-gap-override:0%;}@font-face{font-family:"Lato-8036453b14101c73 fallback: Arial";src:local("Arial");font-display:swap;font-weight:400;font-style:normal;size-adjust:107.5593%;ascent-override:91.7634%;descent-override:19.803%;line-gap-override:0%;}:root{--font-ui:Lato-8036453b14101c73,"Lato-8036453b14101c73 fallback: Arial",sans-serif;}</style><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="sitemap" href="/sitemap-index.xml"><link rel="shortcut icon" href="/favicon.ico"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" href="/favicon.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><title>Konfiguracja streamingu HTML w nginx</title><meta name="description" content="nginx - Jak skonfigurować streaming HTML? (Next.js, TanStack Start)"><meta name="keywords" content="nginx, streaming, html, http, proxy_buffering"><link rel="canonical" href="https://maciej-garncarski.pl/blog/nginx-streaming/"><meta property="og:title" content="Konfiguracja streamingu HTML w nginx"><meta property="og:description" content="nginx - Jak skonfigurować streaming HTML? (Next.js, TanStack Start)"><meta property="og:url" content="https://maciej-garncarski.pl/blog/nginx-streaming/"><meta property="og:image" content="/blog/nginx-streaming/og.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Konfiguracja streamingu HTML w nginx"><meta property="twitter:description" content="nginx - Jak skonfigurować streaming HTML? (Next.js, TanStack Start)"><meta name="twitter:image" content="/blog/nginx-streaming/og.png"><meta name="og:title" content="Konfiguracja streamingu HTML w nginx"><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="swap"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.B9-zyQx_.js"></script><link rel="stylesheet" href="/_astro/_slug_.VcTWpqtW.css">
+<link rel="stylesheet" href="/_astro/blog.84y4Q4cJ.css"><script type="module" src="/_astro/page.CJRj5HRh.js"></script><style>[data-astro-transition-scope="astro-iaqcb4am-1"] { view-transition-name: astro-iaqcb4am-1; }@layer astro { ::view-transition-old(astro-iaqcb4am-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(astro-iaqcb4am-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(astro-iaqcb4am-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(astro-iaqcb4am-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-iaqcb4am-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-iaqcb4am-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-iaqcb4am-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-iaqcb4am-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-iaqcb4am-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-iaqcb4am-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-iaqcb4am-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-iaqcb4am-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-xgdtwdo4-2"] { view-transition-name: astro-xgdtwdo4-2; }@layer astro { ::view-transition-old(astro-xgdtwdo4-2) { 
+	animation-duration: 0.1s;
+	animation-direction: reverse;
+	animation-name: mainEntrance; }::view-transition-new(astro-xgdtwdo4-2) { 
+	animation-duration: 0.3s;
+	animation-name: mainEntrance; }[data-astro-transition=back]::view-transition-old(astro-xgdtwdo4-2) { 
+	animation-duration: 0.1s;
+	animation-direction: reverse;
+	animation-name: mainEntrance; }[data-astro-transition=back]::view-transition-new(astro-xgdtwdo4-2) { 
+	animation-duration: 0.3s;
+	animation-name: mainEntrance; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-xgdtwdo4-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-xgdtwdo4-2"] { 
+	animation-duration: 0.1s;
+	animation-direction: reverse;
+	animation-name: mainEntrance; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-xgdtwdo4-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-xgdtwdo4-2"] { 
+	animation-duration: 0.3s;
+	animation-name: mainEntrance; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-xgdtwdo4-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-xgdtwdo4-2"] { 
+	animation-duration: 0.1s;
+	animation-direction: reverse;
+	animation-name: mainEntrance; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-xgdtwdo4-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-xgdtwdo4-2"] { 
+	animation-duration: 0.3s;
+	animation-name: mainEntrance; }</style><style>[data-astro-transition-scope="astro-tutvw3lw-3"] { view-transition-name: astro-tutvw3lw-3; }@layer astro { ::view-transition-old(astro-tutvw3lw-3) { 
+	animation-duration: 0.2s;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(astro-tutvw3lw-3) { 
+	animation-duration: 0.2s;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(astro-tutvw3lw-3) { 
+	animation-duration: 0.2s;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(astro-tutvw3lw-3) { 
+	animation-duration: 0.2s;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-tutvw3lw-3"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-tutvw3lw-3"] { 
+	animation-duration: 0.2s;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-tutvw3lw-3"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-tutvw3lw-3"] { 
+	animation-duration: 0.2s;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-tutvw3lw-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-tutvw3lw-3"] { 
+	animation-duration: 0.2s;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-tutvw3lw-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-tutvw3lw-3"] { 
+	animation-duration: 0.2s;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-ipbbvofe-4"] { view-transition-name: footer; }@layer astro { ::view-transition-old(footer) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(footer) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(footer) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(footer) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-ipbbvofe-4"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-ipbbvofe-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-ipbbvofe-4"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-ipbbvofe-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-ipbbvofe-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-ipbbvofe-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-ipbbvofe-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-ipbbvofe-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head> <body class="text-foreground bg-background bg-mesh min-h-screen p-5 lg:p-10"> <div class="mx-auto flex max-w-[80rem] flex-col gap-10 py-3"> <nav class="flex items-center justify-start" data-astro-transition-scope="astro-tutvw3lw-3"> <a href="/"> <img src="/_astro/logoIcon.BqtHyjtr_peRIw.webp" alt loading="lazy" decoding="async" fetchpriority="auto" width="48" height="48" class="size-10 md:size-12"> <span class="sr-only">Strona główna</span> </a> <ul class="ml-auto flex gap-x-4 gap-y-4 tracking-tight lg:gap-x-8"> <li> <a href="/" class="rounded-md px-2 py-1 md:text-lg lg:px-3"> O mnie </a> </li><li> <a href="/projekty" class="rounded-md px-2 py-1 md:text-lg lg:px-3"> Projekty </a> </li><li> <a href="/blog" class="rounded-md px-2 py-1 md:text-lg lg:px-3 bg-foreground text-background"> Blog </a> </li> </ul> </nav> <main class="flex min-h-[40rem] flex-col gap-8 lg:gap-10" data-astro-transition-scope="astro-xgdtwdo4-2">   <article class="flex flex-col gap-4"> <header class="relative -mx-5 flex h-80 flex-col items-center justify-center gap-4 lg:mx-auto lg:h-100 lg:w-3/4">  <div data-blog-hero-bg class="absolute top-0 left-0 -z-10 mx-auto h-full w-full overflow-hidden opacity-10 blur-sm md:rounded-4xl lg:blur-xl"> <div class="bg-blog-hero-gradient absolute top-0 left-0 h-full w-full"></div> <picture> <source srcset="/_astro/hero.DTStPo-J_Uj8FD.webp" type="image/webp">  <img src="/_astro/hero.DTStPo-J_1B9njp.png" alt="Konfiguracja streamingu HTML w nginx" loading="eager" decoding="sync" fetchpriority="high" width="512" height="512" class="h-full w-full object-cover"> </picture> </div> <picture> <source srcset="/_astro/hero.DTStPo-J_Uj8FD.webp" type="image/webp">  <img src="/_astro/hero.DTStPo-J_1B9njp.png" alt="Konfiguracja streamingu HTML w nginx" loading="eager" decoding="sync" fetchpriority="high" width="512" height="512" class="h-42 w-42 rounded-sm"> </picture>  <div class="z-30 flex flex-col gap-2 text-center text-balance transition-all"> <h1 class="text-foreground z-50 max-w-full px-5 text-center text-xl font-bold lg:max-w-prose lg:text-2xl"> Konfiguracja streamingu HTML w nginx </h1> <p class="text-center text-base tracking-tighter lg:tracking-tight"> <time datetime="5.02.2025"> 5.02.2025 </time>
+| 1 min. czytania
+</p> </div> </header> <div class="glass-blog text-foreground/85 mx-auto flex max-w-full flex-col gap-4 pb-14 leading-7 text-pretty md:max-w-[80ch] lg:relative lg:-top-10" data-blog-content> <p><strong>TL;DR</strong></p>
+<p>Aby włączyć streaming HTML w nginx, należy dodać jedną linijkę w konfiguracji serwera.</p>
+<figure data-rehype-pretty-code-figure><pre class="has-diff" style="background-color:#22272e;color:#adbac7" tabindex="0" data-language="nginx" data-theme="github-dark-dimmed"><code data-line-numbers data-language="nginx" data-theme="github-dark-dimmed" style="display:grid" data-line-numbers-max-digits="1"><span data-line><span style="color:#F47067" data-code-line>server</span><span style="color:#ADBAC7" data-code-line> {</span></span>
+<span data-line><span style="color:#768390" data-code-line>    #...kod...</span></span>
+<span data-line><span style="color:#F47067" data-code-line>    location</span><span style="color:#F69D50" data-code-line> / </span><span style="color:#ADBAC7" data-code-line>{</span></span>
+<span data-line><span style="color:#768390" data-code-line>        #...kod...</span></span>
+<span data-line data-diff="add"><span style="color:#F47067" data-code-line>        proxy_buffering </span><span style="color:#6CB6FF" data-code-line>off</span><span style="color:#ADBAC7" data-code-line>; </span></span>
+<span data-line><span style="color:#ADBAC7" data-code-line>    }</span></span>
+<span data-line><span style="color:#ADBAC7" data-code-line>}</span></span></code></pre></figure>
+<h2 id="co-to-jest-streaming-html" data-anchor><a data-anchor-link href="#co-to-jest-streaming-html">Co to jest streaming HTML?<span data-anchor-hash>#</span></a></h2>
+<p>Streaming HTML to technika, dzięki której można wyświetlać treść strony
+internetowej, zanim cała strona zostanie pobrana. Dzięki temu użytkownik widzi
+treść strony szybciej, a nie musi czekać na załadowanie całej strony.</p>
+<p>Kiedyś kodowałem sobie aplikację w frameworku TanStack Start, zauważyłem, że brakuje efektu doładowywania się niektórych dynamicznych elementów, czyli tzw. streamingu HTML. Na Vercelu i innych hostingach tego nie zauważyłem, więc zacząłem szukać rozwiązania. Okazało się, że wystarczy dodać jedną linijkę w konfiguracji nginx <a class="text-foreground underline" href="https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_buffering" target="_blank"><code>proxy_buffering off;</code></a>.</p> </div> </article>  </main> </div> <footer class="glass mx-auto flex max-w-[80rem] flex-col gap-3 p-4 lg:mt-10 lg:gap-6" data-astro-transition-scope="astro-ipbbvofe-4"> <div class="flex flex-col gap-3 lg:flex-row lg:gap-6"> <div class="flex justify-center gap-6"> <a href="https://github.com/maciejgarncarski" target="_blank" class="w-fit" title="GitHub"> <picture> <source srcset="/_astro/github.QpYQ9fJQ_68cTD.svg" type="image/svg+xml">  <img src="/_astro/github.QpYQ9fJQ_68cTD.svg" alt loading="lazy" decoding="async" fetchpriority="auto" width="24" height="24" class="h-5 invert-100 lg:h-6"> </picture> <span class="sr-only">GitHub</span> </a><a href="https://www.linkedin.com/in/maciejgarncarski/" target="_blank" class="w-fit" title="LinkedIn"> <picture> <source srcset="/_astro/linkedin.xnTIGbZZ_68cTD.svg" type="image/svg+xml">  <img src="/_astro/linkedin.xnTIGbZZ_68cTD.svg" alt loading="lazy" decoding="async" fetchpriority="auto" width="24" height="24" class="h-5 invert-100 lg:h-6"> </picture> <span class="sr-only">LinkedIn</span> </a><a href="https://x.com/MGarncarski" target="_blank" class="w-fit" title="X"> <picture> <source srcset="/_astro/x.CDUwKQV4_68cTD.svg" type="image/svg+xml">  <img src="/_astro/x.CDUwKQV4_68cTD.svg" alt loading="lazy" decoding="async" fetchpriority="auto" width="24" height="24" class="h-5 invert-100 lg:h-6"> </picture> <span class="sr-only">X</span> </a><a href="/CV_Maciej_Garncarski.pdf" target="_blank" class="w-fit" title="CV"> <picture> <source srcset="/_astro/cv.tXP78Pke_68cTD.svg" type="image/svg+xml">  <img src="/_astro/cv.tXP78Pke_68cTD.svg" alt loading="lazy" decoding="async" fetchpriority="auto" width="24" height="24" class="h-5 invert-100 lg:h-6"> </picture> <span class="sr-only">CV</span> </a> </div> <p class="text-center text-sm lg:ml-auto lg:text-right">
+&copy; 2025 Maciej Garncarski.
+</p> </div> <div class="flex flex-col justify-between lg:flex-row"> <p class="text-center text-xs lg:text-left">
+Commit: dev </p> <p class="text-center text-xs lg:text-right">
+Built with Astro v5.12.3 🚀
+</p> </div> </footer> </body></html>

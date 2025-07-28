@@ -1,0 +1,189 @@
+<!DOCTYPE html><html lang="pl" data-astro-transition-scope="astro-iaqcb4am-1"> <head><link rel="preload" href="/_astro/fonts/0ed716a82412c144.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/_astro/fonts/376e9da146bdf904.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/_astro/fonts/b81f9cbe95edf1c6.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/_astro/fonts/c96dc695097dabbf.woff2" as="font" type="font/woff2" crossorigin><style>@font-face{font-family:Lato-8036453b14101c73;src:url("/_astro/fonts/0ed716a82412c144.woff2") format("woff2");font-display:swap;unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:400;font-style:italic;}@font-face{font-family:Lato-8036453b14101c73;src:url("/_astro/fonts/376e9da146bdf904.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:italic;}@font-face{font-family:Lato-8036453b14101c73;src:url("/_astro/fonts/b81f9cbe95edf1c6.woff2") format("woff2");font-display:swap;unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;font-weight:400;font-style:normal;}@font-face{font-family:Lato-8036453b14101c73;src:url("/_astro/fonts/c96dc695097dabbf.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:normal;}@font-face{font-family:"Lato-8036453b14101c73 fallback: Arial";src:local("Arial");font-display:swap;font-weight:400;font-style:italic;size-adjust:107.5593%;ascent-override:91.7634%;descent-override:19.803%;line-gap-override:0%;}@font-face{font-family:"Lato-8036453b14101c73 fallback: Arial";src:local("Arial");font-display:swap;font-weight:400;font-style:normal;size-adjust:107.5593%;ascent-override:91.7634%;descent-override:19.803%;line-gap-override:0%;}:root{--font-ui:Lato-8036453b14101c73,"Lato-8036453b14101c73 fallback: Arial",sans-serif;}</style><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="sitemap" href="/sitemap-index.xml"><link rel="shortcut icon" href="/favicon.ico"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" href="/favicon.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><title>Fetcher - biblioteka do zapytań HTTP</title><meta name="description" content="Lekka, typowana biblioteka TypeScript do wykonywania zapytań HTTP z użyciem znajomego API fetch."><meta name="keywords" content="fetch, http, typescript, api, client, lightweight, zod, nodejs, browser, standard-schema, fetch-wrapper"><link rel="canonical" href="https://maciej-garncarski.pl/blog/fetcher/"><meta property="og:title" content="Fetcher - biblioteka do zapytań HTTP"><meta property="og:description" content="Lekka, typowana biblioteka TypeScript do wykonywania zapytań HTTP z użyciem znajomego API fetch."><meta property="og:url" content="https://maciej-garncarski.pl/blog/fetcher/"><meta property="og:image" content="/blog/fetcher/og.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Fetcher - biblioteka do zapytań HTTP"><meta property="twitter:description" content="Lekka, typowana biblioteka TypeScript do wykonywania zapytań HTTP z użyciem znajomego API fetch."><meta name="twitter:image" content="/blog/fetcher/og.png"><meta name="og:title" content="Fetcher - biblioteka do zapytań HTTP"><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="swap"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.B9-zyQx_.js"></script><link rel="stylesheet" href="/_astro/_slug_.VcTWpqtW.css">
+<link rel="stylesheet" href="/_astro/blog.84y4Q4cJ.css"><script type="module" src="/_astro/page.CJRj5HRh.js"></script><style>[data-astro-transition-scope="astro-iaqcb4am-1"] { view-transition-name: astro-iaqcb4am-1; }@layer astro { ::view-transition-old(astro-iaqcb4am-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(astro-iaqcb4am-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(astro-iaqcb4am-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(astro-iaqcb4am-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-iaqcb4am-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-iaqcb4am-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-iaqcb4am-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-iaqcb4am-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-iaqcb4am-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-iaqcb4am-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-iaqcb4am-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-iaqcb4am-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-xgdtwdo4-2"] { view-transition-name: astro-xgdtwdo4-2; }@layer astro { ::view-transition-old(astro-xgdtwdo4-2) { 
+	animation-duration: 0.1s;
+	animation-direction: reverse;
+	animation-name: mainEntrance; }::view-transition-new(astro-xgdtwdo4-2) { 
+	animation-duration: 0.3s;
+	animation-name: mainEntrance; }[data-astro-transition=back]::view-transition-old(astro-xgdtwdo4-2) { 
+	animation-duration: 0.1s;
+	animation-direction: reverse;
+	animation-name: mainEntrance; }[data-astro-transition=back]::view-transition-new(astro-xgdtwdo4-2) { 
+	animation-duration: 0.3s;
+	animation-name: mainEntrance; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-xgdtwdo4-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-xgdtwdo4-2"] { 
+	animation-duration: 0.1s;
+	animation-direction: reverse;
+	animation-name: mainEntrance; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-xgdtwdo4-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-xgdtwdo4-2"] { 
+	animation-duration: 0.3s;
+	animation-name: mainEntrance; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-xgdtwdo4-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-xgdtwdo4-2"] { 
+	animation-duration: 0.1s;
+	animation-direction: reverse;
+	animation-name: mainEntrance; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-xgdtwdo4-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-xgdtwdo4-2"] { 
+	animation-duration: 0.3s;
+	animation-name: mainEntrance; }</style><style>[data-astro-transition-scope="astro-tutvw3lw-3"] { view-transition-name: astro-tutvw3lw-3; }@layer astro { ::view-transition-old(astro-tutvw3lw-3) { 
+	animation-duration: 0.2s;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(astro-tutvw3lw-3) { 
+	animation-duration: 0.2s;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(astro-tutvw3lw-3) { 
+	animation-duration: 0.2s;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(astro-tutvw3lw-3) { 
+	animation-duration: 0.2s;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-tutvw3lw-3"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-tutvw3lw-3"] { 
+	animation-duration: 0.2s;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-tutvw3lw-3"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-tutvw3lw-3"] { 
+	animation-duration: 0.2s;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-tutvw3lw-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-tutvw3lw-3"] { 
+	animation-duration: 0.2s;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-tutvw3lw-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-tutvw3lw-3"] { 
+	animation-duration: 0.2s;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-ipbbvofe-4"] { view-transition-name: footer; }@layer astro { ::view-transition-old(footer) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(footer) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(footer) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(footer) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-ipbbvofe-4"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-ipbbvofe-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-ipbbvofe-4"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-ipbbvofe-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-ipbbvofe-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-ipbbvofe-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-ipbbvofe-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-ipbbvofe-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head> <body class="text-foreground bg-background bg-mesh min-h-screen p-5 lg:p-10"> <div class="mx-auto flex max-w-[80rem] flex-col gap-10 py-3"> <nav class="flex items-center justify-start" data-astro-transition-scope="astro-tutvw3lw-3"> <a href="/"> <img src="/_astro/logoIcon.BqtHyjtr_peRIw.webp" alt loading="lazy" decoding="async" fetchpriority="auto" width="48" height="48" class="size-10 md:size-12"> <span class="sr-only">Strona główna</span> </a> <ul class="ml-auto flex gap-x-4 gap-y-4 tracking-tight lg:gap-x-8"> <li> <a href="/" class="rounded-md px-2 py-1 md:text-lg lg:px-3"> O mnie </a> </li><li> <a href="/projekty" class="rounded-md px-2 py-1 md:text-lg lg:px-3"> Projekty </a> </li><li> <a href="/blog" class="rounded-md px-2 py-1 md:text-lg lg:px-3 bg-foreground text-background"> Blog </a> </li> </ul> </nav> <main class="flex min-h-[40rem] flex-col gap-8 lg:gap-10" data-astro-transition-scope="astro-xgdtwdo4-2">   <article class="flex flex-col gap-4"> <header class="relative -mx-5 flex h-80 flex-col items-center justify-center gap-4 lg:mx-auto lg:h-100 lg:w-3/4">  <div data-blog-hero-bg class="absolute top-0 left-0 -z-10 mx-auto h-full w-full overflow-hidden opacity-10 blur-sm md:rounded-4xl lg:blur-xl"> <div class="bg-blog-hero-gradient absolute top-0 left-0 h-full w-full"></div> <picture> <source srcset="/_astro/hero.CfXkWNWj_Gkacu.webp" type="image/webp">  <img src="/_astro/hero.CfXkWNWj_Z1ej3px.png" alt="Fetcher - biblioteka do zapytań HTTP" loading="eager" decoding="sync" fetchpriority="high" width="512" height="512" class="h-full w-full object-cover"> </picture> </div> <picture> <source srcset="/_astro/hero.CfXkWNWj_Gkacu.webp" type="image/webp">  <img src="/_astro/hero.CfXkWNWj_Z1ej3px.png" alt="Fetcher - biblioteka do zapytań HTTP" loading="eager" decoding="sync" fetchpriority="high" width="512" height="512" class="h-42 w-42 rounded-sm"> </picture>  <div class="z-30 flex flex-col gap-2 text-center text-balance transition-all"> <h1 class="text-foreground z-50 max-w-full px-5 text-center text-xl font-bold lg:max-w-prose lg:text-2xl"> Fetcher - biblioteka do zapytań HTTP </h1> <p class="text-center text-base tracking-tighter lg:tracking-tight"> <time datetime="18.07.2025"> 18.07.2025 </time>
+| 2 min. czytania
+</p> </div> </header> <div class="glass-blog text-foreground/85 mx-auto flex max-w-full flex-col gap-4 pb-14 leading-7 text-pretty md:max-w-[80ch] lg:relative lg:-top-10" data-blog-content> <p>Na wstępie uprzedzam, że ta biblioteka powstała w ramach nauki oraz na miarę moich potrzeb. Biblioteka ta nie będzie odpowiednia dla wszystkich.</p>
+<hr/>
+<p>W świecie nowoczesnych aplikacji webowych wykonywanie zapytań HTTP to codzienność. Choć wbudowane API fetch w JavaScript jest bardzo przydatne, z czasem może okazać się zbyt niskopoziomowe - brakuje w nim np. typowania odpowiedzi czy obsługi schematów. Na ratunek przychodzi Fetcher - minimalistyczna, typowana nakładka na fetch, stworzona z myślą o prostocie i wygodzie.</p>
+<h2 id="co-to-jest-fetcher" data-anchor><a data-anchor-link href="#co-to-jest-fetcher">Co to jest fetcher?<span data-anchor-hash>#</span></a></h2>
+<p>Fetcher to lekka biblioteka dla Node.js i przeglądarki, która upraszcza wykonywanie zapytań HTTP, jednocześnie pozostając bardzo blisko natywnego API fetch.</p>
+<p>Jej główne zalety to:</p>
+<ul class="list-hyphen list-inside"> 
+<li>obsługa walidacji danych poprzez standard-schema.</li>
+<li>mapowanie danych do konkretnego typu <code>responseType: &#39;arrayBuffer&#39; | &#39;json&#39; | &#39;text&#39;</code></li>
+<li>lepsza automatyczna obsługa błędów</li>
+ </ul>
+<h2 id="instalacja" data-anchor><a data-anchor-link href="#instalacja">Instalacja<span data-anchor-hash>#</span></a></h2>
+<figure data-rehype-pretty-code-figure><pre style="background-color:#22272e;color:#adbac7" tabindex="0" data-language="bash" data-theme="github-dark-dimmed"><code data-language="bash" data-theme="github-dark-dimmed" style="display:grid"><span data-line><span style="color:#F69D50" data-code-line>pnpm</span><span style="color:#96D0FF" data-code-line> add</span><span style="color:#96D0FF" data-code-line> @maciekdev/fetcher</span></span>
+<span data-line><span style="color:#768390" data-code-line># lub</span></span>
+<span data-line><span style="color:#F69D50" data-code-line>npm</span><span style="color:#96D0FF" data-code-line> install</span><span style="color:#96D0FF" data-code-line> @maciekdev/fetcher</span></span>
+<span data-line><span style="color:#768390" data-code-line># lub</span></span>
+<span data-line><span style="color:#F69D50" data-code-line>yarn</span><span style="color:#96D0FF" data-code-line> add</span><span style="color:#96D0FF" data-code-line> @maciekdev/fetcher</span></span>
+<span data-line><span style="color:#768390" data-code-line># lub</span></span>
+<span data-line><span style="color:#F69D50" data-code-line>bun</span><span style="color:#96D0FF" data-code-line> add</span><span style="color:#96D0FF" data-code-line> @maciekdev/fetcher</span></span></code></pre></figure>
+<h2 id="przykład-użycia" data-anchor><a data-anchor-link href="#przykład-użycia">Przykład użycia<span data-anchor-hash>#</span></a></h2>
+<figure data-rehype-pretty-code-figure><pre style="background-color:#22272e;color:#adbac7" tabindex="0" data-language="ts" data-theme="github-dark-dimmed"><code data-language="ts" data-theme="github-dark-dimmed" style="display:grid"><span data-line><span style="color:#F47067" data-code-line>import</span><span style="color:#ADBAC7" data-code-line> { z } </span><span style="color:#F47067" data-code-line>from</span><span style="color:#96D0FF" data-code-line> &quot;zod/v4&quot;</span><span style="color:#ADBAC7" data-code-line>;</span></span>
+<span data-line><span style="color:#F47067" data-code-line>import</span><span style="color:#ADBAC7" data-code-line> { createFetcherInstance } </span><span style="color:#F47067" data-code-line>from</span><span style="color:#96D0FF" data-code-line> &quot;@maciekdev/fetcher&quot;</span><span style="color:#ADBAC7" data-code-line>;</span></span>
+<span data-line> </span>
+<span data-line><span style="color:#768390" data-code-line>// Tworzymy instancję fetchera z bazowym URL-em</span></span>
+<span data-line><span style="color:#F47067" data-code-line>export</span><span style="color:#F47067" data-code-line> const</span><span style="color:#6CB6FF" data-code-line> fetcher</span><span style="color:#F47067" data-code-line> =</span><span style="color:#DCBDFB" data-code-line> createFetcherInstance</span><span style="color:#ADBAC7" data-code-line>({</span></span>
+<span data-line><span style="color:#ADBAC7" data-code-line>  baseURL: </span><span style="color:#96D0FF" data-code-line>&quot;https://yourApiPath.com&quot;</span><span style="color:#ADBAC7" data-code-line>,</span></span>
+<span data-line><span style="color:#ADBAC7" data-code-line>});</span></span>
+<span data-line> </span>
+<span data-line><span style="color:#768390" data-code-line>// Definiujemy schemat walidacji odpowiedzi</span></span>
+<span data-line><span style="color:#F47067" data-code-line>const</span><span style="color:#6CB6FF" data-code-line> zodSchema</span><span style="color:#F47067" data-code-line> =</span><span style="color:#ADBAC7" data-code-line> z.</span><span style="color:#DCBDFB" data-code-line>object</span><span style="color:#ADBAC7" data-code-line>({</span></span>
+<span data-line><span style="color:#ADBAC7" data-code-line>  username: z.</span><span style="color:#DCBDFB" data-code-line>string</span><span style="color:#ADBAC7" data-code-line>(),</span></span>
+<span data-line><span style="color:#ADBAC7" data-code-line>});</span></span>
+<span data-line> </span>
+<span data-line><span style="color:#768390" data-code-line>// Wysyłamy zapytanie GET z walidacją odpowiedzi</span></span>
+<span data-line><span style="color:#F47067" data-code-line>const</span><span style="color:#6CB6FF" data-code-line> myData</span><span style="color:#F47067" data-code-line> =</span><span style="color:#F47067" data-code-line> await</span><span style="color:#DCBDFB" data-code-line> fetcher</span><span style="color:#ADBAC7" data-code-line>({</span></span>
+<span data-line><span style="color:#ADBAC7" data-code-line>  method: </span><span style="color:#96D0FF" data-code-line>&quot;GET&quot;</span><span style="color:#ADBAC7" data-code-line>,</span></span>
+<span data-line><span style="color:#ADBAC7" data-code-line>  url: </span><span style="color:#96D0FF" data-code-line>&quot;/test-endpoint&quot;</span><span style="color:#ADBAC7" data-code-line>,</span></span>
+<span data-line><span style="color:#ADBAC7" data-code-line>  schema: zodSchema,</span></span>
+<span data-line><span style="color:#ADBAC7" data-code-line>});</span></span>
+<span data-line> </span>
+<span data-line><span style="color:#ADBAC7" data-code-line>console.</span><span style="color:#DCBDFB" data-code-line>log</span><span style="color:#ADBAC7" data-code-line>(myData?.data.username); </span><span style="color:#768390" data-code-line>// username: string | undefined</span></span></code></pre></figure>
+<p>Jak widzisz, jest prosto, czytelnie i odpowiedź jest typowana.</p>
+<h2 id="dlaczego-warto-użyć-fetchera" data-anchor><a data-anchor-link href="#dlaczego-warto-użyć-fetchera">Dlaczego warto użyć fetchera<span data-anchor-hash>#</span></a></h2>
+<p>Fetcher świetnie sprawdzi się w projektach TypeScriptowych, gdzie zależy Ci na typowaniu odpowiedzi z API i czytelności kodu. Jest idealny do aplikacji frontendowych (Next.js, Vite) oraz serwerowych (Node.js, Bun).</p>
+<h2 id="licencja" data-anchor><a data-anchor-link href="#licencja">Licencja<span data-anchor-hash>#</span></a></h2>
+<p>Fetcher jest dostępny na licencji MIT. Możesz go używać zarówno w projektach open source, jak i komercyjnych.</p>
+<h2 id="-współtwórz-fetchera" data-anchor><a data-anchor-link href="#-współtwórz-fetchera">🤝 Współtwórz Fetchera<span data-anchor-hash>#</span></a></h2>
+<p>Fetcher to projekt open source, otwarty na kontrybucje społeczności. Jeśli masz pomysł na nową funkcjonalność, poprawkę błędu lub chcesz poprawić dokumentację, to zapraszam do zgłaszania issue i tworzenia pull requestów na GitHubie!</p>
+<div style="display: flex; gap: 2rem;"><a target="_blank" href="https://github.com/maciejgarncarski/fetcher"><p>Kod źródłowy</p></a><a target="_blank" href="https://www.npmjs.com/package/@maciekdev/fetcher"><p>biblioteka na NPM</p></a></div> </div> </article>  </main> </div> <footer class="glass mx-auto flex max-w-[80rem] flex-col gap-3 p-4 lg:mt-10 lg:gap-6" data-astro-transition-scope="astro-ipbbvofe-4"> <div class="flex flex-col gap-3 lg:flex-row lg:gap-6"> <div class="flex justify-center gap-6"> <a href="https://github.com/maciejgarncarski" target="_blank" class="w-fit" title="GitHub"> <picture> <source srcset="/_astro/github.QpYQ9fJQ_68cTD.svg" type="image/svg+xml">  <img src="/_astro/github.QpYQ9fJQ_68cTD.svg" alt loading="lazy" decoding="async" fetchpriority="auto" width="24" height="24" class="h-5 invert-100 lg:h-6"> </picture> <span class="sr-only">GitHub</span> </a><a href="https://www.linkedin.com/in/maciejgarncarski/" target="_blank" class="w-fit" title="LinkedIn"> <picture> <source srcset="/_astro/linkedin.xnTIGbZZ_68cTD.svg" type="image/svg+xml">  <img src="/_astro/linkedin.xnTIGbZZ_68cTD.svg" alt loading="lazy" decoding="async" fetchpriority="auto" width="24" height="24" class="h-5 invert-100 lg:h-6"> </picture> <span class="sr-only">LinkedIn</span> </a><a href="https://x.com/MGarncarski" target="_blank" class="w-fit" title="X"> <picture> <source srcset="/_astro/x.CDUwKQV4_68cTD.svg" type="image/svg+xml">  <img src="/_astro/x.CDUwKQV4_68cTD.svg" alt loading="lazy" decoding="async" fetchpriority="auto" width="24" height="24" class="h-5 invert-100 lg:h-6"> </picture> <span class="sr-only">X</span> </a><a href="/CV_Maciej_Garncarski.pdf" target="_blank" class="w-fit" title="CV"> <picture> <source srcset="/_astro/cv.tXP78Pke_68cTD.svg" type="image/svg+xml">  <img src="/_astro/cv.tXP78Pke_68cTD.svg" alt loading="lazy" decoding="async" fetchpriority="auto" width="24" height="24" class="h-5 invert-100 lg:h-6"> </picture> <span class="sr-only">CV</span> </a> </div> <p class="text-center text-sm lg:ml-auto lg:text-right">
+&copy; 2025 Maciej Garncarski.
+</p> </div> <div class="flex flex-col justify-between lg:flex-row"> <p class="text-center text-xs lg:text-left">
+Commit: dev </p> <p class="text-center text-xs lg:text-right">
+Built with Astro v5.12.3 🚀
+</p> </div> </footer> </body></html>

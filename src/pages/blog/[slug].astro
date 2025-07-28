@@ -4,10 +4,10 @@ export const prerender = true;
 import "../../styles/codeblock.css";
 import { getCollection, type CollectionEntry } from "astro:content";
 import { render } from "astro:content";
-import Layout from "../../layouts/Layout.astro";
-import BlogList from "../../components/BlogList.astro";
-import SEO from "../../components/SEO.astro";
-import BlogHero from "../../components/BlogHero.astro";
+import Layout from "../../layouts/layout.astro";
+import BlogList from "../../components/blog-list.astro";
+import SEO from "../../components/seo.astro";
+import BlogHero from "../../components/blog-hero.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");

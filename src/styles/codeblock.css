@@ -6,8 +6,12 @@ code:not([data-language]) {
   box-decoration-break: clone;
 }
 
+pre[data-language] {
+  @apply border-foreground/10 rounded-md border;
+}
+
 [data-rehype-pretty-code-figure] code {
-  @apply w-full min-w-[100px] overflow-x-auto rounded py-3 text-sm text-nowrap;
+  @apply w-full min-w-[100px] overflow-x-auto py-3 text-sm text-nowrap;
 }
 
 [data-rehype-pretty-code-title] {
