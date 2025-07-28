@@ -79,14 +79,16 @@ const skills = [
   {
     skills.map(({ color, icon: Icon, name }) => {
       return (
-        <li
-          style={`--bg-skill: ${color}`}
-          title={name}
-          class="text-foreground flex items-center gap-3 rounded-md border border-white/5 bg-(--bg-skill)/30 fill-white px-3 py-2 font-semibold text-ellipsis backdrop-blur-md transition-transform hover:scale-95">
-          <div class="size-6 shrink-0">
-            <Icon />
-          </div>
-          <p class="truncate">{name}</p>
+        <li>
+          <figure
+            style={`--bg-skill: ${color}`}
+            title={name}
+            class="text-foreground flex items-center gap-3 rounded-md border border-white/5 bg-(--bg-skill)/30 fill-white px-3 py-2 font-semibold text-ellipsis backdrop-blur-md transition-transform hover:scale-95">
+            <div class="size-6 shrink-0">
+              <Icon />
+            </div>
+            <figcaption class="truncate">{name}</figcaption>
+          </figure>
         </li>
       );
     })
