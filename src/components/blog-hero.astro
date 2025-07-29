@@ -51,8 +51,8 @@ const readTime = calculateReadingTime(currPost?.body || "");
       class="text-foreground z-50 max-w-full px-5 text-center text-xl font-bold lg:max-w-prose lg:text-2xl">
       {text}
     </h1>
-    <p class="text-center text-base tracking-tighter lg:tracking-tight">
-      <time datetime={formattedTime}>
+    <p class="text-center text-base">
+      <time datetime={formattedTime} class="tracking-tighter lg:tracking-tight">
         {formattedTime}
       </time>
       | {readTime} min. czytania

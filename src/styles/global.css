@@ -11,12 +11,6 @@
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
 }
 
 @layer components {
@@ -76,7 +70,7 @@
 
 @layer components {
   .glass {
-    @apply rounded-xl border border-white/10 bg-gray-200/5 p-4 backdrop-blur-xs md:backdrop-blur-2xl;
+    @apply rounded-xl border border-white/10 bg-gray-200/15 p-4 backdrop-blur-none md:bg-gray-200/5 md:backdrop-blur-2xl;
     @apply md:shadow-[0_4px_30px_rgba(0,0,0,0.1)];
   }
 
