@@ -13,16 +13,7 @@ const projects = [
       "CoinControl to aplikacja do śledzenia budżetu zaprojektowana, aby pomóc użytkownikom monitorować ich dochody i wydatki. Odpowiada na powszechny problem braku kontroli nad finansami osobistymi, dostarczając narzędzia do efektywnego zarządzania pieniędzmi.",
     demo: "http://coincontrol.maciej-garncarski.pl",
     github: "https://github.com/MaciejGarncarski/coin-control",
-    tags: [
-      "React",
-      "Tailwind CSS",
-      "Zustand",
-      "Vite",
-      "Zod",
-      "Express",
-      "BullMQ",
-      "Prisma"
-    ],
+    tags: ["React", "Tailwind CSS", "Zustand", "Express", "BullMQ", "Prisma"],
     image: coincontrol
   },
   {
@@ -58,7 +49,7 @@ const projects = [
     class="text-foreground text-left text-2xl font-bold text-balance lg:text-3xl">
     Moje najciekawsze projekty
   </h1>
-  <ul class="grid gap-8 lg:grid-cols-2">
+  <ul class="grid gap-6 lg:grid-cols-2">
     {
       projects.map((project) => {
         return (
@@ -78,7 +69,7 @@ const projects = [
                   );
                 })}
               </div>
-              <div class="flex flex-col gap-4">
+              <div class="flex h-full flex-col gap-4">
                 {project.image ? (
                   <Picture
                     src={project.image}
@@ -95,7 +86,7 @@ const projects = [
                 <p class="text-foreground/80 min-h-24 text-left text-base">
                   {project.description}
                 </p>
-                <div class="flex gap-4 font-semibold md:gap-8 md:text-lg">
+                <div class="mt-auto flex gap-4 font-semibold md:gap-8 md:text-lg">
                   {project.demo ? (
                     <a
                       href={project.demo}
