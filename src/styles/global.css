@@ -74,7 +74,7 @@
     @apply md:shadow-[0_4px_30px_rgba(0,0,0,0.1)];
 
     &:hover {
-      @apply md:bg-gray-200/10;
+      @apply md:bg-gray-200/8;
     }
   }
 
