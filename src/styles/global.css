@@ -70,8 +70,12 @@
 
 @layer components {
   .glass {
-    @apply rounded-xl border border-white/10 bg-gray-200/10 p-4 backdrop-blur-none md:bg-gray-200/5 md:p-5 md:backdrop-blur-2xl;
+    @apply rounded-xl border border-white/10 bg-gray-200/10 p-4 backdrop-blur-none transition-all duration-300 ease-in-out md:bg-gray-200/5 md:p-5 md:backdrop-blur-2xl;
     @apply md:shadow-[0_4px_30px_rgba(0,0,0,0.1)];
+
+    &:hover {
+      @apply md:bg-gray-200/10;
+    }
   }
 
   .glass-blog {
