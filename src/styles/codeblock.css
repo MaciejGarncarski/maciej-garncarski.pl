@@ -1,7 +1,7 @@
 @reference "./global.css";
 
 code:not([data-language]) {
-  @apply rounded bg-gray-700/80 px-1.5 py-0.25;
+  @apply rounded border border-gray-200/10 bg-gray-700/80 px-2 py-0.25;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
@@ -15,7 +15,7 @@ pre[data-language] {
 }
 
 [data-rehype-pretty-code-title] {
-  @apply relative top-2 -left-1 w-fit max-w-full rounded bg-gray-700/80 px-3 py-1 text-sm break-words;
+  @apply relative top-2 -left-1 w-fit max-w-full rounded border border-gray-200/10 bg-gray-700/80 px-3 py-1 text-sm break-words;
 }
 
 [data-rehype-pretty-code-caption] {

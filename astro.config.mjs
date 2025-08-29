@@ -43,7 +43,7 @@ export default defineConfig({
             })
           ],
           keepBackground: true,
-          themes: "nord",
+          theme: "nord",
           onVisitLine(element) {
             element.children.forEach((el) => {
               if (el.type === "element") {
