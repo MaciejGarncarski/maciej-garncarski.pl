@@ -7,7 +7,7 @@ type OgImage = {
 };
 
 const bgGradient =
-  "radial-gradient(circle at 93% 63%, hsla(217, 100%, 30%, 1) 8.392121895570533%, transparent 38.584065253664996%), radial-gradient(circle at 33% -7%, hsla(0, 0%, 0%, 1) 8.392121895570533%, transparent 22.10878124098502%), radial-gradient(circle at 84% 7%, hsla(0, 0%, 0%, 1) 8.392121895570533%, transparent 22.558651527792346%), radial-gradient(circle at 14% 5%, hsla(0, 0%, 0%, 1) 8.392121895570533%, transparent 22.558651527792346%), radial-gradient(circle at 7% 96%, hsla(0, 0%, 0%, 1) 8.392121895570533%, transparent 22.558651527792346%), radial-gradient(circle at 93% 90%, hsla(0, 0%, 0%, 1) 8.392121895570533%, transparent 22.558651527792346%), radial-gradient(circle at 3% 61%, hsla(279, 67%, 27%, 1) 8.392121895570533%, transparent 39.67138181429644%), radial-gradient(circle at 94% 59%, hsla(279, 67%, 27%, 1) 8.392121895570533%, transparent 49.58090142552271%), radial-gradient(circle at 48% 63%, hsla(217, 100%, 39%, 1) 8.392121895570533%, transparent 34.815367581495366%), radial-gradient(circle at 96% 78%, hsla(217, 100%, 30%, 1) 8.392121895570533%, transparent 31.77166380372925%)";
+  "radial-gradient(circle at 57% 69%, hsla(220, 77%, 32%, 1) 8%, transparent 83%), radial-gradient(circle at 98% 39%, hsla(261, 70%, 22%, 1) 1%, transparent 80%), radial-gradient(circle at 35% 56%, hsla(170, 85%, 27%, 1) 12%, transparent 83%), radial-gradient(circle at 70% 82%, hsla(214, 92%, 27%, 1) 18%, transparent 71%), radial-gradient(circle at 40% 84%, hsla(169, 64%, 44%, 1) 6%, transparent 72%);";
 
 export async function generateOgImage({ imageBuffer, title }: OgImage) {
   const imageBase64 = `data:image/png;base64,${imageBuffer.toString("base64")}`;
@@ -42,8 +42,8 @@ export async function generateOgImage({ imageBuffer, title }: OgImage) {
               width: 220,
               height: 220,
               style: {
-                borderRadius: "0.25rem",
-                border: "1px solid rgb(255 255 255 / 0.08)",
+                borderRadius: "0.5rem",
+                border: "1px solid rgb(255 255 255 / 0.05)",
                 objectFit: "contain"
               }
             }
@@ -53,12 +53,17 @@ export async function generateOgImage({ imageBuffer, title }: OgImage) {
             props: {
               style: {
                 backdropFilter: "blur(20px)",
-                border: "1px solid rgb(255 255 255 / 0.08)",
-                backgroundColor: "rgb(20 20 20 / 0.2)",
+                border: "1px solid rgb(255 255 255 / 0.05)",
+                backgroundColor: "rgb(20 20 20 / 0.1)",
                 borderRadius: "0.5rem",
-                padding: "0.5rem 2rem",
+                lineHeight: "5rem",
+                padding: "1rem 2rem",
                 textWrap: "balance",
-                maxWidth: "60%"
+                width: "75%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                textAlign: "center"
               },
               children: title
             }
