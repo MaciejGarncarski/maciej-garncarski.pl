@@ -30,16 +30,20 @@
     @apply underline;
   }
 
+  [data-anchor] {
+    @apply flex items-center justify-center gap-3;
+  }
+
   [data-anchor-link] {
-    @apply mt-4 flex gap-3;
+    @apply flex gap-3;
   }
 
   [data-anchor-link]:hover > [data-anchor-hash] {
-    @apply opacity-101;
+    @apply opacity-100;
   }
 
   [data-anchor-hash] {
-    @apply opacity-30 transition-opacity duration-300;
+    @apply opacity-40 transition-opacity duration-300;
   }
 }
 

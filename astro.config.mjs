@@ -81,7 +81,7 @@ export default defineConfig({
       [
         rehypeAutolinkHeadings,
         {
-          behavior: "wrap",
+          behavior: "append",
           content: {
             children: [{ type: "text", value: "#" }],
             type: "element",
