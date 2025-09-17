@@ -2,10 +2,8 @@
 import type { ImageMetadata } from "astro";
 import github from "../assets/github.svg";
 import xIcon from "../assets/x.svg";
-import cvIcon from "../assets/cv.svg";
 import linkedin from "../assets/linkedin.svg";
 import { Picture } from "astro:assets";
-import { fade } from "astro:transitions";
 
 type Social = {
   url: string;
@@ -28,11 +26,6 @@ const socials: Array<Social> = [
     name: "X",
     icon: xIcon,
     url: "https://x.com/MGarncarski"
-  },
-  {
-    name: "CV",
-    icon: cvIcon,
-    url: "/CV_Maciej_Garncarski.pdf"
   }
 ];
 ---
