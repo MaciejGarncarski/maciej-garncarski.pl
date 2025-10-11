@@ -16,7 +16,9 @@ import bun from "../technologies/bun.astro";
 import socketio from "../technologies/socketdotio.astro";
 import fastify from "../technologies/fastify.astro";
 import express from "../technologies/express.astro";
+import nestjs from "../technologies/nestjs.astro";
 import cypress from "../technologies/cypress.astro";
+import jest from "../technologies/jest.astro";
 import vitest from "../technologies/vitest.astro";
 import vite from "../technologies/vite.astro";
 import docker from "../technologies/docker.astro";
@@ -57,7 +59,9 @@ const skills = [
   { name: "Linux", color: "#FCC624", icon: linux },
   { name: "Fastify", color: "#000000", icon: fastify },
   { name: "Express", color: "#000000", icon: express },
+  { name: "NestJS", color: "#E0234E", icon: nestjs },
   { name: "Cypress", color: "#69D3A7", icon: cypress },
+  { name: "Jest", color: "#C21325", icon: jest },
   { name: "Vitest", color: "#6E9F18", icon: vitest },
   { name: "Zod", color: "#3E67B1", icon: zod },
   { name: "Vite", color: "#646CFF", icon: vite },
@@ -83,7 +87,7 @@ const skills = [
           <figure
             style={`--bg-skill: ${color}`}
             title={name}
-            class="text-foreground flex items-center gap-3 rounded-md border border-(--bg-skill)/15 bg-(--bg-skill)/30 fill-white px-3 py-2 font-semibold text-ellipsis backdrop-blur-md transition-transform hover:scale-95">
+            class="text-foreground flex items-center gap-3 rounded-md border border-(--bg-skill)/15 bg-(--bg-skill)/30 fill-white px-3 py-2 font-semibold text-ellipsis transition-transform ease-in-out hover:scale-97">
             <div class="size-6 shrink-0">
               <Icon />
             </div>
