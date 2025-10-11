@@ -24,14 +24,14 @@ const readTime = calculateReadingTime(currPost?.body || "");
       <>
         <div
           data-blog-hero-bg
-          class="absolute top-0 left-0 -z-10 mx-auto h-full w-full overflow-hidden opacity-5 blur-sm md:rounded-4xl lg:blur-lg">
+          class="left-0-z-10 absolute top-0 mx-auto h-full w-full overflow-hidden opacity-4 blur-lg md:rounded-4xl">
           <div class="bg-blog-hero-gradient absolute top-0 left-0 h-full w-full" />
           <Picture
             src={currPost.data.heroImage}
             alt={text}
             width={512}
             height={512}
-            class="h-full w-full object-cover"
+            class="h-full w-full border mask-[url(/mask-test.svg)] mask-luminance mask-cover mask-center object-cover"
             priority={true}
           />
         </div>

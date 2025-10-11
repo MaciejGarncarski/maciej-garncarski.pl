@@ -249,6 +249,6 @@
       var(--c-4) var(--s-start-4),
       transparent var(--s-end-4)
     );
-  animation: hero-gradient-animation 10s linear infinite alternate;
+  animation: hero-gradient-animation 30s linear infinite alternate;
   background-blend-mode: normal, normal, normal, normal, normal;
 }

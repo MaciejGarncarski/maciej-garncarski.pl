@@ -2,7 +2,7 @@
 import Layout from "../layouts/layout.astro";
 import photoapp from "../assets/projects/photoapp.png";
 import coincontrol from "../assets/projects/coincontrol.png";
-import fetcher from "../assets/projects/fetcher.png";
+import fetcher from "../assets/projects/fetcher.jpg";
 import githubActionsWidget from "../assets/projects/github-actions-widget.png";
 import { Picture } from "astro:assets";
 
@@ -49,7 +49,7 @@ const projects = [
     class="text-foreground text-left text-2xl font-bold text-balance lg:text-3xl">
     Moje najciekawsze projekty
   </h1>
-  <ul class="grid gap-8 lg:grid-cols-2">
+  <ul class="grid gap-12 lg:grid-cols-2">
     {
       projects.map((project) => {
         return (
@@ -90,16 +90,16 @@ const projects = [
                   {project.demo ? (
                     <a
                       href={project.demo}
-                      class="border-foreground/10 bg-background/30 inline-block rounded-md border px-4 py-1 text-pretty"
+                      class="border-foreground/8 bg-background/15 inline-block rounded-md border px-4 py-1 text-pretty"
                       target="_blank">
-                      Zobacz demo
+                      Demo
                     </a>
                   ) : null}
                   <a
                     href={project.github}
-                    class="border-foreground/10 bg-background/30 inline-block rounded-md border px-4 py-1 text-pretty"
+                    class="border-foreground/8 bg-background/15 inline-block rounded-md border px-4 py-1 text-pretty"
                     target="_blank">
-                    Kod źródłowy
+                    GitHub
                   </a>
                 </div>
               </div>
