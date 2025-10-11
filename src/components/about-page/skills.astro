@@ -33,6 +33,12 @@ import prettier from "../technologies/prettier.astro";
 import redis from "../technologies/redis.astro";
 import testinglib from "../technologies/testinglibrary.astro";
 import git from "../technologies/git.astro";
+import mantine from "../technologies/mantine.astro";
+import chakraui from "../technologies/chakra.astro";
+import pnpm from "../technologies/pnpm.astro";
+import turborepo from "../technologies/turborepo.astro";
+import storybook from "../technologies/storybook.astro";
+import swagger from "../technologies/swagger.astro";
 
 type Skill = {
   name: string;
@@ -50,6 +56,12 @@ const skills = [
   { name: "Next.js", color: "#000000", icon: nextdotjs },
   { name: "TanStack", color: "#232323", icon: tanstack },
   { name: "shadcn/ui", color: "#000000", icon: shadcn },
+  {
+    name: "Mantine",
+    color: "#339AF0",
+    icon: mantine
+  },
+  { name: "Chakra UI", color: "#1BB2A9", icon: chakraui },
   { name: "Astro", color: "#BC52EE", icon: astroicon },
   { name: "Node.js", color: "#5FA04E", icon: nodedotjs },
   { name: "Bun", color: "#000000", icon: bun },
@@ -72,8 +84,12 @@ const skills = [
   { name: "PostgreSQL", color: "#4169E1", icon: postgresql },
   { name: "Prisma", color: "#2D3748", icon: prisma },
   { name: "Drizzle", color: "#C5F74F", icon: drizzle },
+  { name: "Storybook", color: "#FF4785", icon: storybook },
   { name: "Figma", color: "#F24E1E", icon: figma },
-  { name: "NGINX", color: "#009639", icon: nginx }
+  { name: "NGINX", color: "#009639", icon: nginx },
+  { name: "pnpm", color: "#F69220", icon: pnpm },
+  { name: "Turborepo", color: "#FF1E56", icon: turborepo },
+  { name: "Swagger", color: "#85EA2D", icon: swagger }
 ] satisfies Skill[];
 ---
 
