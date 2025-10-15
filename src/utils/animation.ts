@@ -7,14 +7,14 @@ import type {
 export const mainEntranceAnimationIn: TransitionAnimation = {
   name: "mainEntrance",
   easing: "ease-out",
-  duration: "0.22s"
+  duration: "0.19s"
 };
 
 export const mainEntranceAnimationOut: TransitionAnimation = {
   name: "mainEntrance",
   easing: "ease-out",
   direction: "reverse",
-  duration: "0.12s"
+  duration: "0.1s"
 };
 
 export const mainEntrancePair: TransitionAnimationPair = {
