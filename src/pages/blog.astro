@@ -50,7 +50,7 @@ const posts = (await getCollection("blog")).sort((a, b) => {
                     {post.data.description}
                   </p>
                 </header>
-                <div class="absolute top-0 right-0 block h-full shrink-0 opacity-10 blur-xs md:hidden">
+                <div class="absolute top-0 right-0 block h-full shrink-0 opacity-10 blur-xs lg:hidden">
                   <Picture
                     src={post.data.heroImage}
                     width={256}
@@ -60,7 +60,7 @@ const posts = (await getCollection("blog")).sort((a, b) => {
                   />
                 </div>
 
-                <div class="hidden shrink-0 md:block">
+                <div class="hidden shrink-0 lg:block">
                   <Picture
                     transition:animate={mainEntrance}
                     transition:name={`blog-image-${post.id}`}
