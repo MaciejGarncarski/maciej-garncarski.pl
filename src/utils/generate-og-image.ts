@@ -39,8 +39,8 @@ export async function generateOgImage({ imageBuffer, title }: OgImage) {
             type: "img",
             props: {
               src: imageBase64,
-              width: 220,
-              height: 220,
+              width: 300,
+              height: 300,
               style: {
                 borderRadius: "0.5rem",
                 border: "1px solid rgb(255 255 255 / 0.05)",
