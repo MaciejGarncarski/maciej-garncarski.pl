@@ -41,7 +41,7 @@ const posts = (await getCollection("blog")).sort((a, b) => {
                     {post.data.title}
                   </h2>
                   <p
-                    class="text-foreground/80 relative text-base font-semibold lg:text-base"
+                    class="text-foreground/85 relative text-base font-semibold lg:text-base"
                     transition:animate={mainEntrance}
                     transition:name={`blog-time-${post?.id}`}>
                     <time datetime={formattedTime}>{formattedTime}</time>
