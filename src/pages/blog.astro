@@ -4,10 +4,19 @@ export const prerender = true;
 import { Picture } from "astro:assets";
 import { getCollection } from "astro:content";
 import Layout from "../layouts/layout.astro";
+import { mainEntrance } from "../utils/animation";
 
-const posts = (await getCollection("blog")).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+const posts = (await getCollection("blog")).sort((a, b) => {
+  if (a.data.updatedDate && b.data.updatedDate) {
+    return b.data.updatedDate.getTime() - a.data.updatedDate.getTime();
+  } else if (a.data.updatedDate) {
+    return -1;
+  } else if (b.data.updatedDate) {
+    return 1;
+  } else {
+    return b.data.pubDate.getTime() - a.data.pubDate.getTime();
+  }
+});
 ---
 
 <Layout>
@@ -16,32 +25,50 @@ const posts = (await getCollection("blog")).sort(
       {
         posts.map((post) => {
           const formattedTime = new Intl.DateTimeFormat("pl").format(
-            post.data.pubDate
+            post.data.updatedDate || post.data.pubDate
           );
 
           return (
             <a
               href={"/blog/" + post.id}
               class="inline-block h-full transition-transform duration-300 lg:hover:scale-[0.99] lg:focus:scale-[0.98]">
-              <article class="glass flex h-full min-h-42 flex-col justify-between gap-4 overflow-hidden md:flex-row">
+              <article class="glass relative flex h-full min-h-42 flex-col justify-between gap-4 overflow-hidden md:flex-row">
                 <header class="flex flex-col gap-2">
-                  <h2 class="text-foreground z-20 text-lg font-semibold text-pretty lg:text-xl">
+                  <h2
+                    class="text-foreground z-20 text-lg font-semibold text-pretty lg:text-xl"
+                    transition:animate={mainEntrance}
+                    transition:name={`blog-title-${post.id}`}>
                     {post.data.title}
                   </h2>
-                  <p class="text-foreground/80 relative text-base font-semibold lg:text-base">
+                  <p
+                    class="text-foreground/80 relative text-base font-semibold lg:text-base"
+                    transition:animate={mainEntrance}
+                    transition:name={`blog-time-${post?.id}`}>
                     <time datetime={formattedTime}>{formattedTime}</time>
                   </p>
                   <p class="text-foreground/80 z-20 text-base text-pretty lg:max-w-[28rem]">
                     {post.data.description}
                   </p>
                 </header>
-                <div class="hidden shrink-0 md:block">
+                <div class="absolute top-0 right-0 block h-full shrink-0 opacity-10 blur-xs md:hidden">
                   <Picture
                     src={post.data.heroImage}
                     width={256}
                     height={256}
                     alt={post.data.title}
-                    class="border-foreground/10 h-20 w-20 rounded-lg border lg:h-32 lg:w-32"
+                    class="border-foreground/10 h-full w-full rounded-tr-lg rounded-br-lg border"
+                  />
+                </div>
+
+                <div class="hidden shrink-0 md:block">
+                  <Picture
+                    transition:animate={mainEntrance}
+                    transition:name={`blog-image-${post.id}`}
+                    src={post.data.heroImage}
+                    width={256}
+                    height={256}
+                    alt={post.data.title}
+                    class="border-foreground/10 h-full w-full rounded-lg border lg:h-32 lg:w-32"
                   />
                 </div>
               </article>

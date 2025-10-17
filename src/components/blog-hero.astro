@@ -11,9 +11,13 @@ const { text } = Astro.props;
 
 const allBlogPosts = await getCollection("blog");
 const currPost = allBlogPosts.find((post) => post.data.title === text);
-const formattedTime = new Intl.DateTimeFormat("pl").format(
-  currPost?.data.pubDate
+const formattedPubDate = new Intl.DateTimeFormat("pl").format(
+  new Date(currPost?.data.pubDate || "")
 );
+const formattedUpdateDate = currPost?.data.updatedDate
+  ? new Intl.DateTimeFormat("pl").format(new Date(currPost.data.updatedDate))
+  : null;
+
 const readTime = calculateReadingTime(currPost?.body || "");
 ---
 
@@ -37,6 +41,7 @@ const readTime = calculateReadingTime(currPost?.body || "");
         </div>
         <Picture
           src={currPost.data.heroImage}
+          transition:name={`blog-image-${currPost.id}`}
           width={512}
           height={512}
           alt={text}
@@ -48,15 +53,34 @@ const readTime = calculateReadingTime(currPost?.body || "");
   }
   <div class="z-30 flex flex-col gap-2 text-center text-balance transition-all">
     <h1
+      transition:name={`blog-title-${currPost?.id}`}
       class="text-foreground z-50 max-w-[20rem] px-5 text-center text-xl font-bold md:max-w-full lg:max-w-prose lg:text-2xl">
       {text}
     </h1>
-    <p class="text-center text-base">
-      <time datetime={formattedTime} class="tracking-tighter lg:tracking-tight">
-        {formattedTime}
+    <p
+      class="text-center text-base"
+      transition:name={`blog-time-${currPost?.id}`}>
+      🗓️
+      <time
+        datetime={new Date(currPost?.data.pubDate || "").toISOString()}
+        class="tracking-tighter lg:tracking-tight">
+        {formattedPubDate}
       </time>
-      | {readTime} min. czytania
+      {
+        currPost?.data.updatedDate && (
+          <>
+            (aktualizacja:{" "}
+            <time
+              datetime={new Date(currPost.data.updatedDate).toISOString()}
+              class="tracking-tighter lg:tracking-tight">
+              {formattedUpdateDate}
+            </time>
+            )
+          </>
+        )
+      }
     </p>
+    {readTime} min. czytania
   </div>
 </header>
 
@@ -74,6 +98,7 @@ const readTime = calculateReadingTime(currPost?.body || "");
 
   [data-blog-hero-bg] {
     animation: blog-hero-bg-fade-in 1s ease-out forwards;
+    animation-delay: 0.17s;
   }
 
   @media (prefers-reduced-motion: reduce) {

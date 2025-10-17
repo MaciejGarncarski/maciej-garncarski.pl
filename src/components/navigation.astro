@@ -28,9 +28,7 @@ const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, "");
 const subpath = pathname.match(/[^/]+/g);
 ---
 
-<nav
-  class="flex items-center justify-start px-0.5"
-  transition:animate={fade({ duration: "0.2s" })}>
+<nav class="flex items-center justify-start px-0.5">
   <a href="/">
     <Image
       src={logoIcon}
