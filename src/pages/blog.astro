@@ -4,7 +4,6 @@ export const prerender = true;
 import { Picture } from "astro:assets";
 import { getCollection } from "astro:content";
 import Layout from "../layouts/layout.astro";
-import { mainEntrance } from "../utils/animation";
 
 const posts = (await getCollection("blog")).sort((a, b) => {
   if (a.data.updatedDate && b.data.updatedDate) {
@@ -31,19 +30,14 @@ const posts = (await getCollection("blog")).sort((a, b) => {
           return (
             <a
               href={"/blog/" + post.id}
+              transition:name={`blog-header-${post.id}`}
               class="inline-block h-full transition-transform duration-300 lg:hover:scale-[0.99] lg:focus:scale-[0.98]">
               <article class="glass relative flex h-full min-h-42 flex-col justify-between gap-4 overflow-hidden md:flex-row">
                 <header class="flex flex-col gap-2">
-                  <h2
-                    class="text-foreground z-20 text-lg font-semibold text-pretty lg:text-xl"
-                    transition:animate={mainEntrance}
-                    transition:name={`blog-title-${post.id}`}>
+                  <h2 class="text-foreground z-20 text-lg font-semibold text-pretty lg:text-xl">
                     {post.data.title}
                   </h2>
-                  <p
-                    class="text-foreground/85 relative text-base font-semibold lg:text-base"
-                    transition:animate={mainEntrance}
-                    transition:name={`blog-time-${post?.id}`}>
+                  <p class="text-foreground/85 relative text-base font-semibold lg:text-base">
                     <time datetime={formattedTime}>{formattedTime}</time>
                   </p>
                   <p class="text-foreground/80 z-20 text-base text-pretty lg:max-w-[28rem]">
@@ -62,7 +56,6 @@ const posts = (await getCollection("blog")).sort((a, b) => {
 
                 <div class="hidden shrink-0 lg:block">
                   <Picture
-                    transition:animate={mainEntrance}
                     transition:name={`blog-image-${post.id}`}
                     src={post.data.heroImage}
                     width={256}

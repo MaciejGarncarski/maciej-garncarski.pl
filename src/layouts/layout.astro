@@ -5,8 +5,6 @@ import "../styles/bg-mesh.css";
 import Navigation from "../components/navigation.astro";
 import Footer from "../components/footer.astro";
 import SEO from "../components/seo.astro";
-import { mainEntrance } from "../utils/animation";
-import ClientRouter from "astro/components/ClientRouter.astro";
 import { Font, getImage } from "astro:assets";
 import { getCollection } from "astro:content";
 import photoapp from "../assets/projects/photoapp.png";
@@ -57,17 +55,22 @@ const optimizedImages = await Promise.all(
       <SEO />
     </slot>
 
-    <ClientRouter />
+
   </head>
   <body class="text-foreground bg-mesh min-h-screen p-3 lg:p-10">
     <div class="mx-auto flex max-w-[80rem] flex-col gap-10 py-3">
       <Navigation />
-      <main
-        class="flex min-h-[40rem] flex-col gap-8 lg:gap-10"
-        transition:animate={mainEntrance}>
+      <main class="flex min-h-[40rem] flex-col gap-8 lg:gap-10">
         <slot />
       </main>
     </div>
     <Footer />
   </body>
 </html>
+
+
+<style is:inline>
+  @view-transition {
+  navigation: auto;
+  }
+<style>
