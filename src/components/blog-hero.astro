@@ -2,6 +2,7 @@
 import { Picture } from "astro:assets";
 import { getCollection } from "astro:content";
 import { calculateReadingTime } from "../utils/calculate-read-time";
+import { Image } from "astro:assets";
 
 type Props = {
   text: string;
@@ -40,6 +41,7 @@ const readTime = calculateReadingTime(currPost?.body || "");
             priority={true}
           />
         </div>
+
         <Picture
           formats={["avif", "webp"]}
           src={currPost.data.heroImage}
@@ -47,7 +49,10 @@ const readTime = calculateReadingTime(currPost?.body || "");
           width={512}
           height={512}
           alt={text}
-          class="h-42 w-42 rounded-sm"
+          pictureAttributes={{
+            class: "rounded-md h-42 w-42 overflow-hidden"
+          }}
+          class="h-full w-full rounded-md object-cover"
           priority={true}
         />
       </>
