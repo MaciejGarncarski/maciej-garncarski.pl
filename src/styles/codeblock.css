@@ -1,7 +1,7 @@
 @reference "./global.css";
 
 code:not([data-language]) {
-  @apply rounded border border-gray-200/10 bg-gray-700/80 px-2 py-0.25;
+  @apply rounded border border-gray-200/10 bg-gray-700/80 px-2 py-0.25 break-all;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
