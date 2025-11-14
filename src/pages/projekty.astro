@@ -2,7 +2,6 @@
 import Layout from "../layouts/layout.astro";
 import photoapp from "../assets/projects/photoapp.png";
 import coincontrol from "../assets/projects/coincontrol.png";
-import fetcher from "../assets/projects/fetcher.jpg";
 import kanban from "../assets/projects/kanban.png";
 import nextTracker from "../assets/projects/next-tracker.png";
 import githubActionsWidget from "../assets/projects/github-actions-widget.png";
@@ -50,8 +49,7 @@ const projects = [
     description:
       "Fetcher to lekka, typowana nakładka na fetch, zaprojektowana z myślą o prostocie. Ułatwia pisanie przejrzystych zapytań HTTP z walidacją odpowiedzi.",
     github: "https://github.com/MaciejGarncarski/fetcher",
-    tags: ["TypeScript", "Zod", "HTTP", "REST"],
-    image: fetcher
+    tags: ["TypeScript", "Zod", "HTTP", "REST"]
   },
   {
     title: "Photo App",
@@ -99,8 +97,8 @@ const projects = [
                     class="border-foreground/10 mx-auto w-auto grow rounded-md border object-contain lg:shadow"
                   />
                 ) : (
-                  <div class="border-foreground/10 bg-background/30 mx-auto flex h-40 w-full grow items-center justify-center rounded-md border text-center md:h-72 lg:shadow">
-                    <p>Brak podglądu.</p>
+                  <div class="border-foreground/10 bg-background/20 text-foreground/80 mx-auto flex h-40 w-full grow items-center justify-center rounded-md border text-center md:h-72 lg:shadow">
+                    <p>Brak podglądu</p>
                   </div>
                 )}
                 <p class="text-foreground/85 min-h-16 text-left text-base">
