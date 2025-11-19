@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import "../styles/bg-mesh.css";
+import { ClientRouter } from "astro:transitions";
 
 import Navigation from "../components/navigation.astro";
 import Footer from "../components/footer.astro";
@@ -45,6 +46,7 @@ const optimizedImages = await Promise.all(
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <ClientRouter />
 
     <slot name="head">
       {
@@ -65,9 +67,3 @@ const optimizedImages = await Promise.all(
     <Footer />
   </body>
 </html>
-
-<style>
-  @view-transition {
-    navigation: auto;
-  }
-</style>

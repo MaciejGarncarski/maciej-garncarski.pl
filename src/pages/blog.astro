@@ -5,6 +5,7 @@ import { Picture } from "astro:assets";
 import { getCollection } from "astro:content";
 import Layout from "../layouts/layout.astro";
 import type { InferEntrySchema } from "astro:content";
+import { fade } from "astro:transitions";
 
 const posts = (await getCollection("blog")).sort((a, b) => {
   const getTime = (post: { data: InferEntrySchema<"blog"> }) => {
