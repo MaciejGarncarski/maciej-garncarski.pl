@@ -41,7 +41,7 @@ const components = {
   <article class="flex flex-col gap-4">
     <BlogHero text={post.data.title} />
     <div
-      class="glass-blog-content text-foreground/90 mx-auto flex max-w-full flex-col gap-4 pb-14 text-base leading-7 text-pretty md:max-w-[80ch] lg:relative"
+      class="glass-blog-content text-foreground/90 mx-auto flex max-w-full flex-col gap-4 pb-14 text-base leading-7 md:text-lg text-pretty min-w-[40ch] md:max-w-[80ch] lg:relative"
       data-blog-content>
       <Content components={components} />
     </div>

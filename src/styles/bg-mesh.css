@@ -250,7 +250,7 @@
       transparent var(--s-end-4)
     );
   background-attachment: fixed;
-  animation: hero-gradient-animation 15s linear infinite alternate;
+  animation: hero-gradient-animation 22s linear infinite alternate;
   background-blend-mode: normal, normal, normal, normal, normal;
 
   @media (prefers-reduced-motion: reduce) {
