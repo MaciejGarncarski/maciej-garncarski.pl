@@ -59,7 +59,7 @@ export async function generateOgImage({ imageBuffer, title }: OgImage) {
                 lineHeight: "3.5rem",
                 padding: "1rem 2rem",
                 textWrap: "balance",
-                width: "75%",
+                maxWidth: "75%",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
