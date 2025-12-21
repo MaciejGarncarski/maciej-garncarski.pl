@@ -1,11 +1,9 @@
 ---
 import Layout from "../layouts/layout.astro";
-import photoapp from "../assets/projects/photoapp.png";
 import coincontrol from "../assets/projects/coincontrol.png";
 import kanban from "../assets/projects/kanban.png";
-import nextTracker from "../assets/projects/next-tracker.png";
 import landing from "../assets/projects/landing.png";
-import githubActionsWidget from "../assets/projects/github-actions-widget.png";
+import twitchChatBot from "../assets/projects/twitch-chat-bot.jpg";
 import { Picture } from "astro:assets";
 
 const projects = [
@@ -28,46 +26,21 @@ const projects = [
     image: kanban
   },
   {
-    title: "Is There New Next.js",
+    title: "Twitch Chat Bot",
     description:
-      "Narzędzie do śledzenia najnowszych wydanych wersji Next.js. Automatycznie pobiera informacje o aktualnych wersjach, changelogach oraz datach wydań.",
-    demo: "https://is-there-new-nextjs.vercel.app/",
-    github: "https://github.com/MaciejGarncarski/is-there-new-nextjs",
-    tags: ["Next.js", "Tailwind CSS", "REST", "Markdown"],
-    image: nextTracker
+      "Bot na platformę Twitch, którego głównym zadaniem jest obsługa systemu song request. Projekt charakteryzuje się modułową budową, co umożliwia bezproblemowe implementowanie kolejnych funkcjonalności.",
+    github: "https://github.com/MaciejGarncarski/twitch-chat-bot",
+    tags: ["Bun", "Elysia", "React", "WebSocket"],
+    image: twitchChatBot
   },
   {
     title: "Professional Landing Page",
     description:
       "Profesjonalna strona docelowa dla firmy, zaprojektowana w celu skutecznego prezentowania usług i przyciągania klientów.",
-      demo: "https://professional-landing-nextjs.vercel.app/",
+    demo: "https://professional-landing-nextjs.vercel.app/",
     github: "https://github.com/MaciejGarncarski/professional-landing-nextjs",
     tags: ["Next.js", "Tailwind CSS", "Motion"],
     image: landing
-  },
-  {
-    title: "GitHub Actions Widget",
-    description:
-      "Widget do wyświetlania GitHub Actions w jednym miejscu. Stworzyłem tę aplikację, ponieważ GitHub działa tak wolno, że nie mogłem tego znieść.",
-    demo: "https://github-actions-widget.vercel.app/",
-    github: "https://github.com/maciejgarncarski/github-actions-widget",
-    tags: ["React", "Next.js", "Tailwind CSS", "REST"],
-    image: githubActionsWidget
-  },
-  {
-    title: "Fetcher",
-    description:
-      "Fetcher to lekka, typowana nakładka na fetch, zaprojektowana z myślą o prostocie. Ułatwia pisanie przejrzystych zapytań HTTP z walidacją odpowiedzi.",
-    github: "https://github.com/MaciejGarncarski/fetcher",
-    tags: ["TypeScript", "Zod", "HTTP", "REST"]
-  },
-  {
-    title: "Photo App",
-    description:
-      "PhotoApp to aplikacja społecznościowa inspirowana Instagramem. Użytkownicy mogą tworzyć posty, lajkować je i dodawać do nich komentarze. Aplikacja posiada funkcję czatu, która do komunikacji wykorzystuje WebSocket.",
-    github: "https://github.com/MaciejGarncarski/photo-app",
-    tags: ["Next.js", "React", "Fastify", "Prisma", "Socket.IO", "PostgreSQL"],
-    image: photoapp
   }
 ];
 ---

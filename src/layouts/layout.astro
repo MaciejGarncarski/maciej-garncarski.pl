@@ -8,13 +8,15 @@ import Footer from "../components/footer.astro";
 import SEO from "../components/seo.astro";
 import { Font, getImage } from "astro:assets";
 import { getCollection } from "astro:content";
-import photoapp from "../assets/projects/photoapp.png";
 import coincontrol from "../assets/projects/coincontrol.png";
+import kanban from "../assets/projects/kanban.png";
+import landing from "../assets/projects/landing.png";
+import twitchChatBot from "../assets/projects/twitch-chat-bot.jpg";
 
 const allBlogPosts = await getCollection("blog");
 
 const blogPostImages = allBlogPosts.map(({ data }) => data.heroImage);
-const projectImages = [photoapp, coincontrol];
+const projectImages = [kanban, landing, twitchChatBot, coincontrol];
 const allImages = [...blogPostImages, ...projectImages];
 
 const optimizedImages = await Promise.all(
