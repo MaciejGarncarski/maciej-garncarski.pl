@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
 @theme {
-  --width-half: 50%;
   --list-style-type-hyphen: "– ";
   --background-image-blog-gradient: var(--blog-gradient);
   --background-image-blog-hero-gradient: var(--blog-hero-gradient);
@@ -11,6 +10,8 @@
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  --animate-fade-in-up: fade-in-up 0.5s ease-out forwards;
 }
 
 @layer components {
@@ -44,6 +45,17 @@
 
   [data-anchor-hash] {
     @apply opacity-40 transition-opacity duration-300;
+  }
+
+  @keyframes fade-in-up {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
 

@@ -5,7 +5,6 @@ import { Picture } from "astro:assets";
 import { getCollection } from "astro:content";
 import Layout from "../layouts/layout.astro";
 import type { InferEntrySchema } from "astro:content";
-import { fade } from "astro:transitions";
 
 const posts = (await getCollection("blog")).sort((a, b) => {
   const getTime = (post: { data: InferEntrySchema<"blog"> }) => {
@@ -21,8 +20,8 @@ const posts = (await getCollection("blog")).sort((a, b) => {
 ---
 
 <Layout>
-  <div class="mx-auto flex w-full flex-col gap-8 pb-8">
-    <div class="grid gap-8 md:grid-cols-2">
+  <div class="mx-auto flex w-full flex-col gap-8 pb-8 md:max-w-3xl md:gap-12">
+    <div class="grid gap-8">
       {
         posts.map((post) => {
           const formattedTime = new Intl.DateTimeFormat("pl").format(
@@ -34,7 +33,7 @@ const posts = (await getCollection("blog")).sort((a, b) => {
               href={"/blog/" + post.id}
               transition:name={`blog-header-${post.id}`}
               class="inline-block h-full transition-transform duration-300 lg:hover:scale-[0.99] lg:focus:scale-[0.98]">
-              <article class="glass relative flex h-full min-h-42 flex-col justify-between gap-4 overflow-hidden md:flex-row">
+              <article class="glass relative flex h-full min-h-42 flex-row items-center justify-between gap-4 overflow-hidden md:gap-8">
                 <header class="flex flex-col gap-2">
                   <h2 class="text-foreground z-20 text-lg font-semibold text-pretty lg:text-xl">
                     {post.data.title}
@@ -46,16 +45,6 @@ const posts = (await getCollection("blog")).sort((a, b) => {
                     {post.data.description}
                   </p>
                 </header>
-                <div class="absolute top-0 right-0 block h-full shrink-0 opacity-10 blur-xs lg:hidden">
-                  <Picture
-                    formats={["avif", "webp"]}
-                    src={post.data.heroImage}
-                    width={256}
-                    height={256}
-                    alt={post.data.title}
-                    class="border-foreground/10 h-full w-full rounded-tr-lg rounded-br-lg border"
-                  />
-                </div>
 
                 <div class="hidden shrink-0 lg:flex lg:items-center">
                   <Picture
@@ -65,7 +54,7 @@ const posts = (await getCollection("blog")).sort((a, b) => {
                     width={256}
                     height={256}
                     alt={post.data.title}
-                    class="border-foreground/10 h-full w-full rounded-lg border lg:h-32 lg:w-32"
+                    class="border-foreground/10 h-24 w-24 rounded-lg border lg:h-32 lg:w-32"
                   />
                 </div>
               </article>
