@@ -74,15 +74,11 @@ const readTime = calculateReadingTime(currPost?.body || "");
       </time>
       {
         currPost?.data.updatedDate && (
-          <>
-            &#40; aktualizacja:{" "}
-            <time
-              datetime={new Date(currPost.data.updatedDate).toISOString()}
-              class="tracking-tighter lg:tracking-tight">
-              {formattedUpdateDate}
-            </time>
-            &#41;
-          </>
+          <time
+            datetime={new Date(currPost.data.updatedDate).toISOString()}
+            class="tracking-tighter lg:tracking-tight">
+            &#40;aktualizacja: {formattedUpdateDate}&#41;
+          </time>
         )
       }
     </p>
