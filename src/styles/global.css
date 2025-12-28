@@ -36,12 +36,20 @@
     @apply underline;
   }
 
+  [data-blog-content] p {
+    @apply my-2 leading-7;
+  }
+
   [data-blog-content] ul {
-    @apply marker:text-foreground/70 my-4 list-inside list-disc;
+    @apply marker:text-foreground/70 my-4 flex list-inside list-disc flex-col gap-2;
+  }
+
+  [data-blog-content] ol {
+    @apply marker:text-foreground/70 my-4 flex list-inside list-decimal flex-col gap-2;
   }
 
   [data-blog-content] strong {
-    @apply text-foreground font-semibold;
+    @apply text-foreground/95 font-semibold;
   }
 
   [data-anchor] {
