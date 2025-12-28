@@ -45,19 +45,23 @@
   }
 
   [data-anchor] {
-    @apply flex items-center justify-center gap-3;
+    @apply flex items-center justify-center gap-4;
   }
 
   [data-anchor-link] {
-    @apply flex gap-3;
+    @apply flex gap-4;
   }
 
-  [data-anchor-link]:hover > [data-anchor-hash] {
+  [data-anchor]:hover {
+    @apply underline;
+  }
+
+  [data-anchor]:hover [data-anchor-hash] {
     @apply opacity-100;
   }
 
   [data-anchor-hash] {
-    @apply opacity-40 transition-opacity duration-300;
+    @apply flex items-center justify-center opacity-0 transition-opacity duration-200 ease-out;
   }
 
   @keyframes fade-in-up {
