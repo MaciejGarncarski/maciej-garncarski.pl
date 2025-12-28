@@ -1,22 +1,23 @@
 ---
 import { Picture } from "astro:assets";
 import Layout from "../layouts/layout.astro";
-import notFound from "../assets/not-found.jpg";
+import notFound from "../assets/not-found.png";
 ---
 
 <Layout>
-  <figure class="mx-auto flex flex-col gap-6 text-center">
+  <figure
+    class="mx-auto flex h-[60dvh] flex-col items-center justify-center gap-8 text-center">
     <Picture
       formats={["avif", "webp"]}
       src={notFound}
-      width={512}
-      height={512}
-      class="w-full rounded"
+      width={256}
+      height={256}
+      class="w-64 rounded border border-gray-500/30 shadow"
       alt={"Kot trzymający tekst not found"}
     />
-    <figcaption>
+    <figcaption class="flex flex-col gap-4">
       <p>Strona, której szukasz, nie istnieje.</p>
+      <a href="/" class="underline">Kliknij, aby wrócić na stronę główną.</a>
     </figcaption>
-    <a href="/">Kliknij, aby wrócić na główną.</a>
   </figure>
 </Layout>
