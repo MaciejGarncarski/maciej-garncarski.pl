@@ -12,14 +12,23 @@ const { text } = Astro.props;
 
 const allBlogPosts = await getCollection("blog");
 const currPost = allBlogPosts.find((post) => post.data.title === text);
-const formattedPubDate = new Intl.DateTimeFormat("pl").format(
-  new Date(currPost?.data.pubDate || "")
-);
-const formattedUpdateDate = currPost?.data.updatedDate
-  ? new Intl.DateTimeFormat("pl").format(new Date(currPost.data.updatedDate))
-  : null;
-
 const readTime = calculateReadingTime(currPost?.body || "");
+
+const publishDate = new Intl.DateTimeFormat("pl-PL", {
+  year: "numeric",
+  month: "long",
+  day: "numeric"
+}).format(
+  currPost?.data.pubDate ? new Date(currPost.data.pubDate) : new Date()
+);
+
+const updateDate = currPost?.data.updatedDate
+  ? new Intl.DateTimeFormat("pl-PL", {
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    }).format(new Date(currPost.data.updatedDate))
+  : null;
 ---
 
 <header
@@ -65,19 +74,23 @@ const readTime = calculateReadingTime(currPost?.body || "");
       class="text-foreground z-50 max-w-[20rem] px-5 text-center text-xl font-bold md:max-w-full lg:max-w-[35rem] lg:text-2xl">
       {text}
     </h1>
-    <p class="text-center text-base">
-      🗓️
-      <time
-        datetime={new Date(currPost?.data.pubDate || "").toISOString()}
-        class="tracking-tighter lg:tracking-tight">
-        {formattedPubDate}
-      </time>
+    <p class="flex flex-col gap-1 text-center text-base">
+      <span>
+        🗓️
+        <time
+          itemprop="datePublished"
+          datetime={new Date(currPost?.data.pubDate || "").toISOString()}
+          class="tracking-tighter lg:tracking-tight">
+          {publishDate}
+        </time>
+      </span>
       {
         currPost?.data.updatedDate && (
           <time
+            itemprop="dateModified"
             datetime={new Date(currPost.data.updatedDate).toISOString()}
             class="tracking-tighter lg:tracking-tight">
-            &#40;aktualizacja: {formattedUpdateDate}&#41;
+            &#40;aktualizacja: {updateDate}&#41;
           </time>
         )
       }

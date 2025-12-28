@@ -24,8 +24,12 @@ const posts = (await getCollection("blog")).sort((a, b) => {
     <div class="grid gap-8">
       {
         posts.map((post) => {
-          const formattedTime = new Intl.DateTimeFormat("pl").format(
-            post.data.updatedDate || post.data.pubDate
+          const formattedTime = new Intl.DateTimeFormat("pl-PL", {
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+          }).format(
+            post.data.pubDate ? new Date(post.data.pubDate) : new Date()
           );
 
           return (
