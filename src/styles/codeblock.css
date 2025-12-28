@@ -10,6 +10,10 @@ pre[data-language] {
   @apply border-foreground/10 rounded-md border;
 }
 
+[data-rehype-pretty-code-figure] {
+  @apply my-4;
+}
+
 [data-rehype-pretty-code-figure] code {
   @apply w-full min-w-[100px] overflow-x-auto py-3 text-sm text-nowrap;
 }

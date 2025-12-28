@@ -19,16 +19,29 @@
     @apply text-foreground w-fit scroll-mt-8 items-center font-semibold;
   }
 
-  [data-blog-content] *:is(h2) {
-    @apply text-xl md:text-2xl;
+  [data-blog-content] > *:is(h2) {
+    @apply mt-8 mb-4 text-xl md:text-xl;
+  }
+
+  /* Remove top margin if it's the first child */
+  [data-blog-content] > *:is(h2):first-child {
+    @apply mt-0;
   }
 
   [data-blog-content] *:is(h3, h4, h5, h6) {
-    @apply text-lg md:text-xl;
+    @apply mt-8 mb-4 text-lg md:text-lg;
   }
 
   [data-blog-content] a:not(h1 a, h2 a, h3 a, h4 a, h5 a, h6) {
     @apply underline;
+  }
+
+  [data-blog-content] ul {
+    @apply marker:text-foreground/70 my-4 list-inside list-disc;
+  }
+
+  [data-blog-content] strong {
+    @apply text-foreground font-semibold;
   }
 
   [data-anchor] {
