@@ -60,11 +60,13 @@
     @apply flex gap-4;
   }
 
-  [data-anchor]:hover {
+  [data-anchor]:hover,
+  [data-anchor-link]:focus {
     @apply underline;
   }
 
-  [data-anchor]:hover [data-anchor-hash] {
+  [data-anchor]:hover [data-anchor-hash],
+  [data-anchor-link]:focus [data-anchor-hash] {
     @apply opacity-100;
   }
 

@@ -254,10 +254,14 @@ const skills = [
     skills.map(({ color, icon: Icon, name, link }) => {
       return (
         <li>
-          <a href={link} target="_blank" rel="noopener noreferrer">
+          <a
+            href={link}
+            target="_blank"
+            class="group block outline-none"
+            rel="noopener noreferrer">
             <figure
               style={`--bg-skill: ${color}`}
-              class="text-foreground flex items-center gap-3 rounded-md border border-(--bg-skill)/15 bg-(--bg-skill)/30 fill-white px-3 py-2 font-semibold text-ellipsis transition-transform ease-in-out hover:scale-97">
+              class="text-foreground flex items-center gap-3 rounded-md border border-(--bg-skill)/15 bg-(--bg-skill)/30 fill-white px-3 py-2 font-semibold text-ellipsis transition-all ease-out group-hover:bg-(--bg-skill)/35 group-focus:scale-95 group-focus:border-(--bg-skill)/95 hover:scale-97 hover:border-(--bg-skill)/95 hover:bg-(--bg-skill)/35">
               <div class="size-6 shrink-0">
                 <Icon />
               </div>
