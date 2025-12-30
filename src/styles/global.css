@@ -113,17 +113,17 @@
 
 @layer components {
   .glass {
-    @apply rounded-xl border border-gray-200/7 bg-gray-200/10 p-4 md:bg-gray-200/5 md:p-5;
+    @apply rounded-lg border border-gray-200/7 bg-gray-200/10 p-4 md:rounded-xl md:bg-gray-200/5 md:p-5;
     @apply md:shadow-[0_4px_30px_rgba(0,0,0,0.1)];
   }
 
   .glass-footer {
-    @apply rounded-xl border border-gray-200/7 bg-gray-200/10 px-4 py-3 md:bg-gray-200/5;
+    @apply rounded-lg border border-gray-200/7 bg-gray-200/10 px-4 py-3 md:rounded-xl md:bg-gray-200/5;
     @apply md:shadow-[0_4px_30px_rgba(0,0,0,0.1)];
   }
 
   .glass-blog-content {
-    @apply rounded-xl border border-gray-200/7 bg-gray-200/10 p-3 md:bg-gray-500/20 md:p-5;
+    @apply rounded-lg border border-gray-200/7 bg-gray-200/10 p-3 md:rounded-xl md:bg-gray-500/20 md:p-5;
     @apply md:shadow-[0_4px_30px_rgba(0,0,0,0.1)];
   }
 }
