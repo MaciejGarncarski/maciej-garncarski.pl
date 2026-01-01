@@ -17,10 +17,37 @@ const posts = (await getCollection("blog")).sort((a, b) => {
 
   return getTime(b) - getTime(a);
 });
+
+const allTags = new Set<string>();
+posts.forEach((post) => {
+  post.data.tags.forEach((tag) => allTags.add(tag));
+});
 ---
 
 <Layout>
   <div class="mx-auto flex w-full flex-col gap-8 pb-8 md:max-w-3xl md:gap-12">
+    <ul class="flex flex-wrap gap-3">
+      <li>
+        <a
+          href="/blog"
+          class="border-foreground/10 bg-foreground/15 text-foreground inline-block rounded-full border px-3 py-1 text-sm font-medium transition-colors duration-300">
+          Wszystkie
+        </a>
+      </li>
+      {
+        Array.from(allTags).map((tag) => {
+          return (
+            <li>
+              <a
+                href={"/blog/tags/" + tag}
+                class="border-foreground/5 bg-foreground/5 text-foreground/80 hover:bg-foreground/10 focus:bg-foreground/10 inline-block rounded-full border px-3 py-1 text-sm font-medium transition-colors duration-300">
+                # {tag}
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
     <div class="grid gap-8">
       {
         posts.map((post) => {

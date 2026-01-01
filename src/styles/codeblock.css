@@ -1,7 +1,7 @@
 @reference "./global.css";
 
 code:not([data-language]) {
-  @apply rounded border border-gray-200/10 bg-gray-700/80 px-2 py-0.25 break-all;
+  @apply rounded border border-gray-200/10 bg-gray-700/80 px-2 py-0 break-all;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
@@ -19,7 +19,7 @@ pre[data-language] {
 }
 
 [data-rehype-pretty-code-title] {
-  @apply relative top-2 -left-1 w-fit max-w-full rounded border border-gray-200/10 bg-gray-700/80 px-3 py-1 text-sm break-words;
+  @apply relative top-2 -left-1 w-fit max-w-full rounded-md border border-gray-200/10 bg-gray-700/90 px-3 py-1 text-sm break-words;
 }
 
 [data-rehype-pretty-code-caption] {
@@ -28,7 +28,7 @@ pre[data-language] {
 }
 
 [data-line] {
-  @apply bg-(--shiki-light-bg) px-3 leading-7;
+  @apply bg-(--shiki-light-bg) px-0 leading-7;
 }
 
 [data-code-line] {
@@ -52,9 +52,10 @@ pre[data-language] {
   content: counter(line);
   display: inline-block;
   text-align: right;
-  margin-left: 4px;
+  margin-left: 0.25rem;
   margin-right: 1rem;
   width: 2rem;
+  opacity: 0.4;
 }
 
 [data-diff="add"] {

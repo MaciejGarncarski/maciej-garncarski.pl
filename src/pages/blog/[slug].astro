@@ -33,8 +33,9 @@ const components = {
   <SEO
     slot="head"
     description={post.data.description}
-    title={post.data.title}
+    title={post.data.title + " | Maciej Garncarski"}
     keywords={post.data.keywords}
+    pubDate={(post.data.updatedDate || post.data.pubDate).toISOString()}
     ogImage={`/blog/${post.id}/og.png`}
   />
 

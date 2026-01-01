@@ -36,8 +36,13 @@
     @apply underline;
   }
 
+  
   [data-blog-content] p {
     @apply my-2 leading-7;
+  }
+
+  [data-blog-content] blockquote {
+    @apply my-6 border-l-4 border-l-foreground/20 pl-4 italic text-foreground/90 bg-foreground/5 py-2 rounded-r-md border border-foreground/5;
   }
 
   [data-blog-content] ul {

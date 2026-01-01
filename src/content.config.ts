@@ -7,6 +7,7 @@ const blog = defineCollection({
     z.object({
       title: z.string(),
       keywords: z.array(z.string()),
+      tags: z.array(z.string()),
       description: z.string(),
       pubDate: z.coerce.date(),
       updatedDate: z.coerce.date().optional(),

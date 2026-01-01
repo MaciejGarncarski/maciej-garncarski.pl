@@ -1,61 +1,72 @@
 ---
-const defaultTitle = "Maciej Garncarski";
-
+const defaultTitle = "Maciej Garncarski | Fullstack Developer";
 const defaultDescription =
-  "Specjalizuję się w tworzeniu nowoczesnych i wydajnych aplikacji internetowych. Moje doświadczenie obejmuje pracę z technologiami frontendowymi i backendowymi, co pozwala mi na dostarczanie kompleksowych rozwiązań dla klientów.";
-
-const defaultKeywords = [
-  "Strony internetowe",
-  "Fullstack",
-  "Full-stack",
-  "developer",
-  "internet",
-  "frontend",
-  "backend",
-  "postgres",
-  "redis",
-  "react",
-  "html",
-  "css",
-  "js",
-  "ts",
-  "tailwind",
-  "blog",
-  "NGINX",
-  "linux"
-];
+  "Blog o nowoczesnym frontendzie i backendzie. Skalowalne aplikacje, React, Node.js i architektura IT.";
 
 type Props = {
   title?: string;
   description?: string;
   keywords?: Array<string>;
-  canonicalUrl?: string;
   ogImage?: string;
+  pubDate?: string;
 };
 
 const {
   description = defaultDescription,
-  title = defaultTitle,
-  keywords = defaultKeywords,
-  ogImage = "https://maciej-garncarski.pl/og.png"
+  title,
+  keywords,
+  ogImage = "https://maciej-garncarski.pl/og.png",
+  pubDate
 } = Astro.props;
 
-const canonicalUrl = "https://maciej-garncarski.pl" + Astro.url.pathname;
+const fullTitle = title ? `${title} | Maciej Garncarski` : defaultTitle;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: title || defaultTitle,
+  description: description,
+  image: ogImage,
+  author: {
+    "@type": "Person",
+    name: "Maciej Garncarski",
+    url: "https://maciej-garncarski.pl"
+  },
+  datePublished: pubDate || new Date().toISOString(),
+  publisher: {
+    "@type": "Organization",
+    name: "Maciej Garncarski",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://maciej-garncarski.pl/favicon.svg"
+    }
+  },
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": canonicalUrl
+  }
+};
 ---
 
-<title>{title}</title>
+<title>{fullTitle}</title>
 <meta name="description" content={description} />
-<meta name="keywords" content={keywords.join(", ")} />
+{keywords && <meta name="keywords" content={keywords.join(", ")} />}
 <link rel="canonical" href={canonicalUrl} />
 
-<meta property="og:title" content={title} />
+<meta property="og:type" content={pubDate ? "article" : "website"} />
+<meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonicalUrl} />
-{ogImage && <meta property="og:image" content={ogImage} />}
+<meta property="og:image" content={ogImage} />
 
 <meta name="twitter:card" content="summary_large_image" />
-<meta property="twitter:domain" content="maciej-garncarski.pl" />
-<meta name="twitter:title" content={title} />
-<meta property="twitter:description" content={description} />
-{ogImage && <meta name="twitter:image" content={ogImage} />}
-<meta name="og:title" content={title} />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<script
+  type="application/ld+json"
+  is:inline
+  set:html={JSON.stringify(articleSchema)}
+/>
