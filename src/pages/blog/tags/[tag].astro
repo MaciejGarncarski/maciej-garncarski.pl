@@ -85,9 +85,9 @@ const filteredPosts = posts.filter((post) => post.data.tags.includes(tag));
                         month: "long",
                         day: "numeric"
                     }).format(
-                        post.data.pubDate
-                            ? new Date(post.data.pubDate)
-                            : new Date()
+                        post.data.updatedDate
+                            ? new Date(post.data.updatedDate)
+                            : new Date(post.data.pubDate)
                     );
 
                     return (
