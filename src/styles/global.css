@@ -36,7 +36,6 @@
     @apply underline;
   }
 
-  
   [data-blog-content] p {
     @apply my-2 leading-7;
   }

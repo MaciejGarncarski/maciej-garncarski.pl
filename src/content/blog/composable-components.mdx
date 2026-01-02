@@ -193,3 +193,40 @@ Przekazywanie komponentów jako propsów (np. `renderCustomActions`, `renderFoot
 Przejście na **Composable Components** wymaga zmiany myślenia z "konfigurowania" na "budowanie". Chociaż kod początkowy może wydawać się nieco obszerniejszy, zysk w postaci elastyczności i łatwości utrzymania w długim terminie jest nieoceniony.
 
 Zamiast budować sztywne "szwajcarskie scyzoryki", budujmy klocki LEGO, z których można stworzyć dowolną strukturę.
+
+## Bonus: Inteligentna Kompozycja (Slot-based Rendering)
+W niektórych przypadkach możemy chcieć, aby komponent bazowy miał pewne "inteligentne" zachowania dotyczące układu dzieci. Na przykład, możemy chcieć, aby `Profile.Avatar` zawsze był renderowany po lewej stronie, niezależnie od kolejności w kodzie.
+
+Standardowa kompozycja renderuje dzieci dokładnie tam, gdzie umieścił je programista. Czasami jednak chcemy wymusić spójność wizualną, np. bez względu na to, gdzie w kodzie wrzucimy Profile.Avatar, ma on zawsze wylądować po lewej stronie.
+
+
+```tsx showLineNumbers title="✅ Inteligentna Kompozycja z Sortowaniem Slotów"
+type Props = {
+  children: React.ReactNode;
+};
+
+const ProfileRoot = ({ children }: Props) => {
+  const childrenArray = Children.toArray(children) as React.ReactElement[];
+
+  // Wyłapujemy konkretne komponenty "po typie"
+  const avatarSlot = childrenArray.find(child => child.type === ProfileAvatar);
+  const infoSlot = childrenArray.find(child => child.type === ProfileInfo);
+  const actionsSlot = childrenArray.filter(child => child.type === 'button'); 
+
+  return (
+    <div className="flex items-center justify-between p-4 border rounded-lg">
+      <div className="flex items-center gap-4">
+        {/* Avatar zawsze będzie pierwszy, nawet jeśli w JSX daliśmy go na końcu */}
+        {avatarSlot}
+        {infoSlot}
+      </div>
+      
+      <div className="actions">
+        {actionsSlot}
+      </div>
+    </div>
+  );
+};
+```
+
+Ten pattern pozwala na ignorowanie nieznanych dzieci lub wyrzucanie błędów, jeśli wymagane sloty nie są dostarczone.
