@@ -94,9 +94,15 @@ Rozwiązaniem jest zastosowanie **Inversion of Control (Odwrócenie Sterowania)*
 Stosujemy tutaj wzorzec **Compound Components**, który pozwala na zachowanie spójności logicznej przy jednoczesnej elastyczności wizualnej.
 
 ```tsx showLineNumbers title="✅ Dobry Kod: Composable Components"
+import React from "react";
+
 interface Props {
   children: React.ReactNode;
   className?: string;
+}
+
+interface ChildrenOnly {
+  children: React.ReactNode;
 }
 
 // 1. Tworzymy reużywalne pod-komponenty, które mają jedną odpowiedzialność
@@ -108,7 +114,7 @@ const ProfileAvatar = ({ src }: { src: string }) => (
   <img src={src} className="w-12 h-12 rounded-full" />
 );
 
-const ProfileInfo = ({ children }: Props) => (
+const ProfileInfo = ({ children }: ChildrenOnly) => (
   <div className="flex flex-col justify-center">{children}</div>
 );
 
@@ -121,8 +127,8 @@ export const Profile = Object.assign(ProfileRoot, {
   Avatar: ProfileAvatar,
   Info: ProfileInfo,
   Status: ProfileStatus,
-  Name: ({ children }) => <h3 className="font-bold text-lg">{children}</h3>,
-  Role: ({ children }) => <p className="text-sm text-gray-500">{children}</p>,
+  Name: ({ children }: ChildrenOnly) => <h3 className="font-bold text-lg">{children}</h3>,
+  Role: ({ children }: ChildrenOnly) => <p className="text-sm text-gray-500">{children}</p>,
 });
 
 // --- UŻYCIE (Implementation Details) ---
@@ -201,17 +207,23 @@ Standardowa kompozycja renderuje dzieci dokładnie tam, gdzie umieścił je prog
 
 
 ```tsx showLineNumbers title="✅ Inteligentna Kompozycja z Sortowaniem Slotów"
-type Props = {
+import { Children, isValidElement, type ReactElement } from "react";
+// Zakładamy, że ProfileAvatar i ProfileInfo są eksportowane z pliku profile.tsx
+import { Profile } from "./profile";
+
+interface Props {
   children: React.ReactNode;
 };
-
-const ProfileRoot = ({ children }: Props) => {
-  const childrenArray = Children.toArray(children) as React.ReactElement[];
+ 
+export const ProfileRoot = ({ children }: Props) => {
+  const childrenArray = Children.toArray(children).filter(
+    (child): child is ReactElement => isValidElement(child)
+  );
 
   // Wyłapujemy konkretne komponenty "po typie"
-  const avatarSlot = childrenArray.find(child => child.type === ProfileAvatar);
-  const infoSlot = childrenArray.find(child => child.type === ProfileInfo);
-  const actionsSlot = childrenArray.filter(child => child.type === 'button'); 
+  const avatarSlot = childrenArray.find((child) => child.type === Profile.Avatar);
+  const infoSlot = childrenArray.find((child) => child.type ===  Profile.Info);
+  const actionsSlot = childrenArray.filter((child) => child.type === 'button'); 
 
   return (
     <div className="flex items-center justify-between p-4 border rounded-lg">
@@ -229,4 +241,4 @@ const ProfileRoot = ({ children }: Props) => {
 };
 ```
 
-Ten pattern pozwala na ignorowanie nieznanych dzieci lub wyrzucanie błędów, jeśli wymagane sloty nie są dostarczone.
+Ten pattern pozwala na ignorowanie nieznanych dzieci lub wyrzucanie błędów, jeśli wymagane sloty nie są dostarczone. Daje to jeszcze większą kontrolę nad strukturą komponentu, jednocześnie zachowując elastyczność kompozycji.

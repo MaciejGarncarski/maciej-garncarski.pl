@@ -2,7 +2,6 @@
 import { Picture } from "astro:assets";
 import { getCollection } from "astro:content";
 import { calculateReadingTime } from "../utils/calculate-read-time";
-import { Image } from "astro:assets";
 
 type Props = {
   text: string;
@@ -43,7 +42,7 @@ const updateDate = currPost?.data.updatedDate
           <Picture
             formats={["avif", "webp"]}
             src={currPost.data.heroImage}
-            alt={text}
+            alt={""}
             width={512}
             height={512}
             class="h-full w-full border mask-[url(/mask-test.svg)] mask-luminance mask-cover mask-center object-cover"
@@ -57,7 +56,7 @@ const updateDate = currPost?.data.updatedDate
           transition:name={`blog-image-${currPost.id}`}
           width={512}
           height={512}
-          alt={text}
+          alt={""}
           pictureAttributes={{
             class: "rounded-md h-42 w-42 overflow-hidden shadow-xl"
           }}
