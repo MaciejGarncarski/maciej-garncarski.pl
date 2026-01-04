@@ -37,6 +37,8 @@ const components = {
     keywords={post.data.keywords}
     pubDate={(post.data.updatedDate || post.data.pubDate).toISOString()}
     ogImage={`/blog/${post.id}/og.png`}
+    category={post.data.tags?.[0]}
+    tags={post.data.tags}
   />
 
   <article class="flex flex-col gap-4">

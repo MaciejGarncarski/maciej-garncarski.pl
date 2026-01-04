@@ -6,31 +6,7 @@ import { ClientRouter } from "astro:transitions";
 import Navigation from "../components/navigation.astro";
 import Footer from "../components/footer.astro";
 import SEO from "../components/seo.astro";
-import { Font, getImage } from "astro:assets";
-import { getCollection } from "astro:content";
-import coincontrol from "../assets/projects/coincontrol.png";
-import kanban from "../assets/projects/kanban.png";
-import landing from "../assets/projects/landing.png";
-import twitchChatBot from "../assets/projects/twitch-chat-bot.jpg";
-
-const allBlogPosts = await getCollection("blog");
-
-const blogPostImages = allBlogPosts.map(({ data }) => data.heroImage);
-const projectImages = [kanban, landing, twitchChatBot, coincontrol];
-const allImages = [...blogPostImages, ...projectImages];
-
-const optimizedImages = await Promise.all(
-  allImages.map(async (image) => {
-    const optimizedImage = await getImage({
-      src: image,
-      format: "webp",
-      width: 512,
-      height: 512
-    });
-
-    return optimizedImage;
-  })
-);
+import { Font } from "astro:assets";
 ---
 
 <!doctype html>
@@ -51,11 +27,6 @@ const optimizedImages = await Promise.all(
     <ClientRouter />
 
     <slot name="head">
-      {
-        optimizedImages.map((optimizedImage) => {
-          return <link rel="prefetch" href={optimizedImage.src} as="image" />;
-        })
-      }
       <SEO />
     </slot>
   </head>
