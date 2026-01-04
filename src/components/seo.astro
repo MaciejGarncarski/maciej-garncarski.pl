@@ -15,19 +15,22 @@ const {
   description = defaultDescription,
   title,
   keywords,
-  ogImage = "https://maciej-garncarski.pl/og.png",
+  ogImage = "/og.png", // Domyślnie relatywna ścieżka do public/og.png
   pubDate
 } = Astro.props;
 
 const fullTitle = title ? `${title} | Maciej Garncarski` : defaultTitle;
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site).toString();
+
+const fullOgImageUrl = new URL(ogImage, Astro.site).toString();
 
 const articleSchema = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   headline: title || defaultTitle,
   description: description,
-  image: ogImage,
+  image: fullOgImageUrl,
   author: {
     "@type": "Person",
     name: "Maciej Garncarski",
@@ -58,12 +61,12 @@ const articleSchema = {
 <meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonicalUrl} />
-<meta property="og:image" content={ogImage} />
+<meta property="og:image" content={fullOgImageUrl} />
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={fullTitle} />
 <meta name="twitter:description" content={description} />
-<meta name="twitter:image" content={ogImage} />
+<meta name="twitter:image" content={fullOgImageUrl} />
 
 <script
   type="application/ld+json"
