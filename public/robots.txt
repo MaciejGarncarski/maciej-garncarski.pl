@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://maciej-garncarski.pl/sitemap-index.xml%
+Sitemap: https://maciej-garncarski.pl/sitemap-index.xml
