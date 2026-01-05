@@ -1,16 +1,17 @@
 ---
 export const prerender = true;
 
-import "../../styles/codeblock.css";
-import { getCollection, type CollectionEntry } from "astro:content";
+import "@/styles/codeblock.css";
+import "@/styles/blog.css";
+import { type CollectionEntry } from "astro:content";
 import { render } from "astro:content";
-import Layout from "../../layouts/layout.astro";
-import BlogList from "../../components/blog-list.astro";
-import SEO from "../../components/seo.astro";
-import BlogHero from "../../components/blog-hero.astro";
+import Layout from "@layouts/layout.astro";
+import BlogHero from "@components/blog/blog-hero.astro";
+import SEO from "@components/seo.astro";
+import { getPosts } from "@/utils/get-posts";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog");
+  const posts = await getPosts();
 
   return posts.map((post) => ({
     params: { slug: post.id },
@@ -19,14 +20,8 @@ export async function getStaticPaths() {
 }
 
 type Props = CollectionEntry<"blog">;
-
 const post = Astro.props;
-
 const { Content } = await render(post);
-
-const components = {
-  ul: BlogList
-};
 ---
 
 <Layout>
@@ -44,9 +39,9 @@ const components = {
   <article class="flex flex-col gap-4">
     <BlogHero text={post.data.title} />
     <div
-      class="glass-blog-content animate-fade-in-up text-foreground/90 mx-auto max-w-full min-w-[40ch] pb-14 text-base leading-7 text-pretty md:max-w-[85ch] md:text-lg"
+      class="animate-fade-in-up mx-auto max-w-full min-w-[40ch] pb-14 text-base leading-7 text-pretty md:max-w-[85ch] md:text-lg"
       data-blog-content>
-      <Content components={components} />
+      <Content />
     </div>
   </article>
 </Layout>

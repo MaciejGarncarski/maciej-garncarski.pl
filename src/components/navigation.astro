@@ -1,8 +1,8 @@
 ---
-import { Image } from "astro:assets";
 import clsx from "clsx";
-import logoIcon from "../assets/logoIcon.png";
+import logoIcon from "@assets/logoIcon.png";
 import Picture from "astro/components/Picture.astro";
+import ThemeSwitcher from "@/components/theme-switcher.astro";
 
 type Link = {
   url: string;
@@ -29,17 +29,20 @@ const subpath = pathname.match(/[^/]+/g);
 ---
 
 <nav class="flex items-center justify-start px-0.5">
-  <a href="/">
-    <Picture
-      formats={["avif", "webp"]}
-      src={logoIcon}
-      alt="Maciej Garncarski Logo"
-      height={40}
-      width={40}
-      class={"size-10"}
-    />
-    <span class="sr-only">Strona główna</span>
-  </a>
+  <div class="flex items-center gap-4 md:gap-10">
+    <a href="/">
+      <Picture
+        formats={["avif", "webp"]}
+        src={logoIcon}
+        alt="Maciej Garncarski Logo"
+        height={40}
+        width={40}
+        class={"size-10 border border-border rounded-md"}
+      />
+      <span class="sr-only">Strona główna</span>
+    </a>
+    <ThemeSwitcher />
+  </div>
   <ul
     class="ml-auto flex gap-x-4 gap-y-4 tracking-tight lg:gap-x-8"
     transition:name="nav-menu">
@@ -58,10 +61,8 @@ const subpath = pathname.match(/[^/]+/g);
             <a
               href={n.url}
               class={clsx(
-                "rounded-md px-2 py-1 md:text-lg lg:px-3",
-                isActive || isBlogPageActive
-                  ? "bg-foreground text-background"
-                  : ""
+                "hover:bg-accent-muted rounded-md px-2 py-1 font-semibold transition-colors md:text-lg lg:px-3",
+                isActive || isBlogPageActive ? "bg-accent-muted" : ""
               )}>
               {n.text}
             </a>

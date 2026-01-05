@@ -1,0 +1,176 @@
+---
+
+---
+
+<button
+  data-theme-switcher
+  aria-label="Przełącz motyw"
+  title="Przełącz motyw"
+  class="border-border bg-background-secondary hover:bg-background-secondary/80 relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border transition-all duration-300 hover:scale-105 active:scale-95">
+  <span class="sr-only">Przełącz motyw</span>
+
+  <!-- Sun icon (light theme) -->
+  <svg
+    data-icon="sun"
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="absolute opacity-0 transition-all duration-300"
+    ><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"
+    ></line><line x1="12" y1="21" x2="12" y2="23"></line><line
+      x1="4.22"
+      y1="4.22"
+      x2="5.64"
+      y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"
+    ></line><line x1="1" y1="12" x2="3" y2="12"></line><line
+      x1="21"
+      y1="12"
+      x2="23"
+      y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"
+    ></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg
+  >
+
+  <!-- Moon icon (dark theme) -->
+  <svg
+    data-icon="moon"
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="absolute opacity-0 transition-all duration-300"
+    ><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg
+  >
+
+  <!-- Monitor icon (system theme) -->
+  <svg
+    data-icon="system"
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="absolute opacity-0 transition-all duration-300"
+    ><rect width="20" height="14" x="2" y="3" rx="2"></rect><line
+      x1="8"
+      x2="16"
+      y1="21"
+      y2="21"></line><line x1="12" x2="12" y1="17" y2="21"></line></svg
+  >
+</button>
+
+<script>
+  import type { TransitionBeforeSwapEvent } from "astro:transitions/client";
+
+  type Theme = "light" | "dark" | "system";
+
+  const DEFAULT_THEME: Theme = "system";
+
+  function initThemeSwitcher() {
+    const button = document.querySelector("[data-theme-switcher]");
+    if (!button) return;
+
+    const icons = {
+      sun: button.querySelector('[data-icon="sun"]'),
+      moon: button.querySelector('[data-icon="moon"]'),
+      system: button.querySelector('[data-icon="system"]')
+    };
+
+    function getStoredTheme(): Theme {
+      const stored = localStorage.getItem("theme");
+      if (stored === "light" || stored === "dark") return stored;
+      return "system";
+    }
+
+    function getEffectiveTheme(theme: Theme): "light" | "dark" {
+      if (theme === "light" || theme === "dark") return theme;
+      return window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+    }
+
+    function updateIcon(theme: Theme) {
+      Object.values(icons).forEach((icon) => {
+        icon?.classList.add("opacity-0", "rotate-90", "scale-0");
+        icon?.classList.remove("opacity-100", "rotate-0", "scale-100");
+      });
+
+      const activeIcon =
+        theme === "light"
+          ? icons.sun
+          : theme === "dark"
+            ? icons.moon
+            : icons.system;
+
+      activeIcon?.classList.remove("opacity-0", "rotate-90", "scale-0");
+      activeIcon?.classList.add("opacity-100", "rotate-0", "scale-100");
+    }
+
+    function setTheme(theme: Theme) {
+      const effectiveTheme = getEffectiveTheme(theme);
+      document.documentElement.className = effectiveTheme;
+
+      if (theme === "system") {
+        localStorage.removeItem("theme");
+      } else {
+        localStorage.setItem("theme", theme);
+      }
+
+      updateIcon(theme);
+    }
+
+    function cycleTheme() {
+      const current = getStoredTheme();
+      const next: Theme =
+        current === "light" ? "dark" : current === "dark" ? "system" : "light";
+      setTheme(next);
+    }
+
+    const initialTheme = getStoredTheme();
+    setTheme(initialTheme);
+
+    button.addEventListener("click", cycleTheme);
+
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", () => {
+        const theme = getStoredTheme();
+        if (theme === "system") {
+          setTheme("system");
+        }
+      });
+  }
+
+  document.addEventListener(
+    "astro:before-swap",
+    (swapEvent: TransitionBeforeSwapEvent) => {
+      const stored = localStorage.getItem("theme");
+      const theme =
+        stored === "light" || stored === "dark"
+          ? stored
+          : window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+
+      swapEvent.newDocument.documentElement.className = theme;
+    }
+  );
+
+  document.addEventListener("astro:after-swap", initThemeSwitcher);
+
+  initThemeSwitcher();
+</script>

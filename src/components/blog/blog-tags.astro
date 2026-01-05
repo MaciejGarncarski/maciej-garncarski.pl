@@ -1,0 +1,51 @@
+---
+import clsx from "clsx";
+import { getPostsSorted } from "@utils/get-posts-sorted";
+
+type Props = {
+  selectedTag?: string;
+};
+
+const posts = await getPostsSorted();
+
+const allTags = new Set<string>();
+
+posts.forEach((post) => {
+  post.data.tags.forEach((tag) => allTags.add(tag));
+});
+---
+
+<ul class="flex flex-wrap gap-3">
+  <li>
+    <a
+      href="/blog"
+      class={clsx(
+        !Astro.props.selectedTag
+          ? "border-accent/10 bg-accent/40 text-foreground"
+          : "border-accent/5 bg-accent/5 text-foreground/80 hover:bg-accent/30 focus:bg-accent/30",
+        "inline-block rounded-full border px-3 py-1 text-sm font-medium transition-colors duration-300"
+      )}>
+      Wszystkie
+    </a>
+  </li>
+  {
+    Array.from(allTags).map((tag) => {
+      const isActive = tag === Astro.props.selectedTag;
+
+      return (
+        <li>
+          <a
+            href={isActive ? "/blog" : "/blog/tags/" + tag}
+            class={clsx(
+              isActive
+                ? "border-accent/10 bg-accent/40 text-foreground"
+                : "border-accent/6 bg-accent/10 text-foreground/80 hover:bg-accent/30 focus:bg-accent/30",
+              "inline-block rounded-full border px-3 py-1 text-sm font-medium transition-colors duration-300"
+            )}>
+            # {tag}
+          </a>
+        </li>
+      );
+    })
+  }
+</ul>

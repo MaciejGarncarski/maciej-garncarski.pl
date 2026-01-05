@@ -1,94 +1,5 @@
 @import "tailwindcss";
-
-@theme {
-  --list-style-type-hyphen: "– ";
-  --background-image-blog-gradient: var(--blog-gradient);
-  --background-image-blog-hero-gradient: var(--blog-hero-gradient);
-
-  --color-success: var(--sucess);
-  --color-destructive: var(--destructive);
-
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-
-  --animate-fade-in-up: fade-in-up 0.5s ease-out forwards;
-}
-
-@layer components {
-  [data-blog-content] *:is(h2, h3, h4, h5, h6) {
-    @apply text-foreground w-fit scroll-mt-8 items-center font-semibold;
-  }
-
-  [data-blog-content] > *:is(h2) {
-    @apply mt-8 mb-4 text-xl md:text-xl;
-  }
-
-  /* Remove top margin if it's the first child */
-  [data-blog-content] > *:is(h2):first-child {
-    @apply mt-0;
-  }
-
-  [data-blog-content] *:is(h3, h4, h5, h6) {
-    @apply mt-8 mb-4 text-lg md:text-lg;
-  }
-
-  [data-blog-content] a:not(h1 a, h2 a, h3 a, h4 a, h5 a, h6) {
-    @apply underline;
-  }
-
-  [data-blog-content] p {
-    @apply my-2 leading-7;
-  }
-
-  [data-blog-content] blockquote {
-    @apply my-6 border-l-4 border-l-foreground/20 pl-4 italic text-foreground/90 bg-foreground/5 py-2 rounded-r-md border border-foreground/5;
-  }
-
-  [data-blog-content] ul {
-    @apply marker:text-foreground/70 my-4 flex list-inside list-disc flex-col gap-2;
-  }
-
-  [data-blog-content] ol {
-    @apply marker:text-foreground/70 my-4 flex list-inside list-decimal flex-col gap-2;
-  }
-
-  [data-blog-content] strong {
-    @apply text-foreground/95 font-semibold;
-  }
-
-  [data-anchor] {
-    @apply flex items-center justify-center gap-4;
-  }
-
-  [data-anchor-link] {
-    @apply flex gap-4;
-  }
-
-  [data-anchor]:hover,
-  [data-anchor-link]:focus {
-    @apply underline;
-  }
-
-  [data-anchor]:hover [data-anchor-hash],
-  [data-anchor-link]:focus [data-anchor-hash] {
-    @apply opacity-100;
-  }
-
-  [data-anchor-hash] {
-    @apply flex items-center justify-center opacity-0 transition-opacity duration-200 ease-out;
-  }
-
-  @keyframes fade-in-up {
-    0% {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-}
+@custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
   html {
@@ -100,34 +11,62 @@
   }
 
   :root {
+    color-scheme: light;
+
+    --background: oklch(98% 0.01 260);
+    --background-secondary: oklch(95% 0.015 260);
+
+    --foreground: oklch(18% 0.02 260);
+    --foreground-secondary: oklch(40% 0.02 260);
+    --foreground-body: oklch(32% 0.02 260);
+
+    --accent: oklch(62% 0.15 260);
+    --accent-muted: oklch(72% 0.08 260);
+
+    --color-code-green: oklch(60% 0.12 170 / 0.9);
+    --color-code-red: oklch(58% 0.15 25 / 0.9);
+
+    --border: oklch(88% 0.02 260);
+  }
+
+  :root.dark {
+    /* :root { */
     color-scheme: dark;
-    --background-base: 20.64% 0.025 274.13;
-    --background: oklch(var(--background-base));
 
-    --foreground-base: 92.64% 0.04 264.13;
-    --foreground: oklch(var(--foreground-base));
+    --background: oklch(12% 0.015 260);
+    --background-secondary: oklch(16% 0.02 260);
 
-    --color-success-base: 45% 0.07 180.11;
-    --color-success: oklch(var(--color-success-base) / 0.9);
+    --foreground: oklch(92% 0.02 260);
+    --foreground-secondary: oklch(72% 0.02 260);
+    --foreground-body: oklch(78% 0.02 260);
 
-    --color-destructive-base: 45% 0.095 10;
-    --color-destructive: oklch(var(--color-destructive-base));
+    --accent: oklch(68% 0.14 260);
+    --accent-muted: oklch(58% 0.08 260);
+
+    --color-code-green: oklch(60% 0.12 170 / 0.5);
+    --color-code-red: oklch(58% 0.15 25 / 0.9);
+
+    --border: oklch(25% 0.02 260);
   }
 }
 
-@layer components {
-  .glass {
-    @apply rounded-lg border border-gray-200/7 bg-gray-200/10 p-4 md:rounded-xl md:bg-gray-200/8 md:p-5;
-    @apply md:shadow-[0_4px_30px_rgba(0,0,0,0.1)];
-  }
+@theme {
+  --list-style-type-hyphen: "– ";
 
-  .glass-footer {
-    @apply rounded-lg border border-gray-200/7 bg-gray-200/10 px-4 py-3 md:rounded-xl md:bg-gray-200/8;
-    @apply md:shadow-[0_4px_30px_rgba(0,0,0,0.1)];
-  }
+  --color-code-green: var(--color-code-green);
+  --color-code-red: var(--color-code-red);
 
-  .glass-blog-content {
-    @apply rounded-lg border border-gray-200/7 bg-gray-200/10 p-3 md:rounded-xl md:bg-neutral-600/30 md:p-8;
-    @apply md:shadow-[0_4px_30px_rgba(0,0,0,0.1)];
-  }
+  --color-background: var(--background);
+  --color-background-secondary: var(--background-secondary);
+
+  --color-foreground: var(--foreground);
+  --color-foreground-secondary: var(--foreground-secondary);
+  --color-foreground-body: var(--foreground-body);
+
+  --color-accent: var(--accent);
+  --color-accent-muted: var(--accent-muted);
+
+  --color-border: var(--border);
+
+  --animate-fade-in-up: fade-in-up 0.5s ease-out forwards;
 }

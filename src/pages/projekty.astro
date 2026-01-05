@@ -1,9 +1,9 @@
 ---
-import Layout from "../layouts/layout.astro";
-import coincontrol from "../assets/projects/coincontrol.png";
-import kanban from "../assets/projects/kanban.png";
-import landing from "../assets/projects/landing.png";
-import twitchChatBot from "../assets/projects/twitch-chat-bot.jpg";
+import Layout from "@layouts/layout.astro";
+import coincontrol from "@assets/projects/coincontrol.png";
+import kanban from "@assets/projects/kanban.png";
+import landing from "@assets/projects/landing.png";
+import twitchChatBot from "@assets/projects/twitch-chat-bot.jpg";
 import { Picture } from "astro:assets";
 
 const projects = [
@@ -30,6 +30,7 @@ const projects = [
     description:
       "Bot na platformę Twitch, którego głównym zadaniem jest obsługa systemu song request. Projekt charakteryzuje się modułową budową, co umożliwia bezproblemowe implementowanie kolejnych funkcjonalności.",
     github: "https://github.com/MaciejGarncarski/twitch-chat-bot",
+    demo: "https://bot.maciej-garncarski.pl/",
     tags: ["Bun", "Elysia", "React", "WebSocket"],
     image: twitchChatBot
   },
@@ -46,30 +47,22 @@ const projects = [
 ---
 
 <Layout>
-  <h1
-    class="text-foreground text-left text-2xl font-bold text-balance lg:text-3xl">
+  <h2
+    class="text-foreground mx-auto w-full max-w-[50rem] text-2xl font-semibold">
     Moje najciekawsze projekty
-  </h1>
-  <ul class="grid gap-12 lg:grid-cols-2">
+  </h2>
+
+  <ul class="mx-auto grid max-w-[50rem] gap-12">
     {
       projects.map((project) => {
         return (
           <li class="h-full">
-            <article class="glass flex h-full flex-col gap-8">
+            <article class="border-border bg-background-secondary flex h-full flex-col gap-8 rounded-lg border p-4">
               <header class="aling-center z-40 flex items-start justify-between text-base">
                 <h2 class="text-2xl font-semibold text-pretty">
                   {project.title}
                 </h2>
               </header>
-              <div class="flex flex-wrap gap-2">
-                {project.tags.map((tag) => {
-                  return (
-                    <span class="bg-foreground text-background rounded-md px-2 py-1 text-sm font-semibold text-pretty md:text-base">
-                      {tag}
-                    </span>
-                  );
-                })}
-              </div>
               <div class="flex h-full flex-col gap-4">
                 {project.image ? (
                   <Picture
@@ -80,26 +73,64 @@ const projects = [
                     class="border-foreground/10 mx-auto w-auto grow rounded-md border object-contain lg:shadow"
                   />
                 ) : (
-                  <div class="border-foreground/10 bg-background/20 text-foreground/80 mx-auto flex h-40 w-full grow items-center justify-center rounded-md border text-center md:h-72 lg:shadow">
+                  <div class="border-foreground/10 bg-background/20 mx-auto flex h-40 w-full grow items-center justify-center rounded-md border text-center md:h-72 lg:shadow">
                     <p>Brak podglądu</p>
                   </div>
                 )}
-                <p class="text-foreground/85 min-h-16 text-left text-base">
+                <div class="flex flex-wrap gap-2" role="list">
+                  {project.tags.map((tag) => (
+                    <span
+                      role="listitem"
+                      class="border-accent/10 bg-accent/40 hover:bg-accent/60 text-foreground inline-flex cursor-pointer items-center justify-center rounded-md px-3 py-1 text-sm font-semibold transition-colors duration-200 md:text-base">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <p class="text-foreground-body min-h-16 text-left text-base">
                   {project.description}
                 </p>
-                <div class="mt-auto flex gap-4 font-semibold md:gap-8 md:text-lg">
+                <div class="mt-auto flex gap-4 font-semibold md:gap-6">
                   {project.demo ? (
                     <a
                       href={project.demo}
-                      class="border-foreground/8 bg-background/15 inline-block rounded-md border px-4 py-1 text-pretty"
+                      class="bg-accent-muted/50 flex items-center justify-center gap-2 rounded-md px-3 py-1 text-center"
                       target="_blank">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="lucide lucide-globe-icon lucide-globe">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+                        <path d="M2 12h20" />
+                      </svg>
                       Demo
                     </a>
                   ) : null}
                   <a
                     href={project.github}
-                    class="border-foreground/8 bg-background/15 inline-block rounded-md border px-4 py-1 text-pretty"
+                    class="bg-accent-muted/50 flex items-center justify-center gap-2 rounded-md px-3 py-1 text-center"
                     target="_blank">
+                    <svg
+                      role="img"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <>
+                        <title>GitHub</title>
+                        <path
+                          fill="currentColor"
+                          d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+                        />
+                      </>
+                    </svg>
                     GitHub
                   </a>
                 </div>

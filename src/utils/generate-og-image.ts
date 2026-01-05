@@ -6,8 +6,13 @@ type OgImage = {
   title: string;
 };
 
-const bgGradient =
-  "radial-gradient(circle at 57% 69%, hsla(220, 77%, 32%, 1) 8%, transparent 83%), radial-gradient(circle at 98% 39%, hsla(261, 70%, 22%, 1) 1%, transparent 80%), radial-gradient(circle at 35% 56%, hsla(170, 85%, 27%, 1) 12%, transparent 83%), radial-gradient(circle at 70% 82%, hsla(214, 92%, 27%, 1) 18%, transparent 71%), radial-gradient(circle at 40% 84%, hsla(169, 64%, 44%, 1) 6%, transparent 72%);";
+const bgGradient = `
+  radial-gradient(circle at 57% 69%, hsla(220, 77%, 25%, 1) 8%, transparent 83%),
+  radial-gradient(circle at 98% 39%, hsla(261, 70%, 22%, 1) 1%, transparent 80%),
+  radial-gradient(circle at 35% 56%, hsla(170, 85%, 22%, 1) 12%, transparent 83%),
+  radial-gradient(circle at 70% 82%, hsla(214, 92%, 22%, 1) 18%, transparent 71%),
+  radial-gradient(circle at 40% 84%, hsla(169, 64%, 30%, 1) 6%, transparent 72%)
+`;
 
 export async function generateOgImage({ imageBuffer, title }: OgImage) {
   const imageBase64 = `data:image/png;base64,${imageBuffer.toString("base64")}`;

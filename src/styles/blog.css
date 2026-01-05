@@ -1,0 +1,79 @@
+@reference "./global.css";
+
+[data-blog-content] *:is(h2, h3, h4, h5, h6) {
+  @apply text-foreground w-fit scroll-mt-8 items-center font-semibold;
+}
+
+[data-blog-content] > *:is(h2) {
+  @apply mt-12 mb-4 text-xl md:text-xl;
+}
+
+/* Remove top margin if it's the first child */
+[data-blog-content] > *:is(h2):first-child {
+  @apply mt-0;
+}
+
+[data-blog-content] *:is(h3, h4, h5, h6) {
+  @apply mt-10 mb-4 text-lg md:text-lg;
+}
+
+[data-blog-content] a:not(h1 a, h2 a, h3 a, h4 a, h5 a, h6) {
+  @apply underline;
+}
+
+[data-blog-content] p {
+  @apply text-foreground-body my-5 leading-7;
+}
+
+[data-blog-content] blockquote {
+  @apply border-l-accent/40 text-accent-muted bg-accent/10 border-accent/15 my-10 rounded-r-md border border-l-4 py-8 pr-2 pl-4;
+}
+
+[data-blog-content] blockquote p {
+  @apply m-0 leading-8 italic;
+}
+
+[data-blog-content] ul {
+  @apply marker:text-foreground/70 text-foreground-body list-hyphen my-8 flex list-inside flex-col gap-6;
+}
+
+[data-blog-content] ol {
+  @apply marker:text-foreground/70 text-foreground-body my-8 flex list-inside list-decimal flex-col gap-6;
+}
+
+[data-blog-content] strong {
+  @apply text-foreground/95 font-semibold;
+}
+
+[data-anchor] {
+  @apply flex items-center justify-center gap-4;
+}
+
+[data-anchor-link] {
+  @apply flex gap-4;
+}
+
+[data-anchor]:hover,
+[data-anchor-link]:focus {
+  @apply underline;
+}
+
+[data-anchor]:hover [data-anchor-hash],
+[data-anchor-link]:focus [data-anchor-hash] {
+  @apply opacity-100;
+}
+
+[data-anchor-hash] {
+  @apply flex items-center justify-center opacity-0 transition-opacity duration-200 ease-out;
+}
+
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

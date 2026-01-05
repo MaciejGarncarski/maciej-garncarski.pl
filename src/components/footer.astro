@@ -1,8 +1,8 @@
 ---
 import type { ImageMetadata } from "astro";
-import github from "../assets/github.svg";
-import xIcon from "../assets/x.svg";
-import linkedin from "../assets/linkedin.svg";
+import github from "@assets/github.svg";
+import xIcon from "@assets/x.svg";
+import linkedin from "@assets/linkedin.svg";
 import { Picture } from "astro:assets";
 
 type Social = {
@@ -31,9 +31,9 @@ const socials: Array<Social> = [
 ---
 
 <footer
-  class="mx-auto mt-4 flex max-w-[75rem] flex-col items-center justify-between gap-4 lg:mt-8 lg:flex-row"
+  class="mx-auto mt-10 flex max-w-[75rem] flex-col items-center justify-between gap-4 md:mt-24 lg:flex-row"
   transition:name="footer">
-  <div class="glass-footer flex h-[5rem] w-[15rem] flex-col gap-4 md:w-[15rem]">
+  <div class="flex w-[15rem] flex-col gap-4">
     <div class="flex justify-center gap-6 md:justify-start">
       {
         socials.map((s) => {
@@ -44,7 +44,7 @@ const socials: Array<Social> = [
                 alt=""
                 width="24"
                 height="24"
-                class="h-5 invert-100 lg:h-6"
+                class="h-5 lg:h-6 dark:invert-100"
               />
               <span class="sr-only">{s.name}</span>
             </a>
@@ -61,7 +61,7 @@ const socials: Array<Social> = [
     </p>
   </div>
 
-  <div class="glass-footer flex h-[5rem] w-[15rem] flex-col gap-4 md:w-[15rem]">
+  <div class="flex w-[15rem] flex-col gap-4">
     <p class="text-center text-sm lg:ml-auto lg:text-right">
       &copy; 2026 Maciej Garncarski
     </p>

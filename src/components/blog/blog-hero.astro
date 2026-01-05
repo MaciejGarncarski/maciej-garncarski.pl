@@ -1,7 +1,7 @@
 ---
 import { Picture } from "astro:assets";
-import { getCollection } from "astro:content";
-import { calculateReadingTime } from "../utils/calculate-read-time";
+import { calculateReadingTime } from "@utils/calculate-read-time";
+import { getPosts } from "@/utils/get-posts";
 
 type Props = {
   text: string;
@@ -9,7 +9,7 @@ type Props = {
 
 const { text } = Astro.props;
 
-const allBlogPosts = await getCollection("blog");
+const allBlogPosts = await getPosts();
 const currPost = allBlogPosts.find((post) => post.data.title === text);
 const readTime = calculateReadingTime(currPost?.body || "");
 
@@ -37,8 +37,8 @@ const updateDate = currPost?.data.updatedDate
       <>
         <div
           data-blog-hero-bg
-          class="absolute top-0 left-0 -z-10 mx-auto hidden h-full w-full opacity-4 blur-xl md:block md:rounded-4xl md:blur-3xl">
-          <div class="bg-blog-hero-gradient absolute top-0 left-0 h-full w-full" />
+          class="absolute top-0 left-0 -z-10 mx-auto hidden h-full w-full opacity-4 blur-xl md:block md:rounded-4xl md:blur-2xl">
+          <div class="absolute top-0 left-0 h-full w-full" />
           <Picture
             formats={["avif", "webp"]}
             src={currPost.data.heroImage}
@@ -70,7 +70,7 @@ const updateDate = currPost?.data.updatedDate
     class="z-30 flex flex-col gap-2 text-center text-balance"
     transition:name={`blog-header-${currPost?.id}`}>
     <h1
-      class="text-foreground z-50 max-w-[20rem] px-5 text-center text-xl font-bold md:max-w-full lg:max-w-[35rem] lg:text-2xl">
+      class="z-50 max-w-[20rem] px-5 text-center text-xl font-bold md:max-w-full lg:max-w-[35rem] lg:text-2xl">
       {text}
     </h1>
     <p class="flex flex-col gap-1 text-center text-base">
@@ -106,7 +106,7 @@ const updateDate = currPost?.data.updatedDate
     }
 
     100% {
-      opacity: 0.3;
+      opacity: 0.1;
       transform: scale(1);
     }
   }

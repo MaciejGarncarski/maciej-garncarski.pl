@@ -1,17 +1,17 @@
 @reference "./global.css";
 
 code:not([data-language]) {
-  @apply rounded border border-gray-200/10 bg-gray-700/80 px-2 py-0 break-all;
+  @apply rounded-md bg-[#1b1e28] px-2 py-0.5 wrap-break-word text-white;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
 
 pre[data-language] {
-  @apply border-foreground/10 rounded-md border;
+  @apply rounded-md;
 }
 
 [data-rehype-pretty-code-figure] {
-  @apply my-4;
+  @apply my-10;
 }
 
 [data-rehype-pretty-code-figure] code {
@@ -19,7 +19,7 @@ pre[data-language] {
 }
 
 [data-rehype-pretty-code-title] {
-  @apply relative top-2 -left-1 w-fit max-w-full rounded-md border border-gray-200/10 bg-gray-700/90 px-3 py-1 text-sm break-words;
+  @apply relative top-2.5 w-fit max-w-full rounded-md bg-[#1b1e28] px-4 py-2 text-base wrap-break-word text-white;
 }
 
 [data-rehype-pretty-code-caption] {
@@ -59,7 +59,7 @@ pre[data-language] {
 }
 
 [data-diff="add"] {
-  @apply bg-success/40 border-success/80 border-l-4;
+  @apply bg-code-green/40 border-code-green/80 border-l-4;
 }
 
 [data-rehype-pretty-code-figure]
@@ -75,7 +75,7 @@ pre[data-language] {
 }
 
 [data-diff="remove"] {
-  @apply bg-destructive/40 border-destructive/80 border-l-4;
+  @apply bg-code-red/40 border-code-red/80 border-l-4;
 }
 
 [data-rehype-pretty-code-figure]

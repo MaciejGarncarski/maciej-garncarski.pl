@@ -1,12 +1,12 @@
 import type { APIRoute } from "astro";
-import { generateOgImage } from "../../../utils/generate-og-image";
-import { getCollection } from "astro:content";
+import { generateOgImage } from "@utils/generate-og-image";
 import { readFileSync } from "node:fs";
+import { getPosts } from "@/utils/get-posts";
 
 export const prerender = true;
 
 export const GET: APIRoute = async ({ params }) => {
-  const posts = await getCollection("blog");
+  const posts = await getPosts();
   const post = posts.find((p) => p.id === params.slug);
 
   if (!post) {
@@ -20,6 +20,7 @@ export const GET: APIRoute = async ({ params }) => {
     title: post.data.title
   });
 
+  // @ts-ignore
   return new Response(imageBuffer, {
     headers: {
       "Content-Type": "image/png"
@@ -28,7 +29,7 @@ export const GET: APIRoute = async ({ params }) => {
 };
 
 export async function getStaticPaths() {
-  const blogPosts = await getCollection("blog");
+  const blogPosts = await getPosts();
   return blogPosts.map((post) => ({
     params: { slug: post.id },
     props: { post }

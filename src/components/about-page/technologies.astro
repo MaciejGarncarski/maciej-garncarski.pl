@@ -1,54 +1,54 @@
 ---
 import type { AstroComponentFactory } from "astro/runtime/server/index.js";
-import html from "../technologies/html.astro";
-import css from "../technologies/css.astro";
-import javascript from "../technologies/javascript.astro";
-import react from "../technologies/react.astro";
-import typescript from "../technologies/typescript.astro";
-import tailwindcss from "../technologies/tailwind.astro";
-import nextdotjs from "../technologies/next.astro";
-import tanstack from "../technologies/tanstack.astro";
-import astroicon from "../technologies/astroicon.astro";
-import nodedotjs from "../technologies/node.astro";
-import linux from "../technologies/linux.astro";
-import shadcn from "../technologies/shadcnui.astro";
-import bun from "../technologies/bun.astro";
-import socketio from "../technologies/socketdotio.astro";
-import fastify from "../technologies/fastify.astro";
-import express from "../technologies/express.astro";
-import nestjs from "../technologies/nestjs.astro";
-import cypress from "../technologies/cypress.astro";
-import jest from "../technologies/jest.astro";
-import vitest from "../technologies/vitest.astro";
-import vite from "../technologies/vite.astro";
-import docker from "../technologies/docker.astro";
-import prisma from "../technologies/prisma.astro";
-import drizzle from "../technologies/drizzle.astro";
-import zod from "../technologies/zod.astro";
-import postgresql from "../technologies/postgresql.astro";
-import figma from "../technologies/figma.astro";
-import nginx from "../technologies/nginx.astro";
-import eslint from "../technologies/eslint.astro";
-import prettier from "../technologies/prettier.astro";
-import redis from "../technologies/redis.astro";
-import testinglib from "../technologies/testinglibrary.astro";
-import git from "../technologies/git.astro";
-import mantine from "../technologies/mantine.astro";
-import chakraui from "../technologies/chakra.astro";
-import pnpm from "../technologies/pnpm.astro";
-import turborepo from "../technologies/turborepo.astro";
-import storybook from "../technologies/storybook.astro";
-import swagger from "../technologies/swagger.astro";
-import nx from "../technologies/nx.astro";
+import html from "@components/technologies/html.astro";
+import css from "@components/technologies/css.astro";
+import javascript from "@components/technologies/javascript.astro";
+import react from "@components/technologies/react.astro";
+import typescript from "@components/technologies/typescript.astro";
+import tailwindcss from "@components/technologies/tailwind.astro";
+import nextdotjs from "@components/technologies/next.astro";
+import tanstack from "@components/technologies/tanstack.astro";
+import astroicon from "@components/technologies/astroicon.astro";
+import nodedotjs from "@components/technologies/node.astro";
+import linux from "@components/technologies/linux.astro";
+import shadcn from "@components/technologies/shadcnui.astro";
+import bun from "@components/technologies/bun.astro";
+import socketio from "@components/technologies/socketdotio.astro";
+import fastify from "@components/technologies/fastify.astro";
+import express from "@components/technologies/express.astro";
+import nestjs from "@components/technologies/nestjs.astro";
+import cypress from "@components/technologies/cypress.astro";
+import jest from "@components/technologies/jest.astro";
+import vitest from "@components/technologies/vitest.astro";
+import vite from "@components/technologies/vite.astro";
+import docker from "@components/technologies/docker.astro";
+import prisma from "@components/technologies/prisma.astro";
+import drizzle from "@components/technologies/drizzle.astro";
+import zod from "@components/technologies/zod.astro";
+import postgresql from "@components/technologies/postgresql.astro";
+import figma from "@components/technologies/figma.astro";
+import nginx from "@components/technologies/nginx.astro";
+import eslint from "@components/technologies/eslint.astro";
+import prettier from "@components/technologies/prettier.astro";
+import redis from "@components/technologies/redis.astro";
+import testinglib from "@components/technologies/testinglibrary.astro";
+import git from "@components/technologies/git.astro";
+import mantine from "@components/technologies/mantine.astro";
+import chakraui from "@components/technologies/chakra.astro";
+import pnpm from "@components/technologies/pnpm.astro";
+import turborepo from "@components/technologies/turborepo.astro";
+import storybook from "@components/technologies/storybook.astro";
+import swagger from "@components/technologies/swagger.astro";
+import nx from "@components/technologies/nx.astro";
 
-type Skill = {
+type Technology = {
   name: string;
   color: string;
   icon: AstroComponentFactory;
   link: string;
 };
 
-const skills = [
+const technologies: Technology[] = [
   {
     name: "HTML",
     color: "#E34F26",
@@ -244,14 +244,14 @@ const skills = [
     icon: swagger,
     link: "https://swagger.io"
   }
-] satisfies Skill[];
+];
 ---
 
 <h2 class="text-2xl font-semibold">Technologie 🛠️</h2>
 <ul
   class="lg:grid-cols- grid grid-cols-2 gap-2 md:grid-cols-5 lg:grid-cols-6 lg:gap-3">
   {
-    skills.map(({ color, icon: Icon, name, link }) => {
+    technologies.map(({ color, icon: Icon, name, link }) => {
       return (
         <li>
           <a
@@ -261,8 +261,8 @@ const skills = [
             rel="noopener noreferrer">
             <figure
               style={`--bg-skill: ${color}`}
-              class="text-foreground flex items-center gap-3 rounded-md border border-(--bg-skill)/15 bg-(--bg-skill)/30 fill-white px-3 py-2 font-semibold text-ellipsis transition-all ease-out group-hover:bg-(--bg-skill)/35 group-focus:scale-95 group-focus:border-(--bg-skill)/95 hover:scale-97 hover:border-(--bg-skill)/95 hover:bg-(--bg-skill)/35">
-              <div class="size-6 shrink-0">
+              class="border-foreground/10 bg-accent/10 flex items-center gap-3 rounded-md border fill-white px-3 py-2 font-semibold text-ellipsis transition-all ease-out group-hover:bg-(--bg-skill)/25 group-focus:scale-98 group-focus:border-(--bg-skill)/30 hover:scale-97 hover:border-(--bg-skill)/25 hover:bg-(--bg-skill)/35 dark:bg-(--bg-skill)/30">
+              <div class="dark:text-foreground-body relative size-6 shrink-0 text-(--bg-skill)">
                 <Icon />
               </div>
               <figcaption class="truncate">{name}</figcaption>

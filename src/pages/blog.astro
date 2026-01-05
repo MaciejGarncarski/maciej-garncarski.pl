@@ -1,100 +1,18 @@
 ---
 export const prerender = true;
 
-import { Picture } from "astro:assets";
-import { getCollection } from "astro:content";
-import Layout from "../layouts/layout.astro";
-import type { InferEntrySchema } from "astro:content";
+import Layout from "@layouts/layout.astro";
+import BlogList from "@components/blog/blog-list.astro";
+import BlogTags from "@components/blog/blog-tags.astro";
+import BlogContainer from "@components/blog/blog-container.astro";
+import { getPostsSorted } from "@/utils/get-posts-sorted";
 
-const posts = (await getCollection("blog")).sort((a, b) => {
-  const getTime = (post: { data: InferEntrySchema<"blog"> }) => {
-    return post.data.updatedDate
-      ? new Date(post.data.updatedDate).getTime()
-      : post.data.pubDate
-        ? new Date(post.data.pubDate).getTime()
-        : 0;
-  };
-
-  return getTime(b) - getTime(a);
-});
-
-const allTags = new Set<string>();
-posts.forEach((post) => {
-  post.data.tags.forEach((tag) => allTags.add(tag));
-});
+const posts = await getPostsSorted();
 ---
 
 <Layout>
-  <div class="mx-auto flex w-full flex-col gap-8 pb-8 md:max-w-3xl md:gap-12">
-    <ul class="flex flex-wrap gap-3">
-      <li>
-        <a
-          href="/blog"
-          class="border-foreground/10 bg-foreground/15 text-foreground inline-block rounded-full border px-3 py-1 text-sm font-medium transition-colors duration-300">
-          Wszystkie
-        </a>
-      </li>
-      {
-        Array.from(allTags).map((tag) => {
-          return (
-            <li>
-              <a
-                href={"/blog/tags/" + tag}
-                class="border-foreground/5 bg-foreground/5 text-foreground/80 hover:bg-foreground/10 focus:bg-foreground/10 inline-block rounded-full border px-3 py-1 text-sm font-medium transition-colors duration-300">
-                # {tag}
-              </a>
-            </li>
-          );
-        })
-      }
-    </ul>
-    <div class="grid gap-8">
-      {
-        posts.map((post) => {
-          const formattedTime = new Intl.DateTimeFormat("pl-PL", {
-            year: "numeric",
-            month: "long",
-            day: "numeric"
-          }).format(
-            post.data.updatedDate
-              ? new Date(post.data.updatedDate)
-              : new Date(post.data.pubDate)
-          );
-
-          return (
-            <a
-              href={"/blog/" + post.id}
-              transition:name={`blog-header-${post.id}`}
-              class="inline-block h-full transition-transform duration-300 lg:hover:scale-[0.99] lg:focus:scale-[0.98]">
-              <article class="glass relative flex h-full min-h-42 flex-row items-center justify-between gap-4 overflow-hidden md:gap-8">
-                <header class="flex flex-col gap-2">
-                  <h2 class="text-foreground z-20 text-lg font-semibold text-pretty lg:text-xl">
-                    {post.data.title}
-                  </h2>
-                  <p class="text-foreground/85 relative text-base font-semibold lg:text-base">
-                    <time datetime={formattedTime}>{formattedTime}</time>
-                  </p>
-                  <p class="text-foreground/80 z-20 text-base text-pretty lg:max-w-[28rem]">
-                    {post.data.description}
-                  </p>
-                </header>
-
-                <div class="hidden shrink-0 lg:flex lg:items-center">
-                  <Picture
-                    formats={["avif", "webp"]}
-                    transition:name={`blog-image-${post.id}`}
-                    src={post.data.heroImage}
-                    width={256}
-                    height={256}
-                    alt={""}
-                    class="border-foreground/10 h-24 w-24 rounded-lg border lg:h-32 lg:w-32"
-                  />
-                </div>
-              </article>
-            </a>
-          );
-        })
-      }
-    </div>
-  </div>
+  <BlogContainer>
+    <BlogTags />
+    <BlogList posts={posts} />
+  </BlogContainer>
 </Layout>
