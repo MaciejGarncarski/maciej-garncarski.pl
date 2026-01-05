@@ -1,14 +1,7 @@
 import satori from "satori";
 import { Resvg } from "@resvg/resvg-js";
 
-type OgImage = {
-  imageBuffer: Buffer;
-  title: string;
-};
-
-export async function generateOgImage({ imageBuffer, title }: OgImage) {
-  const imageBase64 = `data:image/png;base64,${imageBuffer.toString("base64")}`;
-
+export async function generateOgBasic() {
   const svg = await satori(
     {
       type: "div",
@@ -25,34 +18,18 @@ export async function generateOgImage({ imageBuffer, title }: OgImage) {
           textWrap: "balance",
           color: "white",
           backgroundColor: "hsla(262, 82%, 3%, 1)",
-          fontSize: 48,
+          fontSize: 64,
           fontWeight: "bold",
           padding: "60px",
           textAlign: "center"
         },
-
         children: [
           {
             type: "img",
             props: {
               src: "https://maciej-garncarski.pl/favicon.png",
-              width: 52,
-              height: 52,
-              style: {
-                borderRadius: "0.5rem",
-                objectFit: "contain",
-                position: "absolute",
-                right: "30px",
-                bottom: "30px"
-              }
-            }
-          },
-          {
-            type: "img",
-            props: {
-              src: imageBase64,
-              width: 300,
-              height: 300,
+              width: 200,
+              height: 200,
               style: {
                 borderRadius: "0.5rem",
                 objectFit: "contain"
@@ -72,7 +49,7 @@ export async function generateOgImage({ imageBuffer, title }: OgImage) {
                 alignItems: "center",
                 textAlign: "center"
               },
-              children: title
+              children: "Maciej Garncarski"
             }
           }
         ]
@@ -85,7 +62,7 @@ export async function generateOgImage({ imageBuffer, title }: OgImage) {
         {
           name: "Geist",
           weight: 900,
-          data: await loadGoogleFont("Montserrat", title),
+          data: await loadGoogleFont("Montserrat", "Maciej Garncarski"),
           style: "normal"
         }
       ]
