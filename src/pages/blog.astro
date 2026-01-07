@@ -6,11 +6,25 @@ import BlogList from "@components/blog/blog-list.astro";
 import BlogTags from "@components/blog/blog-tags.astro";
 import BlogContainer from "@components/blog/blog-container.astro";
 import { getPostsSorted } from "@/utils/get-posts-sorted";
+import Seo from "@/components/seo.astro";
 
 const posts = await getPostsSorted();
+
+const seoData = {
+  title: "Blog",
+  description:
+    "Przeglądaj najnowsze artykuły, aktualizacje i wiadomości na moim blogu.",
+  keywords: ["blog", "articles", "updates", "news"]
+};
 ---
 
 <Layout>
+  <Seo
+    slot="head"
+    description={seoData.description}
+    title={seoData.title}
+    keywords={seoData.keywords}
+  />
   <BlogContainer>
     <BlogTags />
     <BlogList posts={posts} />

@@ -8,6 +8,7 @@ import BlogTags from "@/components/blog/blog-tags.astro";
 import BlogList from "@/components/blog/blog-list.astro";
 import { getPostsSorted } from "@/utils/get-posts-sorted";
 import { getPosts } from "@/utils/get-posts";
+import Seo from "@/components/seo.astro";
 
 export async function getStaticPaths() {
   const posts = await getPosts();
@@ -34,9 +35,21 @@ posts.forEach((post) => {
 });
 
 const filteredPosts = posts.filter((post) => post.data.tags.includes(tag));
+
+const seoData = {
+  title: `#${tag}`,
+  description: `Przeglądaj artykuły oznaczone tagiem "${tag}" na moim blogu.`,
+  keywords: ["blog", "articles", "updates", "news", tag]
+};
 ---
 
 <Layout>
+  <Seo
+    slot="head"
+    description={seoData.description}
+    title={seoData.title}
+    keywords={seoData.keywords}
+  />
   <BlogContainer>
     <BlogTags selectedTag={tag} />
     <BlogList posts={filteredPosts} />
