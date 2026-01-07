@@ -40,7 +40,7 @@ const { post, formattedTime } = Astro.props;
 
     <div class="hidden shrink-0 lg:flex lg:items-center">
       <Picture
-        formats={["avif", "webp"]}
+        formats={["webp"]}
         transition:name={`blog-image-${post.id}`}
         src={post.data.heroImage}
         width={256}

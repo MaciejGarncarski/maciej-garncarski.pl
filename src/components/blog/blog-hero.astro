@@ -40,7 +40,7 @@ const updateDate = currPost?.data.updatedDate
           class="absolute top-0 left-0 -z-10 mx-auto hidden h-full w-full opacity-4 blur-xl md:block md:rounded-4xl md:blur-2xl">
           <div class="absolute top-0 left-0 h-full w-full" />
           <Picture
-            formats={["avif", "webp"]}
+            formats={["webp"]}
             src={currPost.data.heroImage}
             alt={""}
             width={512}
@@ -51,7 +51,7 @@ const updateDate = currPost?.data.updatedDate
         </div>
 
         <Picture
-          formats={["avif", "webp"]}
+          formats={["webp"]}
           src={currPost.data.heroImage}
           transition:name={`blog-image-${currPost.id}`}
           width={512}
