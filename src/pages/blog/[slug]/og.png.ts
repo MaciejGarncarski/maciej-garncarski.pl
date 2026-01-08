@@ -1,37 +1,52 @@
-import type { APIRoute } from "astro";
+import type { APIContext, APIRoute } from "astro";
 import { generateOgImage } from "@utils/generate-og-image";
 import { readFileSync } from "node:fs";
 import { getPosts } from "@/utils/get-posts";
+import path from "node:path";
 
 export const prerender = true;
 
-export const GET: APIRoute = async ({ params }) => {
-  const posts = await getPosts();
-  const post = posts.find((p) => p.id === params.slug);
+export const GET: APIRoute = async ({ props, redirect }: APIContext) => {
+  const { post, postCover } = props as Props;
 
-  if (!post) {
-    return new Response("Not Found", { status: 404 });
+  if (!postCover) {
+    return redirect("/og.png");
   }
-
-  const postCover = readFileSync(`src/assets/blog/${post.id}/hero.png`);
 
   const imageBuffer = await generateOgImage({
     imageBuffer: postCover,
     title: post.data.title
   });
 
-  // @ts-ignore
   return new Response(imageBuffer, {
     headers: {
-      "Content-Type": "image/png"
+      "Content-Type": "image/png",
+      "Cache-Control": "public, max-age=31536000, immutable"
     }
   });
 };
 
 export async function getStaticPaths() {
   const blogPosts = await getPosts();
-  return blogPosts.map((post) => ({
-    params: { slug: post.id },
-    props: { post }
-  }));
+
+  return blogPosts.map((post) => {
+    const imagePath = path.resolve(`src/assets/blog/${post.id}/hero.png`);
+    let postCover;
+
+    try {
+      postCover = readFileSync(imagePath);
+    } catch (e) {
+      postCover = null;
+    }
+
+    return {
+      params: { slug: post.id },
+      props: { post, postCover }
+    };
+  });
 }
+
+type Props = {
+  post: Awaited<ReturnType<typeof getPosts>>[number];
+  postCover: Buffer | null;
+};

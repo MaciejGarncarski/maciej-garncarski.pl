@@ -1,5 +1,10 @@
 import satori from "satori";
 import { Resvg } from "@resvg/resvg-js";
+import path from "node:path";
+import { readFileSync } from "node:fs";
+
+const FONT_PATH = path.resolve("src/assets/fonts/Montserrat-Bold.ttf");
+const fontBuffer = readFileSync(FONT_PATH);
 
 export async function generateOgBasic() {
   const svg = await satori(
@@ -60,9 +65,9 @@ export async function generateOgBasic() {
       height: 630,
       fonts: [
         {
-          name: "Geist",
-          weight: 900,
-          data: await loadGoogleFont("Montserrat", "Maciej Garncarski"),
+          name: "Montserrat",
+          data: fontBuffer,
+          weight: 700,
           style: "normal"
         }
       ]
@@ -72,22 +77,5 @@ export async function generateOgBasic() {
   const resvg = new Resvg(svg);
   const pngBuffer = resvg.render().asPng();
 
-  return pngBuffer;
-}
-
-async function loadGoogleFont(font: string, text: string) {
-  const url = `https://fonts.googleapis.com/css2?family=${font}&text=${encodeURIComponent(text)}`;
-  const css = await (await fetch(url)).text();
-  const resource = css.match(
-    /src: url\((.+)\) format\('(opentype|truetype)'\)/
-  );
-
-  if (resource) {
-    const response = await fetch(resource[1]);
-    if (response.status == 200) {
-      return await response.arrayBuffer();
-    }
-  }
-
-  throw new Error("failed to load font data");
+  return pngBuffer as BodyInit;
 }

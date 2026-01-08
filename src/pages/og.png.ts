@@ -7,10 +7,10 @@ export const prerender = true;
 export const GET: APIRoute = async () => {
   const imageBuffer = await generateOgBasic();
 
-  // @ts-ignore
   return new Response(imageBuffer, {
     headers: {
-      "Content-Type": "image/png"
+      "Content-Type": "image/png",
+      "Cache-Control": "public, max-age=31536000, immutable"
     }
   });
 };
