@@ -194,12 +194,6 @@ W naszym przykładzie Compound Components działają tylko przez `children`, bez
 
 Przekazywanie komponentów jako propsów (np. `renderCustomActions`, `renderFooter`, `renderXYZ`) jest krokiem w kierunku kompozycji, ale nadal utrzymuje kontrolę nad strukturą w komponencie nadrzędnym. Composable Components idą o krok dalej, pozwalając na pełną kontrolę nad strukturą i układem przez użytkownika komponentu, bez konieczności modyfikowania samego komponentu bazowego.
 
-## Podsumowanie
-
-Przejście na **Composable Components** wymaga zmiany myślenia z "konfigurowania" na "budowanie". Chociaż kod początkowy może wydawać się nieco obszerniejszy, zysk w postaci elastyczności i łatwości utrzymania w długim terminie jest nieoceniony.
-
-Zamiast budować sztywne "szwajcarskie scyzoryki", budujmy klocki LEGO, z których można stworzyć dowolną strukturę.
-
 ## Bonus: Inteligentna Kompozycja (Slot-based Rendering)
 W niektórych przypadkach możemy chcieć, aby komponent bazowy miał pewne "inteligentne" zachowania dotyczące układu dzieci. Na przykład, możemy chcieć, aby `Profile.Avatar` zawsze był renderowany po lewej stronie, niezależnie od kolejności w kodzie.
 
@@ -242,3 +236,9 @@ export const ProfileRoot = ({ children }: Props) => {
 ```
 
 Ten pattern pozwala na ignorowanie nieznanych dzieci lub wyrzucanie błędów, jeśli wymagane sloty nie są dostarczone. Daje to jeszcze większą kontrolę nad strukturą komponentu, jednocześnie zachowując elastyczność kompozycji.
+
+## Podsumowanie
+
+Przejście na **Composable Components** wymaga zmiany myślenia z "konfigurowania" na "budowanie". Chociaż kod początkowy może wydawać się nieco obszerniejszy, zysk w postaci elastyczności i łatwości utrzymania w długim terminie jest nieoceniony.
+
+Zamiast budować sztywne "szwajcarskie scyzoryki", budujmy klocki LEGO, z których można stworzyć dowolną strukturę.

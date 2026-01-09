@@ -1,7 +1,7 @@
 @reference "./global.css";
 
 [data-blog-content] *:is(h2, h3, h4, h5, h6) {
-  @apply text-foreground w-fit scroll-mt-8 items-center font-semibold;
+  @apply text-foreground w-fit scroll-mt-8 items-center font-semibold text-balance;
 }
 
 [data-blog-content] > *:is(h2) {
@@ -26,7 +26,7 @@
 }
 
 [data-blog-content] blockquote {
-  @apply border-l-accent/40 text-accent-muted bg-accent/10 border-accent/15 my-10 rounded-r-md border border-l-4 py-8 pr-2 pl-4;
+  @apply border-l-accent/40 text-accent-muted bg-accent/10 border-accent/15 my-10 rounded-r-md border border-l-4 py-8 pr-2 pl-8;
 }
 
 [data-blog-content] blockquote p {
@@ -65,6 +65,14 @@
 
 [data-anchor-hash] {
   @apply flex items-center justify-center opacity-0 transition-opacity duration-200 ease-out;
+}
+
+[data-blog-img] {
+  @apply border-accent-muted/10 mx-auto my-8 aspect-auto max-h-[38rem] w-auto rounded-sm border object-cover shadow-md;
+}
+
+[data-figcaption] {
+  @apply text-foreground-secondary text-center text-sm;
 }
 
 @keyframes fade-in-up {
