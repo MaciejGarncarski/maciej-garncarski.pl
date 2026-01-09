@@ -22,15 +22,20 @@
 }
 
 [data-blog-content] p {
-  @apply text-foreground-body my-5 leading-7;
+  @apply text-foreground-body relative my-5 leading-7;
 }
 
 [data-blog-content] blockquote {
-  @apply border-l-accent/40 text-accent-muted bg-accent/10 border-accent/15 my-10 rounded-r-md border border-l-4 py-8 pr-2 pl-8;
+  @apply border-l-accent/50 text-accent-muted bg-accent/10 border-accent/15 relative my-10 max-w-fit min-w-[20rem] rounded-sm border border-l-10 px-12 py-6 pr-6;
+
+  &::before {
+    content: "\201C";
+    @apply text-accent/40 absolute top-4 left-3 font-serif text-6xl tracking-tight;
+  }
 }
 
 [data-blog-content] blockquote p {
-  @apply m-0 leading-8 italic;
+  @apply m-0 inline leading-8 italic;
 }
 
 [data-blog-content] ul {
