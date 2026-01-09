@@ -1,7 +1,7 @@
 @reference "./global.css";
 
 code:not([data-language]) {
-  @apply rounded-md bg-[#1b1e28] px-2 py-0.5 wrap-break-word text-white;
+  @apply bg-accent-muted/90 text-foreground rounded-md px-2 py-0.5 wrap-break-word dark:bg-[#1b1e28];
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
