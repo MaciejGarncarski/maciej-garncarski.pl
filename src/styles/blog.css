@@ -25,8 +25,12 @@
   @apply text-foreground-body relative my-5 leading-7;
 }
 
+[data-blog-content] strong {
+  @apply text-foreground/95 font-semibold;
+}
+
 [data-blog-content] blockquote {
-  @apply border-l-accent/50 text-accent-muted bg-accent/10 border-accent/15 relative my-10 max-w-fit min-w-[20rem] rounded-sm border border-l-10 px-12 py-6 pr-6;
+  @apply border-l-accent/50 bg-accent/10 border-accent/15 relative my-10 max-w-fit min-w-[20rem] rounded-sm border border-l-10 px-12 py-6 pr-6;
 
   &::before {
     content: "\201C";
@@ -44,10 +48,6 @@
 
 [data-blog-content] ol {
   @apply marker:text-foreground/70 text-foreground-body my-8 flex list-inside list-decimal flex-col gap-6;
-}
-
-[data-blog-content] strong {
-  @apply text-foreground/95 font-semibold;
 }
 
 [data-anchor] {
@@ -73,7 +73,7 @@
 }
 
 [data-blog-img] {
-  @apply border-accent-muted/10 mx-auto my-8 aspect-auto max-h-[38rem] w-auto rounded-sm border object-cover shadow-md;
+  @apply border-accent/15 mx-auto my-8 aspect-auto max-h-[38rem] w-auto rounded-sm border object-cover shadow-md;
 }
 
 [data-figcaption] {

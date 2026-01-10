@@ -61,8 +61,10 @@ const subpath = pathname.match(/[^/]+/g);
             <a
               href={n.url}
               class={clsx(
-                "hover:bg-accent-muted rounded-md px-2 py-1 font-semibold transition-colors md:text-lg lg:px-3",
-                isActive || isBlogPageActive ? "bg-accent-muted" : ""
+                "rounded-md px-2 py-1 font-semibold transition-colors md:text-lg lg:px-3",
+                isActive || isBlogPageActive
+                  ? "bg-accent/40 hover:bg-accent/60"
+                  : "hover:bg-accent/20"
               )}>
               {n.text}
             </a>
