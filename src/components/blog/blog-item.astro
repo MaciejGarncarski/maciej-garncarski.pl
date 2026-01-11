@@ -22,10 +22,22 @@ const { post, formattedTime } = Astro.props;
 <a
   href={"/blog/" + post.id}
   transition:name={`blog-header-${post.id}`}
-  class="border-foreground-secondary/10 bg-background-secondary inline-block h-full min-h-42 rounded-lg border p-4 transition-transform duration-300 md:p-5 lg:hover:scale-[0.99] lg:focus:scale-[0.98]">
+  class="border-foreground-secondary/10 bg-background-secondary relative inline-block h-full min-h-42 rounded-lg border p-4 transition-transform duration-300 md:p-5 lg:hover:scale-[0.99] lg:focus:scale-[0.98]">
   <article
-    class="relative flex h-full flex-row items-center justify-between gap-4 overflow-hidden md:gap-8">
-    <header class="flex flex-col gap-2">
+    class="relative flex h-full flex-col items-center justify-between gap-4 overflow-hidden md:gap-8 lg:flex-row">
+    <div class="shrink-0 lg:hidden">
+      <Picture
+        formats={["webp"]}
+        transition:name={`blog-image-${post.id}`}
+        src={post.data.heroImage}
+        width={256}
+        height={256}
+        alt={""}
+        class="border-foreground/10 h-24 w-24 rounded-lg border lg:h-32 lg:w-32"
+      />
+    </div>
+
+    <header class="flex flex-col gap-2 text-center md:text-left">
       <h2 class="z-20 text-lg font-semibold text-pretty lg:text-xl">
         {post.data.title}
       </h2>
@@ -33,7 +45,7 @@ const { post, formattedTime } = Astro.props;
         class="text-foreground-secondary relative text-base font-semibold lg:text-base">
         <time datetime={formattedTime}>{formattedTime}</time>
       </p>
-      <p class="z-20 text-base text-pretty lg:max-w-[28rem]">
+      <p class="z-20 max-w-[60ch] text-base text-pretty lg:max-w-[28rem]">
         {post.data.description}
       </p>
     </header>
