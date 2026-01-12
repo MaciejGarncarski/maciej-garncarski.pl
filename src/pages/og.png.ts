@@ -1,5 +1,4 @@
 import type { APIRoute } from "astro";
-import { getPosts } from "@/utils/get-posts";
 import { generateOgBasic } from "@/utils/generate-og-basic";
 
 export const prerender = true;
