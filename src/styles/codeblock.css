@@ -15,7 +15,7 @@ pre[data-language] {
 }
 
 [data-rehype-pretty-code-figure] code {
-  @apply w-full min-w-[100px] overflow-x-auto py-3 text-sm text-nowrap;
+  @apply w-full min-w-[100px] overflow-x-auto py-3 text-sm text-nowrap md:py-4;
 }
 
 [data-rehype-pretty-code-title] {
@@ -56,6 +56,10 @@ pre[data-language] {
   margin-right: 1rem;
   width: 2rem;
   opacity: 0.4;
+}
+
+[data-rehype-pretty-code-figure] code:not([data-line-numbers]) {
+  padding-left: 1.5rem;
 }
 
 [data-diff="add"] {

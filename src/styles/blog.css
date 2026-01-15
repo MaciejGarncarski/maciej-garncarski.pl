@@ -77,7 +77,7 @@
 }
 
 [data-figcaption] {
-  @apply text-foreground-secondary text-center text-sm;
+  @apply text-foreground-secondary -mt-4 text-center text-sm;
 }
 
 @keyframes fade-in-up {

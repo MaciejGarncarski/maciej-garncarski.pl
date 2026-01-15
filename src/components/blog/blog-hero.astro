@@ -12,6 +12,7 @@ const { text } = Astro.props;
 const allBlogPosts = await getPosts();
 const currPost = allBlogPosts.find((post) => post.data.title === text);
 const readTime = calculateReadingTime(currPost?.body || "");
+const words = currPost?.body ? currPost.body.split(/\s+/).length : 0;
 
 const publishDate = new Intl.DateTimeFormat("pl-PL", {
   year: "numeric",
@@ -94,7 +95,9 @@ const updateDate = currPost?.data.updatedDate
         )
       }
     </p>
-    {readTime} min. czytania
+    <p>
+      {readTime} min. czytania &#8226; {words} słów
+    </p>
   </div>
 </header>
 

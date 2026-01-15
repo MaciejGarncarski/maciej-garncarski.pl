@@ -7,15 +7,18 @@ type Props = {
 };
 
 const posts = await getPostsSorted();
-
 const allTags = new Set<string>();
 
 posts.forEach((post) => {
   post.data.tags.forEach((tag) => allTags.add(tag));
 });
 
+const sortedTags = Array.from(allTags).sort((a, b) =>
+  a.localeCompare(b, undefined, { sensitivity: "base" })
+);
+
 const isTagSelected = Astro.props.selectedTag
-  ? allTags.has(Astro.props.selectedTag)
+  ? sortedTags.includes(Astro.props.selectedTag)
   : false;
 ---
 
@@ -33,7 +36,7 @@ const isTagSelected = Astro.props.selectedTag
     </a>
   </li>
   {
-    Array.from(allTags).map((tag) => {
+    sortedTags.map((tag) => {
       const isActive = tag === Astro.props.selectedTag;
 
       return (
