@@ -8,6 +8,7 @@ type Props = {
   description?: string;
   keywords?: Array<string>;
   ogImage?: string;
+  canonicalUrl?: string;
   pubDate?: string;
   category?: string;
   tags?: Array<string>;
@@ -19,12 +20,17 @@ const {
   keywords,
   ogImage = "/og.png",
   pubDate,
+  canonicalUrl: manualCanonical,
   category = "Technology",
   tags = []
 } = Astro.props;
 
 const fullTitle = title ? `${title} | Maciej Garncarski` : defaultTitle;
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site).toString();
+const manualCanonicalUrl = manualCanonical
+  ? new URL(manualCanonical, Astro.site).toString()
+  : null;
+const canonicalUrl =
+  manualCanonicalUrl || new URL(Astro.url.pathname, Astro.site).toString();
 const fullOgImageUrl = new URL(ogImage, Astro.site).toString();
 
 const formattedDate = pubDate

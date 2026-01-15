@@ -8,24 +8,32 @@ import BlogList from "@/components/blog/blog-list.astro";
 import { getPostsSorted } from "@/utils/get-posts-sorted";
 import { getPosts } from "@/utils/get-posts";
 import Seo from "@/components/seo.astro";
+import { normalizeTag } from "@/utils/normalize-tag";
 
 export async function getStaticPaths() {
   const posts = await getPosts();
-
-  const tags = new Set<string>();
+  const tagsMap = new Map();
 
   posts.forEach((post) => {
-    post.data.tags.forEach((tag) => tags.add(tag));
+    post.data.tags.forEach((tag) => {
+      const slug = normalizeTag(tag).toLowerCase();
+
+      if (!tagsMap.has(slug)) {
+        tagsMap.set(slug, tag);
+      }
+    });
   });
 
-  return Array.from(tags).map((tag) => ({
-    params: { tag },
-    props: { tag }
+  return Array.from(tagsMap.entries()).map(([slug, prettyName]) => ({
+    params: { tag: slug },
+    props: {
+      tag: prettyName,
+      canonicalUrl: `/blog/tag/${slug}`
+    }
   }));
 }
 
-const { tag } = Astro.params;
-
+const { tag, canonicalUrl } = Astro.props;
 const posts = await getPostsSorted();
 const allTags = new Set<string>();
 
@@ -33,7 +41,9 @@ posts.forEach((post) => {
   post.data.tags.forEach((tag) => allTags.add(tag));
 });
 
-const filteredPosts = posts.filter((post) => post.data.tags.includes(tag));
+const filteredPosts = posts.filter((post) => {
+  return post.data.tags.includes(tag);
+});
 
 const seoData = {
   title: `#${tag}`,
@@ -46,6 +56,7 @@ const seoData = {
   <Seo
     slot="head"
     description={seoData.description}
+    canonicalUrl={canonicalUrl}
     title={seoData.title}
     keywords={seoData.keywords}
   />

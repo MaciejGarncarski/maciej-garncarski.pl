@@ -7,5 +7,6 @@
   },
   "[astro]": {
     "editor.defaultFormatter": "astro-build.astro-vscode"
-  }
+  },
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

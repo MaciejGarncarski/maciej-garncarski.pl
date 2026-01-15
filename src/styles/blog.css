@@ -58,8 +58,7 @@
   @apply flex gap-4;
 }
 
-[data-anchor]:hover,
-[data-anchor-link]:focus {
+[data-anchor]:hover {
   @apply underline;
 }
 

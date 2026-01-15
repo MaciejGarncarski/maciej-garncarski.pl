@@ -2,6 +2,7 @@
 import { Picture } from "astro:assets";
 import { calculateReadingTime } from "@utils/calculate-read-time";
 import { getPosts } from "@/utils/get-posts";
+import { normalizeTag } from "@/utils/normalize-tag";
 
 type Props = {
   text: string;
@@ -29,10 +30,16 @@ const updateDate = currPost?.data.updatedDate
       day: "numeric"
     }).format(new Date(currPost.data.updatedDate))
   : null;
+
+const tags = currPost?.data.tags || [];
+
+const sortedTags = tags.sort((a, b) =>
+  a.localeCompare(b, undefined, { sensitivity: "base" })
+);
 ---
 
 <header
-  class="relative flex h-80 flex-col items-center justify-center gap-4 overflow-hidden md:overflow-visible lg:mx-auto lg:h-100 lg:w-3/4">
+  class="relative flex min-h-80 flex-col items-center justify-center gap-4 overflow-hidden md:overflow-visible lg:mx-auto lg:h-110 lg:w-3/4">
   {
     currPost?.data.heroImage && (
       <>
@@ -68,13 +75,13 @@ const updateDate = currPost?.data.updatedDate
     )
   }
   <div
-    class="z-30 flex flex-col gap-2 text-center text-balance"
+    class="z-30 flex flex-col gap-2 text-center text-balance md:gap-3"
     transition:name={`blog-header-${currPost?.id}`}>
     <h1
       class="z-50 max-w-[20rem] px-5 text-center text-xl font-bold md:max-w-full lg:max-w-[35rem] lg:text-2xl">
       {text}
     </h1>
-    <p class="flex flex-col gap-1 text-center text-base">
+    <p class="flex flex-col gap-1 text-center">
       <span>
         🗓️
         <time
@@ -95,9 +102,24 @@ const updateDate = currPost?.data.updatedDate
         )
       }
     </p>
-    <p>
-      {readTime} min. czytania &#8226; {words} słów
+    <p class="flex items-center justify-center gap-2 text-center">
+      <span>{readTime} min. czytania</span>
+      <span>&#8226;</span>
+      <span>{words} słów</span>
     </p>
+    {
+      sortedTags.length > 0 && (
+        <div class="mt-2 flex flex-wrap items-center justify-center gap-2">
+          {sortedTags.map((tag) => (
+            <a
+              href={`/blog/tag/${normalizeTag(tag)}`}
+              class="border-accent/7 bg-accent/15 text-foreground/80 hover:bg-accent/30 focus:bg-accent/30 inline-block rounded-full border px-3 py-1 text-sm font-medium transition-colors duration-300">
+              # {tag}
+            </a>
+          ))}
+        </div>
+      )
+    }
   </div>
 </header>
 

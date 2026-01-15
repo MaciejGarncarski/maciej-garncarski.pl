@@ -73,7 +73,7 @@ const seoData = {
       projects.map((project) => {
         return (
           <li class="h-full">
-            <article class="border-border bg-background-secondary flex h-full flex-col gap-8 rounded-lg border p-4">
+            <article class="border-border bg-background-secondary flex h-full flex-col gap-8 rounded-lg border p-4 md:px-8 md:py-6 md:pb-8">
               <header class="aling-center z-40 flex items-start justify-between text-base">
                 <h2 class="text-2xl font-semibold text-pretty">
                   {project.title}
@@ -86,7 +86,7 @@ const seoData = {
                     layout="full-width"
                     src={project.image}
                     alt={project.title}
-                    class="border-foreground/10 mx-auto w-auto grow rounded-md border object-contain lg:min-h-90 lg:shadow"
+                    class="border-foreground/10 mx-auto w-auto grow rounded-md border object-contain lg:min-h-80 lg:w-full lg:shadow"
                   />
                 ) : (
                   <div class="border-foreground/10 bg-background/20 mx-auto flex h-40 w-full grow items-center justify-center rounded-md border text-center md:h-72 lg:shadow">

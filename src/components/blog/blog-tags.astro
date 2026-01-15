@@ -1,6 +1,7 @@
 ---
 import clsx from "clsx";
 import { getPostsSorted } from "@utils/get-posts-sorted";
+import { normalizeTag } from "@/utils/normalize-tag";
 
 type Props = {
   selectedTag?: string;
@@ -38,11 +39,12 @@ const isTagSelected = Astro.props.selectedTag
   {
     sortedTags.map((tag) => {
       const isActive = tag === Astro.props.selectedTag;
+      const normalizedPath = "/blog/tag/" + normalizeTag(tag);
 
       return (
         <li>
           <a
-            href={isActive ? "/blog" : "/blog/tags/" + tag}
+            href={isActive ? "/blog" : normalizedPath}
             class={clsx(
               isActive
                 ? "border-accent/10 bg-accent/40 text-foreground"
