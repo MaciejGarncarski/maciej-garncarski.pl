@@ -79,6 +79,10 @@
   @apply text-foreground-secondary -mt-4 text-center text-sm;
 }
 
+[data-blog-content] kbd {
+  @apply bg-accent/25 text-foreground border-accent/10 rounded-md border px-2 py-0.5 wrap-break-word shadow dark:bg-[#1b1e28];
+}
+
 @keyframes fade-in-up {
   0% {
     opacity: 0;
