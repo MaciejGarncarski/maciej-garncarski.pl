@@ -3,6 +3,8 @@ import { Picture } from "astro:assets";
 import { calculateReadingTime } from "@utils/calculate-read-time";
 import { getPosts } from "@/utils/get-posts";
 import { normalizeTag } from "@/utils/normalize-tag";
+import { Image } from "astro:assets";
+import { fade } from "astro:transitions";
 
 type Props = {
   text: string;
@@ -53,24 +55,22 @@ const sortedTags = tags.sort((a, b) =>
             alt={""}
             width={512}
             height={512}
-            class="h-full w-full border mask-[url(/mask-test.svg)] mask-luminance mask-cover mask-center object-cover"
+            class="h-full w-full mask-[url(/mask-test.svg)] mask-luminance mask-cover mask-center object-cover"
             priority={true}
           />
         </div>
-
-        <Picture
-          formats={["webp"]}
-          src={currPost.data.heroImage}
-          transition:name={`blog-image-${currPost.id}`}
-          width={512}
-          height={512}
-          alt={""}
-          pictureAttributes={{
-            class: "rounded-md h-42 w-42 overflow-hidden shadow-xl"
-          }}
-          class="border-foreground/7 h-full w-full rounded-md border object-cover"
-          priority={true}
-        />
+        {currPost.id && (
+          <Image
+            src={currPost.data.heroImage}
+            transition:name={`blog-image-${currPost.id}`}
+            transition:animate={fade({ duration: "0.3s" })}
+            width={512}
+            height={512}
+            alt={""}
+            class="animate-border-shadow z-40 h-42 w-42 overflow-hidden rounded-md object-cover"
+            priority={true}
+          />
+        )}
       </>
     )
   }

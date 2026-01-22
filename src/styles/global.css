@@ -66,4 +66,17 @@
   --color-border: var(--border);
 
   --animate-fade-in-up: fade-in-up 0.5s ease-out forwards;
+  --animate-border-shadow: add-border-shadow 1s ease-out forwards;
+
+  @keyframes add-border-shadow {
+    0% {
+      box-shadow: none;
+      border: 1px solid transparent;
+    }
+    100% {
+      box-shadow: var(--shadow-xl);
+      border: 1px solid
+        color-mix(in oklab, var(--color-foreground) 10%, transparent);
+    }
+  }
 }
