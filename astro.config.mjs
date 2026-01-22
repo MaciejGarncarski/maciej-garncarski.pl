@@ -140,5 +140,10 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
   output: "static",
-  adapter: vercel({ imageService: true, devImageService: "sharp" })
+  image: {
+    service: {
+      entrypoint: "astro/assets/services/sharp"
+    }
+  },
+  adapter: vercel({ imageService: false, devImageService: "sharp" })
 });
