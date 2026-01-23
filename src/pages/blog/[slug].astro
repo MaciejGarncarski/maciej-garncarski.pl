@@ -39,7 +39,7 @@ const { Content } = await render(post);
   <article class="flex flex-col gap-4">
     <BlogHero text={post.data.title} />
     <div
-      class="animate-fade-in-up mx-auto max-w-full min-w-[40ch] pb-14 text-base leading-7 text-pretty md:max-w-[85ch] md:text-lg"
+      class="animate-fade-in-up mx-auto max-w-full pb-14 text-base leading-7 text-pretty md:text-lg lg:max-w-[85ch] lg:min-w-[40ch]"
       data-blog-content>
       <Content />
     </div>

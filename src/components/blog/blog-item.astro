@@ -26,8 +26,8 @@ const { post, formattedTime } = Astro.props;
   transition:name={`blog-header-${post.id}`}
   class="border-foreground-secondary/10 bg-background-secondary relative inline-block h-full min-h-42 rounded-lg border p-4 transition-transform duration-300 md:p-5 lg:hover:scale-[0.99] lg:focus:scale-[0.98]">
   <article
-    class="relative flex h-full flex-col items-center justify-between gap-4 overflow-hidden md:gap-8 lg:flex-row">
-    <div class="shrink-0 lg:hidden">
+    class="relative flex h-full flex-col items-center justify-between gap-4 overflow-hidden md:flex-row md:gap-8">
+    <div class="shrink-0 md:hidden">
       <Picture
         formats={["webp"]}
         transition:name={`blog-image-${post.id}`}
@@ -35,24 +35,25 @@ const { post, formattedTime } = Astro.props;
         width={256}
         height={256}
         alt={""}
-        class="border-foreground/10 h-24 w-24 rounded-lg border lg:h-32 lg:w-32"
+        class="border-foreground/10 h-24 w-24 rounded-lg border md:h-32 md:w-32"
       />
     </div>
 
     <header class="flex flex-col gap-2 text-center md:text-left">
-      <h2 class="z-20 text-lg font-semibold text-pretty lg:text-xl">
+      <h2 class="z-20 text-lg font-semibold text-pretty md:text-xl">
         {post.data.title}
       </h2>
       <p
-        class="text-foreground-secondary relative text-base font-semibold lg:text-base">
+        class="text-foreground-secondary relative text-base font-semibold md:text-base">
         <time datetime={formattedTime}>{formattedTime}</time>
       </p>
-      <p class="z-20 max-w-[60ch] text-base text-pretty lg:max-w-[28rem]">
+      <p
+        class="z-20 max-w-[60ch] text-base text-balance md:max-w-[28rem] md:text-pretty">
         {post.data.description}
       </p>
     </header>
 
-    <div class="hidden shrink-0 lg:flex lg:items-center">
+    <div class="hidden shrink-0 md:flex md:items-center">
       <Image
         transition:name={`blog-image-${post.id}`}
         transition:animate={fade({ duration: "0.3s" })}
