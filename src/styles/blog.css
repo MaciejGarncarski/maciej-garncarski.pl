@@ -4,10 +4,6 @@
   @apply text-foreground w-fit scroll-mt-8 items-center font-semibold text-balance;
 }
 
-[data-blog-content] > *:is(h2) {
-  @apply mt-12 mb-4 text-xl md:text-xl;
-}
-
 /* Remove top margin if it's the first child */
 [data-blog-content] > *:is(h2):first-child {
   @apply mt-0;
@@ -19,6 +15,22 @@
 
 [data-blog-content] a:not(h1 a, h2 a, h3 a, h4 a, h5 a, h6) {
   @apply underline;
+}
+
+[data-blog-content] h2 {
+  @apply mt-10 mb-4 text-xl font-semibold;
+}
+
+[data-blog-content] h2:first-child {
+  @apply mt-0;
+}
+
+[data-blog-content] h3 {
+  @apply mt-8 mb-3 text-lg font-semibold;
+}
+
+[data-blog-content] h4 {
+  @apply mt-6 mb-2 text-base font-semibold;
 }
 
 [data-blog-content] p {
@@ -43,11 +55,11 @@
 }
 
 [data-blog-content] ul {
-  @apply marker:text-foreground/70 text-foreground-body list-hyphen my-8 flex list-inside flex-col gap-6;
+  @apply marker:text-foreground/70 text-foreground-body list-hyphen my-7 flex list-inside flex-col gap-5;
 }
 
 [data-blog-content] ol {
-  @apply marker:text-foreground/70 text-foreground-body my-8 flex list-inside list-decimal flex-col gap-6;
+  @apply marker:text-foreground/70 text-foreground-body my-7 flex list-inside list-decimal flex-col gap-5;
 }
 
 [data-anchor] {

@@ -1,0 +1,111 @@
+---
+title: "Kategoryzacja testów na frontendzie"
+pubDate: 2026-01-25
+description: "Jak sensownie kategoryzować testy frontendowe (i przestać myśleć piramidą testów)."
+heroImage: "@/assets/blog/testy-frontend/hero.png"
+keywords:
+  [
+    "testy frontend",
+    "testowanie aplikacji webowych",
+    "testy jednostkowe",
+    "testy integracyjne",
+    "testy end-to-end",
+    "automatyzacja testów",
+    "narzędzia do testowania frontend",
+    "best practices testowanie frontend"
+  ]
+tags: ["Frontend", "Testy"]
+---
+
+Ten post stworzyłem z potrzeby uporządkowania wiedzy na temat testów frontendowych. W sieci znalazłem wiele artykułów na ten temat, jednak często były one mocno rozproszone lub zbyt ogólne. Postaram się tutaj skategoryzować rodzaje testów, aby ułatwić zrozumienie ich roli i zastosowania.
+
+Mimo wszystko bardzo polecam zapoznać się z <a href="https://kentcdodds.com/blog?q=testing" rel="noopener noreferrer" target="_blank">postami Kenta C. Dodda</a>.
+
+
+## Dlaczego powszechna kategoryzacja testów jest myląca?
+
+Głównym powodem jest siłowa próba adaptacji piramidy testów do aplikacji frontendowych. W tradycyjnym podejściu mamy:
+
+* **Testy jednostkowe** (Unit Tests)
+* **Testy integracyjne** (Integration Tests)
+* **Testy end-to-end** (E2E Tests)
+
+Na frontendzie te granice się zacierają
+
+* **Zbyt ogólne definicje**: Na przykład "testy integracyjne sprawdzają integrację między modułami" - ale jakie moduły? Czy to są moduły Reacta, czy może integracja z API? Czy inny komponent to moduł? Ciężko to jednoznacznie określić.
+* **Testowanie implementacji zamiast zachowania**: Często testy skupiają się na wewnętrznej logice komponentów zamiast na tym, jak użytkownik faktycznie korzysta z aplikacji.
+* **Narzędzia a nie cele**: Wybór narzędzi do testowania często determinuje sposób pisania testów, co może prowadzić do nieoptymalnych praktyk. Testy powinny być pisane w miarę agnostycznie względem narzędzi.
+* **Mieszanie odpowiedzialności**: Często próbujemy testować skomplikowaną logikę biznesową (np. algorytmy zniżek) wewnątrz testów komponentów. To sprawia, że testy są wolne i trudne w utrzymaniu.
+
+
+Według mnie lepszym podejściem jest podział na kategorie oparte na **zakresie odpowiedzialności**:
+
+### 1. Logika biznesowa (Unit & Integration Tests)
+
+Tutaj React **nie istnieje**. Testujemy czyste funkcje i moduły odpowiedzialne za logikę biznesową aplikacji.
+
+* **Co:** Funkcje matematyczne, walidatory, transformacje danych, skomplikowane Custom Hooki.
+* **Zasada:** `Input -> Output`. Nie renderujesz tu komponentów.
+* **Dlaczego:** Są najszybsze i najtańsze w utrzymaniu. Jeśli Twoja funkcja `calculateDiscount()` działa poprawnie tutaj, nie musisz jej "męczyć" w teście komponentu.
+
+
+### 2. Component Tests - Testuj zachowanie
+To najważniejsza kategoria. Zapomnij o dzieleniu testów UI na "unit" i "integracyjne". Skup się na **zachowaniu**.
+
+* **Podejście:** Traktuj komponent jak czarną skrzynkę. Nie testuj stanu (implementacji), testuj to, co widzi użytkownik.
+* **Unikaj betonowania testów:** Zamiast sprawdzać, czy funkcja `submit()` została wywołana, sprawdź, czy po kliknięciu przycisku na ekranie pojawił się napis "Sukces". Wyobraź sobie, że chcesz np. zmienić nazwę funkji `submit()` na `handleSubmit()`. Jeśli Twój test sprawdza tylko efekt końcowy, nie musisz go zmieniać.
+* **Kiedy warto?** Gdy komponent jest reużywalny, zawiera logikę wyświetlania lub obsługuje krytyczną akcję (np. formularz płatności).
+
+> Dobry test komponentu powinien przetrwać całkowite przepisanie jego wnętrza. Jeśli zmiana `useState` na inny mechanizm psuje testy, napisałeś test implementacji, a nie działania.
+
+### 3. Storybook - Weryfikacja wizualna
+Nie wszystko da się opisać kodem. Storybook to Twoje laboratorium do wizualnej weryfikacji komponentów w izolacji. Jest świetny do współpracy z designerami i QA.
+
+* **Rola:** Sprawdzasz "na żywo" wszystkie stany (loading, error, empty) bez przeklikiwania się przez całą aplikację.
+* **Visual Regression:** Narzędzia takie jak Chromatic automatycznie porównują screenshoty. Wyłapią, że margines uciekł o 5px.
+
+### 4. E2E (End-to-End) - Testuj krytyczne ścieżki aplikacji
+Testy całego systemu (np. Playwright), które sprawdzają, czy wszystkie klocki do siebie pasują.
+
+* **Rola:** Testowanie tzw. "Happy Path", czyli krytycznych ścieżek (np. Logowanie - Koszyk - Zakup).
+* **Backend:** To jedyny moment, kiedy używasz **prawdziwego API**. Wszystkie inne testy powinny korzystać z mocków.
+* **Ograniczenia:** Są wolne i kruche. Używaj ich oszczędnie, tylko do najważniejszych funkcji aplikacji.
+
+## Kiedy warto mockować?
+
+Wybór między mockowaniem a używaniem prawdziwego API to balansowanie między szybkością a pewnością. Kluczem jest zrozumienie, co chcemy w danym momencie sprawdzić.
+
+
+### Mockuj w Component Tests (Izolacja)
+
+W testach komponentów i logiki Twoim najlepszym przyjacielem są mocki. Rekomendowanym standardem jest obecnie MSW (Mock Service Worker), który przechwytuje zapytania sieciowe na poziomie przeglądarki/środowiska testowego.
+
+Testy wtedy będą szybkie i stabilne, a Ty będziesz mieć pełną kontrolę nad danymi.
+
+
+### Używaj prawdziwego API w E2E (Pewność)
+
+Testy End-to-End to jedyny moment, kiedy chcesz uderzać w realny backend. Dzięki temu masz pewność, że wszystkie części systemu współpracują ze sobą poprawnie. To tutaj wyłapiesz problemy z CORS, autoryzacją czy niezgodnościami w kontraktach API.
+
+
+## Przykładowe flow testowania
+
+Formularz rejestracji użytkownika:
+
+* **walidacja emaila i hasła** - testy jednostkowe logiki walidacji,
+* **komponent formularza** - testy komponentu sprawdzające, czy walidacja działa poprawnie i czy odpowiednie komunikaty są wyświetlane,
+* **wizualizacja formularza** - Storybook do sprawdzenia wyglądu formularza w różnych stanach (pusty, z błędami, w trakcie wysyłania),
+* **pełny proces rejestracji** - E2E test sprawdzający, czy użytkownik może się zarejestrować, zalogować i przejść do panelu użytkownika.
+
+
+## Podsumowanie
+
+Testy nie powinny być celem samym w sobie ani "karą" za szybkość iteracji. Dobrze zaprojektowany zestaw testów to inwestycja, która zwraca się w postaci stabilności i pewności podczas rozwoju oraz refaktoryzacji aplikacji.
+
+
+Pamiętaj o tych kategoriach:
+
+* **Izolacja** - logika biznesowa bez UI. (Input -> Output)
+* **Zachowanie** - testy komponentów skupione na tym, co widzi użytkownik.
+* **Wizualizacja** - Storybook do sprawdzania wyglądu i stanów komponentów.
+* **Krytyczne ścieżki** - E2E do testowania najważniejszych funkcji aplikacji.
