@@ -40,6 +40,7 @@ import turborepo from "@components/technologies/turborepo.astro";
 import storybook from "@components/technologies/storybook.astro";
 import swagger from "@components/technologies/swagger.astro";
 import nx from "@components/technologies/nx.astro";
+import clsx from "clsx";
 
 type Technology = {
   name: string;
@@ -252,6 +253,16 @@ const technologies: Technology[] = [
   class="lg:grid-cols- grid grid-cols-2 gap-2 md:grid-cols-5 lg:grid-cols-6 lg:gap-3">
   {
     technologies.map(({ color, icon: Icon, name, link }) => {
+      const bgVariable = color === "#000000" ? "var(--accent)" : color;
+      const fgVariable =
+        color === "#000000" ? "var(--foreground-secondary)" : color;
+
+      const bgColor =
+        color === "#000000" ? "bg-(--accent)/10" : "bg-(--bg-skill)/10";
+
+      const borderColor =
+        color === "#000000" ? "border-(--accent)/20" : "border-(--bg-skill)/15";
+
       return (
         <li>
           <a
@@ -260,9 +271,13 @@ const technologies: Technology[] = [
             class="group block outline-none"
             rel="noopener noreferrer">
             <figure
-              style={`--bg-skill: ${color}`}
-              class="border-foreground/10 flex items-center gap-3 rounded-md border bg-(--bg-skill)/12 fill-white px-3 py-2 font-semibold text-ellipsis transition-all ease-out group-hover:bg-(--bg-skill)/25 group-focus:scale-98 group-focus:border-(--bg-skill)/30 hover:scale-97 hover:border-(--bg-skill)/20 hover:bg-(--bg-skill)/35 dark:bg-(--bg-skill)/30">
-              <div class="dark:text-foreground-body relative size-6 shrink-0 text-(--bg-skill)">
+              style={`--bg-skill: ${bgVariable}; --fg-skill: ${fgVariable}`}
+              class={clsx(
+                bgColor,
+                borderColor,
+                "flex items-center gap-3 rounded-md border fill-white px-3 py-2 font-semibold text-ellipsis transition-all ease-out group-hover:bg-(--bg-skill)/25 group-focus:scale-98 group-focus:border-(--bg-skill)/30 hover:scale-97 hover:border-(--bg-skill)/20 hover:bg-(--bg-skill)/35 dark:bg-(--bg-skill)/30"
+              )}>
+              <div class="dark:text-foreground-body drop-shadow-lg-outline relative size-6 shrink-0 text-(--fg-skill)">
                 <Icon />
               </div>
               <figcaption class="truncate">{name}</figcaption>
