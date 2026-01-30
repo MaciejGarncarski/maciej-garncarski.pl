@@ -4,23 +4,23 @@ export const prerender = true;
 import Header from "@components/about-page/header.astro";
 import Expeirence from "@components/about-page/expeirence.astro";
 import OpenSource from "@components/about-page/open-source.astro";
-import HomeSection from "@components/home-section.astro";
 import Technologies from "@/components/about-page/technologies.astro";
 import Layout from "@layouts/layout.astro";
+import HomeSectionBorder from "@/components/home-section-border.astro";
 ---
 
 <Layout>
   <Header />
 
-  <HomeSection>
+  <HomeSectionBorder>
     <Expeirence />
-  </HomeSection>
+  </HomeSectionBorder>
 
-  <HomeSection>
+  <HomeSectionBorder>
     <Technologies />
-  </HomeSection>
+  </HomeSectionBorder>
 
-  <HomeSection>
+  <HomeSectionBorder>
     <OpenSource />
-  </HomeSection>
+  </HomeSectionBorder>
 </Layout>
