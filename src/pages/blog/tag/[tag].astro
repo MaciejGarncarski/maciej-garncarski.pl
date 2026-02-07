@@ -45,8 +45,26 @@ const filteredPosts = posts.filter((post) => {
   return post.data.tags.includes(tag);
 });
 
+const tagUrl = new URL(canonicalUrl, Astro.site).toString();
+const itemListItems = filteredPosts.map((post) => {
+  const postUrl = post.data.canonicalUrl
+    ? new URL(post.data.canonicalUrl, Astro.site).toString()
+    : new URL(`/blog/${post.id}`, Astro.site).toString();
+
+  return {
+    name: post.data.title,
+    url: postUrl
+  };
+});
+
+const breadcrumbs = [
+  { name: "Home", url: new URL("/", Astro.site).toString() },
+  { name: "Blog", url: new URL("/blog", Astro.site).toString() },
+  { name: tag, url: tagUrl }
+];
+
 const seoData = {
-  title: `#${tag}`,
+  title: `${tag}`,
   description: `Przeglądaj artykuły oznaczone tagiem "${tag}" na moim blogu.`,
   keywords: ["blog", "articles", "updates", "news", tag]
 };
@@ -59,6 +77,10 @@ const seoData = {
     canonicalUrl={canonicalUrl}
     title={seoData.title}
     keywords={seoData.keywords}
+    jsonLdType="CollectionPage"
+    robots="noindex, follow"
+    itemListItems={itemListItems}
+    breadcrumbs={breadcrumbs}
   />
   <BlogContainer>
     <BlogTags selectedTag={tag} />

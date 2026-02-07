@@ -10,8 +10,14 @@ type Props = {
   ogImage?: string;
   canonicalUrl?: string;
   pubDate?: string;
+  updatedDate?: string;
   category?: string;
   tags?: Array<string>;
+  jsonLdType?: "Article" | "WebPage" | "CollectionPage";
+  robots?: string;
+  inLanguage?: string;
+  breadcrumbs?: Array<{ name: string; url: string }>;
+  itemListItems?: Array<{ name: string; url: string }>;
 };
 
 const {
@@ -20,9 +26,14 @@ const {
   keywords,
   ogImage = "/og.png",
   pubDate,
+  updatedDate,
   canonicalUrl: manualCanonical,
   category = "Technology",
-  tags = []
+  tags = [],
+  robots,
+  inLanguage = "pl-PL",
+  breadcrumbs,
+  itemListItems
 } = Astro.props;
 
 const fullTitle = title ? `${title} | Maciej Garncarski` : defaultTitle;
@@ -32,10 +43,60 @@ const manualCanonicalUrl = manualCanonical
 const canonicalUrl =
   manualCanonicalUrl || new URL(Astro.url.pathname, Astro.site).toString();
 const fullOgImageUrl = new URL(ogImage, Astro.site).toString();
+const siteUrl = new URL("/", Astro.site).toString();
+const blogUrl = new URL("/blog", Astro.site).toString();
 
 const formattedDate = pubDate
   ? new Date(pubDate).toISOString()
   : new Date().toISOString();
+const formattedModifiedDate = updatedDate
+  ? new Date(updatedDate).toISOString()
+  : undefined;
+
+const publisherSchema = {
+  "@type": "Organization",
+  name: "Maciej Garncarski",
+  logo: {
+    "@type": "ImageObject",
+    url: "https://maciej-garncarski.pl/favicon.svg"
+  }
+};
+
+const webSiteReference = {
+  "@type": "WebSite",
+  "@id": `${siteUrl}#website`,
+  name: defaultTitle,
+  url: siteUrl
+};
+
+const blogReference = {
+  "@type": "Blog",
+  "@id": `${blogUrl}#blog`,
+  name: "Blog",
+  url: blogUrl
+};
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: title || defaultTitle,
+  description: description,
+  url: canonicalUrl,
+  inLanguage: inLanguage,
+  publisher: publisherSchema,
+  isPartOf: webSiteReference
+};
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: title || defaultTitle,
+  description: description,
+  url: canonicalUrl,
+  inLanguage: inLanguage,
+  publisher: publisherSchema,
+  isPartOf: webSiteReference
+};
 
 const articleSchema = {
   "@context": "https://schema.org",
@@ -43,31 +104,67 @@ const articleSchema = {
   headline: title || defaultTitle,
   description: description,
   image: fullOgImageUrl,
+  inLanguage: inLanguage,
   author: {
     "@type": "Person",
     name: "Maciej Garncarski",
     url: "https://maciej-garncarski.pl"
   },
   datePublished: formattedDate,
-  publisher: {
-    "@type": "Organization",
-    name: "Maciej Garncarski",
-    logo: {
-      "@type": "ImageObject",
-      url: "https://maciej-garncarski.pl/favicon.svg"
-    }
-  },
+  dateModified: formattedModifiedDate,
+  publisher: publisherSchema,
+  isPartOf: blogReference,
   mainEntityOfPage: {
     "@type": "WebPage",
     "@id": canonicalUrl
   }
 };
+
+const breadcrumbSchema = breadcrumbs?.length
+  ? {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: breadcrumbs.map((crumb, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: crumb.name,
+        item: crumb.url
+      }))
+    }
+  : null;
+
+const itemListSchema = itemListItems?.length
+  ? {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      itemListOrder: "https://schema.org/ItemListOrderAscending",
+      numberOfItems: itemListItems.length,
+      itemListElement: itemListItems.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.name,
+        url: item.url
+      }))
+    }
+  : null;
+
+const jsonLdType = Astro.props.jsonLdType || (pubDate ? "Article" : "WebPage");
+const structuredData = [
+  jsonLdType === "Article"
+    ? articleSchema
+    : jsonLdType === "CollectionPage"
+      ? collectionPageSchema
+      : webPageSchema,
+  breadcrumbSchema,
+  itemListSchema
+].filter(Boolean);
 ---
 
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
 <meta name="theme-color" content="#f5f9ff" />
 {keywords && <meta name="keywords" content={keywords.join(", ")} />}
+{robots && <meta name="robots" content={robots} />}
 <link rel="canonical" href={canonicalUrl} />
 
 <meta property="og:type" content={pubDate ? "article" : "website"} />
@@ -98,5 +195,7 @@ const articleSchema = {
 <script
   type="application/ld+json"
   is:inline
-  set:html={JSON.stringify(articleSchema)}
+  set:html={JSON.stringify(
+    structuredData.length === 1 ? structuredData[0] : structuredData
+  )}
 />

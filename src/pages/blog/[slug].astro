@@ -22,6 +22,13 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<"blog">;
 const post = Astro.props;
 const { Content } = await render(post);
+const canonicalUrl = post.data.canonicalUrl || `/blog/${post.id}`;
+const postUrl = new URL(canonicalUrl, Astro.site).toString();
+const breadcrumbs = [
+  { name: "Home", url: new URL("/", Astro.site).toString() },
+  { name: "Blog", url: new URL("/blog", Astro.site).toString() },
+  { name: post.data.title, url: postUrl }
+];
 ---
 
 <Layout>
@@ -30,10 +37,13 @@ const { Content } = await render(post);
     description={post.data.description}
     title={post.data.title}
     keywords={post.data.keywords}
-    pubDate={(post.data.updatedDate || post.data.pubDate).toISOString()}
+    canonicalUrl={canonicalUrl}
+    pubDate={post.data.pubDate.toISOString()}
+    updatedDate={post.data.updatedDate?.toISOString()}
     ogImage={`/blog/${post.id}/og.png`}
     category={post.data.tags?.[0]}
     tags={post.data.tags}
+    breadcrumbs={breadcrumbs}
   />
 
   <article class="flex flex-col gap-4">
