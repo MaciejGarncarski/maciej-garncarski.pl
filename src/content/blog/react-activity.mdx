@@ -1,0 +1,129 @@
+---
+title: "<Activity> krok po kroku"
+pubDate: 2026-02-09
+description: "Praktyczne wprowadzenie do <Activity> w React - jak wykorzystać je do budowania ultraszybkich interfejsów."
+heroImage: "@assets/blog/react-activity/hero.png"
+keywords:
+  [
+    "react",
+    "activity",
+    "react-19",
+    "react-20",
+  ]
+tags: ["Frontend"]
+---
+
+## Co to Activity w React?
+
+W nowoczesnych aplikacjach frontendowych wydajność interfejsu ma bezpośredni wpływ na doświadczenie użytkownika. Każde opóźnienie przy przełączaniu widoków, reset stanu formularzy czy ponowne renderowanie ciężkich komponentów (tabele, wykresy, raporty) obniża płynność działania aplikacji.
+
+**`<Activity>`** pozwala zachować komponenty w pamięci bez ich aktywnego renderowania. Zamiast `unmount --> mount`, React może je "uśpić", a następnie przywrócić w dokładnie tym samym stanie.
+
+Dzięki temu zyskujemy:
+
+- brak utraty stanu komponentu,
+- brak kosztownego ponownego renderowania,
+- natychmiastowe przełączanie widoków.
+
+Można traktować to jak **cache dla UI**.
+
+## Różnica między Activity a display: none;
+
+Często można spotkać się z opinią, że `<Activity>` to po prostu alternatywa dla ukrywania elementów za pomocą CSS. To nieporozumienie, różnica dotyczy całej architektury renderowania.
+
+### display: none;
+
+- element znika wizualnie
+- React nadal traktuje go jako aktywny
+- komponent nadal bierze udział w re-renderach
+- hooki (`useEffect`, `useLayoutEffect`) nadal działają
+- niepotrzebne zużycie CPU i pamięci
+
+### Activity
+
+- komponent jest ukryty logicznie, nie tylko wizualnie
+- React obniża jego priorytet w schedulerze
+- renderowanie i aktualizacje są wstrzymane
+- efekty i hooki nie są wykonywane
+- stan pozostaje zachowany w pamięci
+
+
+
+To fundamentalna różnica: **CSS ukrywa tylko wygląd, Activity zatrzymuje pracę komponentu.**
+
+## Jak działa Activity?
+
+Activity przyjmuje właściwość `mode`:
+
+- `visible` - normalne renderowanie
+- `hidden` - komponent zostaje "zamrożony"
+
+W trybie `hidden` React:
+
+- wstrzymuje efekty
+- nie wykonuje aktualizacji
+- nie przelicza renderu
+- zachowuje stan, DOM i pozycję scrolla
+
+Dzięki temu powrót do widoku jest praktycznie natychmiastowy.
+
+
+## Activity a cykl życia komponentu
+
+* **Cleanup**: Wywoływane są funkcje czyszczące z `useEffect`, ale komponent nie jest odmontowywany.
+* **State**: Stan komponentu jest zachowany
+* **Re-mount**: Gdy tryb zmieni się na `visible`, efekty są ponownie uruchamiane, ale bez resetowania stanu.
+
+Dzięki temu nie musisz się martwić, że "uśpiony" komponent w tle będzie nadal utrzymywał otwarte połączenie WebSocket czy niepotrzebny timer.
+
+## Gdzie to ma sens?
+
+* Dashboardy i panele administracyjne (tabele, wykresy)
+* Formularze wieloetapowe (zachowanie wpisanych danych)
+* Nawigacja typu taby (szybkie przełączanie)
+* Widoki prerenderowane w tle (przygotowanie ciężkiego komponentu zanim użytkownik go zobaczy)
+
+## Przykłady użycia
+
+### Dashboard z dwiema ciężkimi tabelami
+
+```tsx
+import { Activity, useState } from 'react';
+
+function Dashboard() {
+  const [view, setView] = useState('sales');
+
+  return (
+    <section>
+      <nav>
+        <button onClick={() => setView('sales')}>Sprzedaż</button>
+        <button onClick={() => setView('inventory')}>Magazyn</button>
+      </nav>
+
+      <Activity mode={view === 'sales' ? 'visible' : 'hidden'}>
+        <HeavyTable data={salesData} />
+      </Activity>
+
+      <Activity mode={view === 'inventory' ? 'visible' : 'hidden'}>
+        <HeavyTable data={inventoryData} />
+      </Activity>
+    </section>
+  );
+}
+```
+
+Efekt: brak zbędnego renderowania, zachowany stan i błyskawiczne przełączanie.
+
+> 💡 Ważna uwaga: Każdy komponent w `<Activity mode="hidden">` nadal zajmuje pamięć RAM. Stosuj to rozwiązanie dla kluczowych elementów interfejsu, a nie dla każdego komponentu w aplikacji.
+
+## Prerenderowanie w tle
+
+`<Activity>` w połączeniu z `<Suspense>` pozwala na renderowanie widoków w tle. Możesz załadować dane i wyrenderować ciężki komponent w trybie hidden. Gdy użytkownik kliknie przycisk, komponent jest już "rozgrzany" i gotowy do natychmiastowego wyświetlenia bez żadnych spinnerów ładowania.
+
+## Podsumowanie
+
+`<Activity>` pozwala utrzymywać widoki w pamięci i kontrolować ich aktywność zamiast montować je od nowa. To prosta optymalizacja, która znacząco poprawia responsywność aplikacji, szczególnie w dashboardach i rozbudowanych interfejsach.
+
+Należy pamiętać, że `<Activity>` to nie tylko ukrywanie elementów, ale przede wszystkim zarządzanie ich cyklem życia i wydajnością. Warto eksperymentować z tym API, aby znaleźć najlepsze zastosowania w swoich projektach.
+
+Moim zdaniem warto zacząć się tym interesować już teraz, ponieważ w przyszłości, gdy zostaną dodane kolejne funkcjonalności, będzie to kluczowy element optymalizacji interfejsów.
