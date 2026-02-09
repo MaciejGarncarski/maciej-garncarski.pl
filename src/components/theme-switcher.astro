@@ -88,6 +88,18 @@
       system: button.querySelector('[data-icon="system"]')
     };
 
+    button.classList.remove("transition-all", "duration-300");
+    icons.sun?.classList.remove("transition-all", "duration-300");
+    icons.moon?.classList.remove("transition-all", "duration-300");
+    icons.system?.classList.remove("transition-all", "duration-300");
+
+    setTimeout(() => {
+      button.classList.add("transition-all", "duration-300");
+      icons.sun?.classList.add("transition-all", "duration-300");
+      icons.moon?.classList.add("transition-all", "duration-300");
+      icons.system?.classList.add("transition-all", "duration-300");
+    }, 200);
+
     function getStoredTheme(): Theme {
       const stored = localStorage.getItem("theme");
       if (stored === "light" || stored === "dark") return stored;
