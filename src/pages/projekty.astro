@@ -1,57 +1,57 @@
 ---
-import Layout from "@layouts/layout.astro";
+import { Picture } from "astro:assets";
 import coincontrol from "@assets/projects/coincontrol.png";
 import kanban from "@assets/projects/kanban.png";
 import landing from "@assets/projects/landing.png";
 import twitchChatBot from "@assets/projects/twitch-chat-bot.png";
-import { Picture } from "astro:assets";
-import Seo from "@/components/seo.astro";
+import Layout from "@layouts/layout.astro";
 import ProjectLink from "@/components/projects/project-link.astro";
+import Seo from "@/components/seo.astro";
 
 const projects = [
-  {
-    title: "CoinControl",
-    description:
-      "CoinControl to aplikacja do śledzenia budżetu zaprojektowana, aby pomóc użytkownikom monitorować ich dochody i wydatki.",
-    demo: "https://coincontrol.maciej-garncarski.pl",
-    github: "https://github.com/MaciejGarncarski/coin-control",
-    tags: ["React", "Tailwind CSS", "Zustand", "Express", "BullMQ", "Prisma"],
-    image: coincontrol
-  },
-  {
-    title: "Kanban",
-    description:
-      "Aplikacja Kanban stworzona w NestJS z zastosowaniem wzorców CQRS, Domain-Driven Design (DDD) oraz architektury hexagonalnej.",
-    demo: "https://kanban.maciej-garncarski.pl",
-    github: "https://github.com/MaciejGarncarski/kanban",
-    tags: ["Next.js", "NestJS", "Drizzle ORM", "Mantine UI", "JWT"],
-    image: kanban
-  },
-  {
-    title: "Twitch Chat Bot",
-    description:
-      "Bot na platformę Twitch, którego głównym zadaniem jest obsługa systemu song request. Projekt charakteryzuje się modułową budową, co umożliwia bezproblemowe implementowanie kolejnych funkcjonalności.",
-    github: "https://github.com/MaciejGarncarski/twitch-chat-bot",
-    demo: "https://bot.maciej-garncarski.pl/",
-    tags: ["Bun", "Elysia", "React", "WebSocket"],
-    image: twitchChatBot
-  },
-  {
-    title: "Professional Landing Page",
-    description:
-      "Profesjonalna strona docelowa dla firmy, zaprojektowana w celu skutecznego prezentowania usług i przyciągania klientów.",
-    demo: "https://professional-landing-nextjs.vercel.app/",
-    github: "https://github.com/MaciejGarncarski/professional-landing-nextjs",
-    tags: ["Next.js", "Tailwind CSS", "Motion"],
-    image: landing
-  }
+   {
+      title: "CoinControl",
+      description:
+         "CoinControl to aplikacja do śledzenia budżetu zaprojektowana, aby pomóc użytkownikom monitorować ich dochody i wydatki.",
+      demo: "https://coincontrol.maciej-garncarski.pl",
+      github: "https://github.com/MaciejGarncarski/coin-control",
+      tags: ["React", "Tailwind CSS", "Zustand", "Express", "BullMQ", "Prisma"],
+      image: coincontrol,
+   },
+   {
+      title: "Kanban",
+      description:
+         "Aplikacja Kanban stworzona w NestJS z zastosowaniem wzorców CQRS, Domain-Driven Design (DDD) oraz architektury hexagonalnej.",
+      demo: "https://kanban.maciej-garncarski.pl",
+      github: "https://github.com/MaciejGarncarski/kanban",
+      tags: ["Next.js", "NestJS", "Drizzle ORM", "Mantine UI", "JWT"],
+      image: kanban,
+   },
+   {
+      title: "Twitch Chat Bot",
+      description:
+         "Bot na platformę Twitch, którego głównym zadaniem jest obsługa systemu song request. Projekt charakteryzuje się modułową budową, co umożliwia bezproblemowe implementowanie kolejnych funkcjonalności.",
+      github: "https://github.com/MaciejGarncarski/twitch-chat-bot",
+      demo: "https://bot.maciej-garncarski.pl/",
+      tags: ["Bun", "Elysia", "React", "WebSocket"],
+      image: twitchChatBot,
+   },
+   {
+      title: "Professional Landing Page",
+      description:
+         "Profesjonalna strona docelowa dla firmy, zaprojektowana w celu skutecznego prezentowania usług i przyciągania klientów.",
+      demo: "https://professional-landing-nextjs.vercel.app/",
+      github: "https://github.com/MaciejGarncarski/professional-landing-nextjs",
+      tags: ["Next.js", "Tailwind CSS", "Motion"],
+      image: landing,
+   },
 ];
 
 const seoData = {
-  title: "Projekty",
-  description:
-    "Przeglądaj moje najciekawsze projekty programistyczne, które pokazują moje umiejętności i pasję do tworzenia innowacyjnych rozwiązań.",
-  keywords: ["projekty", "portfolio", "development", "software", "programming"]
+   title: "Projekty",
+   description:
+      "Przeglądaj moje najciekawsze projekty programistyczne, które pokazują moje umiejętności i pasję do tworzenia innowacyjnych rozwiązań.",
+   keywords: ["projekty", "portfolio", "development", "software", "programming"],
 };
 ---
 

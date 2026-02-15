@@ -1,27 +1,27 @@
 ---
-import clsx from "clsx";
 import logoIcon from "@assets/logoIcon.png";
 import Picture from "astro/components/Picture.astro";
+import clsx from "clsx";
 import ThemeSwitcher from "@/components/theme-switcher.astro";
 
 type Link = {
-  url: string;
-  text: string;
+   url: string;
+   text: string;
 };
 
 const navigationData: Array<Link> = [
-  {
-    text: "O mnie",
-    url: "/"
-  },
-  {
-    text: "Blog",
-    url: "/blog"
-  },
-  {
-    text: "Projekty",
-    url: "/projekty"
-  }
+   {
+      text: "O mnie",
+      url: "/",
+   },
+   {
+      text: "Blog",
+      url: "/blog",
+   },
+   {
+      text: "Projekty",
+      url: "/projekty",
+   },
 ];
 
 const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, "");

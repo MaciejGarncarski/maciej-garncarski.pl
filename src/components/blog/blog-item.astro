@@ -1,21 +1,20 @@
 ---
-import type { ImageMetadata } from "astro";
-import { Image } from "astro:assets";
-import { Picture } from "astro:assets";
+import { Image, Picture } from "astro:assets";
 import { fade } from "astro:transitions";
+import type { ImageMetadata } from "astro";
 
 type Props = {
-  post: {
-    id: string;
-    data: {
-      title: string;
-      description: string;
-      pubDate: Date;
-      updatedDate?: Date;
-      heroImage: ImageMetadata;
-    };
-  };
-  formattedTime: string;
+   post: {
+      id: string;
+      data: {
+         title: string;
+         description: string;
+         pubDate: Date;
+         updatedDate?: Date;
+         heroImage: ImageMetadata;
+      };
+   };
+   formattedTime: string;
 };
 
 const { post, formattedTime } = Astro.props;

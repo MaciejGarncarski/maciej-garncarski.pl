@@ -3,34 +3,34 @@ export const prerender = true;
 
 import Layout from "@layouts/layout.astro";
 import BlogContainer from "@/components/blog/blog-container.astro";
-import BlogTags from "@/components/blog/blog-tags.astro";
 import BlogList from "@/components/blog/blog-list.astro";
-import { getPostsSorted } from "@/utils/get-posts-sorted";
-import { getPosts } from "@/utils/get-posts";
+import BlogTags from "@/components/blog/blog-tags.astro";
 import Seo from "@/components/seo.astro";
+import { getPosts } from "@/utils/get-posts";
+import { getPostsSorted } from "@/utils/get-posts-sorted";
 import { normalizeTag } from "@/utils/normalize-tag";
 
 export async function getStaticPaths() {
-  const posts = await getPosts();
-  const tagsMap = new Map();
+   const posts = await getPosts();
+   const tagsMap = new Map();
 
-  posts.forEach((post) => {
-    post.data.tags.forEach((tag) => {
-      const slug = normalizeTag(tag).toLowerCase();
+   posts.forEach((post) => {
+      post.data.tags.forEach((tag) => {
+         const slug = normalizeTag(tag).toLowerCase();
 
-      if (!tagsMap.has(slug)) {
-        tagsMap.set(slug, tag);
-      }
-    });
-  });
+         if (!tagsMap.has(slug)) {
+            tagsMap.set(slug, tag);
+         }
+      });
+   });
 
-  return Array.from(tagsMap.entries()).map(([slug, prettyName]) => ({
-    params: { tag: slug },
-    props: {
-      tag: prettyName,
-      canonicalUrl: `/blog/tag/${slug}`
-    }
-  }));
+   return Array.from(tagsMap.entries()).map(([slug, prettyName]) => ({
+      params: { tag: slug },
+      props: {
+         tag: prettyName,
+         canonicalUrl: `/blog/tag/${slug}`,
+      },
+   }));
 }
 
 const { tag, canonicalUrl } = Astro.props;
@@ -38,35 +38,35 @@ const posts = await getPostsSorted();
 const allTags = new Set<string>();
 
 posts.forEach((post) => {
-  post.data.tags.forEach((tag) => allTags.add(tag));
+   post.data.tags.forEach((tag) => allTags.add(tag));
 });
 
 const filteredPosts = posts.filter((post) => {
-  return post.data.tags.includes(tag);
+   return post.data.tags.includes(tag);
 });
 
 const tagUrl = new URL(canonicalUrl, Astro.site).toString();
 const itemListItems = filteredPosts.map((post) => {
-  const postUrl = post.data.canonicalUrl
-    ? new URL(post.data.canonicalUrl, Astro.site).toString()
-    : new URL(`/blog/${post.id}`, Astro.site).toString();
+   const postUrl = post.data.canonicalUrl
+      ? new URL(post.data.canonicalUrl, Astro.site).toString()
+      : new URL(`/blog/${post.id}`, Astro.site).toString();
 
-  return {
-    name: post.data.title,
-    url: postUrl
-  };
+   return {
+      name: post.data.title,
+      url: postUrl,
+   };
 });
 
 const breadcrumbs = [
-  { name: "Home", url: new URL("/", Astro.site).toString() },
-  { name: "Blog", url: new URL("/blog", Astro.site).toString() },
-  { name: tag, url: tagUrl }
+   { name: "Home", url: new URL("/", Astro.site).toString() },
+   { name: "Blog", url: new URL("/blog", Astro.site).toString() },
+   { name: tag, url: tagUrl },
 ];
 
 const seoData = {
-  title: `${tag}`,
-  description: `Przeglądaj artykuły oznaczone tagiem "${tag}" na moim blogu.`,
-  keywords: ["blog", "articles", "updates", "news", tag]
+   title: `${tag}`,
+   description: `Przeglądaj artykuły oznaczone tagiem "${tag}" na moim blogu.`,
+   keywords: ["blog", "articles", "updates", "news", tag],
 };
 ---
 

@@ -1,13 +1,12 @@
 ---
-import { Picture } from "astro:assets";
+import { Image, Picture } from "astro:assets";
+import { fade } from "astro:transitions";
 import { calculateReadingTime } from "@utils/calculate-read-time";
 import { getPosts } from "@/utils/get-posts";
 import { normalizeTag } from "@/utils/normalize-tag";
-import { Image } from "astro:assets";
-import { fade } from "astro:transitions";
 
 type Props = {
-  text: string;
+   text: string;
 };
 
 const { text } = Astro.props;
@@ -18,26 +17,22 @@ const readTime = calculateReadingTime(currPost?.body || "");
 const words = currPost?.body ? currPost.body.split(/\s+/).length : 0;
 
 const publishDate = new Intl.DateTimeFormat("pl-PL", {
-  year: "numeric",
-  month: "long",
-  day: "numeric"
-}).format(
-  currPost?.data.pubDate ? new Date(currPost.data.pubDate) : new Date()
-);
+   year: "numeric",
+   month: "long",
+   day: "numeric",
+}).format(currPost?.data.pubDate ? new Date(currPost.data.pubDate) : new Date());
 
 const updateDate = currPost?.data.updatedDate
-  ? new Intl.DateTimeFormat("pl-PL", {
-      year: "numeric",
-      month: "long",
-      day: "numeric"
-    }).format(new Date(currPost.data.updatedDate))
-  : null;
+   ? new Intl.DateTimeFormat("pl-PL", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+     }).format(new Date(currPost.data.updatedDate))
+   : null;
 
 const tags = currPost?.data.tags || [];
 
-const sortedTags = tags.sort((a, b) =>
-  a.localeCompare(b, undefined, { sensitivity: "base" })
-);
+const sortedTags = tags.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
 ---
 
 <header

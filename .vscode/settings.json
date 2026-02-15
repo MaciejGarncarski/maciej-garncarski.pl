@@ -1,12 +1,11 @@
 {
-  "[css]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[astro]": {
-    "editor.defaultFormatter": "astro-build.astro-vscode"
-  },
-  "typescript.tsdk": "node_modules/typescript/lib"
+   "[css]": {
+      "editor.defaultFormatter": "biomejs.biome"
+   },
+   "[json]": {
+      "editor.defaultFormatter": "biomejs.biome"
+   },
+   "[astro]": {
+      "editor.defaultFormatter": "astro-build.astro-vscode"
+   }
 }

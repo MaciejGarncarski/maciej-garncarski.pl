@@ -1,20 +1,19 @@
 ---
 export const prerender = true;
 
-import Layout from "@layouts/layout.astro";
+import BlogContainer from "@components/blog/blog-container.astro";
 import BlogList from "@components/blog/blog-list.astro";
 import BlogTags from "@components/blog/blog-tags.astro";
-import BlogContainer from "@components/blog/blog-container.astro";
-import { getPostsSorted } from "@/utils/get-posts-sorted";
+import Layout from "@layouts/layout.astro";
 import Seo from "@/components/seo.astro";
+import { getPostsSorted } from "@/utils/get-posts-sorted";
 
 const posts = await getPostsSorted();
 
 const seoData = {
-  title: "Blog",
-  description:
-    "Przeglądaj najnowsze artykuły, aktualizacje i wiadomości na moim blogu.",
-  keywords: ["blog", "articles", "updates", "news"]
+   title: "Blog",
+   description: "Przeglądaj najnowsze artykuły, aktualizacje i wiadomości na moim blogu.",
+   keywords: ["blog", "articles", "updates", "news"],
 };
 ---
 
