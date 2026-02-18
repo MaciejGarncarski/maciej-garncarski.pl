@@ -7,6 +7,9 @@ keywords: [react, transitions, react-19, frontend, web-performance]
 tags: ["Frontend"]
 ---
 
+import demo from "@/assets/blog/react-transitions/demo.gif";
+import { Picture } from "astro:assets";
+
 ## Co to są Transitions?
 
 Transitions to mechanizm zarządzania priorytetem aktualizacji w React 18. Dzięki Transitions możemy tworzyć bardziej responsywne i interaktywne aplikacje, które reagują na zmiany stanu bez opóźnień.
@@ -71,6 +74,11 @@ export function SearchComponent() {
   );
 }
 ```
+
+<figure>
+  <Picture data-blog-img src={demo} alt="Podgląd działania Transitions" />
+  <figcaption data-figcaption>Podgląd działania Transitions w akcji</figcaption>
+</figure>
 
 ## Dlaczego jest to ważne?
 
