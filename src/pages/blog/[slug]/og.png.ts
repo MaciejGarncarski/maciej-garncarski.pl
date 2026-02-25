@@ -31,7 +31,6 @@ export const GET: APIRoute = async ({ props, redirect }: APIContext) => {
 export async function getStaticPaths() {
    const blogPosts = await getPosts();
 
-
    return blogPosts.map((post) => {
       const imagePath = path.resolve(`src/assets/blog/${post.id}/hero.png`);
       let postCover: Buffer | null = null;
