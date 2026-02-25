@@ -5,23 +5,23 @@ import clsx from "clsx";
 import ThemeSwitcher from "@/components/theme-switcher.astro";
 
 type Link = {
-   url: string;
-   text: string;
+  url: string;
+  text: string;
 };
 
 const navigationData: Array<Link> = [
-   {
-      text: "O mnie",
-      url: "/",
-   },
-   {
-      text: "Blog",
-      url: "/blog",
-   },
-   {
-      text: "Projekty",
-      url: "/projekty",
-   },
+  {
+    text: "O mnie",
+    url: "/",
+  },
+  {
+    text: "Blog",
+    url: "/blog",
+  },
+  {
+    text: "Projekty",
+    url: "/projekty",
+  },
 ];
 
 const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, "");
@@ -45,7 +45,8 @@ const subpath = pathname.match(/[^/]+/g);
   </div>
   <ul
     class="ml-auto flex gap-x-3 gap-y-4 tracking-tight md:gap-x-8"
-    transition:name="nav-menu">
+    transition:name="nav-menu"
+  >
     {
       navigationData.map((n) => {
         const isActive =
@@ -61,11 +62,12 @@ const subpath = pathname.match(/[^/]+/g);
             <a
               href={n.url}
               class={clsx(
-                "rounded-lg border px-2 py-1 font-semibold transition-all md:text-lg lg:px-3.5",
+                "rounded-lg border px-2 py-1 font-semibold md:text-lg lg:px-3.5",
                 isActive || isBlogPageActive
-                  ? "bg-accent/40 hover:bg-accent/60 border-accent/15 shadow-sm"
-                  : "hover:bg-accent/20 border-transparent"
-              )}>
+                  ? "bg-accent/20 hover:bg-accent/25 border-accent/10 shadow-sm"
+                  : "hover:bg-accent/10 hover:shadow-sm border-transparent",
+              )}
+            >
               {n.text}
             </a>
           </li>

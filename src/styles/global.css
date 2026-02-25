@@ -32,8 +32,8 @@
       /* :root { */
       color-scheme: dark;
 
-      --background: oklch(12% 0.015 260);
-      --background-secondary: oklch(16% 0.02 260);
+      --background: oklch(0.1791 0.0104 268.19);
+      --background-secondary: oklch(0.2091 0.0104 268.19);
 
       --foreground: oklch(92% 0.02 260);
       --foreground-secondary: oklch(72% 0.02 260);
