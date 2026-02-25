@@ -6,6 +6,7 @@ import Footer from "@components/footer.astro";
 import Navigation from "@components/navigation.astro";
 import SEO from "@components/seo.astro";
 import Analytics from "@vercel/analytics/astro";
+import SpeedInsights from "@vercel/speed-insights/astro";
 ---
 
 <!doctype html>
@@ -44,6 +45,7 @@ import Analytics from "@vercel/analytics/astro";
   </head>
   <body class="text-foreground bg-background min-h-screen p-4 md:p-10">
     <Analytics />
+    <SpeedInsights />
     <div class="mx-auto flex max-w-[75rem] flex-col gap-10 py-3">
       <Navigation />
       <main class="flex min-h-[45rem] flex-col gap-8 lg:gap-10">
