@@ -16,6 +16,8 @@ export const GET: APIRoute = async ({ props, redirect }: APIContext) => {
    const imageBuffer = await generateOgImage({
       imageBuffer: postCover,
       title: post.data.title,
+      tags: post.data.tags,
+      date: new Date(post.data.updatedDate || post.data.pubDate),
    });
 
    return new Response(imageBuffer, {
@@ -29,13 +31,15 @@ export const GET: APIRoute = async ({ props, redirect }: APIContext) => {
 export async function getStaticPaths() {
    const blogPosts = await getPosts();
 
+
    return blogPosts.map((post) => {
       const imagePath = path.resolve(`src/assets/blog/${post.id}/hero.png`);
-      let postCover;
+      let postCover: Buffer | null = null;
 
       try {
          postCover = readFileSync(imagePath);
-      } catch (e) {
+      } catch (error) {
+         console.log(error);
          postCover = null;
       }
 
