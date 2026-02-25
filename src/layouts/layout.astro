@@ -41,10 +41,9 @@ import Analytics from "@vercel/analytics/astro";
     <slot name="head">
       <SEO />
     </slot>
-
-    <Analytics />
   </head>
   <body class="text-foreground bg-background min-h-screen p-4 md:p-10">
+    <Analytics />
     <div class="mx-auto flex max-w-[75rem] flex-col gap-10 py-3">
       <Navigation />
       <main class="flex min-h-[45rem] flex-col gap-8 lg:gap-10">
