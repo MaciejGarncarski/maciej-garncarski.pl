@@ -140,5 +140,5 @@ export default defineConfig({
          entrypoint: "astro/assets/services/sharp",
       },
    },
-   adapter: vercel({ imageService: false, devImageService: "sharp", webAnalytics: { enabled: true } }),
+   adapter: vercel({ imageService: false, devImageService: "sharp"}),
 });

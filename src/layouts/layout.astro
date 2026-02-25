@@ -5,6 +5,7 @@ import { ClientRouter } from "astro:transitions";
 import Footer from "@components/footer.astro";
 import Navigation from "@components/navigation.astro";
 import SEO from "@components/seo.astro";
+import Analytics from "@vercel/analytics/astro";
 ---
 
 <!doctype html>
@@ -40,6 +41,8 @@ import SEO from "@components/seo.astro";
     <slot name="head">
       <SEO />
     </slot>
+
+    <Analytics />
   </head>
   <body class="text-foreground bg-background min-h-screen p-4 md:p-10">
     <div class="mx-auto flex max-w-[75rem] flex-col gap-10 py-3">
