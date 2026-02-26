@@ -140,6 +140,7 @@ export default defineConfig({
       },
       ssr: {
          external: ["@takumi-rs/core"],
+         noExternal: ["@takumi-rs/image-response"],
       },
    },
    output: "static",
@@ -148,5 +149,5 @@ export default defineConfig({
          entrypoint: "astro/assets/services/sharp",
       },
    },
-   adapter: vercel({ imageService: false, devImageService: "sharp"}),
+   adapter: vercel({ imageService: false, devImageService: "sharp" }),
 });

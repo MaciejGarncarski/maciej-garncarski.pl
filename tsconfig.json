@@ -1,35 +1,18 @@
 {
-  "extends": "astro/tsconfigs/strict",
-  "compilerOptions": {
-    "esModuleInterop": true,
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@layouts/*": [
-        "./src/layouts/*"
-      ],
-      "@pages/*": [
-        "./src/pages/*"
-      ],
-      "@components/*": [
-        "./src/components/*"
-      ],
-      "@utils/*": [
-        "./src/utils/*"
-      ],
-      "@assets/*": [
-        "./src/assets/*"
-      ]
-    },
-    "jsx": "react-jsx",
-    "jsxImportSource": "react"
-  },
-  "include": [
-    ".astro/types.d.ts",
-    "**/*"
-  ],
-  "exclude": [
-    "dist"
-  ]
+   "extends": "astro/tsconfigs/strict",
+   "compilerOptions": {
+      "esModuleInterop": true,
+      "paths": {
+         "@/*": ["./src/*"],
+         "@layouts/*": ["./src/layouts/*"],
+         "@pages/*": ["./src/pages/*"],
+         "@components/*": ["./src/components/*"],
+         "@utils/*": ["./src/utils/*"],
+         "@assets/*": ["./src/assets/*"]
+      },
+      "jsx": "react-jsx",
+      "jsxImportSource": "react"
+   },
+   "include": [".astro/types.d.ts", "**/*"],
+   "exclude": ["dist"]
 }

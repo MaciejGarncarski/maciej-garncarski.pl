@@ -6,12 +6,12 @@ import Layout from "@/layouts/layout.astro";
 import { Picture } from "astro:assets";
 
 export async function getStaticPaths() {
-  return projects.map((project) => ({
-    params: { project: project.id },
-    props: {
-      project,
-    },
-  }));
+   return projects.map((project) => ({
+      params: { project: project.id },
+      props: {
+         project,
+      },
+   }));
 }
 
 const { project } = Astro.props;
