@@ -22,7 +22,9 @@ export async function generateOgBasic() {
                gap: "2rem",
                textWrap: "balance",
                color: "white",
-               backgroundColor: "hsla(262, 82%, 3%, 1)",
+               backgroundColor: "#080d16",
+               backgroundImage:
+                  "linear-gradient(135deg, rgba(3, 6, 11, 1) 0%, rgba(41, 50, 60, 1) 100%)",
                fontSize: 64,
                fontWeight: "bold",
                padding: "60px",
