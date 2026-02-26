@@ -345,7 +345,7 @@ const technologies: Technology[] = [
 
 <section class="flex flex-col gap-6">
   <SectionHeading title="Technologie" />
-  <ul class="grid grid-cols-2 gap-2 md:grid-cols-5 lg:grid-cols-6 lg:gap-3">
+  <ul class="grid grid-cols-2 gap-2 md:grid-cols-5 lg:gap-3">
     {
       technologies.map(({ color, iconColor, icon: Icon, name, link }) => {
         const bgVariable = color === "#000000" ? "var(--accent)" : color;
@@ -379,7 +379,7 @@ const technologies: Technology[] = [
                 <div class="dark:text-foreground-body drop-shadow-lg-outline relative flex size-6 shrink-0 items-center justify-center text-(--fg-skill)">
                   <Icon />
                 </div>
-                <figcaption class="truncate text-sm">{name}</figcaption>
+                <figcaption class="truncate">{name}</figcaption>
               </figure>
             </a>
           </li>
