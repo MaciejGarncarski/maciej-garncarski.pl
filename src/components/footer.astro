@@ -6,67 +6,80 @@ import xIcon from "@assets/x.svg";
 import type { ImageMetadata } from "astro";
 
 type Social = {
-   url: string;
-   icon: ImageMetadata;
-   name: string;
+  url: string;
+  icon: ImageMetadata;
+  name: string;
 };
 
 const socials: Array<Social> = [
-   {
-      name: "GitHub",
-      icon: github,
-      url: "https://github.com/maciejgarncarski",
-   },
-   {
-      name: "LinkedIn",
-      icon: linkedin,
-      url: "https://www.linkedin.com/in/maciejgarncarski/",
-   },
-   {
-      name: "X",
-      icon: xIcon,
-      url: "https://x.com/MGarncarski",
-   },
+  {
+    name: "GitHub",
+    icon: github,
+    url: "https://github.com/maciejgarncarski",
+  },
+  {
+    name: "LinkedIn",
+    icon: linkedin,
+    url: "https://www.linkedin.com/in/maciejgarncarski/",
+  },
+  {
+    name: "X",
+    icon: xIcon,
+    url: "https://x.com/MGarncarski",
+  },
 ];
 ---
 
 <footer
-  class="mx-auto mt-10 flex max-w-[75rem] flex-col items-center justify-between gap-4 md:mt-24 lg:flex-row"
-  transition:name="footer">
-  <div class="flex w-[15rem] flex-col gap-4">
-    <div class="flex justify-center gap-6 md:justify-start">
-      {
-        socials.map((s) => {
-          return (
-            <a href={s.url} target="_blank" class="w-fit" title={s.name}>
-              <Picture
-                src={s.icon}
-                alt=""
-                width="24"
-                height="24"
-                class="h-5 lg:h-6 dark:invert-100"
-              />
-              <span class="sr-only">{s.name}</span>
-            </a>
-          );
-        })
-      }
-    </div>
-    <p class="text-center text-xs lg:text-left">
-      Commit: {
-        (
-          import.meta.env.PUBLIC_VERCEL_GIT_COMMIT_SHA || "devDEVdevDEVdevDEV"
-        ).slice(0, 18)
-      }
-    </p>
-  </div>
+  class="mx-auto mt-16 max-w-[70rem] md:mt-28"
+  transition:name="footer"
+>
+  <div class="border-border border-t pt-8 pb-6">
+    <div class="flex flex-col items-center gap-8 md:flex-row md:justify-between md:gap-4">
+      <!-- Left: branding + copyright -->
+      <div class="flex flex-col items-center gap-2 md:items-start">
+        <p class="text-foreground text-sm font-medium">
+          &copy; 2026 Maciej Garncarski
+        </p>
+        <p class="text-foreground-secondary text-xs">
+          Built with {Astro.generator} 🚀
+        </p>
+      </div>
 
-  <div class="flex w-[15rem] flex-col gap-4">
-    <p class="text-center text-sm lg:ml-auto lg:text-right">
-      &copy; 2026 Maciej Garncarski
-    </p>
-    <p class="text-center text-xs lg:text-right">
-      Built with {Astro.generator} 🚀
-    </p>
+      <!-- Center: social links -->
+      <div class="flex items-center gap-4">
+        {
+          socials.map((s) => {
+            return (
+              <a
+                href={s.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={s.name}
+                class="text-foreground-secondary hover:text-foreground border-border hover:border-border/80 hover:bg-foreground/5 flex size-9 items-center justify-center rounded-full border transition-all duration-200 hover:scale-105"
+              >
+                <Picture
+                  src={s.icon}
+                  alt=""
+                  width="16"
+                  height="16"
+                  class="size-4 dark:invert-100"
+                />
+                <span class="sr-only">{s.name}</span>
+              </a>
+            );
+          })
+        }
+      </div>
+
+      <!-- Right: commit hash -->
+      <p class="text-foreground-secondary text-center text-xs md:text-right">
+        Commit: <code class="bg-foreground/5 rounded px-1.5 py-0.5 font-mono text-[0.7rem]">{
+          (
+            import.meta.env.PUBLIC_VERCEL_GIT_COMMIT_SHA || "devDEVdevDEVdevDEV"
+          ).slice(0, 8)
+        }</code>
+      </p>
+    </div>
   </div>
 </footer>

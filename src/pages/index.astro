@@ -10,17 +10,19 @@ import HomeSectionBorder from "@/components/home-section-border.astro";
 ---
 
 <Layout>
-  <Header />
+  <div class="mx-auto flex w-full max-w-[55rem] flex-col gap-10">
+    <Header />
 
-  <HomeSectionBorder>
-    <Expeirence />
-  </HomeSectionBorder>
+    <HomeSectionBorder>
+      <Expeirence />
+    </HomeSectionBorder>
 
-  <HomeSectionBorder>
-    <Technologies />
-  </HomeSectionBorder>
+    <HomeSectionBorder>
+      <Technologies />
+    </HomeSectionBorder>
 
-  <HomeSectionBorder>
-    <OpenSource />
-  </HomeSectionBorder>
+    <HomeSectionBorder>
+      <OpenSource />
+    </HomeSectionBorder>
+  </div>
 </Layout>

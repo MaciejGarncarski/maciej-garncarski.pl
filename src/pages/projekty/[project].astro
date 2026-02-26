@@ -1,0 +1,103 @@
+---
+import ProjectLink from "@/components/projects/project-link.astro";
+import Seo from "@/components/seo.astro";
+import { projects } from "@/data/projects";
+import Layout from "@/layouts/layout.astro";
+import { Picture } from "astro:assets";
+
+export async function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { project: project.id },
+    props: {
+      project,
+    },
+  }));
+}
+
+const { project } = Astro.props;
+---
+
+<Layout>
+  <Seo
+    slot="head"
+    title={project.title}
+    description={project.description}
+    keywords={project.tags}
+  />
+
+  <div class="mx-auto flex w-full max-w-[50rem] flex-col gap-10">
+    <a
+      href="/projekty"
+      class="text-foreground-secondary hover:text-foreground group inline-flex w-fit items-center gap-2 text-sm transition-colors"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="transition-transform group-hover:-translate-x-1"
+      >
+        <path d="m15 18-6-6 6-6"></path>
+      </svg>
+      Wróć do projektów
+    </a>
+
+    <header class="flex flex-col gap-4">
+      <h1
+        class="text-4xl font-bold tracking-tight md:text-5xl"
+        transition:name={`project-title-${project.id}`}
+      >
+        {project.title}
+      </h1>
+      <p class="text-foreground-secondary text-lg leading-relaxed">
+        {project.description}
+      </p>
+    </header>
+
+    <Picture
+      formats={["webp"]}
+      layout="full-width"
+      src={project.thumbnail}
+      alt={project.title}
+      transition:name={`project-image-${project.id}`}
+      class="border-foreground/10 w-full rounded-xl border object-contain shadow-lg"
+    />
+
+    <section class="flex flex-col gap-3">
+      <h2
+        class="text-foreground-secondary text-sm font-semibold uppercase tracking-widest"
+      >
+        Technologie
+      </h2>
+      <div class="flex flex-wrap gap-2" role="list">
+        {
+          project.tags.map((tag) => (
+            <span
+              role="listitem"
+              class="border-accent/10 bg-accent/40 text-foreground inline-flex items-center justify-center rounded-full px-3 py-1 text-sm font-medium"
+            >
+              {tag}
+            </span>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="flex flex-col gap-3">
+      <h2
+        class="text-foreground-secondary text-xs font-semibold uppercase tracking-widest"
+      >
+        Linki
+      </h2>
+      <div class="flex gap-4 font-semibold md:gap-6">
+        {project.demo ? <ProjectLink link={project.demo} type="demo" /> : null}
+        <ProjectLink link={project.github} type="repo" />
+      </div>
+    </section>
+  </div>
+</Layout>

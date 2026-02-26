@@ -5,74 +5,229 @@ import clsx from "clsx";
 import ThemeSwitcher from "@/components/theme-switcher.astro";
 
 type Link = {
-   url: string;
-   text: string;
+  url: string;
+  text: string;
 };
 
 const navigationData: Array<Link> = [
-   {
-      text: "O mnie",
-      url: "/",
-   },
-   {
-      text: "Blog",
-      url: "/blog",
-   },
-   {
-      text: "Projekty",
-      url: "/projekty",
-   },
+  {
+    text: "O mnie",
+    url: "/",
+  },
+  {
+    text: "Blog",
+    url: "/blog",
+  },
+  {
+    text: "Projekty",
+    url: "/projekty",
+  },
 ];
 
 const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, "");
 const subpath = pathname.match(/[^/]+/g);
 ---
 
-<nav class="flex items-center justify-start px-0.5">
-  <div class="flex items-center gap-5 md:gap-10">
-    <a href="/">
+<header class="sticky top-4 mx-auto w-full md:top-6 z-50">
+  <nav
+    class="border-border/65 backdrop-blur-lg bg-background/75 shadow-xs mx-auto flex items-center justify-between rounded-2xl border px-4 py-2.5 md:px-6 z-50 md:py-3"
+    transition:name="nav"
+  >
+    <a href="/" class="group relative flex items-center gap-2.5">
       <Picture
         formats={["webp"]}
         src={logoIcon}
         alt="Maciej Garncarski Logo"
-        height={40}
-        width={40}
-        class={"size-10 border border-border rounded-md"}
+        height={36}
+        width={36}
+        class="border-border size-9 rounded-lg border transition-transform duration-200 group-hover:scale-105"
       />
       <span class="sr-only">Strona główna</span>
     </a>
-    <ThemeSwitcher />
-  </div>
-  <ul
-    class="ml-auto flex gap-x-3 gap-y-4 tracking-tight md:gap-x-8"
-    transition:name="nav-menu"
+
+    <ul class="hidden items-center gap-6 md:flex" transition:name="nav-menu">
+      {
+        navigationData.map((n) => {
+          const isActive =
+            n.url === pathname || n.url === "/" + (subpath?.[0] || "");
+
+          const isBlogPage = n.url === "/blog/";
+          const isBlogPageActive =
+            isBlogPage && Astro.url.pathname.startsWith("/blog/");
+
+          return (
+            <li>
+              <a
+                href={n.url}
+                class={clsx(
+                  "relative rounded-lg px-3.5 py-1.5 text-sm font-medium transition-all duration-200",
+                  isActive || isBlogPageActive
+                    ? "bg-accent/15 text-accent"
+                    : "text-foreground-secondary hover:text-foreground hover:bg-foreground/5",
+                )}
+              >
+                {n.text}
+                {(isActive || isBlogPageActive) && (
+                  <span class="bg-accent absolute -bottom-0.5 left-1/2 h-0.5 w-4 -translate-x-1/2 rounded-full" />
+                )}
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+
+    <div class="flex items-center gap-2">
+      <ThemeSwitcher />
+
+      <button
+        data-mobile-menu-toggle
+        aria-label="Menu nawigacyjne"
+        aria-expanded="false"
+        class="border-border/60 bg-background hover:bg-foreground/5 flex size-10 cursor-pointer items-center justify-center rounded-xl border transition-colors md:hidden"
+      >
+        <svg
+          data-icon-menu
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="transition-all duration-200"
+        >
+          <line x1="4" y1="7" x2="20" y2="7"></line>
+          <line x1="4" y1="12" x2="20" y2="12"></line>
+          <line x1="4" y1="17" x2="20" y2="17"></line>
+        </svg>
+        <svg
+          data-icon-close
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="hidden transition-all duration-200"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <div
+    data-mobile-menu
+    class="pointer-events-none mt-2 grid grid-rows-[0fr] rounded-2xl transition-all backdrop-blur-none duration-300 ease-out md:hidden"
+    style="opacity: 0;"
   >
-    {
-      navigationData.map((n) => {
-        const isActive =
-          n.url === pathname || n.url === "/" + (subpath?.[0] || "");
+    <div class="overflow-hidden">
+      <ul
+        class="border-border/60 bg-background/80 flex flex-col gap-1 rounded-2xl border p-3"
+      >
+        {
+          navigationData.map((n) => {
+            const isActive =
+              n.url === pathname || n.url === "/" + (subpath?.[0] || "");
 
-        const isBlogPage = n.url === "/blog/";
+            const isBlogPage = n.url === "/blog/";
+            const isBlogPageActive =
+              isBlogPage && Astro.url.pathname.startsWith("/blog/");
 
-        const isBlogPageActive =
-          isBlogPage && Astro.url.pathname.startsWith("/blog/");
+            return (
+              <li>
+                <a
+                  href={n.url}
+                  class={clsx(
+                    "flex items-center rounded-xl px-4 py-3 text-sm font-medium transition-colors duration-150",
+                    isActive || isBlogPageActive
+                      ? "bg-accent/15 text-accent"
+                      : "text-foreground-secondary hover:bg-foreground/5 hover:text-foreground",
+                  )}
+                >
+                  {n.text}
+                  {(isActive || isBlogPageActive) && (
+                    <span class="bg-accent ml-auto size-1.5 rounded-full" />
+                  )}
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </div>
+  </div>
+</header>
 
-        return (
-          <li>
-            <a
-              href={n.url}
-              class={clsx(
-                "rounded-lg border px-2 py-1 font-semibold md:text-lg lg:px-3.5",
-                isActive || isBlogPageActive
-                  ? "bg-accent/20 hover:bg-accent/25 border-accent/10 shadow-sm"
-                  : "hover:bg-accent/10 hover:shadow-sm border-transparent",
-              )}
-            >
-              {n.text}
-            </a>
-          </li>
-        );
-      })
+<script>
+  function setupMobileMenu() {
+    const toggle = document.querySelector(
+      "[data-mobile-menu-toggle]",
+    ) as HTMLButtonElement | null;
+    const menu = document.querySelector(
+      "[data-mobile-menu]",
+    ) as HTMLElement | null;
+    const iconMenu = document.querySelector(
+      "[data-icon-menu]",
+    ) as SVGElement | null;
+    const iconClose = document.querySelector(
+      "[data-icon-close]",
+    ) as SVGElement | null;
+
+    if (!toggle || !menu || !iconMenu || !iconClose) return;
+
+    let isOpen = false;
+
+    function setOpen(open: boolean) {
+      isOpen = open;
+      toggle!.setAttribute("aria-expanded", String(open));
+
+      if (open) {
+        menu!.style.opacity = "1";
+        menu!.style.gridTemplateRows = "1fr";
+        menu!.style.backdropFilter = "blur(20px)";
+        menu!.classList.remove("pointer-events-none");
+        iconMenu!.classList.add("hidden");
+        iconClose!.classList.remove("hidden");
+      } else {
+        menu!.style.opacity = "0";
+        menu!.style.gridTemplateRows = "0fr";
+        menu!.classList.add("pointer-events-none");
+        iconMenu!.classList.remove("hidden");
+        iconClose!.classList.add("hidden");
+      }
     }
-  </ul>
-</nav>
+
+    toggle.addEventListener("click", () => setOpen(!isOpen));
+
+    // Close on outside click
+    document.addEventListener("click", (e) => {
+      if (
+        isOpen &&
+        !toggle.contains(e.target as Node) &&
+        !menu.contains(e.target as Node)
+      ) {
+        setOpen(false);
+      }
+    });
+
+    // Close on Escape
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && isOpen) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+  }
+
+  setupMobileMenu();
+
+  document.addEventListener("astro:after-swap", setupMobileMenu);
+</script>

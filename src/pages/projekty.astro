@@ -1,57 +1,15 @@
 ---
 import { Picture } from "astro:assets";
-import coincontrol from "@assets/projects/coincontrol.png";
-import kanban from "@assets/projects/kanban.png";
-import landing from "@assets/projects/landing.png";
-import twitchChatBot from "@assets/projects/twitch-chat-bot.png";
-import Layout from "@layouts/layout.astro";
-import ProjectLink from "@/components/projects/project-link.astro";
-import Seo from "@/components/seo.astro";
 
-const projects = [
-   {
-      title: "CoinControl",
-      description:
-         "CoinControl to aplikacja do śledzenia budżetu zaprojektowana, aby pomóc użytkownikom monitorować ich dochody i wydatki.",
-      demo: "https://coincontrol.maciej-garncarski.pl",
-      github: "https://github.com/MaciejGarncarski/coin-control",
-      tags: ["React", "Tailwind CSS", "Zustand", "Express", "BullMQ", "Prisma"],
-      image: coincontrol,
-   },
-   {
-      title: "Kanban",
-      description:
-         "Aplikacja Kanban stworzona w NestJS z zastosowaniem wzorców CQRS, Domain-Driven Design (DDD) oraz architektury hexagonalnej.",
-      demo: "https://kanban.maciej-garncarski.pl",
-      github: "https://github.com/MaciejGarncarski/kanban",
-      tags: ["Next.js", "NestJS", "Drizzle ORM", "Mantine UI", "JWT"],
-      image: kanban,
-   },
-   {
-      title: "Twitch Chat Bot",
-      description:
-         "Bot na platformę Twitch, którego głównym zadaniem jest obsługa systemu song request. Projekt charakteryzuje się modułową budową, co umożliwia bezproblemowe implementowanie kolejnych funkcjonalności.",
-      github: "https://github.com/MaciejGarncarski/twitch-chat-bot",
-      demo: "https://bot.maciej-garncarski.pl/",
-      tags: ["Bun", "Elysia", "React", "WebSocket"],
-      image: twitchChatBot,
-   },
-   {
-      title: "Professional Landing Page",
-      description:
-         "Profesjonalna strona docelowa dla firmy, zaprojektowana w celu skutecznego prezentowania usług i przyciągania klientów.",
-      demo: "https://professional-landing-nextjs.vercel.app/",
-      github: "https://github.com/MaciejGarncarski/professional-landing-nextjs",
-      tags: ["Next.js", "Tailwind CSS", "Motion"],
-      image: landing,
-   },
-];
+import Layout from "@layouts/layout.astro";
+import Seo from "@/components/seo.astro";
+import { projects } from "@/data/projects";
 
 const seoData = {
-   title: "Projekty",
-   description:
-      "Przeglądaj moje najciekawsze projekty programistyczne, które pokazują moje umiejętności i pasję do tworzenia innowacyjnych rozwiązań.",
-   keywords: ["projekty", "portfolio", "development", "software", "programming"],
+  title: "Projekty",
+  description:
+    "Przeglądaj moje najciekawsze projekty programistyczne, które pokazują moje umiejętności i pasję do tworzenia innowacyjnych rozwiązań.",
+  keywords: ["projekty", "portfolio", "development", "software", "programming"],
 };
 ---
 
@@ -62,57 +20,74 @@ const seoData = {
     title={seoData.title}
     keywords={seoData.keywords}
   />
-
-  <h1
-    class="text-foreground mx-auto w-full max-w-[50rem] text-2xl font-semibold">
-    Moje najciekawsze projekty
-  </h1>
-
-  <ul class="mx-auto grid max-w-[50rem] gap-12">
+  <ul class="mx-auto grid max-w-[50rem] gap-6">
     {
       projects.map((project) => {
         return (
-          <li class="h-full">
-            <article class="border-border bg-background-secondary flex h-full flex-col gap-8 rounded-lg border p-4 md:px-8 md:py-6 md:pb-8">
-              <header class="aling-center z-40 flex items-start justify-between text-base">
-                <h2 class="text-2xl font-semibold text-pretty">
-                  {project.title}
-                </h2>
-              </header>
-              <div class="flex h-full flex-col gap-4">
-                {project.image ? (
+          <li>
+            <a href={`/projekty/${project.id}`} class="group block">
+              <article class="flex flex-col gap-5 py-6 md:flex-row md:items-center md:gap-8">
+                {project.thumbnail ? (
                   <Picture
                     formats={["webp"]}
-                    layout="full-width"
-                    src={project.image}
+                    src={project.thumbnail}
                     alt={project.title}
-                    class="border-foreground/10 mx-auto w-auto grow rounded-md border object-contain lg:min-h-80 lg:w-full lg:shadow"
+                    transition:name={`project-image-${project.id}`}
+                    pictureAttributes={{
+                      class: "shrink-0",
+                    }}
+                    class="border-foreground/10 w-full shrink-0 rounded-md border object-contain md:w-56 lg:w-64"
                   />
                 ) : (
-                  <div class="border-foreground/10 bg-background/20 mx-auto flex h-40 w-full grow items-center justify-center rounded-md border text-center md:h-72 lg:shadow">
-                    <p>Brak podglądu</p>
+                  <div class="border-foreground/10 bg-background-secondary flex h-32 w-full shrink-0 items-center justify-center rounded-lg border md:w-56 lg:w-64">
+                    <p class="text-foreground-secondary text-sm">
+                      Brak podglądu
+                    </p>
                   </div>
                 )}
-                <div class="flex flex-wrap gap-2" role="list">
-                  {project.tags.map((tag) => (
-                    <span
-                      role="listitem"
-                      class="border-accent/10 bg-accent/40 hover:bg-accent/60 text-foreground inline-flex cursor-pointer items-center justify-center rounded-md px-3 py-1 text-sm font-semibold transition-colors duration-200 md:text-base">
-                      {tag}
-                    </span>
-                  ))}
+                <div class="flex flex-col gap-2">
+                  <h2
+                    class="text-xl font-semibold text-pretty group-hover:text-accent transition-colors"
+                    transition:name={`project-title-${project.id}`}
+                  >
+                    {project.title}
+                  </h2>
+                  <p class="text-foreground-secondary text-sm leading-relaxed line-clamp-2">
+                    {project.description}
+                  </p>
+                  <div class="flex flex-wrap gap-1.5 pt-1" role="list">
+                    {project.tags.slice(0, 4).map((tag) => (
+                      <span
+                        role="listitem"
+                        class="bg-accent/20 text-foreground-secondary rounded-full px-2.5 py-0.5 text-xs font-medium"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                    {project.tags.length > 4 && (
+                      <span class="text-foreground-secondary rounded-full px-2.5 py-0.5 text-xs font-medium">
+                        +{project.tags.length - 4}
+                      </span>
+                    )}
+                  </div>
                 </div>
-                <p class="text-foreground-body min-h-16 text-left text-base">
-                  {project.description}
-                </p>
-                <div class="mt-auto flex gap-4 font-semibold md:gap-6">
-                  {project.demo ? (
-                    <ProjectLink link={project.demo} type="demo" />
-                  ) : null}
-                  <ProjectLink link={project.github} type="repo" />
-                </div>
-              </div>
-            </article>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="text-foreground-secondary hidden shrink-0 transition-transform group-hover:translate-x-1 md:ml-auto md:block"
+                >
+                  <path d="m9 18 6-6-6-6" />
+                </svg>
+              </article>
+            </a>
+            <div class="border-border border-b" />
           </li>
         );
       })
