@@ -18,8 +18,10 @@
       "@astrojs/react": "^4.4.2",
       "@astrojs/sitemap": "^3.7.0",
       "@astrojs/vercel": "^9.0.4",
-      "@resvg/resvg-js": "^2.6.2",
       "@tailwindcss/vite": "^4.1.18",
+      "@takumi-rs/core": "^0.69.2",
+      "@takumi-rs/helpers": "^0.69.2",
+      "@takumi-rs/image-response": "^0.69.2",
       "@types/react": "^19.2.14",
       "@types/react-dom": "^19.2.3",
       "@vercel/analytics": "^1.6.1",
@@ -30,7 +32,6 @@
       "react-dom": "^19.2.4",
       "rehype-autolink-headings": "^7.1.0",
       "rehype-pretty-code": "^0.14.1",
-      "satori": "^0.12.2",
       "sharp": "^0.33.5"
    },
    "devDependencies": {

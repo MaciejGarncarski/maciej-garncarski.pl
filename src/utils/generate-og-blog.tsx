@@ -1,7 +1,8 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import { Resvg } from "@resvg/resvg-js";
-import satori from "satori";
+import { Renderer } from "@takumi-rs/core";
+import { fromJsx } from "@takumi-rs/helpers/jsx";
+import { faviconUrl, imageSources } from "@/utils/get-og-assets";
 
 type OgImage = {
    imageBuffer: Buffer;
@@ -11,7 +12,18 @@ type OgImage = {
 };
 
 const FONT_PATH = path.resolve("src/assets/fonts/Montserrat-Medium.ttf");
-const fontBuffer = readFileSync(FONT_PATH);
+const fontBuffer = new Uint8Array(readFileSync(FONT_PATH));
+
+const renderer = new Renderer({
+   fonts: [
+      {
+         name: "Montserrat",
+         data: fontBuffer,
+         weight: 700,
+         style: "normal",
+      },
+   ],
+});
 
 const intlFormatter = new Intl.DateTimeFormat("pl-PL", {
    month: "long",
@@ -26,7 +38,7 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
 
    const tagsResult = tags.map((tag) => `${tag}`).join("  •  ");
 
-   const svg = await satori(
+   const { node, stylesheets } = await fromJsx(
       <div
          style={{
             width: 1200,
@@ -78,7 +90,7 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
             >
                {title}
             </span>
-            <img src="https://maciej-garncarski.pl/favicon.png" width={60} height={60} alt="" />
+            <img src={faviconUrl} width={60} height={60} alt="" />
          </div>
          {/* Right Column: Main Image and Date */}
          <div
@@ -123,20 +135,13 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
             </span>
          </div>
       </div>,
-      {
-         width: 1200,
-         height: 630,
-         fonts: [
-            {
-               name: "Montserrat",
-               data: fontBuffer,
-               weight: 700,
-               style: "normal",
-            },
-         ],
-      },
    );
 
-   const resvg = new Resvg(svg);
-   return resvg.render().asPng() as BodyInit;
+   return (await renderer.render(node, {
+      width: 1200,
+      height: 630,
+      format: "png",
+      stylesheets,
+      fetchedResources: imageSources,
+   })) as BodyInit;
 }
