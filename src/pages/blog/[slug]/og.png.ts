@@ -1,8 +1,8 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import { generateOgImage } from "@utils/generate-og-image";
 import type { APIContext, APIRoute } from "astro";
 import { getPosts } from "@/utils/get-posts";
+import { generateBlogOGImage } from "@/utils/generate-og-blog";
 
 export const prerender = true;
 
@@ -13,7 +13,7 @@ export const GET: APIRoute = async ({ props, redirect }: APIContext) => {
       return redirect("/og.png");
    }
 
-   const imageBuffer = await generateOgImage({
+   const imageBuffer = await generateBlogOGImage({
       imageBuffer: postCover,
       title: post.data.title,
       tags: post.data.tags,

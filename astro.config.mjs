@@ -8,6 +8,8 @@ import { defineConfig, fontProviders } from "astro/config";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrettyCode from "rehype-pretty-code";
 
+import react from "@astrojs/react";
+
 // https://astro.build/config
 export default defineConfig({
    experimental: {
@@ -22,7 +24,7 @@ export default defineConfig({
    },
    prefetch: true,
    site: "https://maciej-garncarski.pl",
-   integrations: [sitemap(), mdx()],
+   integrations: [sitemap(), mdx(), react()],
    markdown: {
       syntaxHighlight: false,
       rehypePlugins: [

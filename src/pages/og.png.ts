@@ -1,10 +1,10 @@
+import { generateBasicOGImage } from "@/utils/generate-og-basic";
 import type { APIRoute } from "astro";
-import { generateOgBasic } from "@/utils/generate-og-basic";
 
 export const prerender = true;
 
 export const GET: APIRoute = async () => {
-   const imageBuffer = await generateOgBasic();
+   const imageBuffer = await generateBasicOGImage();
 
    return new Response(imageBuffer, {
       headers: {
