@@ -11,7 +11,24 @@ pre[data-language] {
 }
 
 [data-rehype-pretty-code-figure] {
-   @apply my-10;
+   @apply relative my-10;
+}
+
+[data-rehype-pretty-code-figure] [data-copy-btn] {
+   @apply absolute top-2 right-2 z-10 flex size-8 cursor-pointer items-center justify-center rounded-md bg-white/10 text-white/60 opacity-0 transition-opacity hover:text-white hover:bg-white/20;
+}
+
+[data-rehype-pretty-code-figure]:hover [data-copy-btn] {
+   @apply opacity-100;
+}
+
+/* disable margins and border radius for code inside tabs */
+[data-tab-panel] [data-rehype-pretty-code-figure] {
+   @apply my-0;
+}
+
+[data-tab-panel] [data-language] {
+   @apply rounded-none;
 }
 
 [data-rehype-pretty-code-figure] code {

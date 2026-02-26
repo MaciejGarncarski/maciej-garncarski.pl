@@ -1,0 +1,81 @@
+---
+
+---
+
+<div
+  class="border-accent/30 my-10 overflow-hidden rounded-md border"
+  data-demo-code-tabs
+>
+  <div class="border-accent/15 flex border-b bg-background-secondary">
+    <button
+      class="text-foreground-secondary hover:text-foreground cursor-pointer border-b-2 border-transparent bg-transparent px-4 py-2 text-sm font-medium transition-all data-active:text-accent data-active:border-accent"
+      data-tab-btn="demo"
+      data-active
+      type="button"
+    >
+      Demo
+    </button>
+    <button
+      class="text-foreground-secondary hover:text-foreground cursor-pointer border-b-2 border-transparent bg-transparent px-4 py-2 text-sm font-medium transition-all data-active:text-accent data-active:border-accent"
+      data-tab-btn="code"
+      type="button"
+    >
+      Kod
+    </button>
+  </div>
+
+  <div
+    class="py-3 **:data-rehype-pretty-code-figure:my-0"
+    data-tab-panel="demo"
+  >
+    <slot name="demo" />
+  </div>
+
+  <div
+    class="hidden **:data-rehype-pretty-code-figure:my-0"
+    data-tab-panel="code"
+  >
+    <slot name="code" />
+  </div>
+</div>
+
+<script>
+  function initDemoCodeTabs() {
+    document.querySelectorAll("[data-demo-code-tabs]").forEach((container) => {
+      if (container.hasAttribute("data-tabs-initialized")) return;
+      container.setAttribute("data-tabs-initialized", "");
+
+      const buttons = container.querySelectorAll("[data-tab-btn]");
+      const panels = container.querySelectorAll("[data-tab-panel]");
+
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const btnElement = btn as HTMLButtonElement;
+          const target = btn.getAttribute("data-tab-btn");
+
+          buttons.forEach((b) => {
+            const bElement = b as HTMLButtonElement;
+            if (bElement === btnElement) {
+              bElement.dataset.active = "true";
+            } else {
+              bElement.removeAttribute("data-active");
+            }
+          });
+
+          btnElement.dataset.active = "";
+
+          panels.forEach((panel) => {
+            if (panel.getAttribute("data-tab-panel") === target) {
+              panel.classList.remove("hidden");
+            } else {
+              panel.classList.add("hidden");
+            }
+          });
+        });
+      });
+    });
+  }
+
+  initDemoCodeTabs();
+  document.addEventListener("astro:after-swap", initDemoCodeTabs);
+</script>

@@ -9,6 +9,7 @@ tags: ["Frontend"]
 
 import demo from "@/assets/blog/react-transitions/demo.gif";
 import { DemoComponent } from "@/components/blog/react-transitions/transitions-demo";
+import DemoCodeTabs from "@/components/blog/demo-code-tabs.astro";
 import { Picture } from "astro:assets";
 
 ## Co to są Transitions?
@@ -23,13 +24,14 @@ React traktuje aktualizacje wewnątrz `startTransition` jako mniej pilne. Jeśli
 
 Case study: Wyobraźmy sobie, że mamy aplikację z wyszukiwarką dostępnych produktów. Kiedy użytkownik wpisuje zapytanie, chcemy, aby wyniki pojawiały się płynnie, bez migotania czy opóźnień. Dzięki Transitions możemy osiągnąć ten efekt, zapewniając lepsze doświadczenie użytkownika.
 
-<DemoComponent client:visible />
-
 Kluczowe w tym przykładzie jest rozdzielenie dwóch typów aktualizacji:
 
 - `setQuery` - aktualizacja pilna (użytkownik musi natychmiast zobaczyć wpisany znak)
 - `setResults` - aktualizacja niepilna (może zostać przerwana i przeliczona ponownie)
 
+<DemoCodeTabs>
+  <DemoComponent client:visible slot="demo" />
+  <div slot="code">
 
 ```tsx
 import { useState, useTransition, type ChangeEvent } from 'react';
@@ -81,6 +83,8 @@ export function SearchComponent() {
   );
 }
 ```
+  </div>
+</DemoCodeTabs>
 
 <figure>
   <Picture data-blog-img src={demo} alt="Podgląd działania Transitions" />

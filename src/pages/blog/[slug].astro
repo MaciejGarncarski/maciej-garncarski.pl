@@ -10,12 +10,12 @@ import Layout from "@layouts/layout.astro";
 import { getPosts } from "@/utils/get-posts";
 
 export async function getStaticPaths() {
-   const posts = await getPosts();
+  const posts = await getPosts();
 
-   return posts.map((post) => ({
-      params: { slug: post.id },
-      props: post,
-   }));
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: post,
+  }));
 }
 
 type Props = CollectionEntry<"blog">;
@@ -24,9 +24,9 @@ const { Content } = await render(post);
 const canonicalUrl = post.data.canonicalUrl || `/blog/${post.id}`;
 const postUrl = new URL(canonicalUrl, Astro.site).toString();
 const breadcrumbs = [
-   { name: "Home", url: new URL("/", Astro.site).toString() },
-   { name: "Blog", url: new URL("/blog", Astro.site).toString() },
-   { name: post.data.title, url: postUrl },
+  { name: "Home", url: new URL("/", Astro.site).toString() },
+  { name: "Blog", url: new URL("/blog", Astro.site).toString() },
+  { name: post.data.title, url: postUrl },
 ];
 ---
 
@@ -54,4 +54,41 @@ const breadcrumbs = [
       <Content />
     </div>
   </article>
+
+  <script>
+    function initCopyButtons() {
+      document
+        .querySelectorAll("[data-rehype-pretty-code-figure]")
+        .forEach((figure) => {
+          if (figure.querySelector("[data-copy-btn]")) return;
+
+          const code = figure.querySelector("code");
+          if (!code) return;
+
+          const lines = code.querySelectorAll("[data-line]");
+          if (lines.length < 2) return;
+
+          const btn = document.createElement("button");
+          btn.setAttribute("data-copy-btn", "");
+          btn.setAttribute("type", "button");
+          btn.setAttribute("aria-label", "Kopiuj kod");
+          btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
+
+          btn.addEventListener("click", async () => {
+            const text = code.textContent || "";
+            await navigator.clipboard.writeText(text);
+
+            btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>`;
+            setTimeout(() => {
+              btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
+            }, 2000);
+          });
+
+          figure.appendChild(btn);
+        });
+    }
+
+    initCopyButtons();
+    document.addEventListener("astro:after-swap", initCopyButtons);
+  </script>
 </Layout>
