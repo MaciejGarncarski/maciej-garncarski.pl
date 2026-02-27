@@ -1,4 +1,3 @@
-import { DemoContainer } from "@/components/blog/demo-container";
 import { useState, useTransition, type ChangeEvent } from "react";
 
 const PRODUCTS = ["lampa", "poduszka", "lodówka", "biurko", "krzesło", "szafa"];
