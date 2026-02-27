@@ -6,22 +6,23 @@
   data-theme-switcher
   aria-label="Przełącz motyw"
   title="Przełącz motyw"
-  class="border-border bg-background-secondary hover:bg-background-secondary/80 relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border transition-all duration-300 hover:scale-105 active:scale-95">
+  class="border-border bg-background-secondary hover:bg-background-secondary/80 relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border transition-all duration-200 hover:scale-105 active:scale-95"
+>
   <span class="sr-only">Przełącz motyw</span>
 
-  <!-- Sun icon (light theme) -->
+  <!-- Sun icon (visible in dark mode — click to switch to light) -->
   <svg
     data-icon="sun"
     xmlns="http://www.w3.org/2000/svg"
-    width="20"
-    height="20"
+    width="19"
+    height="19"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
     stroke-width="2"
     stroke-linecap="round"
     stroke-linejoin="round"
-    class="absolute opacity-0 transition-all duration-300"
+    class="absolute opacity-0 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]"
     ><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"
     ></line><line x1="12" y1="21" x2="12" y2="23"></line><line
       x1="4.22"
@@ -36,47 +37,27 @@
     ></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg
   >
 
-  <!-- Moon icon (dark theme) -->
+  <!-- Moon icon (visible in light mode — click to switch to dark) -->
   <svg
     data-icon="moon"
     xmlns="http://www.w3.org/2000/svg"
-    width="20"
-    height="20"
+    width="19"
+    height="19"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
     stroke-width="2"
     stroke-linecap="round"
     stroke-linejoin="round"
-    class="absolute opacity-0 transition-all duration-300"
+    class="absolute opacity-0 transition-all duration-500 ease-[cubic-bezier(0.34,1.36,0.64,1)]"
     ><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg
-  >
-
-  <!-- Monitor icon (system theme) -->
-  <svg
-    data-icon="system"
-    xmlns="http://www.w3.org/2000/svg"
-    width="20"
-    height="20"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="2"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    class="absolute opacity-0 transition-all duration-300"
-    ><rect width="20" height="14" x="2" y="3" rx="2"></rect><line
-      x1="8"
-      x2="16"
-      y1="21"
-      y2="21"></line><line x1="12" x2="12" y1="17" y2="21"></line></svg
   >
 </button>
 
 <script>
   import type { TransitionBeforeSwapEvent } from "astro:transitions/client";
 
-  type Theme = "light" | "dark" | "system";
+  type Theme = "light" | "dark";
 
   function initThemeSwitcher() {
     const button = document.querySelector("[data-theme-switcher]");
@@ -85,84 +66,59 @@
     const icons = {
       sun: button.querySelector('[data-icon="sun"]'),
       moon: button.querySelector('[data-icon="moon"]'),
-      system: button.querySelector('[data-icon="system"]')
     };
 
-    button.classList.remove("transition-all", "duration-300");
-    icons.sun?.classList.remove("transition-all", "duration-300");
-    icons.moon?.classList.remove("transition-all", "duration-300");
-    icons.system?.classList.remove("transition-all", "duration-300");
+    button.classList.remove("transition-all", "duration-200");
+    icons.sun?.classList.remove("transition-all", "duration-500");
+    icons.moon?.classList.remove("transition-all", "duration-500");
 
     setTimeout(() => {
-      button.classList.add("transition-all", "duration-300");
-      icons.sun?.classList.add("transition-all", "duration-300");
-      icons.moon?.classList.add("transition-all", "duration-300");
-      icons.system?.classList.add("transition-all", "duration-300");
+      button.classList.add("transition-all", "duration-200");
+      icons.sun?.classList.add("transition-all", "duration-500");
+      icons.moon?.classList.add("transition-all", "duration-500");
     }, 200);
 
-    function getStoredTheme(): Theme {
+    function getEffectiveTheme(): Theme {
       const stored = localStorage.getItem("theme");
       if (stored === "light" || stored === "dark") return stored;
-      return "system";
-    }
-
-    function getEffectiveTheme(theme: Theme): "light" | "dark" {
-      if (theme === "light" || theme === "dark") return theme;
       return window.matchMedia("(prefers-color-scheme: dark)").matches
         ? "dark"
         : "light";
     }
 
     function updateIcon(theme: Theme) {
-      Object.values(icons).forEach((icon) => {
-        icon?.classList.add("opacity-0", "rotate-90", "scale-0");
-        icon?.classList.remove("opacity-100", "rotate-0", "scale-100");
-      });
+      // Sun exits rotating clockwise, moon exits rotating counter-clockwise
+      icons.sun?.classList.add("opacity-0", "scale-0", "rotate-90");
+      icons.sun?.classList.remove("opacity-100", "scale-100", "rotate-0");
 
-      const activeIcon =
-        theme === "light"
-          ? icons.sun
-          : theme === "dark"
-            ? icons.moon
-            : icons.system;
+      icons.moon?.classList.add("opacity-0", "scale-0", "-rotate-90");
+      icons.moon?.classList.remove("opacity-100", "scale-100", "rotate-0");
 
-      activeIcon?.classList.remove("opacity-0", "rotate-90", "scale-0");
-      activeIcon?.classList.add("opacity-100", "rotate-0", "scale-100");
+      const activeIcon = theme === "dark" ? icons.sun : icons.moon;
+
+      activeIcon?.classList.remove(
+        "opacity-0",
+        "scale-0",
+        "rotate-90",
+        "-rotate-90",
+      );
+      activeIcon?.classList.add("opacity-100", "scale-100", "rotate-0");
     }
 
     function setTheme(theme: Theme) {
-      const effectiveTheme = getEffectiveTheme(theme);
-      document.documentElement.className = effectiveTheme;
-
-      if (theme === "system") {
-        localStorage.removeItem("theme");
-      } else {
-        localStorage.setItem("theme", theme);
-      }
-
+      document.documentElement.className = theme;
+      localStorage.setItem("theme", theme);
       updateIcon(theme);
     }
 
-    function cycleTheme() {
-      const current = getStoredTheme();
-      const next: Theme =
-        current === "light" ? "dark" : current === "dark" ? "system" : "light";
-      setTheme(next);
+    function toggleTheme() {
+      const current = getEffectiveTheme();
+      setTheme(current === "light" ? "dark" : "light");
     }
 
-    const initialTheme = getStoredTheme();
-    setTheme(initialTheme);
+    updateIcon(getEffectiveTheme());
 
-    button.addEventListener("click", cycleTheme);
-
-    window
-      .matchMedia("(prefers-color-scheme: dark)")
-      .addEventListener("change", () => {
-        const theme = getStoredTheme();
-        if (theme === "system") {
-          setTheme("system");
-        }
-      });
+    button.addEventListener("click", toggleTheme);
   }
 
   document.addEventListener(
@@ -177,7 +133,7 @@
             : "light";
 
       swapEvent.newDocument.documentElement.className = theme;
-    }
+    },
   );
 
   document.addEventListener("astro:after-swap", initThemeSwitcher);

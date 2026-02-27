@@ -2,22 +2,56 @@
 import { Picture } from "astro:assets";
 import notFound from "@assets/not-found.png";
 import Layout from "@layouts/layout.astro";
+import Seo from "@/components/seo.astro";
 ---
 
 <Layout>
-  <figure
-    class="mx-auto flex h-[60dvh] flex-col items-center justify-center gap-8 text-center">
+  <Seo
+    slot="head"
+    title="404 - Nie znaleziono"
+    description="Strona, której szukasz, nie istnieje."
+  />
+
+  <div
+    class="mx-auto flex min-h-[60dvh] max-w-[55rem] flex-col items-center justify-center gap-10 py-8 md:py-12 text-center"
+  >
+    <div class="animate-fade-in-up flex flex-col items-center gap-6">
+      <p class="text-accent text-sm font-semibold uppercase tracking-widest">
+        Błąd 404
+      </p>
+      <h1 class="text-4xl font-bold tracking-tight md:text-5xl">
+        Strona nie istnieje
+      </h1>
+      <p
+        class="text-foreground-body max-w-[45ch] text-lg leading-relaxed text-pretty"
+      >
+        Wygląda na to, że strona, której szukasz, została przeniesiona, usunięta
+        lub nigdy nie istniała.
+      </p>
+    </div>
+
     <Picture
       formats={["webp"]}
       src={notFound}
-      width={256}
-      height={256}
-      class="w-64 rounded border border-gray-500/30 shadow"
-      alt={"Kot trzymający tekst not found"}
+      width={240}
+      height={240}
+      class="border-border w-60 rounded-xl border shadow-lg"
+      alt="Kot trzymający tekst not found"
     />
-    <figcaption class="flex flex-col gap-4">
-      <p>Strona, której szukasz, nie istnieje.</p>
-      <a href="/" class="underline">Kliknij, aby wrócić na stronę główną.</a>
-    </figcaption>
-  </figure>
+
+    <div class="flex flex-col items-center gap-4 sm:flex-row">
+      <a
+        href="/"
+        class="bg-accent/15 text-accent hover:bg-accent/25 rounded-lg px-6 py-2.5 text-sm font-medium transition-all duration-200"
+      >
+        Strona główna
+      </a>
+      <a
+        href="/blog"
+        class="text-foreground-secondary hover:text-foreground hover:bg-foreground/5 rounded-lg px-6 py-2.5 text-sm font-medium transition-all duration-200"
+      >
+        Przeglądaj blog
+      </a>
+    </div>
+  </div>
 </Layout>

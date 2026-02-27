@@ -15,11 +15,11 @@ pre[data-language] {
 }
 
 [data-rehype-pretty-code-figure] [data-copy-btn] {
-   @apply absolute top-2 right-2 z-10 flex size-8 cursor-pointer items-center justify-center rounded-md bg-white/10 text-white/60 opacity-0 transition-opacity hover:text-white hover:bg-white/20;
+   @apply absolute top-2 right-2 z-10 flex size-8 cursor-pointer items-center backdrop-blur-lg justify-center rounded-md bg-white/13 text-white/60 opacity-100 md:opacity-0 transition-opacity hover:text-white hover:bg-white/20;
 }
 
 [data-rehype-pretty-code-figure]:hover [data-copy-btn] {
-   @apply opacity-100;
+   @apply md:opacity-100;
 }
 
 /* disable margins and border radius for code inside tabs */

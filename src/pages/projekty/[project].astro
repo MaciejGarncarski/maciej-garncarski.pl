@@ -1,17 +1,18 @@
 ---
 import ProjectLink from "@/components/projects/project-link.astro";
+import SectionHeading from "@/components/about-page/section-heading.astro";
 import Seo from "@/components/seo.astro";
 import { projects } from "@/data/projects";
 import Layout from "@/layouts/layout.astro";
 import { Picture } from "astro:assets";
 
 export async function getStaticPaths() {
-   return projects.map((project) => ({
-      params: { project: project.id },
-      props: {
-         project,
-      },
-   }));
+  return projects.map((project) => ({
+    params: { project: project.id },
+    props: {
+      project,
+    },
+  }));
 }
 
 const { project } = Astro.props;
@@ -69,11 +70,7 @@ const { project } = Astro.props;
     />
 
     <section class="flex flex-col gap-3">
-      <h2
-        class="text-foreground-secondary text-sm font-semibold uppercase tracking-widest"
-      >
-        Technologie
-      </h2>
+      <SectionHeading title="Technologie" />
       <div class="flex flex-wrap gap-2" role="list">
         {
           project.tags.map((tag) => (
@@ -89,11 +86,7 @@ const { project } = Astro.props;
     </section>
 
     <section class="flex flex-col gap-3">
-      <h2
-        class="text-foreground-secondary text-xs font-semibold uppercase tracking-widest"
-      >
-        Linki
-      </h2>
+      <SectionHeading title="Linki" />
       <div class="flex gap-4 font-semibold md:gap-6">
         {project.demo ? <ProjectLink link={project.demo} type="demo" /> : null}
         <ProjectLink link={project.github} type="repo" />
