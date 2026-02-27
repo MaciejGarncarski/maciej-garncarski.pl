@@ -1,7 +1,7 @@
 @reference "./global.css";
 
 code:not([data-language]) {
-   @apply bg-accent/25 text-foreground border-accent/10 rounded-md border px-2 py-0.5 wrap-break-word shadow dark:bg-[#1b1e28];
+   @apply text-accent bg-accent/8 border-accent/15 rounded-md border px-1.5 py-0.5 text-[0.9em] font-medium wrap-break-word;
    -webkit-box-decoration-break: clone;
    box-decoration-break: clone;
 }

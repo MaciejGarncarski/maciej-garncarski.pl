@@ -1,0 +1,135 @@
+---
+
+---
+
+<aside
+  class="hidden xl:block absolute top-0 left-full ml-8 2xl:ml-14 mt-6 h-full w-56"
+  data-toc-aside
+>
+  <nav
+    class="sticky top-32 overflow-hidden"
+    data-toc-nav
+    aria-label="Spis treści"
+  >
+    <p
+      class="text-foreground-secondary mb-3 text-xs font-semibold uppercase tracking-widest"
+    >
+      Na tej stronie
+    </p>
+    <ul class="flex flex-col gap-0.5" data-toc-list></ul>
+  </nav>
+</aside>
+
+<script>
+  function initTableOfContents() {
+    const tocList = document.querySelector("[data-toc-list]");
+    const tocAside = document.querySelector("[data-toc-aside]");
+    if (!tocList || !tocAside) return;
+
+    const content = document.querySelector("[data-blog-content]");
+    if (!content) return;
+
+    const headings = content.querySelectorAll("h2, h3");
+    if (headings.length < 2) {
+      tocAside.classList.add("!hidden");
+      return;
+    }
+
+    tocList.innerHTML = "";
+
+    headings.forEach((heading) => {
+      const id = heading.id;
+
+      const clone = heading.cloneNode(true) as HTMLElement;
+      clone.querySelectorAll("[data-anchor-hash]").forEach((el) => el.remove());
+      const text = clone.textContent?.replace(/\s+/g, " ").trim() || "";
+
+      const level = heading.tagName === "H3" ? "pl-4" : "";
+
+      if (!id || !text) return;
+
+      const li = document.createElement("li");
+      const a = document.createElement("a");
+      a.href = `#${id}`;
+      a.textContent = text;
+      a.title = text;
+      a.setAttribute("data-toc-link", id);
+      a.className = [
+        "block truncate rounded-sm py-1 px-2 text-xs leading-5 transition-colors duration-200",
+        "text-foreground-secondary hover:text-foreground",
+        level,
+      ]
+        .filter(Boolean)
+        .join(" ");
+
+      a.addEventListener("click", (e) => {
+        e.preventDefault();
+        const target = document.getElementById(id);
+        if (target) {
+          activeId = id;
+          updateActiveLink();
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+          history.replaceState(null, "", `#${id}`);
+        }
+      });
+
+      li.appendChild(a);
+      tocList.appendChild(li);
+    });
+
+    // scroll margin 30 in tailwind
+    const SCROLL_OFFSET = 130;
+
+    function getActiveHeadingId(): string {
+      let activeHeading = "";
+
+      for (const heading of headings) {
+        const top = heading.getBoundingClientRect().top;
+        if (top <= SCROLL_OFFSET) {
+          activeHeading = heading.id;
+        } else {
+          break;
+        }
+      }
+
+      return activeHeading;
+    }
+
+    function onScroll() {
+      const newActiveId = getActiveHeadingId();
+      if (newActiveId !== activeId) {
+        activeId = newActiveId;
+        updateActiveLink();
+      }
+    }
+
+    let activeId = getActiveHeadingId();
+    updateActiveLink();
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    function updateActiveLink() {
+      if (!tocList) return;
+      const links = tocList.querySelectorAll("[data-toc-link]");
+      links.forEach((link) => {
+        const linkId = link.getAttribute("data-toc-link");
+        if (linkId === activeId) {
+          link.classList.remove(
+            "text-foreground-secondary",
+            "hover:text-foreground",
+          );
+          link.classList.add("text-accent", "bg-accent/10", "font-medium");
+        } else {
+          link.classList.add(
+            "text-foreground-secondary",
+            "hover:text-foreground",
+          );
+          link.classList.remove("text-accent", "bg-accent/10", "font-medium");
+        }
+      });
+    }
+  }
+
+  initTableOfContents();
+  document.addEventListener("astro:after-swap", initTableOfContents);
+</script>

@@ -5,6 +5,7 @@ import "@/styles/codeblock.css";
 import "@/styles/blog.css";
 import { type CollectionEntry, render } from "astro:content";
 import BlogHero from "@components/blog/blog-hero.astro";
+import TableOfContents from "@components/blog/table-of-contents.astro";
 import SEO from "@components/seo.astro";
 import Layout from "@layouts/layout.astro";
 import { getPosts } from "@/utils/get-posts";
@@ -47,11 +48,14 @@ const breadcrumbs = [
 
   <article class="flex flex-col gap-10 lg:gap-4">
     <BlogHero text={post.data.title} />
-    <div
-      class="animate-fade-in-up mx-auto max-w-full pb-14 text-base leading-7 text-pretty md:text-lg lg:max-w-[85ch] lg:min-w-[40ch]"
-      data-blog-content
-    >
-      <Content />
+    <div class="relative mx-auto w-full max-w-full lg:max-w-[85ch]">
+      <TableOfContents />
+      <div
+        class="animate-fade-in-up pb-14 text-base leading-7 text-pretty md:text-lg"
+        data-blog-content
+      >
+        <Content />
+      </div>
     </div>
   </article>
 
