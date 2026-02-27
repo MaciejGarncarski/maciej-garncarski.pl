@@ -3,6 +3,7 @@ import { Picture } from "astro:assets";
 
 import Layout from "@layouts/layout.astro";
 import Seo from "@/components/seo.astro";
+import Tag from "@/components/tag.astro";
 import { projects } from "@/data/projects";
 
 const seoData = {
@@ -71,17 +72,12 @@ const seoData = {
                     </p>
                     <div class="flex flex-wrap gap-1.5 pt-1" role="list">
                       {project.tags.slice(0, 4).map((tag) => (
-                        <span
-                          role="listitem"
-                          class="bg-accent/20 text-foreground-secondary rounded-full px-2.5 py-0.5 text-xs font-medium"
-                        >
+                        <Tag variant="small" role="listitem">
                           {tag}
-                        </span>
+                        </Tag>
                       ))}
                       {project.tags.length > 4 && (
-                        <span class="text-foreground-secondary rounded-full px-2.5 py-0.5 text-xs font-medium">
-                          +{project.tags.length - 4}
-                        </span>
+                        <Tag variant="small">+{project.tags.length - 4}</Tag>
                       )}
                     </div>
                   </div>

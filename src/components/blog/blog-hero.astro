@@ -1,12 +1,13 @@
 ---
-import { Image, Picture } from "astro:assets";
+import { Image } from "astro:assets";
 import { fade } from "astro:transitions";
 import { calculateReadingTime } from "@utils/calculate-read-time";
 import { getPosts } from "@/utils/get-posts";
 import { normalizeTag } from "@/utils/normalize-tag";
+import Tag from "@/components/tag.astro";
 
 type Props = {
-   text: string;
+  text: string;
 };
 
 const { text } = Astro.props;
@@ -17,40 +18,45 @@ const readTime = calculateReadingTime(currPost?.body || "");
 const words = currPost?.body ? currPost.body.split(/\s+/).length : 0;
 
 const publishDate = new Intl.DateTimeFormat("pl-PL", {
-   year: "numeric",
-   month: "long",
-   day: "numeric",
-}).format(currPost?.data.pubDate ? new Date(currPost.data.pubDate) : new Date());
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+}).format(
+  currPost?.data.pubDate ? new Date(currPost.data.pubDate) : new Date(),
+);
 
 const updateDate = currPost?.data.updatedDate
-   ? new Intl.DateTimeFormat("pl-PL", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-     }).format(new Date(currPost.data.updatedDate))
-   : null;
+  ? new Intl.DateTimeFormat("pl-PL", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    }).format(new Date(currPost.data.updatedDate))
+  : null;
 
 const tags = currPost?.data.tags || [];
 
-const sortedTags = tags.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
+const sortedTags = tags.sort((a, b) =>
+  a.localeCompare(b, undefined, { sensitivity: "base" }),
+);
 ---
 
 <header
-  class="relative flex min-h-80 flex-col items-center justify-center gap-4 overflow-hidden md:overflow-visible lg:mx-auto lg:h-110 lg:w-3/4">
+  class="relative flex min-h-80 flex-col items-center justify-center gap-4 overflow-hidden md:overflow-visible lg:mx-auto lg:h-110 lg:w-3/4"
+>
   {
     currPost?.data.heroImage && (
       <>
         <div
           data-blog-hero-bg
-          class="absolute top-0 left-0 -z-10 mx-auto hidden h-full w-full opacity-4 blur-xl md:block md:rounded-4xl md:blur-2xl">
+          class="absolute top-0 left-0 -z-10 mx-auto hidden h-full w-full opacity-4 blur-xl md:block md:rounded-4xl md:blur-2xl"
+        >
           <div class="absolute top-0 left-0 h-full w-full" />
-          <Picture
-            formats={["webp"]}
+          <Image
             src={currPost.data.heroImage}
             alt={""}
             width={512}
             height={512}
-            class="h-full w-full mask-[url(/mask-test.svg)] mask-luminance mask-cover mask-center object-cover"
+            class="h-full w-full mask-[url(/mask-test.svg)] saturate-110 mask-luminance mask-cover mask-center object-cover"
             priority={true}
           />
         </div>
@@ -71,9 +77,11 @@ const sortedTags = tags.sort((a, b) => a.localeCompare(b, undefined, { sensitivi
   }
   <div
     class="z-30 flex flex-col gap-2 text-center text-balance md:gap-3"
-    transition:name={`blog-header-${currPost?.id}`}>
+    transition:name={`blog-header-${currPost?.id}`}
+  >
     <h1
-      class="z-50 max-w-[20rem] px-5 text-center text-xl font-bold md:max-w-full lg:max-w-[35rem] lg:text-2xl">
+      class="z-50 max-w-[20rem] px-5 text-center text-xl font-bold md:max-w-full lg:max-w-[35rem] lg:text-2xl"
+    >
       {text}
     </h1>
     <p class="flex flex-col gap-1 text-center">
@@ -82,7 +90,8 @@ const sortedTags = tags.sort((a, b) => a.localeCompare(b, undefined, { sensitivi
         <time
           itemprop="datePublished"
           datetime={new Date(currPost?.data.pubDate || "").toISOString()}
-          class="tracking-tighter lg:tracking-tight">
+          class="tracking-tighter lg:tracking-tight"
+        >
           {publishDate}
         </time>
       </span>
@@ -91,7 +100,8 @@ const sortedTags = tags.sort((a, b) => a.localeCompare(b, undefined, { sensitivi
           <time
             itemprop="dateModified"
             datetime={new Date(currPost.data.updatedDate).toISOString()}
-            class="tracking-tighter lg:tracking-tight">
+            class="tracking-tighter lg:tracking-tight"
+          >
             &#40;aktualizacja: {updateDate}&#41;
           </time>
         )
@@ -106,11 +116,7 @@ const sortedTags = tags.sort((a, b) => a.localeCompare(b, undefined, { sensitivi
       sortedTags.length > 0 && (
         <div class="mt-2 flex flex-wrap items-center justify-center gap-2">
           {sortedTags.map((tag) => (
-            <a
-              href={`/blog/tag/${normalizeTag(tag)}`}
-              class="border-accent/7 bg-accent/15 text-foreground/80 hover:bg-accent/30 focus:bg-accent/30 inline-block rounded-full border px-3 py-1 text-sm font-medium transition-colors duration-300">
-              # {tag}
-            </a>
+            <Tag href={`/blog/tag/${normalizeTag(tag)}`}># {tag}</Tag>
           ))}
         </div>
       )

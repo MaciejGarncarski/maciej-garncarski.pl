@@ -2,6 +2,7 @@
 import ProjectLink from "@/components/projects/project-link.astro";
 import SectionHeading from "@/components/about-page/section-heading.astro";
 import Seo from "@/components/seo.astro";
+import Tag from "@/components/tag.astro";
 import { projects } from "@/data/projects";
 import Layout from "@/layouts/layout.astro";
 import { Picture } from "astro:assets";
@@ -72,16 +73,7 @@ const { project } = Astro.props;
     <section class="flex flex-col gap-3">
       <SectionHeading title="Technologie" />
       <div class="flex flex-wrap gap-2" role="list">
-        {
-          project.tags.map((tag) => (
-            <span
-              role="listitem"
-              class="border-accent/10 bg-accent/40 text-foreground inline-flex items-center justify-center rounded-full px-3 py-1 text-sm font-medium"
-            >
-              {tag}
-            </span>
-          ))
-        }
+        {project.tags.map((tag) => <Tag role="listitem">{tag}</Tag>)}
       </div>
     </section>
 

@@ -44,7 +44,7 @@
       clone.querySelectorAll("[data-anchor-hash]").forEach((el) => el.remove());
       const text = clone.textContent?.replace(/\s+/g, " ").trim() || "";
 
-      const level = heading.tagName === "H3" ? "pl-4" : "";
+      const level = heading.tagName === "H3" ? "ml-4" : "";
 
       if (!id || !text) return;
 
@@ -55,7 +55,7 @@
       a.title = text;
       a.setAttribute("data-toc-link", id);
       a.className = [
-        "block truncate rounded-sm py-1 px-2 text-xs leading-5 transition-colors duration-200",
+        "block truncate rounded-md py-1 px-2 text-xs leading-5 transition-all duration-200",
         "text-foreground-secondary hover:text-foreground",
         level,
       ]
@@ -88,6 +88,10 @@
         } else {
           break;
         }
+      }
+
+      if (!activeHeading || activeHeading === "") {
+        activeHeading = headings[0].id;
       }
 
       return activeHeading;
