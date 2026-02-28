@@ -4,25 +4,25 @@ import { normalizeTag } from "@/utils/normalize-tag";
 import Tag from "@/components/tag.astro";
 
 type Props = {
-  selectedTag?: string;
+   selectedTag?: string;
 };
 
 const posts = await getPostsSorted();
 const allTags = new Set<string>();
 
 posts.forEach((post) => {
-  post.data.tags.forEach((tag) => {
-    allTags.add(tag);
-  });
+   post.data.tags.forEach((tag) => {
+      allTags.add(tag);
+   });
 });
 
 const sortedTags = Array.from(allTags).sort((a, b) =>
-  a.localeCompare(b, undefined, { sensitivity: "base" }),
+   a.localeCompare(b, undefined, { sensitivity: "base" }),
 );
 
 const isTagSelected = Astro.props.selectedTag
-  ? sortedTags.includes(Astro.props.selectedTag)
-  : false;
+   ? sortedTags.includes(Astro.props.selectedTag)
+   : false;
 ---
 
 <ul class="flex flex-wrap items-center gap-3">

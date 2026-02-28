@@ -11,12 +11,12 @@ import Layout from "@layouts/layout.astro";
 import { getPosts } from "@/utils/get-posts";
 
 export async function getStaticPaths() {
-  const posts = await getPosts();
+   const posts = await getPosts();
 
-  return posts.map((post) => ({
-    params: { slug: post.id },
-    props: post,
-  }));
+   return posts.map((post) => ({
+      params: { slug: post.id },
+      props: post,
+   }));
 }
 
 type Props = CollectionEntry<"blog">;
@@ -25,9 +25,9 @@ const { Content } = await render(post);
 const canonicalUrl = post.data.canonicalUrl || `/blog/${post.id}`;
 const postUrl = new URL(canonicalUrl, Astro.site).toString();
 const breadcrumbs = [
-  { name: "Home", url: new URL("/", Astro.site).toString() },
-  { name: "Blog", url: new URL("/blog", Astro.site).toString() },
-  { name: post.data.title, url: postUrl },
+   { name: "Home", url: new URL("/", Astro.site).toString() },
+   { name: "Blog", url: new URL("/blog", Astro.site).toString() },
+   { name: post.data.title, url: postUrl },
 ];
 ---
 

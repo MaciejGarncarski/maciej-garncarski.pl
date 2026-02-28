@@ -3,40 +3,34 @@ import clsx from "clsx";
 import type { HTMLAttributes } from "astro/types";
 
 type Props = HTMLAttributes<"span"> & {
-  /**
-   * "default" — standard display tag (blog hero, project detail)
-   * "filter" — interactive filter with active/inactive states (blog tag list)
-   * "small" — compact tag for cards (project listing)
-   */
-  variant?: "default" | "filter" | "small";
-  active?: boolean;
-  href?: string;
+   /**
+    * "default" — standard display tag (blog hero, project detail)
+    * "filter" — interactive filter with active/inactive states (blog tag list)
+    * "small" — compact tag for cards (project listing)
+    */
+   variant?: "default" | "filter" | "small";
+   active?: boolean;
+   href?: string;
 };
 
-const {
-  variant = "default",
-  active = false,
-  href,
-  class: className,
-  ...rest
-} = Astro.props;
+const { variant = "default", active = false, href, class: className, ...rest } = Astro.props;
 
 const isLink = !!href;
 const Element = isLink ? "a" : "span";
 
 const sizeClasses = {
-  default: "px-3 py-1 text-sm",
-  filter: "px-3 py-1 text-sm",
-  small: "px-2.5 py-0.5 text-xs",
+   default: "px-3 py-1 text-sm",
+   filter: "px-3 py-1 text-sm",
+   small: "px-2.5 py-0.5 text-xs",
 } as const;
 
 const variantClasses = {
-  default:
-    "border border-accent/10 bg-accent/15 text-foreground/80 hover:bg-accent/25 focus:bg-accent/25",
-  filter: active
-    ? "border border-accent/10 bg-accent/40 text-foreground"
-    : "border border-accent/7 bg-accent/8 text-foreground/80 hover:bg-accent/30 focus:bg-accent/30",
-  small: "bg-accent/15 text-foreground/70",
+   default:
+      "border border-accent/10 bg-accent/15 text-foreground/80 hover:bg-accent/25 focus:bg-accent/25",
+   filter: active
+      ? "border border-accent/10 bg-accent/40 text-foreground"
+      : "border border-accent/7 bg-accent/8 text-foreground/80 hover:bg-accent/30 focus:bg-accent/30",
+   small: "bg-accent/15 text-foreground/70",
 } as const;
 ---
 

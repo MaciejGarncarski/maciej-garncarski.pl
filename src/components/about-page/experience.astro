@@ -68,10 +68,10 @@ const experiences: Experience[] = [
           <h3 class="text-xl font-semibold">{exp.role}</h3>
           <ul class="text-foreground-body flex flex-col gap-3 text-[0.938rem] leading-relaxed text-pretty">
             {exp.highlights.map(({ title, description }) => (
-              <li class="flex gap-3">
-                <span class="text-accent mt-2.5 block size-1.5 shrink-0 rounded-full bg-current" />
+              <li class="flex gap-2.5">
+                <span class="text-accent mt-2.25 block size-1.5 shrink-0 rounded-full bg-current" />
                 <span>
-                  <strong class="text-foreground">{title}</strong> —{" "}
+                  <strong class="text-foreground">{title}</strong> -{" "}
                   {description}
                 </span>
               </li>
