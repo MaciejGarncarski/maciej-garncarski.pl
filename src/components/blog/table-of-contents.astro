@@ -3,11 +3,11 @@
 ---
 
 <aside
-  class="hidden xl:block absolute top-0 left-full ml-8 2xl:ml-14 mt-6 h-full w-56"
+  class="hidden xl:block absolute top-0 left-full ml-8 2xl:ml-14 mt-6 h-full w-[clamp(13rem,16vw,16rem)]"
   data-toc-aside
 >
   <nav
-    class="sticky top-32 overflow-hidden"
+    class="sticky top-32 max-h-[calc(100vh-9rem)] overflow-y-auto pr-1"
     data-toc-nav
     aria-label="Spis treści"
   >
@@ -16,120 +16,185 @@
     >
       Na tej stronie
     </p>
-    <ul class="flex flex-col gap-0.5" data-toc-list></ul>
+    <ul
+      class="border-accent/10 flex flex-col gap-1 border-l pl-2"
+      data-toc-list
+    >
+    </ul>
   </nav>
 </aside>
 
 <script>
+  type TocCleanup = () => void;
+
+  declare global {
+    interface Window {
+      __tocCleanup?: TocCleanup;
+    }
+  }
+
   function initTableOfContents() {
-    const tocList = document.querySelector("[data-toc-list]");
-    const tocAside = document.querySelector("[data-toc-aside]");
-    if (!tocList || !tocAside) return;
+    window.__tocCleanup?.();
 
-    const content = document.querySelector("[data-blog-content]");
-    if (!content) return;
+    const tocList = document.querySelector(
+      "[data-toc-list]",
+    ) as HTMLUListElement | null;
+    const tocAside = document.querySelector(
+      "[data-toc-aside]",
+    ) as HTMLElement | null;
+    const content = document.querySelector(
+      "[data-blog-content]",
+    ) as HTMLElement | null;
 
-    const headings = content.querySelectorAll("h2, h3");
+    if (!tocList || !tocAside || !content) return;
+
+    const headings = Array.from(
+      content.querySelectorAll("h2[id], h3[id]"),
+    ) as HTMLElement[];
     if (headings.length < 2) {
       tocAside.classList.add("!hidden");
       return;
     }
 
+    tocAside.classList.remove("!hidden");
     tocList.innerHTML = "";
 
-    headings.forEach((heading) => {
+    const linksById = new Map<string, HTMLAnchorElement>();
+    const clickHandlers: Array<{
+      element: HTMLAnchorElement;
+      handler: (event: MouseEvent) => void;
+    }> = [];
+
+    for (const heading of headings) {
       const id = heading.id;
 
       const clone = heading.cloneNode(true) as HTMLElement;
       clone.querySelectorAll("[data-anchor-hash]").forEach((el) => el.remove());
       const text = clone.textContent?.replace(/\s+/g, " ").trim() || "";
 
-      const level = heading.tagName === "H3" ? "ml-4" : "";
-
-      if (!id || !text) return;
+      if (!id || !text) continue;
 
       const li = document.createElement("li");
       const a = document.createElement("a");
+
       a.href = `#${id}`;
       a.textContent = text;
       a.title = text;
       a.setAttribute("data-toc-link", id);
       a.className = [
-        "block truncate rounded-md py-1 px-2 text-xs leading-5 transition-all duration-200",
+        "block truncate rounded-md px-2 py-1 text-xs leading-5 transition-all duration-300",
         "text-foreground-secondary hover:text-foreground",
-        level,
+        heading.tagName === "H3" ? "ml-4" : "",
       ]
         .filter(Boolean)
         .join(" ");
 
-      a.addEventListener("click", (e) => {
-        e.preventDefault();
+      const onClick = (event: MouseEvent) => {
+        event.preventDefault();
         const target = document.getElementById(id);
-        if (target) {
-          target.scrollIntoView({ behavior: "smooth", block: "start" });
-          history.replaceState(null, "", `#${id}`);
-        }
-      });
+        if (!target) return;
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        history.replaceState(null, "", `#${id}`);
+      };
+
+      a.addEventListener("click", onClick);
+      clickHandlers.push({ element: a, handler: onClick });
+      linksById.set(id, a);
 
       li.appendChild(a);
       tocList.appendChild(li);
-    });
+    }
 
-    // scroll margin 30 in tailwind
+    const headingOrder = headings.map((heading) => heading.id);
     const SCROLL_OFFSET = 130;
+    let activeId = "";
+    const visible = new Set<string>();
 
-    function getActiveHeadingId(): string {
-      let activeHeading = "";
-
+    const getClosestByScrollPosition = () => {
+      let candidate = headingOrder[0] ?? "";
       for (const heading of headings) {
-        const top = heading.getBoundingClientRect().top;
-        if (top <= SCROLL_OFFSET) {
-          activeHeading = heading.id;
-        } else {
-          break;
+        if (heading.getBoundingClientRect().top <= SCROLL_OFFSET) {
+          candidate = heading.id;
+          continue;
+        }
+        break;
+      }
+      return candidate;
+    };
+
+    const getActiveFromVisible = () => {
+      if (visible.size === 0) return getClosestByScrollPosition();
+
+      let candidate = headingOrder[0] ?? "";
+      for (const id of headingOrder) {
+        if (visible.has(id)) candidate = id;
+      }
+
+      return candidate;
+    };
+
+    const updateActiveLink = (newActiveId: string) => {
+      if (!newActiveId || newActiveId === activeId) return;
+
+      activeId = newActiveId;
+      for (const [id, link] of linksById) {
+        const isActive = id === activeId;
+
+        link.classList.toggle("text-accent", isActive);
+        link.classList.toggle("bg-accent/10", isActive);
+        link.classList.toggle("text-foreground-secondary", !isActive);
+        link.classList.toggle("hover:text-foreground", !isActive);
+        link.setAttribute("aria-current", isActive ? "location" : "false");
+
+        if (isActive) {
+          link.scrollIntoView({ block: "nearest" });
         }
       }
+    };
 
-      if (!activeHeading || activeHeading === "") {
-        activeHeading = headings[0].id;
-      }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const id = (entry.target as HTMLElement).id;
+          if (!id) continue;
 
-      return activeHeading;
+          if (entry.isIntersecting) {
+            visible.add(id);
+          } else {
+            visible.delete(id);
+          }
+        }
+
+        updateActiveLink(getActiveFromVisible());
+      },
+      {
+        root: null,
+        rootMargin: "-130px 0px -65% 0px",
+        threshold: 0,
+      },
+    );
+
+    for (const heading of headings) {
+      observer.observe(heading);
     }
 
-    function onScroll() {
-      const newActiveId = getActiveHeadingId();
-      if (newActiveId !== activeId) {
-        activeId = newActiveId;
-        updateActiveLink();
-      }
-    }
+    const onScroll = () => {
+      updateActiveLink(getClosestByScrollPosition());
+    };
 
-    let activeId = getActiveHeadingId();
-    updateActiveLink();
-
+    updateActiveLink(
+      window.location.hash?.slice(1) || getClosestByScrollPosition(),
+    );
     window.addEventListener("scroll", onScroll, { passive: true });
 
-    function updateActiveLink() {
-      if (!tocList) return;
-      const links = tocList.querySelectorAll("[data-toc-link]");
-      links.forEach((link) => {
-        const linkId = link.getAttribute("data-toc-link");
-        if (linkId === activeId) {
-          link.classList.remove(
-            "text-foreground-secondary",
-            "hover:text-foreground",
-          );
-          link.classList.add("text-accent", "bg-accent/10", "font-medium");
-        } else {
-          link.classList.add(
-            "text-foreground-secondary",
-            "hover:text-foreground",
-          );
-          link.classList.remove("text-accent", "bg-accent/10", "font-medium");
-        }
-      });
-    }
+    window.__tocCleanup = () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", onScroll);
+
+      for (const { element, handler } of clickHandlers) {
+        element.removeEventListener("click", handler);
+      }
+    };
   }
 
   initTableOfContents();

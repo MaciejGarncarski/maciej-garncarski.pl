@@ -216,4 +216,124 @@
       stroke-width="1"
       opacity="0.12"></polyline>
   </svg>
+
+  <!-- Desktop-only extra pattern layer -->
+  <div class="hidden lg:block">
+    <!-- Top-left concentric square -->
+    <svg
+      class="absolute top-[20%] left-[14%] size-20 xl:size-24"
+      viewBox="0 0 100 100"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g transform="translate(50, 50)" opacity="0.12">
+        <rect
+          x="-28"
+          y="-28"
+          width="56"
+          height="56"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.2"></rect>
+        <rect
+          x="-17"
+          y="-17"
+          width="34"
+          height="34"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1"></rect>
+      </g>
+    </svg>
+
+    <!-- Bottom-right dotted ring -->
+    <svg
+      class="absolute bottom-[38%] right-[15%] size-24 xl:size-28"
+      viewBox="0 0 120 120"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle
+        cx="60"
+        cy="60"
+        r="38"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-dasharray="2 6"
+        opacity="0.13"></circle>
+      <circle cx="60" cy="60" r="4" fill="currentColor" opacity="0.12"></circle>
+    </svg>
+
+    <!-- Lower-left tiny crosses -->
+    <svg
+      class="absolute bottom-[22%] left-[14%] size-14 xl:size-16"
+      viewBox="0 0 60 60"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g opacity="0.14">
+        <g transform="translate(15, 16)">
+          <line
+            x1="-5"
+            y1="0"
+            x2="5"
+            y2="0"
+            stroke="currentColor"
+            stroke-width="1"></line>
+          <line
+            x1="0"
+            y1="-5"
+            x2="0"
+            y2="5"
+            stroke="currentColor"
+            stroke-width="1"></line>
+        </g>
+        <g transform="translate(34, 34)">
+          <line
+            x1="-5"
+            y1="0"
+            x2="5"
+            y2="0"
+            stroke="currentColor"
+            stroke-width="1"></line>
+          <line
+            x1="0"
+            y1="-5"
+            x2="0"
+            y2="5"
+            stroke="currentColor"
+            stroke-width="1"></line>
+        </g>
+        <g transform="translate(48, 12)">
+          <line
+            x1="-4"
+            y1="0"
+            x2="4"
+            y2="0"
+            stroke="currentColor"
+            stroke-width="1"></line>
+          <line
+            x1="0"
+            y1="-4"
+            x2="0"
+            y2="4"
+            stroke="currentColor"
+            stroke-width="1"></line>
+        </g>
+      </g>
+    </svg>
+
+    <!-- Bottom-center half arc -->
+    <svg
+      class="absolute bottom-[1%] left-1/2 h-12 w-64 -translate-x-1/2 xl:w-72"
+      viewBox="0 0 260 50"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M 10 45 Q 130 -5 250 45"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1"
+        stroke-dasharray="5 5"
+        opacity="0.1"></path>
+    </svg>
+  </div>
 </div>
