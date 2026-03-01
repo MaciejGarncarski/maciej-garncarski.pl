@@ -2,21 +2,21 @@
 import BlogItem from "@/components/blog/blog-item.astro";
 
 type Props = {
-   posts: Array<{
-      id: string;
-      data: {
-         title: string;
-         description: string;
-         pubDate: Date;
-         updatedDate?: Date;
-         heroImage: ImageMetadata;
-      };
-   }>;
+  posts: Array<{
+    id: string;
+    data: {
+      title: string;
+      description: string;
+      pubDate: Date;
+      updatedDate?: Date;
+      heroImage: ImageMetadata;
+    };
+  }>;
 };
 const { posts } = Astro.props;
 ---
 
-<div class="grid gap-0">
+<div class="grid gap-6 px-1 md:px-0 md:gap-0">
   {
     posts.map((post) => {
       const formattedTime = new Intl.DateTimeFormat("pl-PL", {

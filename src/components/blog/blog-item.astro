@@ -3,50 +3,52 @@ import { Picture } from "astro:assets";
 import type { ImageMetadata } from "astro";
 
 type Props = {
-   post: {
-      id: string;
-      data: {
-         title: string;
-         description: string;
-         pubDate: Date;
-         updatedDate?: Date;
-         heroImage: ImageMetadata;
-      };
-   };
-   formattedTime: string;
+  post: {
+    id: string;
+    data: {
+      title: string;
+      description: string;
+      pubDate: Date;
+      updatedDate?: Date;
+      heroImage: ImageMetadata;
+    };
+  };
+  formattedTime: string;
 };
 
 const { post, formattedTime } = Astro.props;
 ---
 
 <a href={"/blog/" + post.id} class="group block">
-  <article class="flex flex-col gap-4 py-6 md:flex-row md:items-start md:gap-8">
+  <article
+    class="border-border/60 bg-background-secondary/50 flex flex-col overflow-hidden rounded-xl border shadow-sm transition-shadow hover:shadow-md md:rounded-none md:border-0 md:border-b md:bg-transparent md:shadow-none md:hover:shadow-none md:flex-row md:items-start md:gap-8 md:py-6"
+  >
     <div class="shrink-0">
       <Picture
         formats={["webp"]}
         transition:name={`blog-image-${post.id}`}
         src={post.data.heroImage}
-        width={256}
-        height={256}
+        width={480}
+        height={270}
         alt={""}
-        class="border-foreground/10 size-20 rounded-lg border object-cover md:size-30"
+        class="border-foreground/10 aspect-16/9 w-full rounded-none border-b object-cover md:aspect-square md:size-30 md:rounded-lg md:border"
       />
     </div>
 
     <div
-      class="flex flex-col gap-1.5"
+      class="flex flex-col gap-1.5 px-4 py-3.5 md:p-0"
       transition:name={`blog-header-${post.id}`}
     >
+      <p class="text-foreground-secondary text-xs md:order-2 md:text-sm">
+        <time datetime={formattedTime}>{formattedTime}</time>
+      </p>
       <h2
-        class="text-lg font-semibold text-pretty group-hover:text-accent transition-colors"
+        class="text-base font-semibold text-pretty group-hover:text-accent transition-colors md:order-1 md:text-lg"
       >
         {post.data.title}
       </h2>
-      <p class="text-foreground-secondary text-sm">
-        <time datetime={formattedTime}>{formattedTime}</time>
-      </p>
       <p
-        class="text-foreground-secondary max-w-[55ch] text-sm leading-relaxed line-clamp-2 text-pretty"
+        class="text-foreground-secondary max-w-[55ch] text-sm leading-relaxed line-clamp-2 text-pretty md:order-3"
       >
         {post.data.description}
       </p>
@@ -68,4 +70,3 @@ const { post, formattedTime } = Astro.props;
     </svg>
   </article>
 </a>
-<div class="border-border border-b"></div>
