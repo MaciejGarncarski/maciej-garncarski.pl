@@ -140,10 +140,16 @@ Te operacje powinny pozostać wysokopriorytetowe.
 
 ## Podsumowanie
 
-React Transitions to fundament **Concurrent Renderingu**. Pozwalają nam budować interfejsy, które są odporne na ciężkie obliczenia i zapewniają użytkownikowi poczucie pełnej kontroli nad aplikacją.
+Transitions są jednym z mechanizmów dostępnych dzięki Concurrent Rendering w React 18.
+To Concurrent Rendering stanowi fundament, a `startTransition` i `useTransition` pozwalają nam świadomie oznaczać aktualizacje jako mniej pilne. Pozwalają nam budować interfejsy, które są odporne na ciężkie obliczenia i zapewniają użytkownikowi poczucie pełnej kontroli nad aplikacją.
 
-Jeśli Twoja aplikacja „łapie zadyszkę” przy dużych zestawach danych, useTransition powinien być Twoim pierwszym wyborem.
+Jeśli Twoja aplikacja „łapie zadyszkę” przy dużych zestawach danych, najpierw upewnij się, że zastosowałeś podstawowe optymalizacje (memoizacja, podział komponentów, wirtualizacja list).
+Jeśli problemem jest blokowanie interfejsu przez kosztowne renderowanie, wtedy `useTransition` będzie właściwym narzędziem.
 
 A tak poza tym, team developerów Reacta dodaje nowe funkcje, ale bardzo mało osób o nich wie. 
 
-Ogólnie polecam przeczytać **CAŁĄ** <a href="https://react.dev/reference/react" target="_blank">dokumentację Reacta</a>, bo jest tam masa ciekawych rzeczy, które mogą ułatwić życie programisty. 
+Transitions to jedno z tych API w React 18, które realnie zmienia sposób myślenia o wydajności - z „optymalizuj wszystko” na „zarządzaj priorytetem”.
+
+W większych aplikacjach z dużą ilością danych to różnica między „nawet działa” a „działa płynnie”.
+
+Jeśli jeszcze nie korzystasz świadomie z Concurrent Renderingu, warto zajrzeć do dokumentacji React 18, wiele mechanizmów jest prostszych w użyciu, niż mogłoby się wydawać.

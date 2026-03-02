@@ -6,7 +6,7 @@
   data-theme-switcher
   aria-label="Przełącz motyw"
   title="Przełącz motyw"
-  class="border-border bg-background-secondary hover:bg-background-secondary/80 relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border transition-all duration-200 hover:scale-105 active:scale-95"
+  class="border-border bg-background-secondary hover:bg-background-secondary/80 relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border transition-transform duration-200 hover:scale-105 active:scale-95"
 >
   <span class="sr-only">Przełącz motyw</span>
 
@@ -68,12 +68,12 @@
       moon: button.querySelector('[data-icon="moon"]'),
     };
 
-    button.classList.remove("transition-all", "duration-200");
+    button.classList.remove("transition-transform", "duration-200");
     icons.sun?.classList.remove("transition-all", "duration-500");
     icons.moon?.classList.remove("transition-all", "duration-500");
 
     setTimeout(() => {
-      button.classList.add("transition-all", "duration-200");
+      button.classList.add("transition-transform", "duration-200");
       icons.sun?.classList.add("transition-all", "duration-500");
       icons.moon?.classList.add("transition-all", "duration-500");
     }, 200);
