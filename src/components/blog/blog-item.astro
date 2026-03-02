@@ -32,7 +32,7 @@ const { post, formattedTime } = Astro.props;
         width={480}
         height={270}
         alt={""}
-        class="border-foreground/10 aspect-16/9 w-full rounded-xl rounded-b-none border-b object-cover md:aspect-square md:size-30 md:rounded-lg md:border"
+        class="border-foreground/10 max-h-50 md:max-h-none w-full rounded-xl rounded-b-none border-b object-cover md:aspect-square md:size-30 md:rounded-lg md:border"
       />
     </div>
 
@@ -58,7 +58,7 @@ const { post, formattedTime } = Astro.props;
     <ChevronIcon
       size={20}
       direction="right"
-      customStyles="ml-auto shrink-0 text-foreground-secondary transition-transform group-hover:translate-x-1"
+      customStyles="hidden lg:block ml-auto shrink-0 text-foreground-secondary transition-transform group-hover:translate-x-1"
     />
   </article>
 </a>
