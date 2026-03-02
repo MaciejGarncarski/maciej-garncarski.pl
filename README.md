@@ -1,31 +1,36 @@
-# Portfolio
+# maciej-garncarski.pl
 
-My personal website created using Astro and TailwindCSS.
+Personal portfolio and blog built with Astro, React, and Tailwind CSS. Deployed on Vercel.
 
 ## Live
 
 https://maciej-garncarski.pl/
 
-## Installation & running
+## Getting started
 
-Clone repo then
-`pnpm install && pnpm dev`
+```bash
+pnpm install
+pnpm dev
+```
 
-## Tech used
+### Available scripts
 
-- Astro
-- Tailwind CSS
-- Eslint, Prettier
+| Command        | Description                      |
+| -------------- | -------------------------------- |
+| `pnpm dev`     | Start development server         |
+| `pnpm build`   | Build for production             |
+| `pnpm preview` | Preview production build locally |
+| `pnpm lint`    | Lint with Biome                  |
+| `pnpm format`  | Format with Biome                |
+| `pnpm fix`     | Lint and format with auto-fix    |
 
-## License
+## Tech stack
 
-MIT License with Attribution
-
-Copyright (c) 2026 Maciej Garncarski
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, subject to the following conditions:
-
-1. The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-2. Proper attribution must be given to the original author(s) in any derivative works or distributions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+- [Astro](https://astro.build/) - static site framework
+- [React](https://react.dev/) - interactive components
+- [Tailwind CSS v4](https://tailwindcss.com/) - styling
+- [TypeScript](https://www.typescriptlang.org/) - type safety
+- [MDX](https://mdxjs.com/) - blog content
+- [Biome](https://biomejs.dev/) - linting and formatting
+- [Vercel](https://vercel.com/) - hosting and deployment
+- [pnpm](https://pnpm.io/) - package manager
