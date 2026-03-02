@@ -59,26 +59,24 @@ const sortedTags = tags.sort((a, b) =>
     const backLink = document.getElementById("back-link");
     if (!backLink) return;
 
-    backLink.addEventListener("click", (e) => {
+    backLink.onclick = (e) => {
       const referrer = document.referrer;
-      const isSameOrigin =
-        referrer && new URL(referrer).origin === window.location.origin;
+      let isSameOrigin = false;
 
-      console.log(
-        window.location.origin,
-        isSameOrigin
-          ? "Referrer is same origin."
-          : "Referrer is different origin or not available.",
-      );
+      try {
+        if (referrer) {
+          isSameOrigin = new URL(referrer).origin === window.location.origin;
+        }
+      } catch {}
 
       if (isSameOrigin) {
         e.preventDefault();
         history.back();
       }
-    });
+    };
   }
 
-  initLink();
+  document.addEventListener("DOMContentLoaded", initLink);
   document.addEventListener("astro:after-swap", initLink);
 </script>
 
