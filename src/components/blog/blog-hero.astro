@@ -5,6 +5,7 @@ import { calculateReadingTime } from "@utils/calculate-read-time";
 import { getPosts } from "@/utils/get-posts";
 import { normalizeTag } from "@/utils/normalize-tag";
 import Tag from "@/components/tag.astro";
+import ChevronIcon from "@/components/ui/chevron-icon.astro";
 
 type Props = {
   text: string;
@@ -43,22 +44,13 @@ const sortedTags = tags.sort((a, b) =>
 <a
   id="back-link"
   href="/blog"
-  class="text-foreground-secondary mx-auto hover:text-foreground group inline-flex w-fit items-center gap-2 text-sm transition-colors"
+  class="text-foreground-secondary md:ml-48 mx-none hover:text-foreground group inline-flex w-fit items-center gap-2 text-sm transition-colors"
 >
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="16"
-    height="16"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="2"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    class="transition-transform group-hover:-translate-x-1"
-  >
-    <path d="m15 18-6-6 6-6"></path>
-  </svg>
+  <ChevronIcon
+    size={16}
+    direction="left"
+    customStyles="transition-transform group-hover:-translate-x-1"
+  />
   Inne posty
 </a>
 
@@ -77,113 +69,101 @@ const sortedTags = tags.sort((a, b) =>
   document.addEventListener("astro:after-swap", initLink);
 </script>
 
-<header
-  class="relative flex min-h-80 flex-col items-center justify-center gap-4 overflow-hidden md:overflow-visible lg:mx-auto lg:h-110 lg:w-3/4"
->
-  {
-    currPost?.data.heroImage && (
-      <>
-        <div
-          data-blog-hero-bg
-          class="absolute top-0 left-0 -z-10 mx-auto hidden h-full w-full opacity-4 blur-xl md:block md:rounded-4xl md:blur-2xl"
-        >
-          <div class="absolute top-0 left-0 h-full w-full" />
-          <Image
-            src={currPost.data.heroImage}
-            width={512}
-            height={512}
-            alt={""}
-            class="h-full w-full mask-[url(/mask-test.svg)] saturate-110 mask-luminance mask-cover mask-center object-cover"
-            priority={true}
-          />
-        </div>
-        {currPost.id && (
-          <Image
-            src={currPost.data.heroImage}
-            transition:name={`blog-image-${currPost.id}`}
-            transition:animate={fade({ duration: "0.3s" })}
-            width={512}
-            height={512}
-            alt={""}
-            class="animate-border-shadow z-40 h-32 w-32 overflow-hidden rounded-md object-cover md:h-42 md:w-42"
-            priority={true}
-          />
-        )}
-      </>
-    )
-  }
-  <div
-    class="z-30 flex flex-col gap-2 text-center text-balance md:gap-3"
-    transition:name={`blog-header-${currPost?.id}`}
-  >
-    <h1
-      class="z-50 max-w-[20rem] px-5 text-center text-xl font-bold md:max-w-full lg:max-w-[35rem] lg:text-2xl"
+<header class="relative mx-auto flex w-full max-w-[85ch] flex-col gap-6">
+  <div class="flex flex-col gap-6 md:flex-row-reverse md:items-start md:gap-8">
+    {
+      currPost?.data.heroImage && currPost.id && (
+        <Image
+          src={currPost.data.heroImage}
+          transition:name={`blog-image-${currPost.id}`}
+          transition:animate={fade({ duration: "0.3s" })}
+          width={400}
+          height={400}
+          alt={""}
+          class="aspect-square mx-auto shrink-0 object-cover rounded-xl md:w-48"
+          priority={true}
+        />
+      )
+    }
+
+    <div
+      class="flex flex-1 flex-col gap-4"
+      transition:name={`blog-header-${currPost?.id}`}
     >
-      {text}
-    </h1>
-    <p class="flex flex-col gap-1 text-center">
-      <span>
-        🗓️
+      <h1
+        class="max-w-[40rem] text-2xl leading-tight font-bold text-balance md:text-3xl lg:text-4xl"
+      >
+        {text}
+      </h1>
+
+      <div
+        class="text-foreground-secondary flex flex-wrap items-center gap-x-3 gap-y-1.5 text-sm"
+      >
         <time
           itemprop="datePublished"
           datetime={new Date(currPost?.data.pubDate || "").toISOString()}
-          class="tracking-tighter lg:tracking-tight"
         >
           {publishDate}
         </time>
-      </span>
+
+        {
+          currPost?.data.updatedDate && (
+            <>
+              <span class="w-[2px] h-4 rounded-sm bg-accent/30" />
+              <time
+                itemprop="dateModified"
+                datetime={new Date(currPost.data.updatedDate).toISOString()}
+                class="italic"
+              >
+                aktualizacja: {updateDate}
+              </time>
+            </>
+          )
+        }
+
+        <span class="w-[2px] h-4 rounded-sm bg-accent/30"></span>
+
+        <span>{readTime} min. czytania</span>
+
+        <span class="w-[2px] h-4 rounded-sm bg-accent/30"></span>
+
+        <span class="">{words} słów</span>
+      </div>
+
       {
-        currPost?.data.updatedDate && (
-          <time
-            itemprop="dateModified"
-            datetime={new Date(currPost.data.updatedDate).toISOString()}
-            class="tracking-tighter lg:tracking-tight"
-          >
-            &#40;aktualizacja: {updateDate}&#41;
-          </time>
+        sortedTags.length > 0 && (
+          <div class="flex flex-wrap items-center gap-2">
+            {sortedTags.map((tag) => (
+              <Tag href={`/blog/tag/${normalizeTag(tag)}`}># {tag}</Tag>
+            ))}
+          </div>
         )
       }
-    </p>
-    <p class="flex items-center justify-center gap-2 text-center">
-      <span>{readTime} min. czytania</span>
-      <span>&#8226;</span>
-      <span>{words} słów</span>
-    </p>
-    {
-      sortedTags.length > 0 && (
-        <div class="mt-2 flex flex-wrap items-center justify-center gap-2">
-          {sortedTags.map((tag) => (
-            <Tag href={`/blog/tag/${normalizeTag(tag)}`}># {tag}</Tag>
-          ))}
-        </div>
-      )
-    }
+    </div>
   </div>
+
+  <hr class="border-border" />
 </header>
 
 <style>
-  @keyframes blog-hero-bg-fade-in {
-    0% {
-      opacity: 0;
-      transform: scale(0.9) translateY(2rem);
-    }
-
-    100% {
-      opacity: 0.15;
-      transform: scale(1);
-    }
+  .blog-hero-image-wrapper {
+    /* animation: blog-hero-image-enter 0.6s ease-out both; */
   }
 
-  [data-blog-hero-bg] {
-    animation: blog-hero-bg-fade-in 1.5s ease-out forwards;
-    animation-delay: 0.1s;
+  @keyframes blog-hero-image-enter {
+    0% {
+      opacity: 0;
+      transform: translateY(8px) scale(0.99);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-blog-hero-bg] {
+    .blog-hero-image-wrapper {
       animation: none;
-      opacity: 0.07;
-      transform: scale(1);
     }
   }
 </style>

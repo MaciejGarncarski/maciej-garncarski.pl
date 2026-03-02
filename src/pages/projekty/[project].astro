@@ -6,6 +6,7 @@ import Tag from "@/components/tag.astro";
 import { projects } from "@/data/projects";
 import Layout from "@/layouts/layout.astro";
 import { Picture } from "astro:assets";
+import ChevronIcon from "@/components/ui/chevron-icon.astro";
 
 export async function getStaticPaths() {
   return projects.map((project) => ({
@@ -32,20 +33,11 @@ const { project } = Astro.props;
       href="/projekty"
       class="text-foreground-secondary hover:text-foreground group inline-flex w-fit items-center gap-2 text-sm transition-colors"
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="transition-transform group-hover:-translate-x-1"
-      >
-        <path d="m15 18-6-6 6-6"></path>
-      </svg>
+      <ChevronIcon
+        size={16}
+        direction="left"
+        customStyles="transition-transform group-hover:-translate-x-1"
+      />
       Wróć do projektów
     </a>
 
