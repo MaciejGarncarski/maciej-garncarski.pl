@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import type { APIContext, APIRoute } from "astro";
 import { getPosts } from "@/utils/get-posts";
-import { generateBlogOGImage } from "@/utils/generate-og-blog";
+import { generateBlogOGImage } from "@/utils/generate-blog-og-image";
 
 export const prerender = true;
 

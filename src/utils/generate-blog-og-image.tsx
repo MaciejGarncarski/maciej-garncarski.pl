@@ -70,9 +70,9 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
                   fontSize: 20,
                   lineHeight: 1.1,
                   borderRadius: "90rem",
-                  color: "rgba(255, 255, 255, 0.75)",
-                  border: "1px solid rgba(255, 255, 255, 0.4)",
-                  padding: "12px 14px",
+                  color: "rgba(220, 220, 220, 0.8)",
+                  border: "1px solid rgba(200, 200, 200, 0.4)",
+                  padding: "12px 18px",
                   textAlign: "left",
                }}
             >
@@ -119,7 +119,7 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
                height={340}
                alt={title}
                style={{
-                  boxShadow: "0 20px 60px rgba(0, 0, 0, 0.36)",
+                  boxShadow: "0 20px 60px rgba(0, 0, 0, 0.46)",
                   borderRadius: "0.8rem",
                   objectFit: "cover",
                }}

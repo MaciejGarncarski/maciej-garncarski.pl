@@ -64,6 +64,7 @@ const { project } = Astro.props;
     <Picture
       formats={["webp"]}
       layout="full-width"
+      priority={true}
       src={project.thumbnail}
       alt={project.title}
       transition:name={`project-image-${project.id}`}

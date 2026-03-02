@@ -18,7 +18,7 @@ const renderer = new Renderer({
    ],
 });
 
-export async function generateBasicOGImage() {
+export async function generateDefaultOGImage() {
    const { node, stylesheets } = await fromJsx(
       <div
          key="og"
