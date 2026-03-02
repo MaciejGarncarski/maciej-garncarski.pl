@@ -2,55 +2,55 @@
 import SectionHeading from "@/components/about-page/section-heading.astro";
 
 type Highlight = {
-   title: string;
-   description: string;
+  title: string;
+  description: string;
 };
 
 type Experience = {
-   period: string;
-   company: string;
-   role: string;
-   highlights: Highlight[];
+  period: string;
+  company: string;
+  role: string;
+  highlights: Highlight[];
 };
 
 const experiences: Experience[] = [
-   {
-      period: "lis. 2023 — obecnie",
-      company: "Kokscraft",
-      role: "Fullstack Engineer",
-      highlights: [
-         {
-            title: "System Kontroli Dostępu (RBAC)",
-            description:
-               "granularny system uprawnień zwiększający bezpieczeństwo danych i precyzję zarządzania rolami użytkowników.",
-         },
-         {
-            title: "Komunikacja Real-time",
-            description:
-               "moduły oparte o WebSockets umożliwiające monitorowanie aktywności w czasie rzeczywistym przy minimalnym opóźnieniu.",
-         },
-         {
-            title: "Zaawansowany UI/UX",
-            description:
-               "responsywny frontend (React + TypeScript) z komponentami Data Grid, filtrowaniem po stronie serwera i optymalizacją renderowania.",
-         },
-         {
-            title: "Audyt i Logi",
-            description:
-               "system logowania zdarzeń zapewniający transparentność działań administratorów i historyczność zmian.",
-         },
-         {
-            title: "Zarządzanie Danymi",
-            description:
-               "optymalizacja zapytań i schematów bazodanowych (Prisma, MySQL) pod dużym obciążeniem.",
-         },
-         {
-            title: "Maintenance & Security",
-            description:
-               "utrzymanie długu technicznego, automatyzacja aktualizacji zależności i spójność architektury.",
-         },
-      ],
-   },
+  {
+    period: "lis. 2023 — obecnie",
+    company: "Kokscraft",
+    role: "Fullstack Engineer",
+    highlights: [
+      {
+        title: "System Kontroli Dostępu (RBAC)",
+        description:
+          "granularny system uprawnień zwiększający bezpieczeństwo danych i precyzję zarządzania rolami użytkowników.",
+      },
+      {
+        title: "Komunikacja Real-time",
+        description:
+          "moduły oparte o WebSockets umożliwiające monitorowanie aktywności w czasie rzeczywistym przy minimalnym opóźnieniu.",
+      },
+      {
+        title: "Zaawansowany UI/UX",
+        description:
+          "responsywny frontend (React + TypeScript) z komponentami Data Grid, filtrowaniem po stronie serwera i optymalizacją renderowania.",
+      },
+      {
+        title: "Audyt i Logi",
+        description:
+          "system logowania zdarzeń zapewniający transparentność działań administratorów i historyczność zmian.",
+      },
+      {
+        title: "Zarządzanie Danymi",
+        description:
+          "optymalizacja zapytań i schematów bazodanowych (Prisma, MySQL) pod dużym obciążeniem.",
+      },
+      {
+        title: "Maintenance & Security",
+        description:
+          "utrzymanie długu technicznego, automatyzacja aktualizacji zależności i spójność architektury.",
+      },
+    ],
+  },
 ];
 ---
 
@@ -59,7 +59,7 @@ const experiences: Experience[] = [
   {
     experiences.map((exp) => (
       <div class="flex flex-col gap-4 md:flex-row md:gap-10">
-        <div class="flex shrink-0 flex-col md:w-48">
+        <div class="flex shrink-0 flex-col md:w-48 md:sticky md:h-full md:top-24">
           <p class="text-sm font-semibold">{exp.period}</p>
           <p class="text-foreground-secondary text-sm">{exp.company}</p>
         </div>
