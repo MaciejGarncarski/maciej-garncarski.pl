@@ -56,9 +56,22 @@ const sortedTags = tags.sort((a, b) =>
 
 <script>
   function initLink() {
-    document.getElementById("back-link")?.addEventListener("click", (e) => {
+    const backLink = document.getElementById("back-link");
+    if (!backLink) return;
+
+    backLink.addEventListener("click", (e) => {
       const referrer = document.referrer;
-      if (referrer && new URL(referrer).origin === window.location.origin) {
+      const isSameOrigin =
+        referrer && new URL(referrer).origin === window.location.origin;
+
+      console.log(
+        window.location.origin,
+        isSameOrigin
+          ? "Referrer is same origin."
+          : "Referrer is different origin or not available.",
+      );
+
+      if (isSameOrigin) {
         e.preventDefault();
         history.back();
       }
