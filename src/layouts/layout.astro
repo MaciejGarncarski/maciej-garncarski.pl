@@ -14,17 +14,15 @@ import SpeedInsights from "@vercel/speed-insights/astro";
 <html lang="pl">
   <head>
     <script is:inline>
-      (function () {
-        const stored = localStorage.getItem("theme");
-        const theme =
-          stored === "light" || stored === "dark"
-            ? stored
-            : window.matchMedia("(prefers-color-scheme: dark)").matches
-              ? "dark"
-              : "light";
+      const stored = localStorage.getItem("theme");
+      const theme =
+        stored === "light" || stored === "dark"
+          ? stored
+          : window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
 
-        document.documentElement.className = theme;
-      })();
+      document.documentElement.className = theme;
     </script>
     <Font cssVariable="--font-ui" preload />
     <meta charset="UTF-8" />
