@@ -3,7 +3,7 @@
 ---
 
 <aside
-  class="hidden xl:block absolute top-0 left-full ml-8 2xl:ml-14 mt-6 h-full w-[clamp(13rem,16vw,16rem)]"
+  class="hidden xl:block absolute top-0 left-full ml-8 2xl:ml-14 mt-12 h-full w-[clamp(13rem,16vw,13rem)]"
   data-toc-aside
 >
   <nav
@@ -82,7 +82,7 @@
       a.title = text;
       a.setAttribute("data-toc-link", id);
       a.className = [
-        "block truncate rounded-md px-2 py-1 text-xs leading-5 transition-all duration-300",
+        "block break-words text-pretty rounded-md px-3 py-1 text-xs leading-5 transition-all duration-300",
         "text-foreground-secondary hover:text-foreground",
         heading.tagName === "H3" ? "ml-4" : "",
       ]
@@ -141,7 +141,7 @@
         const isActive = id === activeId;
 
         link.classList.toggle("text-accent", isActive);
-        link.classList.toggle("bg-accent/10", isActive);
+        link.classList.toggle("bg-accent/8", isActive);
         link.classList.toggle("text-foreground-secondary", !isActive);
         link.classList.toggle("hover:text-foreground", !isActive);
         link.setAttribute("aria-current", isActive ? "location" : "false");

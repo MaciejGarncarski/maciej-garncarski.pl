@@ -6,37 +6,35 @@ import xIcon from "@assets/x.svg";
 import type { ImageMetadata } from "astro";
 
 type Social = {
-   url: string;
-   icon: ImageMetadata;
-   name: string;
+  url: string;
+  icon: ImageMetadata;
+  name: string;
 };
 
 const socials: Array<Social> = [
-   {
-      name: "GitHub",
-      icon: github,
-      url: "https://github.com/maciejgarncarski",
-   },
-   {
-      name: "LinkedIn",
-      icon: linkedin,
-      url: "https://www.linkedin.com/in/maciejgarncarski/",
-   },
-   {
-      name: "X",
-      icon: xIcon,
-      url: "https://x.com/MGarncarski",
-   },
+  {
+    name: "GitHub",
+    icon: github,
+    url: "https://github.com/maciejgarncarski",
+  },
+  {
+    name: "LinkedIn",
+    icon: linkedin,
+    url: "https://www.linkedin.com/in/maciejgarncarski/",
+  },
+  {
+    name: "X",
+    icon: xIcon,
+    url: "https://x.com/MGarncarski",
+  },
 ];
 ---
 
-<footer
-  class="mx-auto mt-16 max-w-[70rem] md:mt-28"
-  transition:name="footer"
->
+<footer class="mx-auto mt-16 max-w-[63rem] md:mt-28" transition:name="footer">
   <div class="border-border border-t pt-8 pb-6">
-    <div class="flex flex-col items-center gap-8 md:flex-row md:justify-between md:gap-4">
-      <!-- Left: branding + copyright -->
+    <div
+      class="flex flex-col items-center gap-8 md:flex-row md:justify-between md:gap-4"
+    >
       <div class="flex flex-col items-center gap-2 md:items-start">
         <p class="text-foreground text-sm font-medium">
           &copy; 2026 Maciej Garncarski
@@ -46,7 +44,6 @@ const socials: Array<Social> = [
         </p>
       </div>
 
-      <!-- Center: social links -->
       <div class="flex items-center gap-4">
         {
           socials.map((s) => {
@@ -72,13 +69,16 @@ const socials: Array<Social> = [
         }
       </div>
 
-      <!-- Right: commit hash -->
       <p class="text-foreground-secondary text-center text-xs md:text-right">
-        Commit: <code class="bg-foreground/5 rounded px-1.5 py-0.5 font-mono text-[0.7rem]">{
-          (
-            import.meta.env.PUBLIC_VERCEL_GIT_COMMIT_SHA || "devDEVdevDEVdevDEV"
-          ).slice(0, 8)
-        }</code>
+        Commit: <code
+          class="bg-foreground/5 rounded px-1.5 py-0.5 font-mono text-[0.7rem]"
+          >{
+            (
+              import.meta.env.PUBLIC_VERCEL_GIT_COMMIT_SHA ||
+              "devDEVdevDEVdevDEV"
+            ).slice(0, 8)
+          }</code
+        >
       </p>
     </div>
   </div>

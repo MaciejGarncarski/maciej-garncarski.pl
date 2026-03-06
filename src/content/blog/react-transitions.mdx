@@ -56,6 +56,8 @@ export function SearchComponent() {
         product.toLowerCase().includes(value.toLowerCase())
       );
 
+
+      // Musimy użyć drugiego startTransition, zobacz link poniżej 
       // https://react.dev/reference/react/useTransition#react-doesnt-treat-my-state-update-after-await-as-a-transition
       startTransition(() => {
         setResults(filtered);

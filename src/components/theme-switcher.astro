@@ -107,9 +107,22 @@
     }
 
     function setTheme(theme: Theme) {
+      const style = document.createElement("style");
+      style.setAttribute("data-disable-transitions", "");
+      style.textContent =
+        "*, *::before, *::after { transition: none !important; }";
+      document.head.appendChild(style);
+
       document.documentElement.className = theme;
       localStorage.setItem("theme", theme);
       updateIcon(theme);
+
+      // Remove after the browser has painted the new theme
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          style.remove();
+        });
+      });
     }
 
     function toggleTheme() {
