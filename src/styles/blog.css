@@ -42,16 +42,26 @@
 }
 
 [data-blog-content] blockquote {
-   @apply border-l-accent/50 bg-accent/10 border-accent/15 relative my-10 max-w-fit min-w-[20rem] rounded-sm border border-l-10 px-12 py-6 pr-6;
+   @apply border border-accent/5 bg-accent/7 relative my-12 w-full overflow-hidden rounded-lg py-6 pl-7 pr-5 md:py-7 md:pl-10 md:pr-8;
+
+   /* Left accent bar */
+   &::after {
+      content: "";
+      @apply bg-accent/55 absolute inset-y-3 left-0 w-[2px] rounded-full;
+   }
 
    &::before {
       content: "\201C";
-      @apply text-accent/40 absolute top-4 left-3 font-serif text-6xl tracking-tight;
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      @apply text-accent/10 absolute top-0 right-3 text-[7rem] leading-none;
    }
 }
 
 [data-blog-content] blockquote p {
-   @apply m-0 inline leading-8 italic;
+   @apply text-foreground-body relative z-10 m-0 text-[1.05rem] leading-[1.85] italic;
 }
 
 [data-blog-content] ul {
