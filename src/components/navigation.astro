@@ -33,14 +33,26 @@ const subpath = pathname.match(/[^/]+/g);
 >
   <div class="w-full max-w-[63rem]">
     <nav
-      class="border-border/50 bg-background/90 backdrop-blur-lg shadow-xs flex items-center justify-between gap-2 rounded-2xl border px-3 py-2"
+      class="border-border/50 bg-background/90 shadow-xs relative flex items-center justify-between gap-2 overflow-hidden rounded-2xl border px-3 py-2.5 backdrop-blur-lg"
       transition:name="nav"
     >
-      <!-- Logo -->
-      <a href="/" class="group flex shrink-0 items-center gap-2.5">
+      <div
+        class="pointer-events-none absolute inset-0 bg-linear-to-r from-transparent via-accent/3 to-transparent"
+      >
+      </div>
+      <div
+        class="pointer-events-none absolute inset-x-8 top-0 h-px bg-linear-to-r from-transparent via-accent/20 to-transparent"
+      >
+      </div>
+
+      <a href="/" class="group relative flex shrink-0 items-center gap-2.5">
         <div
-          class="border-border/60 bg-background-secondary group-hover:border-accent/40 relative flex size-9 items-center justify-center overflow-hidden rounded-xl md:rounded-lg border transition-all duration-200"
+          class="border-border/60 bg-background-secondary group-hover:border-accent/40 relative flex size-9 items-center justify-center overflow-hidden rounded-xl border transition-all duration-200 md:rounded-lg"
         >
+          <div
+            class="absolute inset-0 bg-linear-to-br from-accent/5 via-transparent to-transparent opacity-80 transition-opacity duration-200 group-hover:opacity-100"
+          >
+          </div>
           <Picture
             formats={["webp"]}
             src={logoIcon}
@@ -48,13 +60,15 @@ const subpath = pathname.match(/[^/]+/g);
             height={36}
             width={36}
             priority={true}
-            class="size-9 transition-transform duration-300 group-hover:scale-110"
+            class="relative size-9 transition-transform duration-300 group-hover:scale-110"
           />
         </div>
       </a>
 
-      <!-- Desktop links -->
-      <ul class="hidden items-center gap-6 md:flex" transition:name="nav-menu">
+      <ul
+        class="relative hidden items-center gap-6 md:flex"
+        transition:name="nav-menu"
+      >
         {
           navigationData.map((n) => {
             const isActive =
@@ -71,8 +85,8 @@ const subpath = pathname.match(/[^/]+/g);
                   class={clsx(
                     "relative rounded-xl px-4 py-2 text-sm font-medium transition-all duration-200",
                     active
-                      ? "text-foreground bg-accent/10"
-                      : "text-foreground-secondary hover:text-foreground hover:bg-accent/5",
+                      ? "bg-accent/10 text-foreground"
+                      : "text-foreground-secondary hover:bg-accent/5 hover:text-foreground",
                   )}
                 >
                   {n.text}
@@ -86,8 +100,7 @@ const subpath = pathname.match(/[^/]+/g);
         }
       </ul>
 
-      <!-- Right side: theme switcher + mobile toggle -->
-      <div class="flex items-center gap-1.5">
+      <div class="relative flex items-center gap-3">
         <ThemeSwitcher />
 
         <button
@@ -132,63 +145,90 @@ const subpath = pathname.match(/[^/]+/g);
       </div>
     </nav>
 
-    <!-- Mobile menu -->
     <div
       data-mobile-menu
-      class="pointer-events-none mt-1.5 grid grid-rows-[0fr] transition-all duration-300 ease-out md:hidden"
-      style="opacity: 0;"
+      class="pointer-events-none mt-1.5 grid grid-rows-[0fr] transition-[grid-template-rows] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] md:hidden"
     >
       <div class="overflow-hidden">
-        <ul
-          class="border-border/50 bg-background/90 backdrop-blur-lg flex flex-col gap-0.5 rounded-2xl border p-2"
+        <div
+          data-mobile-menu-panel
+          class="relative overflow-hidden rounded-2xl transition-transform duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
+          style="transform: translateY(-0.6rem) scale(0.985);"
         >
-          {
-            navigationData.map((n) => {
-              const isActive =
-                n.url === pathname || n.url === "/" + (subpath?.[0] || "");
-              const isBlogPage = n.url === "/blog/";
-              const isBlogPageActive =
-                isBlogPage && Astro.url.pathname.startsWith("/blog/");
-              const active = isActive || isBlogPageActive;
+          <div
+            class="border-border/50 bg-background/90 absolute inset-0 rounded-2xl border backdrop-blur-lg"
+          >
+          </div>
+          <div
+            class="pointer-events-none absolute inset-0 bg-linear-to-r from-transparent via-accent/5 to-transparent"
+          >
+          </div>
+          <ul class="relative flex flex-col gap-0.5 p-2">
+            {
+              navigationData.map((n, index) => {
+                const isActive =
+                  n.url === pathname || n.url === "/" + (subpath?.[0] || "");
+                const isBlogPage = n.url === "/blog/";
+                const isBlogPageActive =
+                  isBlogPage && Astro.url.pathname.startsWith("/blog/");
+                const active = isActive || isBlogPageActive;
 
-              return (
-                <li>
-                  <a
-                    href={n.url}
-                    class={clsx(
-                      "flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium transition-all duration-150",
-                      active
-                        ? "bg-accent/10 text-foreground"
-                        : "text-foreground-secondary hover:bg-accent/8 hover:text-foreground",
-                    )}
-                  >
-                    {active && (
-                      <span class="bg-accent size-1.5 shrink-0 rounded-full" />
-                    )}
-                    {!active && <span class="size-1.5 shrink-0 rounded-full" />}
-                    {n.text}
-                  </a>
-                </li>
-              );
-            })
-          }
-        </ul>
+                return (
+                  <li>
+                    <a
+                      href={n.url}
+                      data-mobile-menu-item
+                      style={`--item-index: ${index}; opacity: 0; transform: translateY(-0.35rem);`}
+                      class={clsx(
+                        "flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium transition-[transform,opacity,background-color,color] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                        active
+                          ? "bg-accent/10 text-foreground"
+                          : "text-foreground-secondary hover:bg-accent/8 hover:text-foreground",
+                      )}
+                    >
+                      {active && (
+                        <span class="bg-accent size-1.5 shrink-0 rounded-full" />
+                      )}
+                      {!active && (
+                        <span class="size-1.5 shrink-0 rounded-full" />
+                      )}
+                      {n.text}
+                    </a>
+                  </li>
+                );
+              })
+            }
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 </header>
 
-<!-- Spacer -->
 <div class="h-12 md:h-12"></div>
 
 <script>
+  declare global {
+    interface Window {
+      __cleanupNavigationMenu?: () => void;
+    }
+  }
+
   function setupMobileMenu() {
+    window.__cleanupNavigationMenu?.();
+
     const toggle = document.querySelector(
       "[data-mobile-menu-toggle]",
     ) as HTMLButtonElement | null;
     const menu = document.querySelector(
       "[data-mobile-menu]",
     ) as HTMLElement | null;
+    const panel = document.querySelector(
+      "[data-mobile-menu-panel]",
+    ) as HTMLElement | null;
+    const items = Array.from(
+      document.querySelectorAll("[data-mobile-menu-item]"),
+    ) as HTMLElement[];
     const iconMenu = document.querySelector(
       "[data-icon-menu]",
     ) as SVGElement | null;
@@ -196,24 +236,37 @@ const subpath = pathname.match(/[^/]+/g);
       "[data-icon-close]",
     ) as SVGElement | null;
 
-    if (!toggle || !menu || !iconMenu || !iconClose) return;
+    if (!toggle || !menu || !panel || !iconMenu || !iconClose) return;
+
+    const controller = new AbortController();
+    const { signal } = controller;
 
     let isOpen = false;
+
+    function updateItems(open: boolean) {
+      items.forEach((item, index) => {
+        item.style.transitionDelay = open ? `${70 + index * 38}ms` : "0ms";
+        item.style.opacity = open ? "1" : "0";
+        item.style.transform = open ? "translateY(0)" : "translateY(-0.35rem)";
+      });
+    }
 
     function setOpen(open: boolean) {
       isOpen = open;
       toggle?.setAttribute("aria-expanded", String(open));
 
-      if (!menu || !iconMenu || !iconClose) return;
+      if (!menu || !panel || !iconMenu || !iconClose) return;
 
       if (open) {
-        menu.style.opacity = "1";
         menu.style.gridTemplateRows = "1fr";
         menu.classList.remove("pointer-events-none");
+        panel.style.transform = "translateY(0) scale(1)";
         iconMenu.classList.add("hidden");
         iconClose.classList.remove("hidden");
+        updateItems(true);
       } else {
-        menu.style.opacity = "0";
+        updateItems(false);
+        panel.style.transform = "translateY(-0.6rem) scale(0.985)";
         menu.style.gridTemplateRows = "0fr";
         menu.classList.add("pointer-events-none");
         iconMenu.classList.remove("hidden");
@@ -221,24 +274,38 @@ const subpath = pathname.match(/[^/]+/g);
       }
     }
 
-    toggle.addEventListener("click", () => setOpen(!isOpen));
+    toggle.addEventListener("click", () => setOpen(!isOpen), { signal });
 
-    document.addEventListener("click", (e) => {
-      if (
-        isOpen &&
-        !toggle.contains(e.target as Node) &&
-        !menu.contains(e.target as Node)
-      ) {
-        setOpen(false);
-      }
+    document.addEventListener(
+      "click",
+      (e) => {
+        if (
+          isOpen &&
+          !toggle.contains(e.target as Node) &&
+          !menu.contains(e.target as Node)
+        ) {
+          setOpen(false);
+        }
+      },
+      { signal },
+    );
+
+    document.addEventListener(
+      "keydown",
+      (e) => {
+        if (e.key === "Escape" && isOpen) {
+          setOpen(false);
+          toggle.focus();
+        }
+      },
+      { signal },
+    );
+
+    items.forEach((item) => {
+      item.addEventListener("click", () => setOpen(false), { signal });
     });
 
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && isOpen) {
-        setOpen(false);
-        toggle.focus();
-      }
-    });
+    window.__cleanupNavigationMenu = () => controller.abort();
   }
 
   setupMobileMenu();

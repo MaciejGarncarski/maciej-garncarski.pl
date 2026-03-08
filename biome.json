@@ -11,7 +11,7 @@
       }
    },
    "files": {
-      "includes": ["**", "!!**/dist"]
+      "includes": ["**", "!!**/dist", "!!**/*.astro", "!!**/*.mdx", "!!**/*.md"]
    },
    "formatter": {
       "enabled": true,
