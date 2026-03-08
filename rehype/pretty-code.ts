@@ -1,0 +1,57 @@
+import { transformerNotationDiff, transformerNotationFocus } from "@shikijs/transformers";
+import rehypePrettyCode from "rehype-pretty-code";
+
+import type { RehypeNode } from "./types";
+import { getNodeProperties } from "./types";
+
+export const prettyCodePlugin = [
+   rehypePrettyCode,
+   {
+      transformers: [
+         transformerNotationDiff({
+            matchAlgorithm: "v3",
+         }),
+         transformerNotationFocus({
+            matchAlgorithm: "v3",
+         }),
+      ],
+      keepBackground: true,
+      theme: "poimandres",
+      onVisitLine(element: RehypeNode) {
+         element.children?.forEach((child) => {
+            if (child.type === "element") {
+               const properties = getNodeProperties(child);
+               properties["data-code-line"] = "";
+            }
+         });
+
+         const properties = getNodeProperties(element);
+
+         if (properties.className?.includes("focused")) {
+            properties["data-focused"] = "";
+         }
+
+         if (properties.className?.includes("diff")) {
+            if (properties.className.includes("add")) {
+               properties["data-diff"] = "add";
+            }
+
+            if (properties.className.includes("remove")) {
+               properties["data-diff"] = "remove";
+            }
+         }
+
+         delete properties.className;
+      },
+      onVisitHighlightedLine(node: RehypeNode) {
+         const properties = getNodeProperties(node);
+         properties.className ??= [];
+         properties.className.push("highlighted");
+      },
+      onVisitHighlightedChars(node: RehypeNode) {
+         const properties = getNodeProperties(node);
+         properties.className ??= [];
+         properties.className.push("highlighted-chars");
+      },
+   },
+];
