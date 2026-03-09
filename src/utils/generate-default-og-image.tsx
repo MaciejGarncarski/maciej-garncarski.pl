@@ -4,15 +4,23 @@ import { Renderer } from "@takumi-rs/core";
 import { fromJsx } from "@takumi-rs/helpers/jsx";
 import { faviconUrl, imageSources } from "@/utils/get-og-assets";
 
-const FONT_PATH = path.resolve("src/assets/fonts/Montserrat-Bold.ttf");
-const fontBuffer = new Uint8Array(readFileSync(FONT_PATH));
+const FONT_BOLD_PATH = path.resolve("src/assets/fonts/Montserrat-Bold.ttf");
+const FONT_MEDIUM_PATH = path.resolve("src/assets/fonts/Montserrat-Medium.ttf");
+const fontBoldBuffer = new Uint8Array(readFileSync(FONT_BOLD_PATH));
+const fontMediumBuffer = new Uint8Array(readFileSync(FONT_MEDIUM_PATH));
 
 const renderer = new Renderer({
    fonts: [
       {
          name: "Montserrat",
-         data: fontBuffer,
+         data: fontBoldBuffer,
          weight: 700,
+         style: "normal",
+      },
+      {
+         name: "Montserrat",
+         data: fontMediumBuffer,
+         weight: 500,
          style: "normal",
       },
    ],
@@ -21,50 +29,88 @@ const renderer = new Renderer({
 export async function generateDefaultOGImage() {
    const { node, stylesheets } = await fromJsx(
       <div
-         key="og"
+         tw="flex flex-col relative"
          style={{
             width: 1200,
             height: 630,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: "2rem",
-            textWrap: "balance",
+            backgroundColor: "#0f1116",
+            backgroundImage: "linear-gradient(135deg, #0f1116 0%, #12151a 100%)",
             color: "white",
-            backgroundColor: "#080d16",
-            backgroundImage:
-               "linear-gradient(135deg, rgba(3, 6, 11, 1) 0%, rgba(41, 50, 60, 1) 100%)",
-            fontSize: 64,
-            fontWeight: "bold",
-            padding: "60px",
-            textAlign: "center",
+            fontFamily: "Montserrat",
+            overflow: "hidden",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 28,
          }}
       >
-         <img
-            src={faviconUrl}
-            width={200}
-            alt=""
-            height={200}
+         {/* Top accent gradient line */}
+         <div
+            tw="absolute"
             style={{
-               borderRadius: "0.5rem",
-               objectFit: "contain",
+               top: 0,
+               left: "15%",
+               right: "15%",
+               height: 1,
+               background:
+                  "linear-gradient(to right, transparent, rgba(99, 151, 238, 0.5), transparent)",
             }}
          />
-         <span
+
+         {/* Logo */}
+         <img
+            src={faviconUrl}
+            width={160}
+            height={160}
+            alt=""
             style={{
-               lineHeight: "4rem",
-               padding: "1rem 2rem",
-               textWrap: "balance",
-               maxWidth: "75%",
+               borderRadius: 24,
                display: "flex",
-               justifyContent: "center",
-               alignItems: "center",
-               textAlign: "center",
+               border: "1px solid rgba(99, 151, 238, 0.2)",
+               boxShadow:
+                  "0 20px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(99, 151, 238, 0.1)",
+            }}
+         />
+
+         {/* Name */}
+         <span
+            tw="flex"
+            style={{
+               fontSize: 64,
+               fontWeight: 700,
+               lineHeight: 1.15,
+               color: "#f5f8fc",
+               letterSpacing: "-0.02em",
             }}
          >
             Maciej Garncarski
          </span>
+
+         {/* Subtitle */}
+         <span
+            tw="flex"
+            style={{
+               fontSize: 22,
+               fontWeight: 500,
+               color: "#6397ee",
+               letterSpacing: "0.18em",
+               textTransform: "uppercase",
+            }}
+         >
+            Fullstack Engineer
+         </span>
+
+         {/* Bottom accent gradient line */}
+         <div
+            tw="absolute"
+            style={{
+               bottom: 0,
+               left: "25%",
+               right: "25%",
+               height: 1,
+               background:
+                  "linear-gradient(to right, transparent, rgba(99, 151, 238, 0.3), transparent)",
+            }}
+         />
       </div>,
    );
 

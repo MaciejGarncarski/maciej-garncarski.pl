@@ -49,6 +49,32 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
             overflow: "hidden",
          }}
       >
+         {/* Top accent gradient line */}
+         <div
+            tw="absolute"
+            style={{
+               top: 0,
+               left: "15%",
+               right: "15%",
+               height: 1,
+               background:
+                  "linear-gradient(to right, transparent, rgba(99, 151, 238, 0.35), transparent)",
+            }}
+         />
+
+         {/* Bottom accent gradient line */}
+         <div
+            tw="absolute"
+            style={{
+               bottom: 0,
+               left: "25%",
+               right: "25%",
+               height: 1,
+               background:
+                  "linear-gradient(to right, transparent, rgba(99, 151, 238, 0.2), transparent)",
+            }}
+         />
+
          {/* Left column: URL badge, title, favicon + date */}
          <div
             tw="flex flex-col relative"
