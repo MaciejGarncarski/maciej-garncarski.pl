@@ -34,7 +34,7 @@ export async function generateDefaultOGImage() {
             width: 1200,
             height: 630,
             backgroundColor: "#0f1116",
-            backgroundImage: "linear-gradient(135deg, #0f1116 0%, #12151a 100%)",
+            backgroundImage: "linear-gradient(135deg, #0f1116 0%, #141823 100%)",
             color: "white",
             fontFamily: "Montserrat",
             overflow: "hidden",
@@ -66,8 +66,7 @@ export async function generateDefaultOGImage() {
                borderRadius: 24,
                display: "flex",
                border: "1px solid rgba(99, 151, 238, 0.2)",
-               boxShadow:
-                  "0 20px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(99, 151, 238, 0.1)",
+               boxShadow: "0 20px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(99, 151, 238, 0.1)",
             }}
          />
 

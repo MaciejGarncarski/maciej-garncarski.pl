@@ -43,7 +43,7 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
             width: 1200,
             height: 630,
             backgroundColor: "#0f1116",
-            backgroundImage: "linear-gradient(135deg, #0f1116 0%, #12151a 100%)",
+            backgroundImage: "linear-gradient(135deg, #0f1116 0%, #141823 100%)",
             color: "white",
             fontFamily: "Montserrat",
             overflow: "hidden",
@@ -92,8 +92,8 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
                style={{
                   alignSelf: "flex-start",
                   fontSize: 18,
-                  color: "#8aa4c0",
-                  border: "1px solid rgba(138, 164, 192, 0.3)",
+                  color: "rgba(142, 169, 192, 1)",
+                  border: "1px solid rgba(99, 151, 238, 0.35)",
                   borderRadius: 999,
                   padding: "10px 22px",
                   letterSpacing: "0.05em",
@@ -146,7 +146,7 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
                tw="flex"
                style={{
                   fontSize: 24,
-                  color: "rgba(220, 229, 242, 0.8)",
+                  color: "rgba(220, 229, 242, 0.9)",
                   alignSelf: "flex-end",
                }}
             >
@@ -179,7 +179,7 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
                      tw="flex"
                      style={{
                         fontSize: 20,
-                        color: "rgba(220, 229, 242, 0.8)",
+                        color: "rgba(220, 229, 242, 0.9)",
                         background: "rgba(99, 151, 238, 0.15)",
                         border: "1px solid rgba(99, 151, 238, 0.1)",
                         borderRadius: 999,
