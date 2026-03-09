@@ -36,103 +36,134 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
    const formattedDate = intlFormatter.format(date);
    const dateResult = formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
 
-   const tagsResult = tags.map((tag) => `${tag}`).join("  •  ");
-
    const { node, stylesheets } = await fromJsx(
       <div
+         tw="flex flex-row relative"
          style={{
             width: 1200,
             height: 630,
-            display: "flex",
-            flexDirection: "row",
-            backgroundColor: "#080d16",
-            backgroundImage:
-               "linear-gradient(135deg, rgba(3, 6, 11, 1) 0%, rgba(41, 50, 60, 1) 100%)",
+            backgroundColor: "#0f1116",
+            backgroundImage: "linear-gradient(135deg, #0f1116 0%, #12151a 100%)",
             color: "white",
-            padding: "45px 45px 60px 45px",
-            alignItems: "center",
+            fontFamily: "Montserrat",
+            overflow: "hidden",
          }}
       >
-         {/* Left Column: Logo and Title */}
+         {/* Left column: URL badge, title, favicon + date */}
          <div
+            tw="flex flex-col relative"
             style={{
-               display: "flex",
-               flexDirection: "column",
-               width: "55%",
-               height: "100%",
-               textWrap: "pretty",
-               justifyContent: "center",
-               alignItems: "flex-start",
+               width: 660,
+               height: 630,
+               padding: "48px 48px 60px 48px",
+               justifyContent: "space-between",
+               flexShrink: 0,
             }}
          >
+            {/* URL badge */}
             <span
+               tw="flex"
                style={{
-                  fontSize: 20,
-                  lineHeight: 1.1,
-                  borderRadius: "90rem",
-                  color: "rgba(220, 220, 220, 0.8)",
-                  border: "1px solid rgba(200, 200, 200, 0.4)",
-                  padding: "12px 18px",
-                  textAlign: "left",
+                  alignSelf: "flex-start",
+                  fontSize: 18,
+                  color: "#8aa4c0",
+                  border: "1px solid rgba(138, 164, 192, 0.3)",
+                  borderRadius: 999,
+                  padding: "10px 22px",
+                  letterSpacing: "0.05em",
                }}
             >
                maciej-garncarski.pl/blog
             </span>
+
+            {/* Title */}
             <span
+               tw="flex"
                style={{
                   fontSize: 56,
-                  fontWeight: 400,
+                  fontWeight: 700,
                   lineHeight: 1.3,
-                  textAlign: "left",
-                  marginTop: "40px",
-                  marginBottom: "auto",
+                  color: "#f5f8fc",
+                  flexGrow: 1,
+                  alignItems: "center",
+                  paddingTop: 34,
+                  paddingBottom: 24,
                }}
             >
                {title}
             </span>
-            <img src={faviconUrl} width={60} height={60} alt="" />
+
+            {/* Favicon + date */}
+            <div tw="flex flex-row items-center" style={{ gap: 14 }}>
+               <img
+                  src={faviconUrl}
+                  width={50}
+                  height={50}
+                  alt=""
+                  style={{ borderRadius: 7, display: "flex" }}
+               />
+            </div>
          </div>
-         {/* Right Column: Main Image and Date */}
+
+         {/* Right column: date, image, tags */}
          <div
+            tw="flex flex-col"
             style={{
-               display: "flex",
-               flexDirection: "column",
-               width: "45%",
-               height: "100%",
-               justifyContent: "space-between",
+               flex: 1,
+               height: 630,
+               padding: "48px 48px 60px 48px",
                alignItems: "flex-end",
-               gap: "20px",
             }}
          >
+            {/* Date */}
             <span
+               tw="flex"
                style={{
-                  fontSize: 28,
-                  opacity: 0.7,
-                  marginRight: "10px",
+                  fontSize: 24,
+                  color: "rgba(220, 229, 242, 0.8)",
+                  alignSelf: "flex-end",
                }}
             >
                {dateResult}
             </span>
+
+            {/* Blog image */}
             <img
                src={imageBase64}
-               width={340}
-               height={340}
                alt={title}
                style={{
-                  boxShadow: "0 20px 60px rgba(0, 0, 0, 0.46)",
-                  borderRadius: "0.8rem",
+                  width: 330,
+                  height: 330,
                   objectFit: "cover",
+                  marginTop: "46px",
+                  borderRadius: 16,
+                  display: "flex",
+                  boxShadow: "0 20px 60px rgba(0,0,0,0.5)",
                }}
             />
-            <span
-               style={{
-                  fontSize: 24,
-                  opacity: 0.7,
-                  marginRight: "10px",
-               }}
+
+            {/* Tags as individual pills */}
+            <div
+               tw="flex flex-row mt-auto"
+               style={{ flexWrap: "wrap", gap: 24, justifyContent: "flex-end" }}
             >
-               {tagsResult}
-            </span>
+               {tags.map((tag) => (
+                  <span
+                     key={tag}
+                     tw="flex"
+                     style={{
+                        fontSize: 20,
+                        color: "rgba(220, 229, 242, 0.8)",
+                        background: "rgba(99, 151, 238, 0.15)",
+                        border: "1px solid rgba(99, 151, 238, 0.1)",
+                        borderRadius: 999,
+                        padding: "5px 15px",
+                     }}
+                  >
+                     {tag}
+                  </span>
+               ))}
+            </div>
          </div>
       </div>,
    );
