@@ -45,6 +45,12 @@ import AccentShimmer from "@/components/ui/accent-shimmer.astro";
   </div>
 </div>
 
+<style>
+  .demo-reset * {
+    all: revert;
+  }
+</style>
+
 <script>
   function initDemoCodeTabs() {
     document.querySelectorAll("[data-demo-code-tabs]").forEach((container) => {

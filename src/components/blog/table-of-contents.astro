@@ -47,9 +47,7 @@
     const tocAside = document.querySelector(
       "[data-toc-aside]",
     ) as HTMLElement | null;
-    const content = document.querySelector(
-      "[data-blog-content]",
-    ) as HTMLElement | null;
+    const content = document.querySelector("[data-blog]") as HTMLElement | null;
 
     if (!tocList || !tocAside || !content) return;
 
