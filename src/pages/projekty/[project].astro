@@ -7,6 +7,7 @@ import { projects } from "@/data/projects";
 import Layout from "@/layouts/layout.astro";
 import { Picture } from "astro:assets";
 import ChevronIcon from "@/components/ui/chevron-icon.astro";
+import AccentShimmer from "@/components/ui/accent-shimmer.astro";
 
 export async function getStaticPaths() {
   return projects.map((project) => ({
@@ -53,15 +54,23 @@ const { project } = Astro.props;
       </p>
     </header>
 
-    <Picture
-      formats={["webp"]}
-      layout="full-width"
-      priority={true}
-      src={project.thumbnail}
-      alt={project.title}
-      transition:name={`project-image-${project.id}`}
-      class="border-foreground/10 w-full rounded-xl border object-contain shadow-lg"
-    />
+    <div
+      class="shadow-accent relative overflow-hidden rounded-xl border border-accent/12"
+    >
+      <div
+        class="pointer-events-none absolute inset-x-[10%] top-0 z-10 h-px bg-linear-to-r from-transparent via-accent/25 to-transparent"
+      >
+      </div>
+      <Picture
+        formats={["webp"]}
+        layout="full-width"
+        priority={true}
+        src={project.thumbnail}
+        alt={project.title}
+        transition:name={`project-image-${project.id}`}
+        class="w-full object-contain"
+      />
+    </div>
 
     <section class="flex flex-col gap-3">
       <SectionHeading title="Technologie" />

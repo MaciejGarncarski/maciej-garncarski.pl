@@ -9,11 +9,7 @@ code:not([data-language]) {
 
 /* ===== Figure wrapper ===== */
 [data-rehype-pretty-code-figure] {
-   @apply relative my-10 overflow-hidden rounded-xl border border-accent/18;
-   box-shadow:
-      0 0 0 1px oklch(62% 0.15 260 / 0.04),
-      0 4px 24px -4px oklch(62% 0.15 260 / 0.1),
-      0 2px 6px -2px oklch(0% 0 0 / 0.12);
+   @apply shadow-accent relative my-10 overflow-hidden rounded-xl border border-accent/18;
 }
 
 /* Accent gradient shimmer along the top edge (matches nav aesthetic) */

@@ -1,15 +1,17 @@
 ---
 import SectionHeading from "@/components/about-page/section-heading.astro";
+import AccentShimmer from "@/components/ui/accent-shimmer.astro";
 ---
 
 <section class="flex flex-col gap-6">
   <SectionHeading title="Open Source" />
 
   <a
-    class="border-border hover:border-accent/30 group flex flex-col gap-3 rounded-lg border p-5 transition-colors"
+    class="shadow-accent-sm border-border relative hover:border-accent/16 group flex flex-col gap-3 rounded-lg border p-5 transition-colors"
     target="_blank"
     href="https://github.com/TanStack/router/pull/2247"
   >
+    <AccentShimmer opacity={35} />
     <div class="flex items-center gap-3">
       <svg
         role="img"

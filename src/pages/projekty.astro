@@ -5,6 +5,7 @@ import Layout from "@layouts/layout.astro";
 import Seo from "@/components/seo.astro";
 import Tag from "@/components/tag.astro";
 import { projects } from "@/data/projects";
+import AccentShimmer from "@/components/ui/accent-shimmer.astro";
 
 const seoData = {
   title: "Projekty",
@@ -41,7 +42,8 @@ const seoData = {
           return (
             <li>
               <a href={`/projekty/${project.id}`} class="group block">
-                <article class="flex flex-col gap-5 py-6 md:flex-row md:items-center md:gap-8">
+                <article class="shadow-accent-sm relative overflow-hidden rounded-xl border border-accent/8 flex flex-col gap-5 p-5 transition-all duration-200 hover:border-accent/16 md:flex-row md:items-center md:gap-8">
+                  <AccentShimmer opacity={20} />
                   {project.thumbnail ? (
                     <Picture
                       formats={["webp"]}
@@ -51,7 +53,7 @@ const seoData = {
                       pictureAttributes={{
                         class: "shrink-0",
                       }}
-                      class="border-foreground/10 w-full shrink-0 rounded-md border object-contain md:w-56 lg:w-64"
+                      class="border-accent/10 w-full shrink-0 rounded-lg border object-contain md:w-56 lg:w-64"
                     />
                   ) : (
                     <div class="border-foreground/10 bg-background-secondary flex h-32 w-full shrink-0 items-center justify-center rounded-lg border md:w-56 lg:w-64">
@@ -97,7 +99,6 @@ const seoData = {
                   </svg>
                 </article>
               </a>
-              <div class="border-border border-b" />
             </li>
           );
         })

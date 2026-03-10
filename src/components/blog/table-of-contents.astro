@@ -7,17 +7,22 @@
   data-toc-aside
 >
   <nav
-    class="sticky top-32 max-h-[calc(100vh-9rem)] overflow-y-auto pr-1"
+    class="sticky top-32 max-h-[calc(100vh-9rem)] overflow-y-auto pr-1 backdrop-blur-xs"
     data-toc-nav
     aria-label="Spis treści"
   >
-    <p
-      class="text-foreground-secondary mb-3 text-xs font-semibold uppercase tracking-widest"
-    >
-      Na tej stronie
-    </p>
+    <!-- Header row with label and top shimmer -->
+    <div class="relative mb-3 flex items-center gap-2">
+      <span
+        class="text-foreground-secondary text-[0.65rem] font-semibold uppercase tracking-[0.12em]"
+      >
+        Na tej stronie
+      </span>
+      <div class="h-px flex-1 bg-linear-to-r from-accent/20 to-transparent">
+      </div>
+    </div>
     <ul
-      class="border-accent/10 flex flex-col gap-1 border-l pl-2"
+      class="flex flex-col gap-0.5 border-l border-accent/12 pl-2"
       data-toc-list
     >
     </ul>
@@ -82,9 +87,9 @@
       a.title = text;
       a.setAttribute("data-toc-link", id);
       a.className = [
-        "block break-words text-pretty rounded-md px-3 py-1 text-xs leading-5 transition-all duration-300",
-        "text-foreground-secondary hover:text-foreground",
-        heading.tagName === "H3" ? "ml-4" : "",
+        "block break-words text-pretty rounded-md px-2.5 py-1 text-xs leading-5 font-normal transition-all duration-200",
+        "text-foreground-secondary/80 hover:text-foreground hover:bg-accent/5",
+        heading.tagName === "H3" ? "ml-3" : "",
       ]
         .filter(Boolean)
         .join(" ");
@@ -141,9 +146,11 @@
         const isActive = id === activeId;
 
         link.classList.toggle("text-accent", isActive);
-        link.classList.toggle("bg-accent/8", isActive);
-        link.classList.toggle("text-foreground-secondary", !isActive);
+        link.classList.toggle("bg-accent/10", isActive);
+        link.classList.toggle("font-medium", isActive);
+        link.classList.toggle("text-foreground-secondary/80", !isActive);
         link.classList.toggle("hover:text-foreground", !isActive);
+        link.classList.toggle("hover:bg-accent/5", !isActive);
         link.setAttribute("aria-current", isActive ? "location" : "false");
 
         if (isActive) {

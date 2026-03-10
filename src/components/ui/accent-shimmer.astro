@@ -1,0 +1,15 @@
+---
+type Props = {
+  opacity?: number;
+  insetX?: string;
+};
+
+const { opacity = 25, insetX = "10%" } = Astro.props;
+---
+
+<div
+  class="pointer-events-none absolute top-0 z-10 h-px bg-linear-to-r from-transparent to-transparent"
+  style={`inset-inline: ${insetX}; --tw-gradient-via-position: 50%; background-image: linear-gradient(to right, transparent, oklch(68% 0.14 260 / ${opacity / 100}), transparent);`}
+  aria-hidden="true"
+>
+</div>

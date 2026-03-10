@@ -53,6 +53,19 @@
       filter: drop-shadow(0 10px 12px rgba(0, 0, 0, 0.1)) drop-shadow(0 3px 1px rgba(0, 0, 0, 0.1))
          drop-shadow(0 0 1px rgba(100, 100, 100, 0.6));
    }
+
+   .shadow-accent-sm {
+      box-shadow:
+         0 0 0 1px oklch(62% 0.15 260 / 0.02),
+         0 2px 12px -4px oklch(62% 0.15 260 / 0.05);
+   }
+
+   .shadow-accent {
+      box-shadow:
+         0 0 0 1px oklch(62% 0.15 260 / 0.04),
+         0 4px 24px -4px oklch(62% 0.15 260 / 0.1),
+         0 2px 6px -2px oklch(0% 0 0 / 0.12);
+   }
 }
 
 @theme {
@@ -72,7 +85,7 @@
 
    --color-border: var(--border);
 
-   --animate-fade-in-up: fade-in-up 0.5s ease-out forwards;
+   --animate-fade-in-up: fade-in-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
    --animate-border-shadow: add-border-shadow 1s ease-out forwards;
 
    @keyframes add-border-shadow {
