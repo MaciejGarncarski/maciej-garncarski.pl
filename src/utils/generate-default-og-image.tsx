@@ -95,7 +95,7 @@ export async function generateDefaultOGImage() {
                textTransform: "uppercase",
             }}
          >
-            Fullstack Engineer
+            Software Engineer
          </span>
 
          {/* Bottom accent gradient line */}
