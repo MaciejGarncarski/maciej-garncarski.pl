@@ -68,7 +68,13 @@ const breadcrumbs = [
       codeBlocks.forEach((figure) => {
         if (figure.querySelector("[data-copy-btn]")) return;
 
-        if (figure.querySelector('code[data-ignore-copy="true"]')) return;
+        const isCopyIgnored = figure
+          .querySelector("pre")
+          ?.hasAttribute("data-ignore-copy");
+
+        if (isCopyIgnored) {
+          return;
+        }
 
         const code = figure.querySelector("code");
         if (!code) return;

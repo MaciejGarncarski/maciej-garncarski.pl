@@ -13,8 +13,8 @@
    @apply mt-10 mb-4 text-lg md:text-lg;
 }
 
-[data-blog-content] a:not(h1 a, h2 a, h3 a, h4 a, h5 a, h6) {
-   @apply underline;
+[data-blog-content] a:not(h1 a, h2 a, h3 a, h4 a, h5 a, h6 a) {
+   @apply text-accent decoration-accent/35 underline underline-offset-2 transition-all duration-150 hover:decoration-accent/75;
 }
 
 [data-blog-content] h2 {
@@ -38,25 +38,27 @@
 }
 
 [data-blog-content] strong {
-   @apply text-foreground/95 font-semibold;
+   @apply text-foreground font-semibold;
 }
 
 [data-blog-content] blockquote {
-   @apply border border-accent/5 bg-accent/7 relative my-12 w-full overflow-hidden rounded-lg py-6 pl-7 pr-5 md:py-7 md:pl-10 md:pr-8;
+   @apply border border-accent/12 bg-accent/6 relative my-12 w-full overflow-hidden rounded-xl py-6 pl-7 pr-5 md:py-7 md:pl-10 md:pr-8;
+   box-shadow: 0 2px 12px -4px oklch(62% 0.15 260 / 0.08);
+
+   &::before {
+      content: "";
+      position: absolute;
+      inset-inline: 15%;
+      top: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, oklch(68% 0.14 260 / 0.1), transparent);
+      pointer-events: none;
+   }
 
    /* Left accent bar */
    &::after {
       content: "";
-      @apply bg-accent/55 absolute inset-y-3 left-0 w-[2px] rounded-full;
-   }
-
-   &::before {
-      content: "\201C";
-      font-family: Georgia, "Times New Roman", serif;
-      line-height: 1;
-      pointer-events: none;
-      user-select: none;
-      @apply text-accent/10 absolute top-0 right-3 text-[7rem] leading-none;
+      @apply bg-accent/50 absolute inset-y-3 left-0 w-[2px] rounded-full;
    }
 }
 
@@ -90,19 +92,23 @@
 }
 
 [data-anchor-hash] {
-   @apply flex items-center justify-center opacity-0 transition-opacity duration-200 ease-out;
+   @apply text-accent/50 flex items-center justify-center opacity-0 transition-all duration-200 ease-out hover:text-accent/80;
 }
 
 [data-blog-img] {
-   @apply border-accent/15 mx-auto my-8 aspect-auto max-h-[38rem] w-auto rounded-sm border object-cover shadow-md;
+   @apply border-accent/15 mx-auto my-8 aspect-auto max-h-[38rem] w-auto rounded-xl border object-cover;
+   box-shadow:
+      0 4px 20px -4px oklch(62% 0.15 260 / 0.1),
+      0 1px 4px -1px oklch(0% 0 0 / 0.1);
 }
 
 [data-figcaption] {
-   @apply text-foreground-secondary -mt-4 text-center text-sm;
+   @apply text-foreground-secondary -mt-5 mb-4 text-center text-sm;
 }
 
 [data-blog-content] kbd {
-   @apply bg-accent/25 text-foreground border-accent/10 rounded-md border px-2 py-0.5 wrap-break-word shadow dark:bg-[#1b1e28];
+   @apply text-foreground border-border rounded-md border bg-background-secondary px-2 py-0.5 text-[0.85em] font-medium wrap-break-word;
+   box-shadow: 0 1px 0 0 var(--color-border);
 }
 
 @keyframes fade-in-up {

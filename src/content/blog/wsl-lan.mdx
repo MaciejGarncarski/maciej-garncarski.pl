@@ -20,9 +20,9 @@ Kiedyś chciałem przetestować stronę na urządzeniu w LAN, niestety WSL bloko
 
 Najpierw trzeba zmienić tryb sieciowy z `NAT` na `Mirrored` w pliku konfiguracyjnym WSL `.wslconfig` lub programie `WSL Settings`.
 
-```bash showLineNumbers title="C:\Users\nazwa_użytkownika\\.wslconfig"
-[wsl2] # [!code focus]
-networkingMode=mirrored # [!code ++] [!code focus]
+```bash showLineNumbers title="C:\Users\nazwa_użytkownika\\.wslconfig" {2}
+[wsl2] 
+networkingMode=mirrored
 [experimental]
 bestEffortDnsParsing=true
 hostAddressLoopback=true

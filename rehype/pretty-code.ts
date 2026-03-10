@@ -1,22 +1,24 @@
-import { transformerNotationDiff, transformerNotationFocus } from "@shikijs/transformers";
+import {
+   transformerMetaHighlight,
+   transformerNotationDiff,
+   transformerNotationFocus,
+} from "@shikijs/transformers";
 import rehypePrettyCode from "rehype-pretty-code";
 
 import type { RehypeNode } from "./types";
 import { getNodeProperties } from "./types";
 import type { RehypePlugins } from "@astrojs/markdown-remark";
+import { customAttributesTransformer } from "./attrubiute-transformer";
 
 export const prettyCodePlugin: RehypePlugins[number] = [
    rehypePrettyCode,
    {
       transformers: [
-         transformerNotationDiff({
-            matchAlgorithm: "v3",
-         }),
-         transformerNotationFocus({
-            matchAlgorithm: "v3",
-         }),
+         transformerMetaHighlight(),
+         transformerNotationDiff(),
+         transformerNotationFocus(),
+         customAttributesTransformer,
       ],
-      keepBackground: true,
       theme: "poimandres",
       onVisitLine(element: RehypeNode) {
          element.children?.forEach((child) => {
