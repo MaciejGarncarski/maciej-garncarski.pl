@@ -24,17 +24,15 @@ const { post, formattedTime } = Astro.props;
   <article
     class="border-border bg-background-secondary/50 flex flex-col overflow-hidden rounded-xl border shadow-sm transition-shadow hover:shadow-md md:rounded-none md:border-0 md:border-b md:bg-transparent md:shadow-none md:hover:shadow-none md:flex-row md:items-start md:gap-8 md:py-6"
   >
-    <div class="shrink-0">
-      <Picture
-        formats={["webp"]}
-        transition:name={`blog-image-${post.id}`}
-        src={post.data.heroImage}
-        width={480}
-        height={270}
-        alt={""}
-        class="border-foreground/10 max-h-50 md:max-h-none w-full rounded-xl rounded-b-none border-b object-cover md:aspect-square md:size-30 md:rounded-lg md:border"
-      />
-    </div>
+    <Picture
+      formats={["webp"]}
+      transition:name={`blog-image-${post.id}`}
+      src={post.data.heroImage}
+      width={400}
+      height={400}
+      alt={""}
+      class="border-foreground/10 max-h-50 object-cover md:max-h-none w-full rounded-xl rounded-b-none border-b md:w-30 md:h-30 md:rounded-lg md:border"
+    />
 
     <div
       class="flex flex-col gap-1.5 px-4 py-3.5 md:p-0"
