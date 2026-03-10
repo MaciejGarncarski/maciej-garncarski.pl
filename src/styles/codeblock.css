@@ -126,8 +126,8 @@ pre[data-language] {
 }
 
 [data-rehype-pretty-code-figure] code:not([data-line-numbers]) {
-   padding-left: 1.5rem;
-   padding-right: 1.5rem;
+   padding-left: 1rem;
+   padding-right: 1rem;
 }
 
 /* ===== Diff ===== */

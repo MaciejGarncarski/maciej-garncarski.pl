@@ -3,12 +3,17 @@
 ---
 
 <div
-  class="border-accent/30 my-10 overflow-hidden rounded-md border"
+  class="relative my-10 overflow-hidden rounded-xl border border-accent/18"
+  style="box-shadow: 0 0 0 1px oklch(62% 0.15 260 / 0.04), 0 4px 24px -4px oklch(62% 0.15 260 / 0.1), 0 2px 6px -2px oklch(0% 0 0 / 0.12);"
   data-demo-code-tabs
 >
-  <div class="border-accent/15 flex border-b bg-background-secondary">
+  <!-- Top accent shimmer — mirrors nav/codeblock motif -->
+  <div class="pointer-events-none absolute inset-x-[10%] top-0 z-10 h-px bg-linear-to-r from-transparent via-accent/45 to-transparent"></div>
+
+  <!-- Tab bar -->
+  <div class="border-b border-accent/12 bg-background-secondary flex items-stretch gap-0.5 px-2 pt-1.5">
     <button
-      class="text-foreground-secondary hover:text-foreground cursor-pointer border-b-2 border-transparent bg-transparent px-4 py-2 text-sm font-medium transition-all data-active:text-accent data-active:border-accent"
+      class="relative cursor-pointer rounded-t-lg border border-transparent bg-transparent px-4 pb-2 pt-1.5 text-sm font-medium text-foreground-secondary transition-all duration-200 hover:text-foreground data-active:border-accent/15 data-active:border-b-background-secondary data-active:bg-background data-active:text-accent"
       data-tab-btn="demo"
       data-active
       type="button"
@@ -16,7 +21,7 @@
       Demo
     </button>
     <button
-      class="text-foreground-secondary hover:text-foreground cursor-pointer border-b-2 border-transparent bg-transparent px-4 py-2 text-sm font-medium transition-all data-active:text-accent data-active:border-accent"
+      class="relative cursor-pointer rounded-t-lg border border-transparent bg-transparent px-4 pb-2 pt-1.5 text-sm font-medium text-foreground-secondary transition-all duration-200 hover:text-foreground data-active:border-accent/15 data-active:border-b-background-secondary data-active:bg-background data-active:text-accent"
       data-tab-btn="code"
       type="button"
     >
@@ -25,14 +30,14 @@
   </div>
 
   <div
-    class="py-3 **:data-rehype-pretty-code-figure:my-0"
+    class="**:data-rehype-pretty-code-figure:my-0 py-3"
     data-tab-panel="demo"
   >
     <slot name="demo" />
   </div>
 
   <div
-    class="hidden **:data-rehype-pretty-code-figure:my-0"
+    class="**:data-rehype-pretty-code-figure:my-0 hidden"
     data-tab-panel="code"
   >
     <slot name="code" />
