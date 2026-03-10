@@ -9,15 +9,15 @@ import { markdownRehypePlugins } from "./rehype/plugins";
 
 // https://astro.build/config
 export default defineConfig({
+   fonts: [
+      {
+         provider: fontProviders.google(),
+         name: "Lato",
+         cssVariable: "--font-ui",
+      },
+   ],
    experimental: {
       clientPrerender: true,
-      fonts: [
-         {
-            provider: fontProviders.google(),
-            name: "Lato",
-            cssVariable: "--font-ui",
-         },
-      ],
    },
    prefetch: true,
    site: "https://maciej-garncarski.pl",

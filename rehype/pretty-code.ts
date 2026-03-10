@@ -3,8 +3,9 @@ import rehypePrettyCode from "rehype-pretty-code";
 
 import type { RehypeNode } from "./types";
 import { getNodeProperties } from "./types";
+import type { RehypePlugins } from "@astrojs/markdown-remark";
 
-export const prettyCodePlugin = [
+export const prettyCodePlugin: RehypePlugins[number] = [
    rehypePrettyCode,
    {
       transformers: [
