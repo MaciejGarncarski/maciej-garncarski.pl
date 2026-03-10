@@ -1,0 +1,35 @@
+---
+title: "NPM i OIDC - Case Sensitivity"
+description: "Problemy z konfiguracją OIDC w NPM związane z wielkością liter."
+heroImage: "@assets/blog/npm-oidc/hero.png"
+pubDate: 2026-03-10
+tags: ["DevOps"]
+keywords: ["npm", "oidc", "case sensitivity"]
+---
+
+import before from "@/assets/blog/npm-oidc/before.png";
+import { Picture } from "astro:assets";
+
+TL;DR: `MaciejGarncarski` zamiast `maciejgarncarski` w konfiguracji OIDC dla NPM.
+
+Niedawno podczas konfiguracji OIDC do publikacji paczki, zauważyłem, że NPM nie rozpoznaje poprawnie konfiguracji.
+
+<figure>
+  <Picture data-blog-img src={before} alt="Błędna konfiguracja OIDC" />
+  <figcaption data-figcaption>Konfiguracja wygląda na poprawną.</figcaption>
+</figure>
+
+
+```txt title="Logi z GitHub Actions"
+[10:06:55 AM] [semantic-release] [@semantic-release/npm] › ℹ  Verifying OIDC context for publishing from GitHub Actions
+[10:06:56 AM] [semantic-release] [@semantic-release/npm] › ℹ  OIDC token exchange with the npm registry failed: 404 OIDC token exchange error - package not found
+[10:06:56 AM] [semantic-release] [@semantic-release/npm] › ℹ  Verify authentication for registry https://registry.npmjs.org/
+```
+
+Z przyzwyczajenia w konfiguracji wpisywałem `maciejgarncarski` jak zwykle, ale NPM **wymaga** wielkich liter: `MaciejGarncarski`.
+
+Nasuwa się jedno pytanie, dlaczego nigdzie nie jest to jasno opisane?
+
+Dlaczego NPM nie informuje o tym błędzie, tylko po prostu ignoruje konfigurację?
+
+Dla mnie jest to bardzo dziwne i frustrujące, zwłaszcza że NPM jest platformą, która powinna być przyjazna dla deweloperów i jasno komunikować błędy konfiguracji.
