@@ -26,16 +26,6 @@ export const projects: Project[] = [
       thumbnail: coincontrol,
    },
    {
-      id: "kanban",
-      title: "Kanban",
-      description:
-         "Aplikacja Kanban stworzona w NestJS z zastosowaniem wzorców CQRS, Domain-Driven Design (DDD) oraz architektury hexagonalnej.",
-      demo: "https://kanban.maciej-garncarski.pl",
-      github: "https://github.com/MaciejGarncarski/kanban",
-      tags: ["Next.js", "NestJS", "Drizzle ORM", "Mantine UI", "JWT"],
-      thumbnail: kanban,
-   },
-   {
       id: "twitch-chat-bot",
       title: "Twitch Chat Bot",
       description:
@@ -44,6 +34,16 @@ export const projects: Project[] = [
       demo: "https://bot.maciej-garncarski.pl/",
       tags: ["Bun", "Elysia", "React", "WebSocket"],
       thumbnail: twitchChatBot,
+   },
+   {
+      id: "kanban",
+      title: "Kanban",
+      description:
+         "Aplikacja Kanban stworzona w NestJS z zastosowaniem wzorców CQRS, Domain-Driven Design (DDD) oraz architektury hexagonalnej.",
+      demo: "https://kanban.maciej-garncarski.pl",
+      github: "https://github.com/MaciejGarncarski/kanban",
+      tags: ["Next.js", "NestJS", "Drizzle ORM", "Mantine UI", "JWT"],
+      thumbnail: kanban,
    },
    {
       id: "professional-landing-nextjs",
