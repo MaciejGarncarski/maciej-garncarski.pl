@@ -81,9 +81,7 @@ const sortedTags = tags.sort((a, b) =>
 </script>
 
 <header class="relative mx-auto flex w-full max-w-[85ch] flex-col gap-6">
-  <div
-    class="flex flex-col gap-6 md:flex-row-reverse md:items-stretch md:gap-8"
-  >
+  <div class="flex flex-col gap-6 md:flex-row-reverse md:items-start md:gap-8">
     {
       currPost?.data.heroImage && currPost.id && (
         <Image
@@ -93,14 +91,14 @@ const sortedTags = tags.sort((a, b) =>
           width={400}
           height={400}
           alt={""}
-          class="aspect-square mx-auto shrink-0 object-cover rounded-xl md:w-48"
+          class="aspect-square mx-auto shrink-0 rounded-xl object-cover shadow-lg md:w-44"
           priority={true}
         />
       )
     }
 
     <div
-      class="flex flex-1 flex-col gap-4 md:self-stretch"
+      class="flex flex-1 flex-col gap-4"
       transition:name={`blog-header-${currPost?.id}`}
     >
       <h1
@@ -110,7 +108,7 @@ const sortedTags = tags.sort((a, b) =>
       </h1>
 
       <div
-        class="text-foreground-secondary flex flex-wrap items-center gap-x-3 gap-y-1.5 text-sm"
+        class="text-foreground-secondary flex flex-wrap items-center gap-x-2 gap-y-1 text-sm"
       >
         <time
           itemprop="datePublished"
@@ -122,30 +120,26 @@ const sortedTags = tags.sort((a, b) =>
         {
           currPost?.data.updatedDate && (
             <>
-              <span class="w-[2px] h-4 rounded-sm bg-accent/30" />
+              <span class="text-accent">&middot;</span>
               <time
                 itemprop="dateModified"
                 datetime={new Date(currPost.data.updatedDate).toISOString()}
-                class="italic"
               >
-                aktualizacja: {updateDate}
+                aktualizacja {updateDate}
               </time>
             </>
           )
         }
 
-        <span class="w-[2px] h-4 rounded-sm bg-accent/30"></span>
-
+        <span class="text-accent">&middot;</span>
         <span>{readTime} min. czytania</span>
-
-        <span class="w-[2px] h-4 rounded-sm bg-accent/30"></span>
-
-        <span class="">{words} słów</span>
+        <span class="text-accent">&middot;</span>
+        <span>{words} słów</span>
       </div>
 
       {
         sortedTags.length > 0 && (
-          <div class="flex flex-wrap items-center gap-2 mt-auto">
+          <div class="flex flex-wrap items-center gap-1.5 pt-1">
             {sortedTags.map((tag) => (
               <Tag href={`/blog/tag/${normalizeTag(tag)}`}># {tag}</Tag>
             ))}
@@ -155,28 +149,5 @@ const sortedTags = tags.sort((a, b) =>
     </div>
   </div>
 
-  <hr class="border-border" />
+  <hr class="border-border/50" />
 </header>
-
-<style>
-  .blog-hero-image-wrapper {
-    /* animation: blog-hero-image-enter 0.6s ease-out both; */
-  }
-
-  @keyframes blog-hero-image-enter {
-    0% {
-      opacity: 0;
-      transform: translateY(8px) scale(0.99);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .blog-hero-image-wrapper {
-      animation: none;
-    }
-  }
-</style>
