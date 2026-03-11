@@ -33,7 +33,7 @@ W inżynierii frontendowej często wpadamy w pułapkę nadmiernej abstrakcji. Za
 
 W tym artykule przeanalizujemy, jak przejście z modelu konfiguracyjnego na model kompozycyjny (Composable Components) pozwala na tworzenie bardziej skalowalnego i utrzymywalnego kodu.
 
-## Problem: Podejście Konfiguracyjne (Anti-Pattern)
+## Problem: Podejście Konfiguracyjne 
 
 Spójrzmy na typowy scenariusz. Mamy komponent UserProfile, który pierwotnie wyświetlał tylko awatar i imię. Z czasem pojawiły się wymagania: "dodaj status", "dodaj przycisk edycji", "w innej widoku ukryj opis".
 
@@ -83,9 +83,9 @@ const UserProfile = ({
 2. **Sztywność:** Co jeśli w nowym widoku chcemy umieścić `status` nad `name`? Wymaga to kolejnego propa `statusPosition` lub przepisania komponentu.
 3. **Nieczytelne API:** Deweloper używający tego komponentu musi zgadywać, które kombinacje propsów działają ze sobą (np. czy `isEditable` działa w wariancie `compact`?).
 
-## Rozwiązanie: Composable Components (Wzorzec)
+## Rozwiązanie: Composable Components
 
-Rozwiązaniem jest zastosowanie **Inversion of Control (Odwrócenie Sterowania)**. Zamiast kazać komponentowi zgadywać, co i jak ma wyświetlić na podstawie flag, przekazujemy mu gotowe fragmenty UI jako dzieci (`children`).
+Rozwiązaniem jest zastosowanie **Inversion of Control**. Zamiast kazać komponentowi zgadywać, co i jak ma wyświetlić na podstawie flag, przekazujemy mu gotowe fragmenty UI jako `children`.
 
 Stosujemy tutaj wzorzec **Compound Components**, który pozwala na zachowanie spójności logicznej przy jednoczesnej elastyczności wizualnej.
 
@@ -190,7 +190,7 @@ W naszym przykładzie Compound Components działają tylko przez `children`, bez
 
 Przekazywanie komponentów jako propsów (np. `renderCustomActions`, `renderFooter`, `renderXYZ`) jest krokiem w kierunku kompozycji, ale nadal utrzymuje kontrolę nad strukturą w komponencie nadrzędnym. Composable Components idą o krok dalej, pozwalając na pełną kontrolę nad strukturą i układem przez użytkownika komponentu, bez konieczności modyfikowania samego komponentu bazowego.
 
-## Bonus: Inteligentna Kompozycja (Slot-based Rendering)
+## Bonus: Inteligentna Kompozycja
 W niektórych przypadkach możemy chcieć, aby komponent bazowy miał pewne "inteligentne" zachowania dotyczące układu dzieci. Na przykład, możemy chcieć, aby `Profile.Avatar` zawsze był renderowany po lewej stronie, niezależnie od kolejności w kodzie.
 
 Standardowa kompozycja renderuje dzieci dokładnie tam, gdzie umieścił je programista. Czasami jednak chcemy wymusić spójność wizualną, np. bez względu na to, gdzie w kodzie wrzucimy Profile.Avatar, ma on zawsze wylądować po lewej stronie.
