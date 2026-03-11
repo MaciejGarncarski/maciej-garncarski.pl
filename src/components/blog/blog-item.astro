@@ -1,7 +1,7 @@
 ---
-import { Picture } from "astro:assets";
 import type { ImageMetadata } from "astro";
 import ChevronIcon from "@/components/ui/chevron-icon.astro";
+import { Image } from "astro:assets";
 
 type Props = {
   post: {
@@ -24,10 +24,9 @@ const { post, formattedTime } = Astro.props;
   <article
     class="border-border bg-background-secondary/50 flex flex-col overflow-hidden rounded-xl border shadow-sm transition-shadow hover:shadow-md md:rounded-none md:border-0 md:border-b md:bg-transparent md:shadow-none md:hover:shadow-none md:flex-row md:items-start md:gap-8 md:py-6"
   >
-    <Picture
-      formats={["webp"]}
-      transition:name={`blog-image-${post.id}`}
+    <Image
       src={post.data.heroImage}
+      transition:name={`blog-image-${post.id}`}
       width={400}
       height={400}
       alt={""}
