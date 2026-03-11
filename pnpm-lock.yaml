@@ -32,9 +32,6 @@ importers:
       '@takumi-rs/helpers':
         specifier: ^0.69.2
         version: 0.69.2
-      '@takumi-rs/image-response':
-        specifier: ^0.69.2
-        version: 0.69.2
       '@types/react':
         specifier: ^19.2.14
         version: 19.2.14
@@ -1021,12 +1018,6 @@ packages:
 
   '@takumi-rs/helpers@0.69.2':
     resolution: {integrity: sha512-6sYFF1Q6prowE0sEKLk/C/11N4YcB7i1a0/hkyeBxINCR8EQjbuxYZ25Jm9gOjX4GWnzPrI4f89r0wDWxZs0kw==}
-
-  '@takumi-rs/image-response@0.69.2':
-    resolution: {integrity: sha512-0s+4FDgud9iFvDoFo+amb7qwlDL+bF7D7T/LZvUCMRtu4UBN6NLWECjVJ654hmgjJhFLBZn3qFii5QeHH6CxJw==}
-
-  '@takumi-rs/wasm@0.69.2':
-    resolution: {integrity: sha512-QtnI0c5xKu9qqRS5bqAkkPa8gdPHGWgia8qiEmVEs2VdUdIhG6i1N7rHun/F6SA8SRDD1O9rMZfDRzIQxSsl/g==}
 
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -3593,14 +3584,6 @@ snapshots:
       '@takumi-rs/core-win32-x64-msvc': 0.69.2
 
   '@takumi-rs/helpers@0.69.2': {}
-
-  '@takumi-rs/image-response@0.69.2':
-    dependencies:
-      '@takumi-rs/core': 0.69.2
-      '@takumi-rs/helpers': 0.69.2
-      '@takumi-rs/wasm': 0.69.2
-
-  '@takumi-rs/wasm@0.69.2': {}
 
   '@types/babel__core@7.20.5':
     dependencies:
