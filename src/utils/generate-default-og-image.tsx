@@ -1,30 +1,6 @@
-import { readFileSync } from "node:fs";
-import path from "node:path";
-import { Renderer } from "@takumi-rs/core";
 import { fromJsx } from "@takumi-rs/helpers/jsx";
 import { faviconUrl, imageSources } from "@/utils/get-og-assets";
-
-const FONT_BOLD_PATH = path.resolve("src/assets/fonts/Montserrat-Bold.ttf");
-const FONT_MEDIUM_PATH = path.resolve("src/assets/fonts/Montserrat-Medium.ttf");
-const fontBoldBuffer = new Uint8Array(readFileSync(FONT_BOLD_PATH));
-const fontMediumBuffer = new Uint8Array(readFileSync(FONT_MEDIUM_PATH));
-
-const renderer = new Renderer({
-   fonts: [
-      {
-         name: "Montserrat",
-         data: fontBoldBuffer,
-         weight: 700,
-         style: "normal",
-      },
-      {
-         name: "Montserrat",
-         data: fontMediumBuffer,
-         weight: 500,
-         style: "normal",
-      },
-   ],
-});
+import { renderer } from "@/utils/og-renderer";
 
 export async function generateDefaultOGImage() {
    const { node, stylesheets } = await fromJsx(
@@ -33,14 +9,13 @@ export async function generateDefaultOGImage() {
          style={{
             width: 1200,
             height: 630,
-            backgroundColor: "#0f1116",
-            backgroundImage: "linear-gradient(135deg, #0f1116 0%, #141823 100%)",
+            backgroundColor: "#12141c",
             color: "white",
             fontFamily: "Montserrat",
             overflow: "hidden",
             alignItems: "center",
             justifyContent: "center",
-            gap: 28,
+            gap: 30,
          }}
       >
          {/* Top accent gradient line */}
@@ -88,7 +63,7 @@ export async function generateDefaultOGImage() {
          <span
             tw="flex"
             style={{
-               fontSize: 22,
+               fontSize: 23,
                fontWeight: 500,
                color: "#6397ee",
                letterSpacing: "0.18em",

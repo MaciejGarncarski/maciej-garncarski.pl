@@ -33,7 +33,6 @@ export default defineConfig({
       },
       ssr: {
          external: ["@takumi-rs/core"],
-         noExternal: ["@takumi-rs/image-response"],
       },
    },
    output: "static",

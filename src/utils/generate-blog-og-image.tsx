@@ -1,8 +1,6 @@
-import { readFileSync } from "node:fs";
-import path from "node:path";
-import { Renderer } from "@takumi-rs/core";
 import { fromJsx } from "@takumi-rs/helpers/jsx";
 import { faviconUrl, imageSources } from "@/utils/get-og-assets";
+import { renderer } from "@/utils/og-renderer";
 
 type OgImage = {
    imageBuffer: Buffer;
@@ -11,28 +9,14 @@ type OgImage = {
    tags: string[];
 };
 
-const FONT_PATH = path.resolve("src/assets/fonts/Montserrat-Medium.ttf");
-const fontBuffer = new Uint8Array(readFileSync(FONT_PATH));
-
-const renderer = new Renderer({
-   fonts: [
-      {
-         name: "Montserrat",
-         data: fontBuffer,
-         weight: 700,
-         style: "normal",
-      },
-   ],
-});
-
 const intlFormatter = new Intl.DateTimeFormat("pl-PL", {
    month: "long",
    year: "numeric",
 });
 
-export async function generateBlogOGImage({ imageBuffer, title, date, tags }: OgImage) {
-   const imageBase64 = `data:image/png;base64,${imageBuffer.toString("base64")}`;
+const BLOG_IMAGE_URL = "local://blog-image";
 
+export async function generateBlogOGImage({ imageBuffer, title, date, tags }: OgImage) {
    const formattedDate = intlFormatter.format(date);
    const dateResult = formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
 
@@ -42,8 +26,7 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
          style={{
             width: 1200,
             height: 630,
-            backgroundColor: "#0f1116",
-            backgroundImage: "linear-gradient(135deg, #0f1116 0%, #141823 100%)",
+            backgroundColor: "#12141c",
             color: "white",
             fontFamily: "Montserrat",
             overflow: "hidden",
@@ -107,7 +90,7 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
                tw="flex"
                style={{
                   fontSize: 56,
-                  fontWeight: 700,
+                  fontWeight: 500,
                   lineHeight: 1.3,
                   color: "#f5f8fc",
                   flexGrow: 1,
@@ -155,7 +138,7 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
 
             {/* Blog image */}
             <img
-               src={imageBase64}
+               src={BLOG_IMAGE_URL}
                alt={title}
                style={{
                   width: 330,
@@ -199,6 +182,9 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
       height: 630,
       format: "png",
       stylesheets,
-      fetchedResources: imageSources,
+      fetchedResources: [
+         ...imageSources,
+         { src: BLOG_IMAGE_URL, data: new Uint8Array(imageBuffer) },
+      ],
    })) as BodyInit;
 }

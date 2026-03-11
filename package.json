@@ -20,7 +20,6 @@
       "@tailwindcss/vite": "^4.1.18",
       "@takumi-rs/core": "^0.69.2",
       "@takumi-rs/helpers": "^0.69.2",
-      "@takumi-rs/image-response": "^0.69.2",
       "@types/react": "^19.2.14",
       "@types/react-dom": "^19.2.3",
       "@vercel/analytics": "^1.6.1",
