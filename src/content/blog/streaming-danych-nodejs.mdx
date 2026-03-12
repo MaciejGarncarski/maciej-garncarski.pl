@@ -16,7 +16,7 @@ tags: ["Backend", "Architektura"]
 ---
 
 import bufferVsStream from "@/assets/blog/streaming-danych-nodejs/buffer-vs-stream.png";
-import { Picture } from "astro:assets";
+import BlogImage from '@/components/blog/blog-image.astro';
 
 ## Problem do rozwiązania
 
@@ -34,12 +34,12 @@ Zanim przejdziemy do kodu, warto zdefiniować różnicę w utylizacji zasobów.
 
 > 💡 **Uwaga praktyczna:** Parametr `highWaterMark` można dostosować w zależności od charakteru danych. Większe chunki sprawdzają się przy prostym transferze plików, natomiast mniejsze są korzystne przy transformacjach tekstowych lub przetwarzaniu wymagającym niskiego opóźnienia.
 
-<figure>
-  <Picture data-blog-img src={bufferVsStream} alt="Buffer vs Stream" />
-  <figcaption data-figcaption>
-    Infografika ilustrująca różnicę między podejściem buforowym a strumieniowym w kontekście zużycia pamięci.
-  </figcaption>
-</figure>
+<BlogImage 
+  alt='Buffer vs Stream'
+  src={bufferVsStream}
+  caption='Infografika ilustrująca różnicę między podejściem buforowym a strumieniowym w kontekście zużycia pamięci.'
+/>
+
 
 ## Case Study: Endpoint eksportujący dane
 

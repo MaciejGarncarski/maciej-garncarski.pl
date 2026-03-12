@@ -8,16 +8,17 @@ keywords: ["npm", "oidc", "case sensitivity"]
 ---
 
 import before from "@/assets/blog/npm-oidc/before.png";
-import { Picture } from "astro:assets";
+import BlogImage from '@/components/blog/blog-image.astro';
 
 TL;DR: `NazwaUzytkownika` zamiast `nazwauzytkownika` w konfiguracji OIDC dla NPM.
 
 Niedawno podczas konfiguracji OIDC do publikacji paczki, zauważyłem, że NPM nie rozpoznaje poprawnie konfiguracji.
 
-<figure>
-  <Picture data-blog-img src={before} alt="Błędna konfiguracja OIDC" />
-  <figcaption data-figcaption>Konfiguracja wygląda na poprawną.</figcaption>
-</figure>
+<BlogImage 
+  alt="Błędna konfiguracja OIDC"
+  src={before}
+  caption="Konfiguracja wygląda na poprawną."
+/>
 
 
 ```txt title="Logi z GitHub Actions" data-ignore-copy
