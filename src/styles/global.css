@@ -29,7 +29,6 @@
    }
 
    :root.dark {
-      /* :root { */
       color-scheme: dark;
 
       --background: oklch(0.1791 0.0104 268.19);

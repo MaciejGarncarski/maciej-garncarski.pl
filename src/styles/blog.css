@@ -58,7 +58,6 @@
          pointer-events: none;
       }
 
-      /* Left accent bar */
       &::after {
          content: "";
          @apply bg-accent/50 absolute inset-y-3 left-0 w-[2px] rounded-full;

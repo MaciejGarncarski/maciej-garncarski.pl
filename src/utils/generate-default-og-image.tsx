@@ -18,7 +18,6 @@ export async function generateDefaultOGImage() {
             gap: 30,
          }}
       >
-         {/* Top accent gradient line */}
          <div
             tw="absolute"
             style={{
@@ -31,7 +30,6 @@ export async function generateDefaultOGImage() {
             }}
          />
 
-         {/* Logo */}
          <img
             src={faviconUrl}
             width={160}
@@ -45,7 +43,6 @@ export async function generateDefaultOGImage() {
             }}
          />
 
-         {/* Name */}
          <span
             tw="flex"
             style={{
@@ -59,7 +56,6 @@ export async function generateDefaultOGImage() {
             Maciej Garncarski
          </span>
 
-         {/* Subtitle */}
          <span
             tw="flex"
             style={{
@@ -73,7 +69,6 @@ export async function generateDefaultOGImage() {
             Software Engineer
          </span>
 
-         {/* Bottom accent gradient line */}
          <div
             tw="absolute"
             style={{

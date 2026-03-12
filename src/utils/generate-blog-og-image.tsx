@@ -16,9 +16,17 @@ const intlFormatter = new Intl.DateTimeFormat("pl-PL", {
 
 const BLOG_IMAGE_URL = "local://blog-image";
 
+const TITLE_CHAR_LIMIT = 64;
+const CUTOFF_TITLE_LENGTH = TITLE_CHAR_LIMIT + 10;
+
 export async function generateBlogOGImage({ imageBuffer, title, date, tags }: OgImage) {
    const formattedDate = intlFormatter.format(date);
    const dateResult = formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
+
+   const isLongTitle = title.length > TITLE_CHAR_LIMIT;
+   const isCutoffLimit = title.length > CUTOFF_TITLE_LENGTH;
+   const titleFontSize = isLongTitle ? 50 : 56;
+   const adjustedTitle = isCutoffLimit ? `${title.slice(0, CUTOFF_TITLE_LENGTH)}...` : title;
 
    const { node, stylesheets } = await fromJsx(
       <div
@@ -32,7 +40,6 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
             overflow: "hidden",
          }}
       >
-         {/* Top accent gradient line */}
          <div
             tw="absolute"
             style={{
@@ -45,7 +52,6 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
             }}
          />
 
-         {/* Bottom accent gradient line */}
          <div
             tw="absolute"
             style={{
@@ -58,18 +64,16 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
             }}
          />
 
-         {/* Left column: URL badge, title, favicon + date */}
          <div
             tw="flex flex-col relative"
             style={{
                width: 660,
                height: 630,
-               padding: "48px 48px 60px 48px",
+               padding: "48px 20px 60px 48px",
                justifyContent: "space-between",
                flexShrink: 0,
             }}
          >
-            {/* URL badge */}
             <span
                tw="flex"
                style={{
@@ -85,24 +89,23 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
                maciej-garncarski.pl/blog
             </span>
 
-            {/* Title */}
             <span
                tw="flex"
                style={{
-                  fontSize: 56,
+                  fontSize: titleFontSize,
                   fontWeight: 500,
-                  lineHeight: 1.3,
+                  lineHeight: 1.4,
                   color: "#f5f8fc",
                   flexGrow: 1,
+                  textWrap: "pretty",
                   alignItems: "center",
                   paddingTop: 34,
                   paddingBottom: 24,
                }}
             >
-               {title}
+               {adjustedTitle}
             </span>
 
-            {/* Favicon + date */}
             <div tw="flex flex-row items-center" style={{ gap: 14 }}>
                <img
                   src={faviconUrl}
@@ -114,7 +117,6 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
             </div>
          </div>
 
-         {/* Right column: date, image, tags */}
          <div
             tw="flex flex-col"
             style={{
@@ -124,7 +126,6 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
                alignItems: "flex-end",
             }}
          >
-            {/* Date */}
             <span
                tw="flex"
                style={{
@@ -136,7 +137,6 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
                {dateResult}
             </span>
 
-            {/* Blog image */}
             <img
                src={BLOG_IMAGE_URL}
                alt={title}
@@ -151,7 +151,6 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
                }}
             />
 
-            {/* Tags as individual pills */}
             <div
                tw="flex flex-row mt-auto"
                style={{ flexWrap: "wrap", gap: 24, justifyContent: "flex-end" }}
