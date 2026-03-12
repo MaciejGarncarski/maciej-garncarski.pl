@@ -13,7 +13,7 @@ importers:
         version: 7.0.0
       '@astrojs/mdx':
         specifier: ^5.0.0
-        version: 5.0.0(astro@6.0.0(@types/node@25.0.3)(@upstash/redis@1.34.5)(@vercel/functions@3.4.3)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.54.0)(typescript@5.9.3)(yaml@2.8.2))
+        version: 5.0.0(astro@6.0.4(@types/node@25.0.3)(@upstash/redis@1.34.5)(@vercel/functions@3.4.3)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.54.0)(typescript@5.9.3)(yaml@2.8.2))
       '@astrojs/react':
         specifier: ^5.0.0
         version: 5.0.0(@types/node@25.0.3)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(jiti@2.6.1)(lightningcss@1.32.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(yaml@2.8.2)
@@ -22,7 +22,7 @@ importers:
         version: 3.7.1
       '@astrojs/vercel':
         specifier: ^10.0.0
-        version: 10.0.0(astro@6.0.0(@types/node@25.0.3)(@upstash/redis@1.34.5)(@vercel/functions@3.4.3)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.54.0)(typescript@5.9.3)(yaml@2.8.2))(react@19.2.4)(rollup@4.54.0)
+        version: 10.0.0(astro@6.0.4(@types/node@25.0.3)(@upstash/redis@1.34.5)(@vercel/functions@3.4.3)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.54.0)(typescript@5.9.3)(yaml@2.8.2))(react@19.2.4)(rollup@4.54.0)
       '@tailwindcss/vite':
         specifier: ^4.1.18
         version: 4.1.18(vite@8.0.0(@types/node@25.0.3)(esbuild@0.27.3)(jiti@2.6.1)(yaml@2.8.2))
@@ -45,8 +45,8 @@ importers:
         specifier: ^1.3.1
         version: 1.3.1(react@19.2.4)
       astro:
-        specifier: ^6.0.0
-        version: 6.0.0(@types/node@25.0.3)(@upstash/redis@1.34.5)(@vercel/functions@3.4.3)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.54.0)(typescript@5.9.3)(yaml@2.8.2)
+        specifier: ^6.0.4
+        version: 6.0.4(@types/node@25.0.3)(@upstash/redis@1.34.5)(@vercel/functions@3.4.3)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.54.0)(typescript@5.9.3)(yaml@2.8.2)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -1346,8 +1346,8 @@ packages:
     resolution: {integrity: sha512-LElXdjswlqjWrPpJFg1Fx4wpkOCxj1TDHlSV4PlaRxHGWko024xICaa97ZkMfs6DRKlCguiAI+rbXv5GWwXIkg==}
     hasBin: true
 
-  astro@6.0.0:
-    resolution: {integrity: sha512-i24mxDGXUzyfKfE4IcWIiLBv9ENDVz98u/TLhjkknGkt/2KIjkR4Q0HeabtaVmIhyWECGd2E61ZeBdFuJ902xw==}
+  astro@6.0.4:
+    resolution: {integrity: sha512-1piLJCPTL/x7AMO2cjVFSTFyRqKuC3W8sSEySCt1aJio+p/wGs5H3K+Xr/rE9ftKtknLUtjxCqCE7/0NsXfGpQ==}
     engines: {node: ^20.19.1 || >=22.12.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -1695,10 +1695,6 @@ packages:
 
   fontace@0.4.1:
     resolution: {integrity: sha512-lDMvbAzSnHmbYMTEld5qdtvNH2/pWpICOqpean9IgC7vUbUJc3k+k5Dokp85CegamqQpFbXf0rAVkbzpyTA8aw==}
-
-  fontkitten@1.0.1:
-    resolution: {integrity: sha512-m+/cO+/kAU9farlejecXLgQH20+UXyH0K6oosGtogAz7BWco+KTYE60epKwMt8eVxqlOE2Fs+GoHVlGDUbKOoA==}
-    engines: {node: '>=24.12.0'}
 
   fontkitten@1.0.3:
     resolution: {integrity: sha512-Wp1zXWPVUPBmfoa3Cqc9ctaKuzKAV6uLstRqlR56kSjplf5uAce+qeyYym7F+PHbGTk+tCEdkCW6RD7DX/gBZw==}
@@ -2976,12 +2972,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/mdx@5.0.0(astro@6.0.0(@types/node@25.0.3)(@upstash/redis@1.34.5)(@vercel/functions@3.4.3)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.54.0)(typescript@5.9.3)(yaml@2.8.2))':
+  '@astrojs/mdx@5.0.0(astro@6.0.4(@types/node@25.0.3)(@upstash/redis@1.34.5)(@vercel/functions@3.4.3)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.54.0)(typescript@5.9.3)(yaml@2.8.2))':
     dependencies:
       '@astrojs/markdown-remark': 7.0.0
       '@mdx-js/mdx': 3.1.1
       acorn: 8.16.0
-      astro: 6.0.0(@types/node@25.0.3)(@upstash/redis@1.34.5)(@vercel/functions@3.4.3)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.54.0)(typescript@5.9.3)(yaml@2.8.2)
+      astro: 6.0.4(@types/node@25.0.3)(@upstash/redis@1.34.5)(@vercel/functions@3.4.3)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.54.0)(typescript@5.9.3)(yaml@2.8.2)
       es-module-lexer: 2.0.0
       estree-util-visit: 2.0.0
       hast-util-to-html: 9.0.5
@@ -3042,14 +3038,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/vercel@10.0.0(astro@6.0.0(@types/node@25.0.3)(@upstash/redis@1.34.5)(@vercel/functions@3.4.3)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.54.0)(typescript@5.9.3)(yaml@2.8.2))(react@19.2.4)(rollup@4.54.0)':
+  '@astrojs/vercel@10.0.0(astro@6.0.4(@types/node@25.0.3)(@upstash/redis@1.34.5)(@vercel/functions@3.4.3)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.54.0)(typescript@5.9.3)(yaml@2.8.2))(react@19.2.4)(rollup@4.54.0)':
     dependencies:
       '@astrojs/internal-helpers': 0.8.0
       '@vercel/analytics': 1.6.1(react@19.2.4)
       '@vercel/functions': 3.4.3
       '@vercel/nft': 1.3.2(rollup@4.54.0)
       '@vercel/routing-utils': 5.3.3
-      astro: 6.0.0(@types/node@25.0.3)(@upstash/redis@1.34.5)(@vercel/functions@3.4.3)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.54.0)(typescript@5.9.3)(yaml@2.8.2)
+      astro: 6.0.4(@types/node@25.0.3)(@upstash/redis@1.34.5)(@vercel/functions@3.4.3)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.54.0)(typescript@5.9.3)(yaml@2.8.2)
       esbuild: 0.27.3
       tinyglobby: 0.2.15
     transitivePeerDependencies:
@@ -3214,7 +3210,7 @@ snapshots:
 
   '@capsizecss/unpack@4.0.0':
     dependencies:
-      fontkitten: 1.0.1
+      fontkitten: 1.0.3
 
   '@clack/core@1.1.0':
     dependencies:
@@ -4088,7 +4084,7 @@ snapshots:
 
   astring@1.9.0: {}
 
-  astro@6.0.0(@types/node@25.0.3)(@upstash/redis@1.34.5)(@vercel/functions@3.4.3)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.54.0)(typescript@5.9.3)(yaml@2.8.2):
+  astro@6.0.4(@types/node@25.0.3)(@upstash/redis@1.34.5)(@vercel/functions@3.4.3)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.54.0)(typescript@5.9.3)(yaml@2.8.2):
     dependencies:
       '@astrojs/compiler': 3.0.0
       '@astrojs/internal-helpers': 0.8.0
@@ -4507,10 +4503,6 @@ snapshots:
   fontace@0.4.1:
     dependencies:
       fontkitten: 1.0.3
-
-  fontkitten@1.0.1:
-    dependencies:
-      tiny-inflate: 1.0.3
 
   fontkitten@1.0.3:
     dependencies:
