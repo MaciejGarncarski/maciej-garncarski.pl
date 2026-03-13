@@ -33,6 +33,7 @@
       "sharp": "^0.34.5"
    },
    "devDependencies": {
+      "@astrojs/compiler-rs": "^0.1.4",
       "@biomejs/biome": "2.4.4",
       "@commitlint/cli": "^20.4.2",
       "@commitlint/config-conventional": "^19.8.1",
@@ -40,5 +41,5 @@
       "tailwindcss": "^4.1.18",
       "typescript": "^5.9.3"
    },
-   "packageManager": "pnpm@10.29.1+sha512.48dae233635a645768a3028d19545cacc1688639eeb1f3734e42d6d6b971afbf22aa1ac9af52a173d9c3a20c15857cfa400f19994d79a2f626fcc73fccda9bbc"
+   "packageManager": "pnpm@10.32.1"
 }

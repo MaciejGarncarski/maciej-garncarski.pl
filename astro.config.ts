@@ -9,6 +9,13 @@ import { markdownRehypePlugins } from "./rehype/plugins";
 
 // https://astro.build/config
 export default defineConfig({
+   experimental: {
+      clientPrerender: true,
+      rustCompiler: true,
+      queuedRendering: {
+         enabled: true,
+      },
+   },
    fonts: [
       {
          provider: fontProviders.google(),
@@ -16,9 +23,6 @@ export default defineConfig({
          cssVariable: "--font-ui",
       },
    ],
-   experimental: {
-      clientPrerender: true,
-   },
    prefetch: true,
    site: "https://maciej-garncarski.pl",
    integrations: [sitemap(), mdx(), react()],
