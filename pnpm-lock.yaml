@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@astrojs/compiler-rs':
+        specifier: ^0.1.4
+        version: 0.1.4
       '@astrojs/markdown-remark':
         specifier: ^7.0.0
         version: 7.0.0
@@ -66,9 +69,6 @@ importers:
         specifier: ^0.34.5
         version: 0.34.5
     devDependencies:
-      '@astrojs/compiler-rs':
-        specifier: ^0.1.4
-        version: 0.1.4
       '@biomejs/biome':
         specifier: 2.4.4
         version: 2.4.4
