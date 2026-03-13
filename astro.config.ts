@@ -11,10 +11,6 @@ import { markdownRehypePlugins } from "./rehype/plugins";
 export default defineConfig({
    experimental: {
       clientPrerender: true,
-      rustCompiler: true,
-      queuedRendering: {
-         enabled: true,
-      },
    },
    fonts: [
       {
