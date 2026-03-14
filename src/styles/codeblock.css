@@ -67,17 +67,17 @@ pre[data-language] {
 
 /* default: inside code area */
 [data-rehype-pretty-code-figure] [data-copy-btn] {
-   @apply top-[5px];
+   @apply top-2.5;
 }
 
 /* with title: vertically centered in the header bar (~38px tall) */
 [data-rehype-pretty-code-figure]:has([data-rehype-pretty-code-title]) [data-copy-btn] {
-   @apply top-[5px];
+   @apply top-1.5;
 }
 
 /* inside tab panel */
 [data-tab-panel] [data-rehype-pretty-code-figure] [data-copy-btn] {
-   @apply top-[5px];
+   @apply top-3;
 }
 
 /* ===== Code element ===== */

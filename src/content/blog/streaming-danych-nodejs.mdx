@@ -32,7 +32,7 @@ Zanim przejdziemy do kodu, warto zdefiniować różnicę w utylizacji zasobów.
 * **Podejście buforowe**: Wczytuje cały zasób do pamięci RAM (Heap) przed rozpoczęciem przetwarzania. Złożoność pamięciowa jest liniowa O(n) względem wielkości pliku.
 * **Podejście strumieniowe**: Przetwarza dane w małych, zarządzalnych porcjach (chunks), zazwyczaj o wielkości 64KB (highWaterMark). Użycie pamięci jest stałe, niezależnie od wielkości wejścia.
 
-> 💡 **Uwaga praktyczna:** Parametr `highWaterMark` można dostosować w zależności od charakteru danych. Większe chunki sprawdzają się przy prostym transferze plików, natomiast mniejsze są korzystne przy transformacjach tekstowych lub przetwarzaniu wymagającym niskiego opóźnienia.
+> ⚠️ Parametr `highWaterMark` można dostosować w zależności od charakteru danych. Większe chunki sprawdzają się przy prostym transferze plików, natomiast mniejsze są korzystne przy transformacjach tekstowych lub przetwarzaniu wymagającym niskiego opóźnienia.
 
 <BlogImage 
   alt='Buffer vs Stream'
