@@ -43,7 +43,7 @@ const variantClasses = {
 <Element
   href={isLink ? href : undefined}
   class={clsx(
-    "inline-flex items-center justify-center rounded-full font-medium transition-colors duration-300",
+    "inline-flex items-center justify-center rounded-full font-medium motion-reduce:transition-none transition-colors duration-300",
     sizeClasses[variant],
     variantClasses[variant],
     className,

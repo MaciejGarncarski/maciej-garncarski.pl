@@ -1,7 +1,7 @@
 ---
 type Props = {
-   link: string;
-   type: "demo" | "repo";
+  link: string;
+  type: "demo" | "repo";
 };
 
 const { link, type } = Astro.props;
@@ -9,8 +9,9 @@ const { link, type } = Astro.props;
 
 <a
   href={link}
-  class="bg-accent/20 hover:bg-accent/30 flex items-center justify-center gap-2 rounded-md px-3 py-1 text-center transition-colors"
-  target="_blank">
+  class="border border-accent/10 bg-accent/15 text-foreground/80 hover:bg-accent/25 focus:bg-accent/25 flex gap-2 items-center px-3 py-1 rounded-xl transition-all motion-reduce:transition-none active:scale-97 hover:scale-103 focus:scale-103"
+  target="_blank"
+>
   {
     type === "demo" ? (
       <svg
@@ -23,7 +24,8 @@ const { link, type } = Astro.props;
         stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
-        class="lucide lucide-globe-icon lucide-globe">
+        class="lucide lucide-globe-icon lucide-globe"
+      >
         <circle cx="12" cy="12" r="10" />
         <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
         <path d="M2 12h20" />
@@ -34,7 +36,8 @@ const { link, type } = Astro.props;
         width="16"
         height="16"
         viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg">
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <>
           <title>GitHub</title>
           <path

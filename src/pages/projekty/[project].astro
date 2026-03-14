@@ -54,13 +54,8 @@ const { project } = Astro.props;
       </p>
     </header>
 
-    <div
-      class="shadow-accent relative overflow-hidden rounded-xl border border-accent/12"
-    >
-      <div
-        class="pointer-events-none absolute inset-x-[10%] top-0 z-10 h-px bg-linear-to-r from-transparent via-accent/25 to-transparent"
-      >
-      </div>
+    <div class="relative">
+      <AccentShimmer />
       <Picture
         formats={["webp"]}
         layout="full-width"
@@ -68,7 +63,7 @@ const { project } = Astro.props;
         src={project.thumbnail}
         alt={project.title}
         transition:name={`project-image-${project.id}`}
-        class="w-full object-contain"
+        class="w-full object-contain rounded-xl border border-accent/12 shadow-accent shadow-xs"
       />
     </div>
 

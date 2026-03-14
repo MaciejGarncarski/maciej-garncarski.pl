@@ -1,15 +1,14 @@
 ---
-import { Picture } from "astro:assets";
 import github from "@assets/github.svg";
 import linkedin from "@assets/linkedin.svg";
 import xIcon from "@assets/x.svg";
-import type { ImageMetadata } from "astro";
+import type { SvgComponent } from "astro/types";
 
 const currentYear = new Date().getFullYear();
 
 type Social = {
   url: string;
-  icon: ImageMetadata;
+  icon: SvgComponent;
   name: string;
 };
 
@@ -50,24 +49,22 @@ const socials: Array<Social> = [
 
       <div class="flex items-center gap-1">
         {
-          socials.map((s) => (
-            <a
-              href={s.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              title={s.name}
-              class="text-foreground-secondary hover:text-foreground flex size-8 items-center justify-center rounded-md transition-colors duration-150 hover:bg-foreground/5"
-            >
-              <Picture
-                src={s.icon}
-                alt=""
-                width="15"
-                height="15"
-                class="size-[15px] dark:invert-100"
-              />
-              <span class="sr-only">{s.name}</span>
-            </a>
-          ))
+          socials.map((s) => {
+            const Icon = s.icon;
+
+            return (
+              <a
+                href={s.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={s.name}
+                class="text-foreground-secondary hover:text-foreground flex size-8 items-center justify-center rounded-md transition-colors duration-150 hover:bg-foreground/5"
+              >
+                <Icon class="size-[15px] text-foreground" />
+                <span class="sr-only">{s.name}</span>
+              </a>
+            );
+          })
         }
       </div>
     </div>

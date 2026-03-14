@@ -41,18 +41,20 @@ const sortedTags = tags.sort((a, b) =>
 );
 ---
 
-<a
-  id="back-link"
-  href="/blog"
-  class="text-foreground-secondary md:ml-48 mx-none hover:text-foreground group inline-flex w-fit items-center gap-2 text-sm transition-colors"
->
-  <ChevronIcon
-    size={16}
-    direction="left"
-    customStyles="transition-transform group-hover:-translate-x-1"
-  />
-  Inne posty
-</a>
+<div class="lg:w-[85ch] lg:mx-auto">
+  <a
+    id="back-link"
+    href="/blog"
+    class="text-foreground-secondary hover:text-foreground group inline-flex w-fit items-center gap-2 text-sm transition-colors"
+  >
+    <ChevronIcon
+      size={16}
+      direction="left"
+      customStyles="transition-transform group-hover:-translate-x-1"
+    />
+    Inne posty
+  </a>
+</div>
 
 <script>
   function initLink() {
@@ -80,8 +82,10 @@ const sortedTags = tags.sort((a, b) =>
   document.addEventListener("astro:after-swap", initLink);
 </script>
 
-<header class="relative mx-auto flex w-full max-w-[85ch] flex-col gap-6">
-  <div class="flex flex-col gap-6 md:flex-row-reverse md:items-start md:gap-8">
+<header class="relative mx-auto flex w-full lg:max-w-[85ch] flex-col gap-6">
+  <div
+    class="flex flex-col gap-6 md:flex-row-reverse md:items-start md:gap-12 lg:gap-6"
+  >
     {
       currPost?.data.heroImage && currPost.id && (
         <Image

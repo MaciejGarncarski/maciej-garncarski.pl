@@ -35,7 +35,7 @@ export function DemoComponent() {
          />
          {isPending && <p>Aktualizowanie wyników...</p>}
          {!isPending && (
-            <ul>
+            <ul className="mt-6">
                {results.map((result) => (
                   <li key={result}>{result}</li>
                ))}
