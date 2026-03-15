@@ -1,11 +1,10 @@
 ---
-import { Image } from "astro:assets";
-import { fade } from "astro:transitions";
 import { calculateReadingTime } from "@utils/calculate-read-time";
 import { getPosts } from "@/utils/get-posts";
 import { normalizeTag } from "@/utils/normalize-tag";
 import Tag from "@/components/tag.astro";
 import ChevronIcon from "@/components/ui/chevron-icon.astro";
+import { Picture } from "astro:assets";
 
 type Props = {
   text: string;
@@ -88,7 +87,8 @@ const sortedTags = tags.sort((a, b) =>
   >
     {
       currPost?.data.heroImage && currPost.id && (
-        <Image
+        <Picture
+          formats={["avif", "webp"]}
           src={currPost.data.heroImage}
           transition:name={`blog-image-${currPost.id}`}
           width={400}

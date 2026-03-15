@@ -46,7 +46,7 @@ const seoData = {
                   <AccentShimmer opacity={30} />
                   {project.thumbnail ? (
                     <Picture
-                      formats={["webp"]}
+                      formats={["avif", "webp"]}
                       src={project.thumbnail}
                       alt={project.title}
                       transition:name={`project-image-${project.id}`}

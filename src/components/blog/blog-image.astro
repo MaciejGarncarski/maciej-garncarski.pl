@@ -11,6 +11,11 @@ const props = Astro.props;
 ---
 
 <figure>
-  <Picture data-blog-img src={props.src} alt={props.alt} />
+  <Picture
+    formats={["avif", "webp"]}
+    data-blog-img
+    src={props.src}
+    alt={props.alt}
+  />
   {props.caption && <figcaption data-figcaption>{props.caption}</figcaption>}
 </figure>
