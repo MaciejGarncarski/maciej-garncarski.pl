@@ -45,7 +45,7 @@
    }
 
    & blockquote:not([data-tab-panel="demo"] *) {
-      @apply border border-accent/12 bg-accent/6 relative my-12 w-full overflow-hidden rounded-xl py-6 pl-7 pr-5 md:py-7 md:pl-10 md:pr-8;
+      @apply border border-accent/12 bg-accent/6 relative my-12 w-full overflow-hidden rounded-xl py-5 pl-6 pr-5 md:py-6 md:pl-8 md:pr-6;
       box-shadow: 0 2px 12px -4px oklch(62% 0.15 260 / 0.08);
 
       &::before {
@@ -54,13 +54,20 @@
          inset-inline: 15%;
          top: 0;
          height: 1px;
-         background: linear-gradient(to right, transparent, oklch(68% 0.14 260 / 0.1), transparent);
+         background: linear-gradient(to right, transparent, oklch(68% 0.14 260 / 0.3), transparent);
          pointer-events: none;
       }
 
       &::after {
          content: "";
-         @apply bg-accent/50 absolute inset-y-3 left-0 w-[2px] rounded-full;
+         @apply absolute inset-y-0 left-0 w-[2px] rounded-full;
+         background: linear-gradient(
+            to bottom,
+            oklch(70% 0.14 260 / 0.1),
+            oklch(70% 0.14 260 / 0.5),
+            oklch(70% 0.14 260 / 0.15)
+         );
+         filter: blur(1px);
       }
    }
 
@@ -70,7 +77,7 @@
    }
 
    & blockquote p:not([data-tab-panel="demo"] *) {
-      @apply text-foreground-body relative z-10 m-0 text-[1.05rem] leading-[1.85] italic;
+      @apply text-foreground-body relative z-10 m-0 text-[1.05rem] leading-[1.85];
    }
 
    & ul:not([data-tab-panel="demo"] *) {
