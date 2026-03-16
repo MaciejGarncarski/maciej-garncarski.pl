@@ -20,7 +20,6 @@ export const projects: Project[] = [
       title: "CoinControl",
       description:
          "CoinControl to aplikacja do śledzenia budżetu zaprojektowana, aby pomóc użytkownikom monitorować ich dochody i wydatki.",
-      demo: "https://coincontrol.maciej-garncarski.pl",
       github: "https://github.com/MaciejGarncarski/coin-control",
       tags: ["React", "Tailwind CSS", "Zustand", "Express", "BullMQ", "Prisma"],
       thumbnail: coincontrol,
@@ -31,7 +30,6 @@ export const projects: Project[] = [
       description:
          "Bot na platformę Twitch, którego głównym zadaniem jest obsługa systemu song request. Projekt charakteryzuje się modułową budową, co umożliwia bezproblemowe implementowanie kolejnych funkcjonalności.",
       github: "https://github.com/MaciejGarncarski/twitch-chat-bot",
-      demo: "https://bot.maciej-garncarski.pl/",
       tags: ["Bun", "Elysia", "React", "WebSocket"],
       thumbnail: twitchChatBot,
    },
@@ -40,7 +38,6 @@ export const projects: Project[] = [
       title: "Kanban",
       description:
          "Aplikacja Kanban stworzona w NestJS z zastosowaniem wzorców CQRS, Domain-Driven Design (DDD) oraz architektury hexagonalnej.",
-      demo: "https://kanban.maciej-garncarski.pl",
       github: "https://github.com/MaciejGarncarski/kanban",
       tags: ["Next.js", "NestJS", "Drizzle ORM", "Mantine UI", "JWT"],
       thumbnail: kanban,

@@ -63,16 +63,24 @@ const sortedTags = tags.sort((a, b) =>
     backLink.onclick = (e) => {
       const referrer = document.referrer;
       let isSameOrigin = false;
+      let referrerPathname = "";
 
       try {
         if (referrer) {
-          isSameOrigin = new URL(referrer).origin === window.location.origin;
+          const referrerUrl = new URL(referrer);
+          isSameOrigin = referrerUrl.origin === window.location.origin;
+          referrerPathname = referrerUrl.pathname;
         }
-      } catch {}
+      } catch (err) {}
 
       if (isSameOrigin) {
         e.preventDefault();
-        history.back();
+
+        if (referrerPathname === "/") {
+          window.location.href = "/blog";
+        } else {
+          history.back();
+        }
       }
     };
   }
@@ -80,7 +88,6 @@ const sortedTags = tags.sort((a, b) =>
   document.addEventListener("DOMContentLoaded", initLink);
   document.addEventListener("astro:after-swap", initLink);
 </script>
-
 <header class="relative mx-auto flex w-full lg:max-w-[85ch] flex-col gap-6">
   <div
     class="flex flex-col gap-6 md:flex-row-reverse md:items-start md:gap-12 lg:gap-6"

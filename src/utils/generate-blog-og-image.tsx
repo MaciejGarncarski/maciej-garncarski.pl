@@ -48,7 +48,7 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
                right: "15%",
                height: 1,
                background:
-                  "linear-gradient(to right, transparent, rgba(99, 151, 238, 0.35), transparent)",
+                  "linear-gradient(to right, transparent, rgba(99, 151, 238, 0.4), transparent)",
             }}
          />
 
@@ -60,7 +60,7 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
                right: "25%",
                height: 1,
                background:
-                  "linear-gradient(to right, transparent, rgba(99, 151, 238, 0.2), transparent)",
+                  "linear-gradient(to right, transparent, rgba(99, 151, 238, 0.4), transparent)",
             }}
          />
 
