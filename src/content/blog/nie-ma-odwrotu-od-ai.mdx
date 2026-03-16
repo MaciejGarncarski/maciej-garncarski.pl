@@ -65,4 +65,28 @@ Praca programisty będzie się zmieniać, ale na pewno nie zniknie.
 
 Myślę, że nie będzie specjalistów w jednej dziedzinie, ale raczej osoby, które są średnie, ale wystarczająco dobre, aby programować ze wsparciem AI i rozumieć, kiedy się myli.
 
-Najważniejsze jest, aby nie dać się pokonać doomerom z LinkedIna, którzy twierdzą, że za pół roku wszyscy stracimy pracę. <a href="https://codingissolved.com/" target="_blank">https://codingissolved.com/</a>, strona pokazuje, że przepowiednie CEO są po prostu bajkami, aby zwabić inwestorów.
+Najważniejsze jest, aby nie dać się pokonać doomerom z LinkedIna, którzy twierdzą, że za pół roku wszyscy stracimy pracę. <a href="https://codingissolved.com/" target='_blank'>codingissolved.com</a>, strona pokazuje, że przepowiednie CEO są po prostu bajkami, aby zwabić inwestorów.
+
+
+## 5 Przykładów, kiedy AI pomyliło się w mojej pracy
+
+1. **Gemini**, model od Google, tworzył pętlę zapominania zmiennych. Każdy kolejny prompt powodował, że usuwał połowę wcześniejszego kodu.
+2. **Żaden LLM** nie jest w stanie napisać dobrych testów jednostkowych. Zawsze brakuje im kontekstu, a nawet jeśli go mają, to i tak testują implementation details, a nie zachowanie.
+3. **GPT‑5.3‑Codex** w Visual Studio Code w trybie agenta ma tendencję do nadmiernego buildowania, testowania i uruchamiania aplikacji. Często w moim przypadku wpadał w pętle, gdzie po dodaniu jednej linijki kodu, budował cały projekt, a następnie testował i uruchamiał go.
+4. **LLM** nie jest w stanie zrozumieć pojęcia refaktoryzacji. Zawsze będzie dopisywał lub psuł kod, zamiast go upraszczać.
+5. **AI halucynuje**. Zawsze. Przy refaktorze z `Satori` na `Takumi` (narzędzia do generowania obrazków kodem), model zaczął wymyślać API. Myślałem, że dopięcie dokumentacji do LLMa rozwiąże problem, ale niestety, nic to nie pomogło. Jest to duży problem, ponieważ istnieje dużo świetnych bibliotek, które są słabo udokumentowane, a AI nie jest w stanie sobie z tym poradzić.
+
+## Jak promptować AI i nie stracić cierpliwości
+
+- **Daj maksymalnie dużo kontekstu.**<br/>
+Nazwa frameworka, wersja, dokumentacja, skille AI, styl kodu, wszystko, co może pomóc AI zrozumieć, czego oczekujesz.
+- **Pisz maksymalnie precyzyjnie, ale nie za dużo.**<br/>
+Nie pisz zbyt ogólnych promptów, ale też nie przesadzaj z detalami. Znajdź złoty środek.
+- **Wymuszaj format odpowiedzi.**<br/>
+Chcesz tylko fragment kodu? Napisz mu to! Testy E2E? Powiedz mu, że nie chcesz testów jednostkowych.
+- **Używaj trybu planowania w agentach.**<br/>
+Zamiast dawać mu zadanie do wykonania, poproś go o rozplanowanie.
+- **Resetuj kontekst, jeśli widzisz, że się gubi.**<br/>
+Jeśli zauważysz, że AI zaczyna halucynować lub zapominać, nie bój się zresetować kontekstu i zacząć od nowa.
+- **Porównuj odpowiedzi z różnych modeli.**<br/>
+Nie polegaj na jednym, sprawdzaj, jak radzą sobie modele różnych firm. 
