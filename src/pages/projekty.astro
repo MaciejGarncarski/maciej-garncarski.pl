@@ -38,7 +38,7 @@ const seoData = {
 
     <ul class="grid gap-6">
       {
-        projects.map((project) => {
+        projects.map((project, idx) => {
           return (
             <li>
               <a href={`/projekty/${project.id}`} class="group block">
@@ -49,6 +49,7 @@ const seoData = {
                       formats={["avif", "webp"]}
                       src={project.thumbnail}
                       alt={project.title}
+                      priority={idx < 2}
                       transition:name={`project-image-${project.id}`}
                       pictureAttributes={{
                         class: "shrink-0",
