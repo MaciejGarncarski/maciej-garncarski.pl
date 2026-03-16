@@ -98,7 +98,6 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
                   color: "#f5f8fc",
                   flexGrow: 1,
                   textWrap: "pretty",
-                  alignItems: "center",
                   paddingTop: 34,
                   paddingBottom: 24,
                }}
