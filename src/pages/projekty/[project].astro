@@ -55,7 +55,7 @@ const { project } = Astro.props;
     </header>
 
     <div class="relative">
-      <AccentShimmer />
+      <AccentShimmer opacity={50} />
       <Picture
         formats={["avif", "webp"]}
         layout="full-width"
@@ -66,6 +66,9 @@ const { project } = Astro.props;
         class="w-full object-contain rounded-xl border border-accent/12 shadow-accent shadow-xs"
       />
     </div>
+    <p class="text-foreground-secondary text-lg leading-relaxed">
+      {project.descriptionSecondary}
+    </p>
 
     <section class="flex flex-col gap-3">
       <SectionHeading title="Technologie" />
