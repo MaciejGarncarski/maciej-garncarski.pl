@@ -24,12 +24,22 @@ const navigationData: Array<Link> = [
   },
 ];
 
-const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, "");
-const subpath = pathname.match(/[^/]+/g);
+const baseUrl = import.meta.env.BASE_URL;
+const pathname =
+  baseUrl !== "/" && Astro.url.pathname.startsWith(baseUrl)
+    ? `/${Astro.url.pathname.slice(baseUrl.length).replace(/^\/+/, "")}`
+    : Astro.url.pathname;
+const normalizedPathname =
+  pathname.length > 1 && pathname.endsWith("/")
+    ? pathname.slice(0, -1)
+    : pathname;
+const subpath = normalizedPathname.match(/[^/]+/g);
+const isBlogPostPage =
+  normalizedPathname.startsWith("/blog/") && normalizedPathname !== "/blog";
 ---
 
 <header
-  class="fixed top-2 md:top-4 left-0 right-0 z-50 flex justify-center px-4 pt-4 md:pt-5"
+  class="fixed md:sticky top-2 left-0 right-0 z-50 flex justify-center px-4 pt-4 md:pt-0 md:top-4"
 >
   <div class="w-full max-w-[63rem]">
     <nav
@@ -37,7 +47,7 @@ const subpath = pathname.match(/[^/]+/g);
       transition:name="nav"
     >
       <div
-        class="pointer-events-none absolute inset-0 bg-linear-to-r from-transparent via-accent/3.5 to-transparent"
+        class="pointer-events-none absolute inset-0 bg-linear-to-r from-transparent via-accent/7 to-transparent"
       >
       </div>
       <div
@@ -72,10 +82,11 @@ const subpath = pathname.match(/[^/]+/g);
         {
           navigationData.map((n) => {
             const isActive =
-              n.url === pathname || n.url === "/" + (subpath?.[0] || "");
-            const isBlogPage = n.url === "/blog/";
+              n.url === normalizedPathname ||
+              n.url === "/" + (subpath?.[0] || "");
+            const isBlogPage = n.url === "/blog";
             const isBlogPageActive =
-              isBlogPage && Astro.url.pathname.startsWith("/blog/");
+              isBlogPage && /^\/blog(?:\/|$)/.test(normalizedPathname);
             const active = isActive || isBlogPageActive;
 
             return (
@@ -143,6 +154,18 @@ const subpath = pathname.match(/[^/]+/g);
           </svg>
         </button>
       </div>
+
+      {
+        isBlogPostPage && (
+          <div class="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-[2px] overflow-hidden">
+            <div class="absolute inset-0 bg-linear-to-r from-transparent via-accent/20 to-transparent opacity-70" />
+            <div
+              data-nav-scroll-indicator
+              class="h-full origin-left bg-linear-to-r from-accent/30 via-accent/50 to-accent/30 transition-[transform,opacity] duration-100 ease-out"
+            />
+          </div>
+        )
+      }
     </nav>
 
     <div
@@ -167,10 +190,11 @@ const subpath = pathname.match(/[^/]+/g);
             {
               navigationData.map((n, index) => {
                 const isActive =
-                  n.url === pathname || n.url === "/" + (subpath?.[0] || "");
-                const isBlogPage = n.url === "/blog/";
+                  n.url === normalizedPathname ||
+                  n.url === "/" + (subpath?.[0] || "");
+                const isBlogPage = n.url === "/blog";
                 const isBlogPageActive =
-                  isBlogPage && Astro.url.pathname.startsWith("/blog/");
+                  isBlogPage && /^\/blog(?:\/|$)/.test(normalizedPathname);
                 const active = isActive || isBlogPageActive;
 
                 return (
@@ -205,7 +229,7 @@ const subpath = pathname.match(/[^/]+/g);
   </div>
 </header>
 
-<div class="h-12 md:h-12"></div>
+<div class="h-12 md:hidden"></div>
 
 <script>
   declare global {
@@ -216,6 +240,50 @@ const subpath = pathname.match(/[^/]+/g);
 
   function setupMobileMenu() {
     window.__cleanupNavigationMenu?.();
+
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    const scrollIndicator = document.querySelector(
+      "[data-nav-scroll-indicator]",
+    ) as HTMLElement | null;
+
+    let ticking = false;
+
+    function updateScrollIndicator() {
+      if (!scrollIndicator) return;
+
+      const maxScroll =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+
+      const progress =
+        maxScroll > 0
+          ? Math.min(Math.max(window.scrollY / maxScroll, 0), 1)
+          : 0;
+
+      scrollIndicator.style.transform = `scaleX(${progress})`;
+      scrollIndicator.style.opacity = `${0.5 + progress * 0.5}`;
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateScrollIndicator();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+
+    if (scrollIndicator) {
+      updateScrollIndicator();
+      window.addEventListener("scroll", onScroll, {
+        passive: true,
+        signal,
+      });
+      window.addEventListener("resize", onScroll, { signal });
+    }
 
     const toggle = document.querySelector(
       "[data-mobile-menu-toggle]",
@@ -236,10 +304,10 @@ const subpath = pathname.match(/[^/]+/g);
       "[data-icon-close]",
     ) as SVGElement | null;
 
-    if (!toggle || !menu || !panel || !iconMenu || !iconClose) return;
-
-    const controller = new AbortController();
-    const { signal } = controller;
+    if (!toggle || !menu || !panel || !iconMenu || !iconClose) {
+      window.__cleanupNavigationMenu = () => controller.abort();
+      return;
+    }
 
     let isOpen = false;
 

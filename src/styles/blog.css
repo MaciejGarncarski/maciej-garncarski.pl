@@ -4,7 +4,7 @@
 
 [data-blog] {
    & :is(h2, h3, h4, h5, h6):not([data-tab-panel="demo"] *) {
-      @apply text-foreground w-fit scroll-mt-30 items-center font-semibold text-balance;
+      @apply text-foreground w-fit scroll-mt-24 items-center font-semibold text-balance;
    }
 
    /* Remove top margin if it's the first child */
