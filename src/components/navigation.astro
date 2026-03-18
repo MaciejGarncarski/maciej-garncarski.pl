@@ -157,11 +157,11 @@ const isBlogPostPage =
 
       {
         isBlogPostPage && (
-          <div class="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-[2px] overflow-hidden">
-            <div class="absolute inset-0 bg-linear-to-r from-transparent via-accent/20 to-transparent opacity-70" />
+          <div class="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-[3px] rounded-full overflow-hidden">
+            <div class="absolute inset-0 bg-linear-to-r from-transparent via-accent/20 to-transparent opacity-60" />
             <div
               data-nav-scroll-indicator
-              class="h-full origin-left bg-linear-to-r from-accent/30 via-accent/50 to-accent/30 transition-[transform,opacity] duration-100 ease-out"
+              class="h-full origin-left bg-linear-to-r from-accent/35 via-accent/50 to-accent/35 transition-[transform] duration-100 ease-out"
             />
           </div>
         )
@@ -263,7 +263,6 @@ const isBlogPostPage =
           : 0;
 
       scrollIndicator.style.transform = `scaleX(${progress})`;
-      scrollIndicator.style.opacity = `${0.5 + progress * 0.5}`;
     }
 
     function onScroll() {
