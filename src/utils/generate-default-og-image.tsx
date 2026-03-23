@@ -59,7 +59,7 @@ export async function generateDefaultOGImage() {
          <span
             tw="flex"
             style={{
-               fontSize: 23,
+               fontSize: 24,
                fontWeight: 500,
                color: "#6397ee",
                letterSpacing: "0.18em",
