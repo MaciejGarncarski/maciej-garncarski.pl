@@ -3,7 +3,7 @@
 ---
 
 <aside
-  class="hidden xl:block absolute top-0 left-full ml-8 2xl:ml-14 mt-12 h-full w-[clamp(13rem,16vw,13rem)]"
+  class="hidden xl:block absolute top-0 left-full ml-12 2xl:ml-18 mt-8 h-full w-[clamp(13rem,16vw,13rem)]"
   data-toc-aside
 >
   <nav
@@ -143,7 +143,7 @@
         const isActive = id === activeId;
 
         link.classList.toggle("text-accent", isActive);
-        link.classList.toggle("bg-accent/10", isActive);
+        link.classList.toggle("bg-accent/5", isActive);
         link.classList.toggle("font-medium", isActive);
         link.classList.toggle("text-foreground-secondary/80", !isActive);
         link.classList.toggle("hover:text-foreground", !isActive);
