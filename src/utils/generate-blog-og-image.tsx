@@ -48,7 +48,7 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
                right: "15%",
                height: 1,
                background:
-                  "linear-gradient(to right, transparent, rgba(99, 151, 238, 0.4), transparent)",
+                  "linear-gradient(to right, transparent, rgba(99, 151, 238, 0.35), transparent)",
             }}
          />
 
@@ -60,7 +60,7 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
                right: "25%",
                height: 1,
                background:
-                  "linear-gradient(to right, transparent, rgba(99, 151, 238, 0.4), transparent)",
+                  "linear-gradient(to right, transparent, rgba(99, 151, 238, 0.3), transparent)",
             }}
          />
 
@@ -69,7 +69,7 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
             style={{
                width: 660,
                height: 630,
-               padding: "48px 20px 60px 48px",
+               padding: "48px 20px 50px 40px",
                justifyContent: "space-between",
                flexShrink: 0,
             }}
@@ -79,7 +79,7 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
                style={{
                   alignSelf: "flex-start",
                   fontSize: 18,
-                  color: "rgba(142, 169, 192, 1)",
+                  color: "rgba(152, 187, 222, 1)",
                   border: "1px solid rgba(99, 151, 238, 0.35)",
                   borderRadius: 999,
                   padding: "10px 22px",
@@ -93,7 +93,7 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
                tw="flex"
                style={{
                   fontSize: titleFontSize,
-                  fontWeight: 500,
+                  fontWeight: 700,
                   lineHeight: 1.4,
                   color: "#f5f8fc",
                   flexGrow: 1,
@@ -105,7 +105,7 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
                {adjustedTitle}
             </span>
 
-            <div tw="flex flex-row items-center" style={{ gap: 14 }}>
+            <div tw="flex flex-row items-center" style={{ gap: 32 }}>
                <img
                   src={faviconUrl}
                   width={50}
@@ -113,6 +113,16 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
                   alt=""
                   style={{ borderRadius: 7, display: "flex" }}
                />
+
+               <span
+                  tw="flex"
+                  style={{
+                     fontSize: 22,
+                     color: "rgba(220, 229, 242, 0.9)",
+                  }}
+               >
+               {dateResult}
+            </span>
             </div>
          </div>
 
@@ -121,45 +131,34 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
             style={{
                flex: 1,
                height: 630,
-               padding: "48px 48px 60px 48px",
+               padding: "48px 40px 50px 0px",
                alignItems: "flex-end",
             }}
          >
-            <span
-               tw="flex"
-               style={{
-                  fontSize: 24,
-                  color: "rgba(220, 229, 242, 0.9)",
-                  alignSelf: "flex-end",
-               }}
-            >
-               {dateResult}
-            </span>
-
             <img
                src={BLOG_IMAGE_URL}
                alt={title}
                style={{
-                  width: 330,
-                  height: 330,
+                  width: 400,
+                  height: 400,
                   objectFit: "cover",
-                  marginTop: "46px",
-                  borderRadius: 16,
+                  borderRadius: 18,
                   display: "flex",
+                  border: "1px solid rgba(99, 151, 238, 0.2)",
                   boxShadow: "0 20px 60px rgba(0,0,0,0.5)",
                }}
             />
 
             <div
-               tw="flex flex-row mt-auto"
-               style={{ flexWrap: "wrap", gap: 24, justifyContent: "flex-end" }}
+               tw="flex flex-row mt-auto mb-1"
+               style={{ flexWrap: "wrap", gap: 24,  }}
             >
                {tags.map((tag) => (
                   <span
                      key={tag}
                      tw="flex"
                      style={{
-                        fontSize: 20,
+                        fontSize: 22,
                         color: "rgba(220, 229, 242, 0.9)",
                         background: "rgba(99, 151, 238, 0.15)",
                         border: "1px solid rgba(99, 151, 238, 0.1)",
