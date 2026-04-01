@@ -1,4 +1,4 @@
-import { Renderer } from "@takumi-rs/core";
+import { Renderer } from "takumi-js";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 

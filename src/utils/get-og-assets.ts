@@ -1,4 +1,4 @@
-import type { ImageSource } from "@takumi-rs/core";
+import type { ImageSource } from "takumi-js";
 
 export const faviconUrl = "https://maciej-garncarski.pl/favicon.png";
 const [faviconBuffer] = await Promise.all([fetch(faviconUrl).then((res) => res.arrayBuffer())]);

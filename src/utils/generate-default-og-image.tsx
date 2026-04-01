@@ -1,4 +1,4 @@
-import { fromJsx } from "@takumi-rs/helpers/jsx";
+import { fromJsx } from "takumi-js/helpers/jsx";
 import { faviconUrl, imageSources } from "@/utils/get-og-assets";
 import { renderer } from "@/utils/og-renderer";
 
