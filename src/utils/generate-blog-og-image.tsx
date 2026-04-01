@@ -48,7 +48,7 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
                right: "15%",
                height: 1,
                background:
-                  "linear-gradient(to right, transparent, rgba(99, 151, 238, 0.35), transparent)",
+                  "linear-gradient(to right, transparent, rgba(99, 151, 238, 0.6), transparent)",
             }}
          />
 
@@ -60,7 +60,7 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
                right: "25%",
                height: 1,
                background:
-                  "linear-gradient(to right, transparent, rgba(99, 151, 238, 0.3), transparent)",
+                  "linear-gradient(to right, transparent, rgba(99, 151, 238, 0.6), transparent)",
             }}
          />
 
@@ -121,8 +121,8 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
                      color: "rgba(220, 229, 242, 0.9)",
                   }}
                >
-               {dateResult}
-            </span>
+                  {dateResult}
+               </span>
             </div>
          </div>
 
@@ -144,15 +144,12 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
                   objectFit: "cover",
                   borderRadius: 18,
                   display: "flex",
-                  border: "1px solid rgba(99, 151, 238, 0.2)",
+                  border: "1px solid rgba(99, 151, 238, 0.5)",
                   boxShadow: "0 20px 60px rgba(0,0,0,0.5)",
                }}
             />
 
-            <div
-               tw="flex flex-row mt-auto mb-1"
-               style={{ flexWrap: "wrap", gap: 24,  }}
-            >
+            <div tw="flex flex-row mt-auto mb-1" style={{ flexWrap: "wrap", gap: 24 }}>
                {tags.map((tag) => (
                   <span
                      key={tag}

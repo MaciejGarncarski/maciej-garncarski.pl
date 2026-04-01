@@ -24,7 +24,7 @@
       "@types/react-dom": "^19.2.3",
       "@vercel/analytics": "^2.0.1",
       "@vercel/speed-insights": "^2.0.0",
-      "astro": "^6.1.1",
+      "astro": "^6.1.2",
       "clsx": "^2.1.1",
       "react": "^19.2.4",
       "react-dom": "^19.2.4",
