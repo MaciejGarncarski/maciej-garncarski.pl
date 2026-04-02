@@ -1,0 +1,72 @@
+---
+import { Image } from "astro:assets";
+import Link from "@/components/ui/link.astro";
+import Tag from "@/components/tag.astro";
+
+type SearchItem = {
+  id: string;
+  title: string;
+  description: string;
+  tags: string[];
+  body: string;
+  image: ImageMetadata;
+};
+
+type Props = {
+  item: SearchItem;
+};
+
+const { item } = Astro.props;
+---
+
+<li
+  data-search-item
+  data-title={item.title}
+  data-description={item.description}
+  data-tags={JSON.stringify(item.tags)}
+  data-body={item.body}
+>
+  <Link
+    href={`/blog/${item.id}`}
+    reload
+    class="border-border bg-background-secondary/45 hover:bg-background-secondary/75 focus-visible:ring-accent/30 group grid grid-cols-1 gap-3 rounded-xl border px-3 py-3 transition-colors focus-visible:ring-2 focus-visible:outline-none md:grid-cols-[70px_1fr]"
+  >
+    <Image
+      src={item.image}
+      alt=""
+      width={70}
+      height={70}
+      loading="lazy"
+      class="border-border/50 hidden h-[70px] w-[70px] rounded-lg border object-cover md:block"
+    />
+
+    <div class="min-w-0">
+      <p
+        data-search-title
+        class="text-foreground line-clamp-1 text-sm font-semibold md:text-[0.95rem]"
+      >
+        {item.title}
+      </p>
+      <p
+        data-search-description
+        class="text-foreground-secondary text-pretty pr-2 mt-1 line-clamp-2 text-xs leading-relaxed md:text-sm"
+      >
+        {item.description}
+      </p>
+      <div data-search-tags class="mt-2 flex flex-wrap gap-1.5">
+        {
+          item.tags.map((tag) => (
+            <Tag
+              variant="search"
+              data-search-tag
+              data-tag-value={tag}
+              class="whitespace-nowrap"
+            >
+              # {tag}
+            </Tag>
+          ))
+        }
+      </div>
+    </div>
+  </Link>
+</li>

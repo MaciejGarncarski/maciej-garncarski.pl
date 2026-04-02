@@ -6,6 +6,12 @@
       scroll-behavior: smooth;
    }
 
+   @media screen and (min-width: 768px) {
+      html {
+         scrollbar-gutter: stable;
+      }
+   }
+
    body {
       --font-sans: var(--font-ui);
    }

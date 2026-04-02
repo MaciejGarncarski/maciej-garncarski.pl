@@ -1,0 +1,166 @@
+---
+import { getPostsSorted } from "@/utils/get-posts-sorted";
+import BlogSearchResultItem from "@/components/blog/blog-search-result-item.astro";
+
+const blogPosts = await getPostsSorted();
+
+const searchItems = blogPosts.map((post) => ({
+  id: post.id,
+  title: post.data.title,
+  description: post.data.description,
+  tags: post.data.tags,
+  body: post.body ?? "",
+  image: post.data.heroImage,
+}));
+---
+
+<div data-blog-search>
+  <button
+    type="button"
+    data-search-trigger
+    aria-haspopup="dialog"
+    aria-expanded="false"
+    aria-controls="blog-search-modal"
+    class="cursor-pointer border-border bg-background-secondary/80 text-foreground-secondary shadow-accent-sm hover:border-accent/30 hover:text-foreground focus-visible:ring-accent/30 inline-flex w-full items-center justify-between gap-3 rounded-xl border px-3.5 py-2.5 text-left transition-all duration-200 focus-visible:ring-2 focus-visible:outline-none md:px-4"
+  >
+    <span class="inline-flex min-w-0 items-center gap-2.5">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        class="h-4.5 w-4.5 shrink-0"
+        aria-hidden="true"
+      >
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <span class="truncate text-sm md:text-base"
+        >Szukaj artykułów po tytule, opisie i tagach...</span
+      >
+    </span>
+    <span
+      class="hidden md:inline text-foreground-secondary border-border bg-background rounded-lg border px-2 py-1.5 text-xs font-medium"
+    >
+      Ctrl/Cmd + K
+    </span>
+  </button>
+
+  <div
+    data-search-backdrop
+    class="pointer-events-none fixed inset-0 bg-black/40 backdrop-blur-xs opacity-0 transition-opacity duration-220 z-190"
+    hidden
+  >
+  </div>
+
+  <div
+    id="blog-search-modal"
+    data-search-dialog
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="blog-search-title"
+    aria-describedby="blog-search-description"
+    class="pointer-events-none fixed z-200 inset-0 flex items-start justify-center p-3 pt-[12vh] opacity-0 transition-opacity duration-220 md:p-6 md:pt-[15vh]"
+    hidden
+  >
+    <div
+      data-search-panel
+      class="border-border bg-background shadow-accent w-full max-w-3xl overflow-hidden rounded-2xl border translate-y-3 scale-[0.985] opacity-0 transition-all duration-220 ease-out"
+    >
+      <div
+        class="border-border/70 flex items-center gap-3 border-b px-3.5 py-3 md:px-4.5"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          class="text-foreground-secondary h-4.5 w-4.5 shrink-0"
+          aria-hidden="true"
+        >
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+
+        <div class="min-w-0 flex-1">
+          <h2 id="blog-search-title" class="text-sm font-semibold md:text-base">
+            Wyszukaj artykuł
+          </h2>
+        </div>
+
+        <button
+          type="button"
+          data-search-close
+          class="cursor-pointer border-border bg-background-secondary text-foreground-secondary hover:text-foreground focus-visible:ring-accent/30 inline-flex h-8 w-8 items-center justify-center rounded-lg border transition-colors focus-visible:ring-2 focus-visible:outline-none"
+          aria-label="Zamknij wyszukiwarkę"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            class="h-4 w-4"
+            aria-hidden="true"
+          >
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="border-border/70 border-b px-3.5 py-3 md:px-4.5 md:py-3.5">
+        <input
+          type="text"
+          data-search-input
+          class="border-border bg-background-secondary text-foreground placeholder:text-foreground-secondary/80 focus-visible:ring-accent/30 w-full rounded-xl border px-3.5 py-2.5 text-sm outline-none focus-visible:ring-2 md:text-[0.95rem]"
+          placeholder="Szukaj po tytule, opisie i tagach"
+          autocomplete="off"
+          spellcheck="false"
+        />
+      </div>
+
+      <div class="max-h-[55vh] overflow-y-auto px-3.5 py-3 md:px-4.5">
+        <p
+          data-search-meta
+          class="text-foreground-secondary mb-2 text-xs md:text-sm"
+        >
+        </p>
+        <ul data-search-results class="grid gap-2.5">
+          {searchItems.map((item) => <BlogSearchResultItem item={item} />)}
+        </ul>
+        <p
+          data-search-empty
+          class="text-foreground-secondary hidden rounded-xl border border-dashed border-accent/25 bg-accent/5 p-4 text-sm"
+        >
+          Brak wyników. Spróbuj innej frazy.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { setupBlogSearch } from "@/utils/blog-search-modal";
+
+  declare global {
+    interface Window {
+      __blogSearchCleanup?: () => void;
+    }
+  }
+
+  window.__blogSearchCleanup?.();
+  window.__blogSearchCleanup = setupBlogSearch();
+
+  document.addEventListener("astro:before-swap", () => {
+    window.__blogSearchCleanup?.();
+    window.__blogSearchCleanup = undefined;
+  });
+
+  document.addEventListener("astro:after-swap", () => {
+    window.__blogSearchCleanup?.();
+    window.__blogSearchCleanup = setupBlogSearch();
+  });
+</script>

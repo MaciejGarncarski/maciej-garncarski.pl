@@ -1,0 +1,14 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"a"> & {
+  href: string;
+  reload?: boolean;
+};
+
+const { href, reload = false, ...rest } = Astro.props;
+---
+
+<a href={href} data-astro-reload={reload ? true : undefined} {...rest}>
+  <slot />
+</a>
