@@ -57,7 +57,7 @@ function highlightText(text: string, normalizedQuery: string) {
 
    while (index !== -1) {
       html += escapeHtml(text.slice(cursor, index));
-      html += '<mark class="bg-accent/14 text-accent rounded-[4px] px-0.5">';
+      html += '<mark class="bg-amber-400 rounded-xs">';
       html += escapeHtml(text.slice(index, index + normalizedQuery.length));
       html += "</mark>";
       cursor = index + normalizedQuery.length;
@@ -249,10 +249,9 @@ function updateResultContent(result: RankedResult, normalizedQuery: string, quer
          const isMatch =
             normalizedQuery.length > 0 && normalizeValue(tagValue).includes(normalizedQuery);
 
-         tagPill.classList.toggle("text-accent", isMatch);
-         tagPill.classList.toggle("border-accent/35", isMatch);
-         tagPill.classList.toggle("bg-accent/16", isMatch);
-         tagPill.classList.toggle("font-semibold", isMatch);
+         tagPill.classList.toggle("text-foreground-secondary", !isMatch);
+         tagPill.classList.toggle("bg-accent/30", isMatch);
+         tagPill.classList.toggle("text-foreground", isMatch);
       }
    }
 }

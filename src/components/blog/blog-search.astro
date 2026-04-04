@@ -1,6 +1,7 @@
 ---
 import { getPostsSorted } from "@/utils/get-posts-sorted";
 import BlogSearchResultItem from "@/components/blog/blog-search-result-item.astro";
+import AccentShimmer from "@/components/ui/accent-shimmer.astro";
 
 const blogPosts = await getPostsSorted();
 
@@ -49,7 +50,7 @@ const searchItems = blogPosts.map((post) => ({
 
   <div
     data-search-backdrop
-    class="pointer-events-none fixed inset-0 bg-black/40 backdrop-blur-xs opacity-0 transition-opacity duration-220 z-190"
+    class="pointer-events-none fixed inset-0 bg-black/40 backdrop-blur-sm opacity-0 transition-opacity duration-220 z-190"
     hidden
   >
   </div>
@@ -69,7 +70,7 @@ const searchItems = blogPosts.map((post) => ({
       class="border-border bg-background shadow-accent w-full max-w-3xl overflow-hidden rounded-2xl border translate-y-3 scale-[0.985] opacity-0 transition-all duration-220 ease-out"
     >
       <div
-        class="border-border/70 flex items-center gap-3 border-b px-3.5 py-3 md:px-4.5"
+        class="border-border/60 relative flex items-center gap-3 border-b px-3.5 py-3 md:px-4.5"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
