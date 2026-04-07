@@ -392,9 +392,6 @@ export function setupBlogSearch(): () => void {
    let isOpen = false;
    let debounceId = 0;
    let lastRenderedQuery = "";
-   let searchCount = 0;
-   let totalSearchDuration = 0;
-   let worstSearchDuration = 0;
 
    const queryResultCache = new Map<string, RankedResult[]>();
 
@@ -480,13 +477,7 @@ export function setupBlogSearch(): () => void {
       const durationMs = Math.max(0, Math.round((performance.now() - startTime) * 10) / 10);
 
       if (normalizedQuery) {
-         searchCount += 1;
-         totalSearchDuration += durationMs;
-         worstSearchDuration = Math.max(worstSearchDuration, durationMs);
-
-         const averageDuration = Math.round((totalSearchDuration / searchCount) * 10) / 10;
-         const durationLabel =
-            `Znaleziono w ${durationMs} ms • avg ${averageDuration} ms • max ${worstSearchDuration} ms`;
+         const durationLabel = `Znaleziono w ${durationMs} ms`;
          dom.meta.textContent = `Wyniki: ${showing} z ${totalItems} • ${durationLabel}`;
       } else {
          dom.meta.textContent = "";
