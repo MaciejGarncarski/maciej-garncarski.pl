@@ -6,8 +6,20 @@ type SearchItem = {
    body: string;
 };
 
+type IndexedSearchItem = SearchItem & {
+   element: HTMLLIElement;
+   index: number;
+   normalized: {
+      title: string;
+      description: string;
+      body: string;
+      tags: string[];
+   };
+};
+
 type RankedResult = {
    element: HTMLLIElement;
+   index: number;
    title: string;
    description: string;
    body: string;
@@ -103,48 +115,121 @@ function getQueryTerms(query: string) {
       .filter((term) => term.length > 0);
 }
 
-function rankItem(item: SearchItem, normalizedQuery: string, queryTerms: string[]) {
+function fuzzyIncludes(text: string, term: string) {
+   if (text.includes(term)) return true;
+
+   for (let i = 0; i < term.length; i++) {
+      const partial = term.slice(0, i) + term.slice(i + 1);
+      if (partial.length > 0 && text.includes(partial)) {
+         return true;
+      }
+   }
+
+   return false;
+}
+
+function rankItem(item: IndexedSearchItem, normalizedQuery: string, queryTerms: string[]) {
    if (!normalizedQuery || queryTerms.length === 0) return 1;
 
-   const normalizedTitle = normalizeValue(item.title);
-   const normalizedDescription = normalizeValue(item.description);
-   const normalizedTags = item.tags.map((tag) => normalizeValue(tag));
-   const normalizedBody = normalizeValue(item.body);
+   const normalizedTitle = item.normalized.title;
+   const normalizedDescription = item.normalized.description;
+   const normalizedTags = item.normalized.tags;
+   const normalizedBody = item.normalized.body;
 
    let score = 0;
+   let bodyOnlyMatches = 0;
 
    for (const term of queryTerms) {
       let termScore = 0;
+      let hasStrongMatch = false;
+      let hasAnyMatch = false;
 
-      if (normalizedTitle.startsWith(term)) termScore += 120;
-      else if (normalizedTitle.includes(term)) termScore += 85;
+      const titleIndex = normalizedTitle.indexOf(term);
+      if (titleIndex === 0) {
+         termScore += 140;
+         hasStrongMatch = true;
+         hasAnyMatch = true;
+      } else if (titleIndex > 0) {
+         termScore += 95;
+         termScore += Math.max(0, 20 - Math.min(titleIndex, 20));
+         hasStrongMatch = true;
+         hasAnyMatch = true;
+      } else if (fuzzyIncludes(normalizedTitle, term)) {
+         termScore += 48;
+         hasAnyMatch = true;
+      }
 
-      if (normalizedTags.some((tag) => tag.startsWith(term))) termScore += 70;
-      else if (normalizedTags.some((tag) => tag.includes(term))) termScore += 50;
+      let tagMatchScore = 0;
+      for (const tag of normalizedTags) {
+         const tagIndex = tag.indexOf(term);
+         if (tagIndex === 0) {
+            tagMatchScore = Math.max(tagMatchScore, 85);
+         } else if (tagIndex > 0) {
+            tagMatchScore = Math.max(tagMatchScore, 60);
+         } else if (fuzzyIncludes(tag, term)) {
+            tagMatchScore = Math.max(tagMatchScore, 34);
+         }
+      }
 
-      if (normalizedDescription.includes(term)) termScore += 30;
-      if (normalizedBody.includes(term)) termScore += 12;
+      if (tagMatchScore > 0) {
+         termScore += tagMatchScore;
+         if (tagMatchScore >= 60) {
+            hasStrongMatch = true;
+         }
+         hasAnyMatch = true;
+      }
 
-      if (termScore === 0) {
+      if (normalizedDescription.includes(term)) {
+         termScore += 32;
+         hasAnyMatch = true;
+      } else if (fuzzyIncludes(normalizedDescription, term)) {
+         termScore += 15;
+         hasAnyMatch = true;
+      }
+
+      if (!hasStrongMatch) {
+         if (normalizedBody.includes(term)) {
+            termScore += 10;
+            hasAnyMatch = true;
+            if (termScore <= 10) {
+               bodyOnlyMatches += 1;
+            }
+         } else if (!hasAnyMatch && fuzzyIncludes(normalizedBody, term)) {
+            termScore += 4;
+            hasAnyMatch = true;
+            bodyOnlyMatches += 1;
+         }
+      }
+
+      if (!hasAnyMatch) {
          return 0;
       }
 
       score += termScore;
    }
 
-   if (normalizedTitle.includes(normalizedQuery)) score += 35;
+   const phraseInTitle = normalizedTitle.indexOf(normalizedQuery);
+   if (phraseInTitle >= 0) {
+      score += 55;
+      score += Math.max(0, 24 - Math.min(phraseInTitle, 24));
+   }
    if (normalizedDescription.includes(normalizedQuery)) score += 20;
-   if (normalizedBody.includes(normalizedQuery)) score += 8;
+   if (normalizedBody.includes(normalizedQuery)) score += 6;
 
-   return score;
+   score -= bodyOnlyMatches * 8;
+
+   return Math.max(1, score);
 }
 
-function getBodyPreview(body: string, normalizedQuery: string, queryTerms: string[]) {
+function getBodyPreview(
+   body: string,
+   normalizedBody: string,
+   normalizedQuery: string,
+   queryTerms: string[],
+) {
    if (!normalizedQuery || queryTerms.length === 0) {
       return null;
    }
-
-   const normalizedBody = normalizeValue(body);
 
    let matchTerm = normalizedQuery;
    let matchIndex = normalizedBody.indexOf(normalizedQuery);
@@ -211,11 +296,19 @@ function getSearchDom(root: HTMLElement): SearchDom | null {
 }
 
 function parseResultItem(element: HTMLLIElement): SearchItem {
+   let tags: string[] = [];
+
+   try {
+      tags = JSON.parse(element.dataset.tags ?? "[]") as string[];
+   } catch {
+      tags = [];
+   }
+
    return {
       id: "",
       title: element.dataset.title ?? "",
       description: element.dataset.description ?? "",
-      tags: JSON.parse(element.dataset.tags ?? "[]") as string[],
+      tags,
       body: stripMarkdown(element.dataset.body ?? ""),
    };
 }
@@ -230,7 +323,12 @@ function updateResultContent(result: RankedResult, normalizedQuery: string, quer
    }
 
    if (descriptionElement instanceof HTMLParagraphElement) {
-      const bodyPreview = getBodyPreview(result.body, normalizedQuery, queryTerms);
+      const bodyPreview = getBodyPreview(
+         result.body,
+         normalizeValue(result.body),
+         normalizedQuery,
+         queryTerms,
+      );
 
       if (bodyPreview) {
          descriptionElement.innerHTML = highlightText(bodyPreview.snippet, bodyPreview.matchTerm);
@@ -273,10 +371,28 @@ export function setupBlogSearch(): () => void {
       (item): item is HTMLLIElement => item instanceof HTMLLIElement,
    );
 
+   const indexedItems: IndexedSearchItem[] = resultItems.map((element, index) => {
+      const parsed = parseResultItem(element);
+
+      return {
+         ...parsed,
+         element,
+         index,
+         normalized: {
+            title: normalizeValue(parsed.title),
+            description: normalizeValue(parsed.description),
+            body: normalizeValue(parsed.body),
+            tags: parsed.tags.map((tag) => normalizeValue(tag)),
+         },
+      };
+   });
+
    const totalItems = resultItems.length;
    let isOpen = false;
    let debounceId = 0;
    let lastRenderedQuery = "";
+
+   const queryResultCache = new Map<string, RankedResult[]>();
 
    const controller = new AbortController();
    const { signal } = controller;
@@ -320,23 +436,28 @@ export function setupBlogSearch(): () => void {
    const renderResults = (query: string) => {
       const startTime = performance.now();
       lastRenderedQuery = query;
-      const normalizedQuery = normalizeValue(query.trim());
-      const queryTerms = getQueryTerms(query.trim());
+      const trimmedQuery = query.trim();
+      const normalizedQuery = normalizeValue(trimmedQuery);
+      const queryTerms = getQueryTerms(trimmedQuery);
 
-      const rankedItems: RankedResult[] = resultItems
-         .map((element) => {
-            const parsed = parseResultItem(element);
-            return {
-               element,
-               title: parsed.title,
-               description: parsed.description,
-               body: parsed.body,
-               tags: parsed.tags,
-               score: rankItem(parsed, normalizedQuery, queryTerms),
-            };
-         })
-         .filter(({ score }) => score > 0)
-         .sort((left, right) => right.score - left.score);
+      let rankedItems = queryResultCache.get(normalizedQuery);
+
+      if (!rankedItems) {
+         rankedItems = indexedItems
+            .map((item) => ({
+               element: item.element,
+               index: item.index,
+               title: item.title,
+               description: item.description,
+               body: item.body,
+               tags: item.tags,
+               score: rankItem(item, normalizedQuery, queryTerms),
+            }))
+            .filter(({ score }) => score > 0)
+            .sort((left, right) => right.score - left.score || left.index - right.index);
+
+         queryResultCache.set(normalizedQuery, rankedItems);
+      }
 
       const visibleItems = rankedItems.slice(0, SEARCH_LIMIT);
 
@@ -352,6 +473,7 @@ export function setupBlogSearch(): () => void {
 
       const showing = visibleItems.length;
       const durationMs = Math.max(0, Math.round((performance.now() - startTime) * 10) / 10);
+
       const durationLabel = `Znaleziono w ${durationMs} ms`;
 
       if (normalizedQuery) {
@@ -427,6 +549,7 @@ export function setupBlogSearch(): () => void {
    return () => {
       window.clearTimeout(debounceId);
       closeModal();
+      queryResultCache.clear();
       root.removeAttribute("data-search-ready");
       controller.abort();
    };
