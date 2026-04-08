@@ -5,15 +5,16 @@ import { normalizeTag } from "@/utils/normalize-tag";
 import Tag from "@/components/tag.astro";
 import ChevronIcon from "@/components/ui/chevron-icon.astro";
 import { Picture } from "astro:assets";
+import clsx from "clsx";
 
 type Props = {
-  text: string;
+  title: string;
 };
 
-const { text } = Astro.props;
+const { title } = Astro.props;
 
 const allBlogPosts = await getPosts();
-const currPost = allBlogPosts.find((post) => post.data.title === text);
+const currPost = allBlogPosts.find((post) => post.data.title === title);
 const readTime = calculateReadingTime(currPost?.body || "");
 const words = currPost?.body ? currPost.body.split(/\s+/).length : 0;
 
@@ -38,6 +39,8 @@ const tags = currPost?.data.tags || [];
 const sortedTags = tags.sort((a, b) =>
   a.localeCompare(b, undefined, { sensitivity: "base" }),
 );
+
+const isLongTitle = title.length > 60;
 ---
 
 <div class="lg:w-[85ch] lg:mx-auto">
@@ -89,32 +92,21 @@ const sortedTags = tags.sort((a, b) =>
   document.addEventListener("astro:after-swap", initLink);
 </script>
 <header class="relative mx-auto flex w-full lg:max-w-[85ch] flex-col gap-6">
-  <div
-    class="flex flex-col gap-6 md:flex-row-reverse md:items-start md:gap-12 lg:gap-6"
-  >
-    {
-      currPost?.data.heroImage && currPost.id && (
-        <Picture
-          formats={["avif", "webp"]}
-          src={currPost.data.heroImage}
-          transition:name={`blog-image-${currPost.id}`}
-          width={350}
-          height={350}
-          alt={""}
-          class="aspect-square mx-auto shrink-0 rounded-xl object-cover shadow-lg md:w-44"
-          priority={true}
-        />
-      )
-    }
-
+  <div class="flex flex-col gap-6 md:flex-row-reverse md:items-start md:gap-10">
     <div
       class="flex flex-1 flex-col gap-4"
       transition:name={`blog-header-${currPost?.id}`}
     >
       <h1
-        class="max-w-[40rem] text-2xl leading-tight font-bold text-balance md:text-3xl lg:text-4xl"
+        class={clsx(
+          "max-w-[40rem] text-2xl leading-tight font-bold text-balance md:text-3xl ",
+          {
+            "lg:text-4xl": !isLongTitle,
+            "lg:text-3xl": isLongTitle,
+          },
+        )}
       >
-        {text}
+        {title}
       </h1>
 
       <div
@@ -130,7 +122,7 @@ const sortedTags = tags.sort((a, b) =>
         {
           currPost?.data.updatedDate && (
             <>
-              <span class="text-accent">&middot;</span>
+              <span class="text-accent">&bull;</span>
               <time
                 itemprop="dateModified"
                 datetime={new Date(currPost.data.updatedDate).toISOString()}
@@ -141,9 +133,9 @@ const sortedTags = tags.sort((a, b) =>
           )
         }
 
-        <span class="text-accent">&middot;</span>
+        <span class="text-accent">&bull;</span>
         <span>{readTime} min. czytania</span>
-        <span class="text-accent">&middot;</span>
+        <span class="text-accent">&bull;</span>
         <span>{words} słów</span>
       </div>
 
@@ -157,6 +149,24 @@ const sortedTags = tags.sort((a, b) =>
         )
       }
     </div>
+
+    {
+      currPost?.data.heroImage && currPost.id && (
+        <Picture
+          formats={["avif", "webp"]}
+          src={currPost.data.heroImage}
+          transition:name={`blog-image-${currPost.id}`}
+          width={350}
+          height={350}
+          alt={""}
+          pictureAttributes={{
+            class: "hidden md:block",
+          }}
+          class="aspect-square mx-auto md:w-48 shrink-0 rounded-xl object-cover shadow-lg border border-foreground/10"
+          priority={true}
+        />
+      )
+    }
   </div>
 
   <hr class="border-border/50" />
