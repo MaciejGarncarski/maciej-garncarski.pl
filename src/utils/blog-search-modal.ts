@@ -480,7 +480,7 @@ export function setupBlogSearch(): () => void {
          const durationLabel = `Znaleziono w ${durationMs} ms`;
          dom.meta.textContent = `Wyniki: ${showing} z ${totalItems} • ${durationLabel}`;
       } else {
-         dom.meta.textContent = "";
+         dom.meta.textContent = `Wszystkie wpisy: ${totalItems}`;
       }
 
       dom.emptyState.classList.toggle("hidden", showing !== 0);
