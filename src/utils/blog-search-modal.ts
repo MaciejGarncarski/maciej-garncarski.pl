@@ -345,8 +345,13 @@ function updateResultContent(result: RankedResult, normalizedQuery: string, quer
 
       for (const tagPill of tagPills) {
          const tagValue = tagPill.dataset.tagValue ?? "";
+
+         const tagWithHash = `#${normalizeValue(tagValue)}`;
+
          const isMatch =
-            normalizedQuery.length > 0 && normalizeValue(tagValue).includes(normalizedQuery);
+            normalizedQuery.length > 0 &&
+            (tagWithHash.includes(normalizedQuery) ||
+               normalizeValue(tagValue).includes(normalizedQuery));
 
          tagPill.classList.toggle("text-foreground-secondary", !isMatch);
          tagPill.classList.toggle("bg-accent/30", isMatch);
