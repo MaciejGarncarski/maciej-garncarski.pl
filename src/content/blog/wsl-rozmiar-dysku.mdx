@@ -1,0 +1,67 @@
+---
+title: "Zmniejszanie rozmiaru dysku w WSL"
+description: "Jak odzyskać miejsce z wirtualnego dysku w Windows Subsystem for Linux (WSL) i zmniejszyć jego rozmiar."
+heroImage: "@assets/blog/wsl-rozmiar-dysku/hero.png"
+pubDate: 2026-04-13
+tags: ["Linux"]
+keywords: ["WSL", "Windows Subsystem for Linux", "dysk wirtualny", "zmniejszanie rozmiaru dysku", "odzyskiwanie miejsca"]
+---
+
+## Problem: rosnący rozmiar dysku w WSL
+
+Z założenia rozmiar plików `.vhdx` nie zmniejsza się automatycznie, jeśli rozmiar plików wewnątrz WSL kiedyś zajmował np. 200 GB, to plik `.vhdx` będzie miał rozmiar 200 GB, nawet jeśli na ten moment pliki zajmują 50 GB.
+
+## Niedziałające rozwiązanie
+
+W dokumentacji Microsoftu jest opisany sposób na zmniejszenie rozmiaru dysku, ale w praktyce nie działa on poprawnie. Po wykonaniu wszystkich kroków, rozmiar pliku `.vhdx` pozostaje taki sam, a odzyskane miejsce nie jest dostępne.
+
+Funkcja `autoMemoryReclaim` dotyczy głównie pamięci RAM i częściowo przestrzeni dyskowej, ale w praktyce nie gwarantuje zmniejszenia rozmiaru pliku `.vhdx` na hoście Windows.
+
+## Jak to rozwiązałem
+
+### Krok 1: Instalacja narzędzia ncdu na WSL
+
+```bash title="WSL"
+sudo apt update
+sudo apt install ncdu
+```
+
+Przyda się do zidentyfikowania, które katalogi zajmują najwięcej miejsca.
+
+
+### Krok 2: Znalezienie katalogów zajmujących dużo miejsca
+
+```bash title="WSL"
+ncdu -x /home
+```
+
+Postanowiłem ograniczyć zakres analizy do katalogu `/home`, ponieważ nie chciałem ingerować w katalogi systemowe.
+
+
+### Krok 3: Usunięcie niepotrzebnych plików
+
+Najwięcej miejsca zajmowały katalogi cache `pnpm`, `bun` i `node_modules`. Usunąłem je, ponieważ były to pliki tymczasowe, które można łatwo odtworzyć.
+
+Równie dobrze możemy usunąć nieużywane wersje Node.js, Javy, PHP czy czego tam używasz. Pamiętaj, że usunięcie tych plików spowoduje, że będziesz musiał je ponownie zainstalować, jeśli będą potrzebne.
+
+W efekcie udało mi się odzyskać około 50 GB miejsca.
+
+### Krok 4: Wyłącz WSL
+
+```bash title="PowerShell z uprawnieniami administratora"
+wsl --shutdown
+```
+
+### Krok 5: Odnalezienie pliku vhdx
+
+W moim przypadku plik `.vhdx` znajdował się w katalogu:
+
+`C:\Users\<Nazwa_użytkownika>\AppData\Local\wsl\<ID_dystrybucji>\ext4.vhdx`
+
+### Krok 6: Zmniejszenie rozmiaru pliku vhdx
+
+```bash title="PowerShell z uprawnieniami administratora"
+Optimize-VHD -Path "C:\Users\<Nazwa_użytkownika>\AppData\Local\wsl\<ID_dystrybucji>\ext4.vhdx" -Mode Full
+```
+
+Powinno to zająć około 5 minut, a po zakończeniu rozmiar pliku `.vhdx` powinien być znacznie mniejszy, odzyskując miejsce na dysku.
