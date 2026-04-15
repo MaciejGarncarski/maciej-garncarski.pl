@@ -9,6 +9,7 @@ code:not([data-language]) {
 
 /* ===== Figure wrapper ===== */
 [data-rehype-pretty-code-figure] {
+   color-scheme: dark;
    @apply shadow-accent relative my-10 overflow-hidden rounded-xl border border-accent/18;
 }
 
