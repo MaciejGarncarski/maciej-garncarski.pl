@@ -401,6 +401,9 @@ export function setupBlogSearch(): () => void {
    const totalItems = resultItems.length;
    let isOpen = false;
    let debounceId = 0;
+   let hideModalTimeoutId = 0;
+   let openRafId = 0;
+   let renderRafId = 0;
    let lastRenderedQuery = "";
 
    const queryResultCache = new Map<string, RankedResult[]>();
@@ -417,7 +420,8 @@ export function setupBlogSearch(): () => void {
       dom.dialog.hidden = false;
       document.body.style.overflow = "hidden";
 
-      requestAnimationFrame(() => {
+      window.cancelAnimationFrame(openRafId);
+      openRafId = window.requestAnimationFrame(() => {
          dom.backdrop.classList.remove("pointer-events-none", "opacity-0");
          dom.dialog.classList.remove("pointer-events-none", "opacity-0");
          dom.panel.classList.remove("translate-y-3", "scale-[0.985]", "opacity-0");
@@ -435,7 +439,8 @@ export function setupBlogSearch(): () => void {
       dom.dialog.classList.add("pointer-events-none", "opacity-0");
       dom.panel.classList.add("translate-y-3", "scale-[0.985]", "opacity-0");
 
-      window.setTimeout(() => {
+      window.clearTimeout(hideModalTimeoutId);
+      hideModalTimeoutId = window.setTimeout(() => {
          if (isOpen) return;
          dom.backdrop.hidden = true;
          dom.dialog.hidden = true;
@@ -505,7 +510,8 @@ export function setupBlogSearch(): () => void {
       }
 
       debounceId = window.setTimeout(() => {
-         window.requestAnimationFrame(() => {
+         window.cancelAnimationFrame(renderRafId);
+         renderRafId = window.requestAnimationFrame(() => {
             renderResults(nextQuery);
          });
       }, SEARCH_DEBOUNCE_MS);
@@ -566,6 +572,9 @@ export function setupBlogSearch(): () => void {
 
    return () => {
       window.clearTimeout(debounceId);
+      window.clearTimeout(hideModalTimeoutId);
+      window.cancelAnimationFrame(openRafId);
+      window.cancelAnimationFrame(renderRafId);
       closeModal();
       queryResultCache.clear();
       root.removeAttribute("data-search-ready");

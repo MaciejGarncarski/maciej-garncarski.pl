@@ -148,19 +148,37 @@ const searchItems = blogPosts.map((post) => ({
   declare global {
     interface Window {
       __blogSearchCleanup?: () => void;
+      __blogSearchLifecycleReady?: boolean;
+      __blogSearchBeforeSwapHandler?: () => void;
+      __blogSearchAfterSwapHandler?: () => void;
     }
   }
 
-  window.__blogSearchCleanup?.();
-  window.__blogSearchCleanup = setupBlogSearch();
-
-  document.addEventListener("astro:before-swap", () => {
-    window.__blogSearchCleanup?.();
-    window.__blogSearchCleanup = undefined;
-  });
-
-  document.addEventListener("astro:after-swap", () => {
+  const startBlogSearch = () => {
     window.__blogSearchCleanup?.();
     window.__blogSearchCleanup = setupBlogSearch();
-  });
+  };
+
+  if (!window.__blogSearchLifecycleReady) {
+    window.__blogSearchBeforeSwapHandler = () => {
+      window.__blogSearchCleanup?.();
+      window.__blogSearchCleanup = undefined;
+    };
+
+    window.__blogSearchAfterSwapHandler = () => {
+      startBlogSearch();
+    };
+
+    document.addEventListener(
+      "astro:before-swap",
+      window.__blogSearchBeforeSwapHandler,
+    );
+    document.addEventListener(
+      "astro:after-swap",
+      window.__blogSearchAfterSwapHandler,
+    );
+    window.__blogSearchLifecycleReady = true;
+  }
+
+  startBlogSearch();
 </script>
