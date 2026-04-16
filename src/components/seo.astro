@@ -45,6 +45,14 @@ const canonicalUrl =
 const fullOgImageUrl = new URL(ogImage, Astro.site).toString();
 const siteUrl = new URL("/", Astro.site).toString();
 const blogUrl = new URL("/blog", Astro.site).toString();
+const socialProfiles = [
+  "https://github.com/maciejgarncarski",
+  "https://www.linkedin.com/in/maciejgarncarski/",
+  "https://x.com/MGarncarski",
+];
+const organizationId = `${siteUrl}#organization`;
+const personId = `${siteUrl}#person`;
+const websiteId = `${siteUrl}#website`;
 
 const formattedDate = pubDate
   ? new Date(pubDate).toISOString()
@@ -54,19 +62,47 @@ const formattedModifiedDate = updatedDate
   : undefined;
 
 const publisherSchema = {
+  "@id": organizationId,
   "@type": "Organization",
   name: "Maciej Garncarski",
+  url: siteUrl,
+  sameAs: socialProfiles,
   logo: {
     "@type": "ImageObject",
     url: "https://maciej-garncarski.pl/favicon.svg",
   },
 };
 
-const webSiteReference = {
+const authorSchema = {
+  "@id": personId,
+  "@type": "Person",
+  name: "Maciej Garncarski",
+  url: siteUrl,
+  sameAs: socialProfiles,
+};
+
+const webSiteSchema = {
+  "@context": "https://schema.org",
   "@type": "WebSite",
-  "@id": `${siteUrl}#website`,
+  "@id": websiteId,
   name: defaultTitle,
   url: siteUrl,
+  inLanguage: inLanguage,
+  publisher: {
+    "@id": organizationId,
+  },
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: `${siteUrl}blog?q={search_term_string}`,
+    },
+    "query-input": "required name=search_term_string",
+  },
+};
+
+const webSiteReference = {
+  "@id": websiteId,
 };
 
 const blogReference = {
@@ -106,13 +142,13 @@ const articleSchema = {
   image: fullOgImageUrl,
   inLanguage: inLanguage,
   author: {
-    "@type": "Person",
-    name: "Maciej Garncarski",
-    url: "https://maciej-garncarski.pl",
+    "@id": personId,
   },
   datePublished: formattedDate,
   dateModified: formattedModifiedDate,
-  publisher: publisherSchema,
+  publisher: {
+    "@id": organizationId,
+  },
   isPartOf: blogReference,
   mainEntityOfPage: {
     "@type": "WebPage",
@@ -150,6 +186,9 @@ const itemListSchema = itemListItems?.length
 
 const jsonLdType = Astro.props.jsonLdType || (pubDate ? "Article" : "WebPage");
 const structuredData = [
+  webSiteSchema,
+  publisherSchema,
+  authorSchema,
   jsonLdType === "Article"
     ? articleSchema
     : jsonLdType === "CollectionPage"

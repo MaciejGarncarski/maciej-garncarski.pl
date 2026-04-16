@@ -9,6 +9,8 @@ import { getPostsSorted } from "@/utils/get-posts-sorted";
 import { normalizeTag } from "@/utils/normalize-tag";
 import BlogSearch from "@/components/blog/blog-search.astro";
 
+const MIN_INDEXABLE_TAG_POSTS = 2;
+
 export async function getStaticPaths() {
   const posts = await getPosts();
   const tagsMap = new Map();
@@ -34,15 +36,14 @@ export async function getStaticPaths() {
 
 const { tag, canonicalUrl } = Astro.props;
 const posts = await getPostsSorted();
-const allTags = new Set<string>();
-
-posts.forEach((post) => {
-  post.data.tags.forEach((tag) => allTags.add(tag));
-});
 
 const filteredPosts = posts.filter((post) => {
   return post.data.tags.includes(tag);
 });
+const robots =
+  filteredPosts.length >= MIN_INDEXABLE_TAG_POSTS
+    ? "index, follow"
+    : "noindex, follow";
 
 const tagUrl = new URL(canonicalUrl, Astro.site).toString();
 const itemListItems = filteredPosts.map((post) => {
@@ -63,9 +64,9 @@ const breadcrumbs = [
 ];
 
 const seoData = {
-  title: `${tag}`,
-  description: `Przeglądaj artykuły oznaczone tagiem "${tag}" na moim blogu.`,
-  keywords: ["blog", "articles", "updates", "news", tag],
+  title: `Tag: ${tag}`,
+  description: `Artykuły o temacie ${tag}. Praktyczne wpisy o programowaniu, architekturze i pracy software engineera.`,
+  keywords: ["blog programistyczny", "artykuly", "programowanie", tag],
 };
 ---
 
@@ -77,7 +78,7 @@ const seoData = {
     title={seoData.title}
     keywords={seoData.keywords}
     jsonLdType="CollectionPage"
-    robots="noindex, follow"
+    robots={robots}
     itemListItems={itemListItems}
     breadcrumbs={breadcrumbs}
   />

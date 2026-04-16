@@ -44,6 +44,11 @@ type SearchDom = {
 const SEARCH_LIMIT = 10;
 const SEARCH_DEBOUNCE_MS = 260;
 
+function getSearchQueryFromUrl() {
+   const params = new URLSearchParams(window.location.search);
+   return params.get("q")?.trim() ?? "";
+}
+
 function normalizeValue(value: string) {
    return value
       .toLowerCase()
@@ -551,6 +556,13 @@ export function setupBlogSearch(): () => void {
    );
 
    renderResults("");
+
+   const queryFromUrl = getSearchQueryFromUrl();
+   if (queryFromUrl) {
+      dom.input.value = queryFromUrl;
+      renderResults(queryFromUrl);
+      openModal();
+   }
 
    return () => {
       window.clearTimeout(debounceId);

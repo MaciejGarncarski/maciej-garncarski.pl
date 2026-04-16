@@ -3,12 +3,32 @@ import Experience from "@components/about-page/experience.astro";
 import Header from "@components/about-page/header.astro";
 import OpenSource from "@components/about-page/open-source.astro";
 import Layout from "@layouts/layout.astro";
+import Seo from "@/components/seo.astro";
 import Technologies from "@/components/about-page/technologies.astro";
 import HomeSectionBorder from "@/components/home-section-border.astro";
 import LatestPosts from "@/components/about-page/latest-posts.astro";
+
+const seoData = {
+  title: "Software Engineer",
+  description:
+    "Software Engineer specjalizujący się w skalowalnych systemach webowych. React, TypeScript, Node.js - od architektury po wdrozenie.",
+  keywords: [
+    "software engineer",
+    "react",
+    "typescript",
+    "node.js",
+    "architektura systemow webowych",
+  ],
+};
 ---
 
 <Layout>
+  <Seo
+    slot="head"
+    description={seoData.description}
+    title={seoData.title}
+    keywords={seoData.keywords}
+  />
   <div class="mx-auto flex w-full max-w-[55rem] flex-col gap-10">
     <Header />
 

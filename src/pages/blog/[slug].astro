@@ -7,6 +7,8 @@ import TableOfContents from "@components/blog/table-of-contents.astro";
 import SEO from "@components/seo.astro";
 import Layout from "@layouts/layout.astro";
 import { getPosts } from "@/utils/get-posts";
+import { projects } from "@/data/projects";
+import { normalizeTag } from "@/utils/normalize-tag";
 
 export async function getStaticPaths() {
   const posts = await getPosts();
@@ -27,6 +29,15 @@ const breadcrumbs = [
   { name: "Blog", url: new URL("/blog", Astro.site).toString() },
   { name: post.data.title, url: postUrl },
 ];
+
+const postTagSlugs = new Set(post.data.tags.map((tag) => normalizeTag(tag)));
+const relatedProjects = projects
+  .filter((project) =>
+    project.tags.some((projectTag) =>
+      postTagSlugs.has(normalizeTag(projectTag)),
+    ),
+  )
+  .slice(0, 3);
 ---
 
 <Layout>
@@ -54,6 +65,34 @@ const breadcrumbs = [
       >
         <Content />
       </div>
+
+      {
+        relatedProjects.length > 0 && (
+          <section class="border-border/40 bg-background-secondary/20 mt-2 rounded-2xl border p-5 md:p-6">
+            <h2 class="text-foreground text-xl font-semibold md:text-2xl">
+              Powiazane projekty
+            </h2>
+            <p class="text-foreground-secondary mt-2 text-sm md:text-base">
+              Projekty, ktore rozwijaja podobne tematy jak ten artykul.
+            </p>
+            <ul class="mt-4 grid gap-3">
+              {relatedProjects.map((project) => (
+                <li>
+                  <a
+                    href={`/projekty/${project.id}`}
+                    class="border-border/45 bg-background hover:border-accent/30 hover:bg-background-secondary/50 block rounded-xl border p-4 transition-colors"
+                  >
+                    <p class="text-foreground font-medium">{project.title}</p>
+                    <p class="text-foreground-secondary mt-1 text-sm leading-relaxed">
+                      {project.description}
+                    </p>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
     </div>
   </article>
 

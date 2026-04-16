@@ -21,7 +21,13 @@ export default defineConfig({
    ],
    prefetch: true,
    site: "https://maciej-garncarski.pl",
-   integrations: [sitemap(), mdx(), react()],
+   integrations: [
+      sitemap({
+         entryLimit: 1000,
+      }),
+      mdx(),
+      react(),
+   ],
    markdown: {
       syntaxHighlight: false,
       rehypePlugins: markdownRehypePlugins,
