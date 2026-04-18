@@ -59,7 +59,13 @@ Przykład: Projekt oparty o mało popularne narzędzia bez dokumentacji. Kiedy c
 
 ### 3. Bus Factor
 
-Bus Factor to wskaźnik, który mierzy, ile osób musi "odejść", aby projekt przestał być funkcjonalny. Im bardziej skomplikowane rozwiązanie, tym większy bus factor, ponieważ mniej osób będzie w stanie je zrozumieć i utrzymać.
+Bus Factor to wskaźnik, który mierzy, ile osób musi "odejść", aby projekt przestał być funkcjonalny.
+
+Im większy Bus Factor, tym jesteśmy bezpieczniejsi.
+
+* Bus Factor 1: Tylko jedna osoba zna kluczowe aspekty projektu. Jeśli ta osoba odejdzie, projekt może się załamać.
+* Bus Factor 2-3: Kilka osób zna kluczowe aspekty, ale nadal istnieje ryzyko, że odejście jednej z nich spowoduje problemy.
+* Bus Factor 4+: Więcej osób zna kluczowe aspekty, co zwiększa bezpieczeństwo projektu.
 
 Przykład: Jeden developer stworzył customowy system builda i deploya. Działa świetnie, dopóki ta osoba jest w projekcie. Kiedy znika, nikt nie wie, jak to utrzymać.
 
