@@ -41,6 +41,12 @@ const sortedTags = tags.sort((a, b) =>
 );
 
 const isLongTitle = title.length > 60;
+
+const lastModifiedDateString = new Date(
+  currPost?.data.updatedDate || currPost?.data.pubDate || new Date(),
+).toISOString();
+
+const lastModified = updateDate ? updateDate : publishDate;
 ---
 
 <div class="lg:w-[85ch] lg:mx-auto">
@@ -112,27 +118,9 @@ const isLongTitle = title.length > 60;
       <div
         class="text-foreground-secondary flex flex-wrap items-center gap-x-2 gap-y-1 text-sm"
       >
-        <time
-          itemprop="datePublished"
-          datetime={new Date(currPost?.data.pubDate || "").toISOString()}
-        >
-          {publishDate}
+        <time itemprop="datePublished" datetime={lastModifiedDateString}>
+          Ostatnia zmiana: {lastModified}
         </time>
-
-        {
-          currPost?.data.updatedDate && (
-            <>
-              <span class="text-accent">&bull;</span>
-              <time
-                itemprop="dateModified"
-                datetime={new Date(currPost.data.updatedDate).toISOString()}
-              >
-                aktualizacja {updateDate}
-              </time>
-            </>
-          )
-        }
-
         <span class="text-accent">&bull;</span>
         <span>{readTime} min. czytania</span>
         <span class="text-accent">&bull;</span>
@@ -162,7 +150,7 @@ const isLongTitle = title.length > 60;
           pictureAttributes={{
             class: "hidden md:block",
           }}
-          class="aspect-square mx-auto md:w-48 shrink-0 rounded-xl object-cover shadow-lg border border-foreground/10"
+          class="aspect-square mx-auto md:w-42 shrink-0 rounded-xl object-cover shadow-lg border border-foreground/10"
           priority={true}
         />
       )
