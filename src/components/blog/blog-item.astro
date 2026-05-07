@@ -4,7 +4,6 @@ import ChevronIcon from "@/components/ui/chevron-icon.astro";
 import { Picture } from "astro:assets";
 
 type Props = {
-  isAboveFold: boolean;
   post: {
     id: string;
     data: {
@@ -18,7 +17,7 @@ type Props = {
   formattedTime: string;
 };
 
-const { post, formattedTime, isAboveFold } = Astro.props;
+const { post, formattedTime } = Astro.props;
 ---
 
 <a href={"/blog/" + post.id} class="group block">
@@ -32,7 +31,6 @@ const { post, formattedTime, isAboveFold } = Astro.props;
       width={350}
       height={350}
       alt={""}
-      priority={isAboveFold}
       class="hidden md:block border-foreground/10 max-h-50 object-cover md:max-h-none w-full rounded-xl rounded-b-none border-b md:w-30 md:h-30 md:rounded-lg md:border"
     />
 
