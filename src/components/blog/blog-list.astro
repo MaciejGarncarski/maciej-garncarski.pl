@@ -19,12 +19,20 @@ const { posts } = Astro.props;
 
 <div class="grid gap-6 md:gap-0">
   {
-    posts.map((post) => {
+    posts.map((post, idx) => {
       const formattedTime = formatPostDate(
         post.data.updatedDate ? post.data.updatedDate : post.data.pubDate,
       );
 
-      return <BlogItem post={post} formattedTime={formattedTime} />;
+      const isAboveFold = idx < 4;
+
+      return (
+        <BlogItem
+          post={post}
+          formattedTime={formattedTime}
+          isAboveFold={isAboveFold}
+        />
+      );
     })
   }
 </div>
