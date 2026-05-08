@@ -9,36 +9,37 @@
       "astro": "astro",
       "fix": "biome check --write .",
       "lint": "biome lint .",
-      "format": "biome format . src --write"
+      "format": "biome format . src --write",
+      "clean-build": "rm -rf dist && rm -rf .astro && rm -rf .vercel"
    },
    "dependencies": {
-      "@astrojs/markdown-remark": "^7.1.0",
-      "@astrojs/mdx": "^5.0.3",
-      "@astrojs/react": "^5.0.2",
+      "@astrojs/markdown-remark": "^7.1.1",
+      "@astrojs/mdx": "^5.0.4",
+      "@astrojs/react": "^5.0.4",
       "@astrojs/sitemap": "^3.7.2",
-      "@astrojs/vercel": "^10.0.3",
+      "@astrojs/vercel": "^10.0.6",
       "@tailwindcss/vite": "^4.2.2",
       "@types/react": "^19.2.14",
       "@types/react-dom": "^19.2.3",
       "@vercel/analytics": "^2.0.1",
       "@vercel/speed-insights": "^2.0.0",
-      "astro": "^6.2.1",
+      "astro": "^6.3.1",
       "clsx": "^2.1.1",
       "react": "^19.2.4",
       "react-dom": "^19.2.4",
       "rehype-autolink-headings": "^7.1.0",
       "rehype-pretty-code": "^0.14.3",
       "sharp": "^0.34.5",
-      "takumi-js": "1.0.0-rc.12"
+      "takumi-js": "^1.1.2"
    },
    "devDependencies": {
-      "@astrojs/check": "^0.9.8",
+      "@astrojs/check": "^0.9.9",
       "@biomejs/biome": "2.4.8",
       "@commitlint/cli": "^20.5.0",
       "@commitlint/config-conventional": "^20.5.0",
       "@shikijs/transformers": "^4.0.2",
       "tailwindcss": "^4.2.2",
-      "typescript": "^5.9.3"
+      "typescript": "^6.0.3"
    },
    "packageManager": "pnpm@10.32.1"
 }
