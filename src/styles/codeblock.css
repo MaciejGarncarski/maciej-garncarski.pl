@@ -94,7 +94,7 @@ pre[data-language] {
 
 /* ===== Lines ===== */
 [data-line] {
-   @apply px-0 leading-7;
+   @apply px-0 leading-7 border-l-3 border-transparent;
 }
 
 [data-highlighted-line] {
@@ -106,19 +106,35 @@ pre[data-language] {
    @apply pr-3 pl-0;
 }
 
+.has-diff:not([showlinenumbers]) [data-line]:not([data-diff]) {
+   @apply pl-2;
+}
+
 /* ===== Line numbers ===== */
 [data-rehype-pretty-code-figure] code[data-line-numbers] {
    counter-reset: line;
 }
 
+[data-rehype-pretty-code-figure] code[data-line-numbers] > [data-line] {
+   position: relative;
+   padding-left: 3.5rem;
+}
+
 [data-rehype-pretty-code-figure] code[data-line-numbers] > [data-line]::before {
    counter-increment: line;
    content: counter(line);
-   display: inline-block;
+   position: absolute;
+   left: 0px;
+   width: 2.5rem;
    text-align: right;
-   margin-left: 0.25rem;
    margin-right: 1rem;
-   width: 2rem;
+}
+
+[data-line]:not([data-diff])::before {
+   width: 2.75rem;
+}
+
+[data-rehype-pretty-code-figure] code[data-line-numbers] > [data-line]:not([data-diff])::before {
    opacity: 0.28;
 }
 
@@ -128,27 +144,54 @@ pre[data-language] {
 }
 
 /* ===== Diff ===== */
+[data-diff] {
+   color: #a6accd80;
+}
+
 [data-diff="add"] {
-   @apply bg-code-green/40 border-code-green/80 border-l-4;
+   @apply bg-code-green/20 border-code-green/60;
+}
+
+code:not([data-line-numbers]) > [data-diff] {
+   margin: 0 -1rem;
+}
+
+code:not([data-line-numbers]) > [data-line]:not([data-diff]) {
+   margin: 0 -5px;
 }
 
 [data-rehype-pretty-code-figure] code[data-line-numbers] > [data-diff="add"]::before {
+   flex-shrink: 0;
    margin-left: 0;
    content: "+ " counter(line);
 }
 
+[data-rehype-pretty-code-figure] code:not([data-line-numbers]) > [data-diff="add"]::before {
+   margin-left: 0.25rem;
+   margin-right: 0.5rem;
+   content: "+";
+}
+
 [data-diff="add"]::before {
+   flex-shrink: 0;
    margin-left: 0;
    content: "+";
 }
 
 [data-diff="remove"] {
-   @apply bg-code-red/40 border-code-red/80 border-l-4;
+   @apply bg-code-red/20 border-code-red/60;
+   opacity: 0.8;
 }
 
 [data-rehype-pretty-code-figure] code[data-line-numbers] > [data-diff="remove"]::before {
    margin-left: 0;
    content: "- " counter(line);
+}
+
+[data-rehype-pretty-code-figure] code:not([data-line-numbers]) > [data-diff="remove"]::before {
+   margin-left: 0.25rem;
+   margin-right: 0.5rem;
+   content: "-";
 }
 
 [data-diff="remove"]::before {

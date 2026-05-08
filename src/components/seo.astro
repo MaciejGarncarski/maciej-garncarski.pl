@@ -6,7 +6,6 @@ const defaultDescription =
 type Props = {
   title?: string;
   description?: string;
-  keywords?: Array<string>;
   ogImage?: string;
   canonicalUrl?: string;
   pubDate?: string;
@@ -23,7 +22,6 @@ type Props = {
 const {
   description = defaultDescription,
   title,
-  keywords,
   ogImage = "/og.png",
   pubDate,
   updatedDate,
@@ -202,7 +200,6 @@ const structuredData = [
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
 <meta name="theme-color" content="#f5f9ff" />
-{keywords && <meta name="keywords" content={keywords.join(", ")} />}
 {robots && <meta name="robots" content={robots} />}
 <link rel="canonical" href={canonicalUrl} />
 

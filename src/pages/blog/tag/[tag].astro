@@ -47,9 +47,7 @@ const robots =
 
 const tagUrl = new URL(canonicalUrl, Astro.site).toString();
 const itemListItems = filteredPosts.map((post) => {
-  const postUrl = post.data.canonicalUrl
-    ? new URL(post.data.canonicalUrl, Astro.site).toString()
-    : new URL(`/blog/${post.id}`, Astro.site).toString();
+  const postUrl = new URL(`/blog/${post.id}`, Astro.site).toString();
 
   return {
     name: post.data.title,
@@ -66,7 +64,6 @@ const breadcrumbs = [
 const seoData = {
   title: `Tag: ${tag}`,
   description: `Artykuły o temacie ${tag}. Praktyczne wpisy o programowaniu, architekturze i pracy software engineera.`,
-  keywords: ["blog programistyczny", "artykuly", "programowanie", tag],
 };
 ---
 
@@ -76,7 +73,6 @@ const seoData = {
     description={seoData.description}
     canonicalUrl={canonicalUrl}
     title={seoData.title}
-    keywords={seoData.keywords}
     jsonLdType="CollectionPage"
     robots={robots}
     itemListItems={itemListItems}

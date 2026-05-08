@@ -22,7 +22,7 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<"blog">;
 const post = Astro.props;
 const { Content } = await render(post);
-const canonicalUrl = post.data.canonicalUrl || `/blog/${post.id}`;
+const canonicalUrl = `/blog/${post.id}`;
 const postUrl = new URL(canonicalUrl, Astro.site).toString();
 const breadcrumbs = [
   { name: "Home", url: new URL("/", Astro.site).toString() },
@@ -45,7 +45,6 @@ const relatedProjects = projects
     slot="head"
     description={post.data.description}
     title={post.data.title}
-    keywords={post.data.keywords}
     canonicalUrl={canonicalUrl}
     pubDate={post.data.pubDate.toISOString()}
     updatedDate={post.data.updatedDate?.toISOString()}

@@ -1,0 +1,208 @@
+---
+title: "Kuloodporna produkcja"
+description: "Jak projektować systemy zgodnie z zasadami resilience engineering, aby były odporne na awarie i częściowe degradacje."
+heroImage: "@assets/blog/kuloodporna-produkcja/hero.png"
+pubDate: 2026-05-08
+tags: ["Architektura", "Backend", "DevOps"]
+---
+
+Dobry system ≠ dobry kod. Dobry system to taki, który jest w stanie przetrwać, gdy coś pójdzie nie po Twojej myśli.
+
+Postanowiłem spisać podstawowe praktyki, które **na ten moment znam**.
+
+
+## Monitoring
+
+Po co się męczyć zgadując, co poszło nie tak, skoro można to po prostu sprawdzić? Monitoring to podstawa. Bez niego jesteś jak kierowca jadący nocą bez świateł - możesz mieć najlepszy samochód na świecie, ale i tak nie dojedziesz do celu.
+
+### Logi
+
+Logi to oczy systemu. Dzięki nim możesz zobaczyć, co faktycznie stało się w Twojej aplikacji. Upewnij się, że logujesz ważne dla biznesu informacje, a nie tylko błędy.
+
+Preferuj structured logging, czyli logi w formacie JSON. Dzięki temu łatwiej będzie je przeszukiwać i analizować.
+
+```json title="Przykładowy log w formacie JSON"
+{
+  "timestamp": "2026-05-08T12:34:56Z",
+  "level": "ERROR",
+  "message": "Nie można połączyć się z bazą danych",
+  "service": "user-service",
+  "errorCode": "DB_CONN_ERR"
+}
+```
+Warto rozróżnić logi techniczne od eventów biznesowych, które opisują realne zdarzenia w systemie (np. payment_failed, user_registered). Te drugie są często wykorzystywane nie tylko do debugowania, ale też do analityki i monitorowania procesów biznesowych.
+
+### Metryki
+
+Metryki to agregowane dane o stanie systemu w czasie, które mówią Ci, jak działa Twoja aplikacja. Mogą to być czasy odpowiedzi, liczba błędów, zużycie CPU czy pamięci. Regularne monitorowanie metryk pozwala szybko reagować na problemy, zanim staną się krytyczne na przykład memory leaki.
+
+### Alerty
+
+Alerty to najważniejszy element monitoringu. To one informują Cię, że coś poszło fatalnie nie tak.
+
+Przykładowo możesz ustawić alert, gdy baza danych jest niedostępna, albo gdy czas odpowiedzi przekracza określony próg. Dzięki temu możesz szybko zareagować i naprawić problem, zanim użytkownicy zaczną narzekać.
+
+Należy uważać, żeby nie przesadzić z alertami. Zbyt wiele alertów może prowadzić do tzw. "alert fatigue", czyli sytuacji, w której zaczynasz ignorować wszystkie alerty, bo jest ich za dużo.
+
+
+### Tracing
+
+Pozwala na śledzenie przepływu żądań przez różne usługi w systemie. Dzięki temu możesz zobaczyć, gdzie dokładnie występuje problem i jak wpływa on na cały system.
+
+## Wersjonowanie aplikacji i rollbacki
+
+Wersjonowanie jest kluczowe, gdy chcesz zapewnić stabilność produkcji. Dzięki temu jedną komendą jesteś w stanie przywrócić poprzednią, działającą wersję aplikacji, gdy coś się wywali.
+
+Rollback często jest ważniejszy niż szybki hotfix. Dlaczego? Bo hotfixy często nie fixują wszystkiego, a wprowadzają dodatkowe ryzyko. Rollback pozwala szybko wrócić do stabilnej wersji, a następnie spokojnie zająć się naprawą problemu.
+
+```bash title="Przykładowy flow rollbacku"
+# build + tag
+git tag -a v1.2.3 -m "Release 1.2.3"
+
+# CI buduje image:
+docker build -t myapp:v1.2.3 .
+
+# deploy
+./deploy.sh v1.2.3
+
+# bug...
+./rollback.sh v1.2.2
+
+# fix
+git tag -a v1.2.4 -m "Fix critical bug"
+
+docker build -t myapp:v1.2.4 .
+
+./deploy.sh v1.2.4
+```
+
+## Healthchecks
+
+System musi powiadamiać, że "żyje". Healthchecki to proste endpointy, które zwracają status aplikacji. Dzięki nim system orkiestrujący (np. Kubernetes) wie, czy Twoja aplikacja jest zdrowa i może przyjmować ruch.
+
+```bash title="Przykładowy healthcheck"
+curl -f http://localhost:8080/health || echo "Unhealthy"
+```
+
+W praktyce healthchecki dzieli się na dwa główne typy:
+
+* **liveness probe** - sprawdza, czy aplikacja w ogóle działa (czy proces nie utknął / nie padł)
+* **readiness probe** - sprawdza, czy aplikacja jest gotowa do obsługi ruchu
+* **dependency check** - który weryfikuje kluczowe zależności, takie jak baza danych, cache czy kolejki
+
+Dzięki temu system nie tylko wie, czy aplikacja „żyje”, ale też czy faktycznie może obsługiwać ruch. To pozwala uniknąć sytuacji, w której usługa działa, ale jest w praktyce niesprawna.
+
+Mechanizm ten pozwala na automatyczne restartowanie aplikacji, gdy nie działa poprawnie, co zwiększa jej odporność na awarie.
+
+## Fasady na zewnętrzne zależności
+
+Załóżmy, że Twoja aplikacja korzysta z loggera o nazwie "SuperLogger". Co się stanie, gdy autor biblioteki przestanie ją wspierać i zostanie w nim wykryta podatność? Albo gdy pojawi się nowa, lepsza biblioteka, która będzie oferować więcej funkcji? Będziesz musiał przepisać **cały** kod, który korzysta z "SuperLoggera", żeby przejść na nową bibliotekę. To jest gigantyczny problem.
+
+Zamiast tego, możesz stworzyć własną fasadę, która będzie opakowywać "SuperLoggera". Dzięki temu, gdy będziesz chciał zmienić bibliotekę, wystarczy, że zmodyfikujesz tylko tę fasadę, a reszta Twojego kodu pozostanie nienaruszona.
+
+```ts title="logger.ts - przykładowa fasada na loggera"
+import { SuperLogger } from "super-logger";
+
+export interface Logger {
+  log: (message: string, metadata?: Record<string, unknown>) => void;
+  error: (message: string, metadata?: Record<string, unknown>) => void;
+}
+
+export const logger: Logger = {
+    log: (message, metadata) => {
+        // tutaj możesz użyć dowolnej biblioteki logującej
+        SuperLogger.log(message, metadata);
+    },
+    error: (message, metadata) => {
+        SuperLogger.error(message, metadata);
+    },
+}
+```
+
+W tym momencie możesz bez problemu przejść na inną bibliotekę, wystarczy, że zmienisz implementację w `logger.ts`, a reszta Twojego kodu będzie nadal korzystać z tej samej fasady.
+
+
+```ts title="logger.ts - zmiana implementacji fasady na inną bibliotekę"
+import { SuperLogger } from "super-logger"; // [!code --]
+import { AnotherLogger } from "another-logger"; // [!code ++]
+// nowy logger, który może miec inne API, ale fasada pozostaje ta sama
+
+export interface Logger {
+  log: (message: string, metadata?: Record<string, unknown>) => void;
+  error: (message: string, metadata?: Record<string, unknown>) => void;
+}
+
+export const logger: Logger = {
+    log: (message, metadata) => {
+        SuperLogger.log(message, metadata); // [!code --]
+        AnotherLogger.info({ // [!code ++]
+            message, // [!code ++]
+            ...metadata // [!code ++]
+        }); // [!code ++]
+    },
+    error: (message, metadata) => {
+        SuperLogger.error(message, metadata); // [!code --]
+        AnotherLogger.error({ // [!code ++]
+            message, // [!code ++]
+            ...metadata // [!code ++]
+        }); // [!code ++]
+    },
+}
+```
+
+Fasada to taki "kontrakt", który mówi: "nie ważne, jakiego loggera używasz, ważne, żebyś korzystał z tej fasady". Dzięki temu masz większą kontrolę nad tym, jak Twoja aplikacja korzysta z zewnętrznych zależności i możesz łatwiej zarządzać zmianami w tych zależnościach.
+
+### Circuit breaker
+
+Sama fasada izoluje kod, ale nie chroni systemu przed problemami runtime.
+Jeśli zewnętrzna usługa zacznie odpowiadać wolno lub przestanie działać, Twoja aplikacja nadal będzie do niej próbować strzelać requestami.
+Tutaj pomaga circuit breaker.
+
+Jak to działa? Gdy wykryje, że zewnętrzna usługa jest niedostępna (np. na podstawie błędów, timeoutów lub wzrostu latency), to „przerywa obwód” i zaczyna zwracać błędy od razu, bez próby kontaktu z tą usługą.
+
+```ts title="Minimalna implementacja circuit breakera"
+if (circuitBreaker.isOpen()) {
+  throw new Error("Service unavailable");
+}
+
+try {
+  const result = await service.call();
+  circuitBreaker.success();
+  return result;
+} catch (e) {
+  circuitBreaker.failure();
+  throw e;
+}
+```
+
+## Graceful shutdown
+
+Kuloodporna produkcja to nie tylko radzenie sobie z błędami, ale też umiejętność "godnego" zamykania aplikacji. Graceful shutdown to technika, która pozwala na bezpieczne zakończenie działania aplikacji, bez utraty danych czy przerwania obsługi użytkowników.
+
+Podczas shutdownu, aplikacja powinna:
+
+1. Przestać przyjmować nowe żądania
+2. Dokończyć obsługę aktualnych żądań
+3. Zamknąć połączenia z bazą danych i innymi zasobami
+4. Zakończyć działanie
+5. Opcjonalnie, wysłać sygnał do systemu monitoringu, że aplikacja jest w trakcie zamykania
+
+## Idea kuloodpornej produkcji
+
+Wszystkie opisane wcześniej elementy: monitoring, rollbacki, healthchecki i fasady - mają wspólny cel.
+
+Nie są to niezależne techniki, tylko części jednego podejścia do projektowania systemów: **resilience engineering**, czyli projektowania systemów odpornych na błędy.
+
+Każdy z tych elementów odpowiada za inny etap:
+
+* **monitoring** → pozwala wykryć problem
+* **healthchecks** → ograniczają jego wpływ na ruch
+* **rollback** → pozwala szybko wrócić do stabilnego stanu
+* **fasady** → izolują system od zmian w zewnętrznych zależnościach
+
+Wszystkie te mechanizmy sprowadzają się do jednej rzeczy:
+
+> zmniejszenia kosztu błędu w produkcji i skrócenia czasu reakcji, gdy coś pójdzie nie tak.
+
+
+Polecam również zapoznać się z podobnym artykułem, który napisałem pt. ["Programowanie to systemy, nie kod"](https://maciej-garncarski.pl/blog/programowanie-to-systemy-nie-kod), który poszerza temat tworzenia oprogramowania z innej perspektywy.
