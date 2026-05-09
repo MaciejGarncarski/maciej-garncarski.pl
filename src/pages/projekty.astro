@@ -106,7 +106,7 @@ const seoData = {
   .project-card::before {
     content: "";
     position: absolute;
-    inset: -40% -30%;
+    inset: -50%;
     background:
       radial-gradient(
         circle at 20% 20%,
@@ -124,40 +124,36 @@ const seoData = {
         color-mix(in oklab, var(--accent) 30%, transparent) 45%,
         transparent 62%
       );
+    background-size: 200% 200%;
     opacity: 0;
-    transform: translate3d(-10%, 0, 0) scale(0.96);
-    transition:
-      opacity 240ms ease,
-      transform 380ms ease;
+    transform: translate3d(0, 0, 0) scale(1);
+    transition: opacity 400ms ease;
     pointer-events: none;
-    will-change: transform, opacity, background-position;
+    will-change: transform, opacity;
   }
 
   .group:hover .project-card::before,
   .group:focus-visible .project-card::before {
-    opacity: 0.3;
-    animation: project-card-sheen 1.8s ease-in-out infinite;
+    opacity: 0.35;
+    animation: project-card-sheen 4s ease-in-out infinite;
   }
 
   @keyframes project-card-sheen {
-    0% {
-      transform: translate3d(-12%, 0, 0) scale(0.96);
+    0%,
+    100% {
+      transform: translate3d(-3%, -2%, 0) scale(1);
       background-position: 0% 50%;
     }
     50% {
-      transform: translate3d(0%, 0, 0) scale(1);
+      transform: translate3d(3%, 2%, 0) scale(1.05);
       background-position: 100% 50%;
-    }
-    100% {
-      transform: translate3d(12%, 0, 0) scale(0.96);
-      background-position: 0% 50%;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .project-card::before {
+      animation: none !important;
       transition: opacity 240ms ease;
-      animation: none;
     }
   }
 </style>
