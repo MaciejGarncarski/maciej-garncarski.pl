@@ -36,7 +36,7 @@ const seoData = {
           return (
             <li>
               <a href={`/projekty/${project.id}`} class="group block">
-                <article class="shadow-accent-sm bg-background-secondary/25 shadow-sm relative overflow-hidden rounded-xl border border-accent/12 flex flex-col gap-5 p-5 transition-all duration-200 hover:border-accent/30 md:flex-row md:items-center md:gap-8">
+                <article class="project-card shadow-accent-sm bg-background-secondary/95 shadow-sm relative isolate overflow-hidden rounded-xl border border-accent/12 flex flex-col gap-5 p-5 transition-all duration-200 hover:border-accent/30 md:flex-row md:items-center md:gap-8">
                   <AccentShimmer />
                   {project.thumbnail ? (
                     <Picture
@@ -101,3 +101,63 @@ const seoData = {
     </ul>
   </div>
 </Layout>
+
+<style>
+  .project-card::before {
+    content: "";
+    position: absolute;
+    inset: -40% -30%;
+    background:
+      radial-gradient(
+        circle at 20% 20%,
+        color-mix(in oklab, var(--accent) 24%, transparent) 0%,
+        transparent 38%
+      ),
+      radial-gradient(
+        circle at 80% 30%,
+        color-mix(in oklab, var(--accent) 18%, transparent) 0%,
+        transparent 32%
+      ),
+      linear-gradient(
+        120deg,
+        transparent 0%,
+        color-mix(in oklab, var(--accent) 30%, transparent) 45%,
+        transparent 62%
+      );
+    opacity: 0;
+    transform: translate3d(-10%, 0, 0) scale(0.96);
+    transition:
+      opacity 240ms ease,
+      transform 380ms ease;
+    pointer-events: none;
+    will-change: transform, opacity, background-position;
+  }
+
+  .group:hover .project-card::before,
+  .group:focus-visible .project-card::before {
+    opacity: 0.3;
+    animation: project-card-sheen 1.8s ease-in-out infinite;
+  }
+
+  @keyframes project-card-sheen {
+    0% {
+      transform: translate3d(-12%, 0, 0) scale(0.96);
+      background-position: 0% 50%;
+    }
+    50% {
+      transform: translate3d(0%, 0, 0) scale(1);
+      background-position: 100% 50%;
+    }
+    100% {
+      transform: translate3d(12%, 0, 0) scale(0.96);
+      background-position: 0% 50%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .project-card::before {
+      transition: opacity 240ms ease;
+      animation: none;
+    }
+  }
+</style>
