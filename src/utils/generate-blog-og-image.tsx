@@ -16,17 +16,24 @@ const intlFormatter = new Intl.DateTimeFormat("pl-PL", {
 
 const BLOG_IMAGE_URL = "local://blog-image";
 
-const TITLE_CHAR_LIMIT = 64;
-const CUTOFF_TITLE_LENGTH = TITLE_CHAR_LIMIT + 10;
+const TITLE_CHAR_LIMIT = 74;
+
+function getTitleFontSize(length: number): number {
+  if (length <= 40) return 60;
+  if (length <= 55) return 54;
+  if (length <= 70) return 48;
+  return 42;
+}
 
 export async function generateBlogOGImage({ imageBuffer, title, date, tags }: OgImage) {
    const formattedDate = intlFormatter.format(date);
    const dateResult = formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
 
-   const isLongTitle = title.length > TITLE_CHAR_LIMIT;
-   const isCutoffLimit = title.length > CUTOFF_TITLE_LENGTH;
-   const titleFontSize = isLongTitle ? 50 : 56;
-   const adjustedTitle = isCutoffLimit ? `${title.slice(0, CUTOFF_TITLE_LENGTH)}...` : title;
+   const titleFontSize = getTitleFontSize(title.length);
+   const lineHeight = title.length > 55 ? 1.3 : 1.4;
+   const adjustedTitle = title.length > TITLE_CHAR_LIMIT
+   ? `${title.slice(0, TITLE_CHAR_LIMIT)}...`
+   : title;
 
    const { node, stylesheets } = await fromJsx(
       <div
@@ -94,7 +101,7 @@ export async function generateBlogOGImage({ imageBuffer, title, date, tags }: Og
                style={{
                   fontSize: titleFontSize,
                   fontWeight: 700,
-                  lineHeight: 1.4,
+                  lineHeight: lineHeight,
                   color: "#f5f8fc",
                   flexGrow: 1,
                   textWrap: "pretty",
