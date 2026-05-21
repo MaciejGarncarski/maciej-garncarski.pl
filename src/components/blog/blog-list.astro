@@ -23,8 +23,10 @@ const { posts } = Astro.props;
         post.data.updatedDate ? post.data.updatedDate : post.data.pubDate,
       );
 
+      const delay = index < 8 ? index * 80 : 0;
+
       return (
-        <div class="post-item" style={`--delay: ${index * 80}ms`}>
+        <div class="post-item" style={`--delay: ${delay}ms`}>
           <BlogItem post={post} formattedTime={formattedTime} />
         </div>
       );
