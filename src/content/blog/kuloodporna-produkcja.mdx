@@ -1,7 +1,6 @@
 ---
 title: "Kuloodporna produkcja"
 description: "Jak projektować systemy zgodnie z zasadami resilience engineering, aby były odporne na awarie i częściowe degradacje."
-heroImage: "@assets/blog/kuloodporna-produkcja/hero.png"
 pubDate: 2026-05-08
 updateDate: 2026-05-09
 tags: ["Architektura", "Backend", "DevOps", "Node.js"]
@@ -45,7 +44,6 @@ Przykładowo możesz ustawić alert, gdy baza danych jest niedostępna, albo gdy
 
 Należy uważać, żeby nie przesadzić z alertami. Zbyt wiele alertów może prowadzić do tzw. "alert fatigue", czyli sytuacji, w której zaczynasz ignorować wszystkie alerty, bo jest ich za dużo.
 
-
 ### Tracing
 
 Pozwala na śledzenie przepływu żądań przez różne usługi w systemie. Dzięki temu możesz zobaczyć, gdzie dokładnie występuje problem i jak wpływa on na cały system.
@@ -86,7 +84,7 @@ System musi powiadamiać, że "żyje". Healthchecki to proste endpointy, które 
 curl -f http://localhost:8080/health || echo "Unhealthy"
 ```
 
-W praktyce healthchecki dzieli się na dwa główne typy:
+W praktyce healthchecki dzieli się na kilka rodzajów:
 
 * **liveness probe** - sprawdza, czy aplikacja w ogóle działa (czy proces nie utknął / nie padł)
 * **readiness probe** - sprawdza, czy aplikacja jest gotowa do obsługi ruchu

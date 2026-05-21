@@ -1,18 +1,11 @@
-import { readFileSync } from "node:fs";
-import path from "node:path";
 import type { APIContext, APIRoute } from "astro";
 import { getPosts } from "@/utils/get-posts";
 import { generateBlogOGImage } from "@/utils/generate-blog-og-image";
 
 export const GET: APIRoute = async ({ props, redirect }: APIContext) => {
-   const { post, postCover } = props as Props;
-
-   if (!postCover) {
-      return redirect("/og.png");
-   }
+   const { post } = props as Props;
 
    const imageBuffer = await generateBlogOGImage({
-      imageBuffer: postCover,
       title: post.data.title,
       tags: post.data.tags,
       date: new Date(post.data.updatedDate || post.data.pubDate),
@@ -30,24 +23,15 @@ export async function getStaticPaths() {
    const blogPosts = await getPosts();
 
    return blogPosts.map((post) => {
-      const imagePath = path.resolve(`src/assets/blog/${post.id}/hero.png`);
-      let postCover: Buffer | null = null;
-
-      try {
-         postCover = readFileSync(imagePath);
-      } catch (error) {
-         console.log(error);
-         postCover = null;
-      }
+ 
 
       return {
          params: { slug: post.id },
-         props: { post, postCover },
+         props: { post },
       };
    });
 }
 
 type Props = {
    post: Awaited<ReturnType<typeof getPosts>>[number];
-   postCover: Buffer | null;
 };

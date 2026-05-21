@@ -11,7 +11,7 @@ const posts = await getPostsSorted();
 const allTags = new Set<string>();
 
 posts.forEach((post) => {
-  post.data.tags.forEach((tag) => {
+  post.data.tags.forEach((tag: string) => {
     allTags.add(tag);
   });
 });

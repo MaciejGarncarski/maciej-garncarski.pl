@@ -1,5 +1,4 @@
 ---
-import { Image } from "astro:assets";
 import Link from "@/components/ui/link.astro";
 import Tag from "@/components/tag.astro";
 
@@ -9,7 +8,6 @@ type SearchItem = {
   description: string;
   tags: string[];
   body: string;
-  image: ImageMetadata;
 };
 
 type Props = {
@@ -29,17 +27,8 @@ const { item } = Astro.props;
   <Link
     href={`/blog/${item.id}`}
     reload
-    class="border-border bg-background-secondary/45 hover:bg-background-secondary/75 focus-visible:ring-accent/30 group grid grid-cols-1 gap-3 rounded-xl border px-3 py-3 transition-colors focus-visible:ring-2 focus-visible:outline-none md:grid-cols-[70px_1fr]"
+    class="border-border bg-background-secondary/45 hover:bg-background-secondary/75 focus-visible:ring-accent/30 group grid grid-cols-1 gap-3 rounded-xl border px-3 py-3 transition-colors focus-visible:ring-2 focus-visible:outline-none"
   >
-    <Image
-      src={item.image}
-      alt=""
-      width={70}
-      height={70}
-      loading="lazy"
-      class="border-border/50 hidden h-[70px] w-[70px] rounded-lg border object-cover md:block"
-    />
-
     <div class="min-w-0">
       <p
         data-search-title
