@@ -2,14 +2,13 @@
 title: "Kuloodporna produkcja"
 description: "Jak projektować systemy zgodnie z zasadami resilience engineering, aby były odporne na awarie i częściowe degradacje."
 pubDate: 2026-05-08
-updateDate: 2026-05-09
+updatedDate: 2026-05-21
 tags: ["Architektura", "Backend", "DevOps", "Node.js"]
 ---
 
 Dobry system ≠ dobry kod. Dobry system to taki, który jest w stanie przetrwać, gdy coś pójdzie nie po Twojej myśli.
 
-Postanowiłem spisać podstawowe praktyki, które **na ten moment znam**.
-
+Postanowiłem spisać podstawowe praktyki, które **na ten moment znam** - to pobieżne wprowadzenie do tematu, nie wyczerpujący przewodnik.
 
 ## Monitoring
 
@@ -34,7 +33,7 @@ Warto rozróżnić logi techniczne od eventów biznesowych, które opisują real
 
 ### Metryki
 
-Metryki to agregowane dane o stanie systemu w czasie, które mówią Ci, jak działa Twoja aplikacja. Mogą to być czasy odpowiedzi, liczba błędów, zużycie CPU czy pamięci. Regularne monitorowanie metryk pozwala szybko reagować na problemy, zanim staną się krytyczne na przykład memory leaki.
+Metryki to agregowane dane o stanie systemu w czasie, które mówią Ci, jak działa Twoja aplikacja. Mogą to być czasy odpowiedzi, liczba błędów, zużycie CPU czy pamięci. Regularne monitorowanie metryk pozwala szybko reagować na problemy, zanim staną się krytyczne na przykład memory leaki, disk usage.
 
 ### Alerty
 
@@ -46,7 +45,9 @@ Należy uważać, żeby nie przesadzić z alertami. Zbyt wiele alertów może pr
 
 ### Tracing
 
-Pozwala na śledzenie przepływu żądań przez różne usługi w systemie. Dzięki temu możesz zobaczyć, gdzie dokładnie występuje problem i jak wpływa on na cały system.
+Pozwala na śledzenie przepływu żądań przez różne usługi w systemie. W przeciwieństwie do logów, które pokazują co się stało w jednym miejscu, tracing łączy zdarzenia z wielu serwisów w jeden spójny obraz. Dzięki temu wiesz nie tylko że coś poszło nie tak, ale gdzie i dlaczego, np. który serwis dodał 2 sekundy latency do całego żądania.
+
+Popularne narzędzia to OpenTelemetry, Jaeger czy Datadog APM.
 
 ## Wersjonowanie aplikacji i rollbacki
 
@@ -110,26 +111,32 @@ Po co Ci retry? Bo nie zawsze używasz swojego API. Załóżmy, że Twoja aplika
 
 Jak to zaimplementować? W node najprostszy sposób, to użycie biblioteki `p-retry`:
 
-```ts title="Przykładowa implementacja retry z użyciem biblioteki p-retry"
-import pRetry, {AbortError} from 'p-retry';
+```ts title="Przykładowa implementacja retry z użyciem biblioteki p-retry" {7-9}
+import pRetry from 'p-retry';
 
-const run = async () => {
-	const response = await fetch('https://sindresorhus.com/unicorn');
-
-	// Abort retrying if the resource doesn't exist
-	if (response.status === 404) {
-		throw new AbortError(response.statusText);
-	}
-
-	return response.blob();
-};
-
-console.log(await pRetry(run, {retries: 5}));
+await pRetry(() => checkDatabaseOnce(dbPool, timeoutMs), {
+  retries: 4,      // Maksymalnie 4 próby
+  minTimeout: 100, // Pierwsza próba po 100ms
+  maxTimeout: 3000,// Maksymalny odstęp między próbami to 3 sekundy
+  factor: 2,       // Każda kolejna próba czeka 2x dłużej (100ms, 200ms, 400ms...)
+  // p-retry automatycznie dodaje do powyższego czasu losowy Jitter (około +/- 10-20%),
+  // dzięki czemu rozbija synchronizację jednoczesnych strzałów z wielu instancji aplikacji.
+  onFailedAttempt: (error) => {
+    logger.warn(
+      {
+        err: error,
+        attempt: error.attemptNumber,
+        retriesLeft: error.retriesLeft,
+      },
+      "Database readiness attempt failed. Retrying with jitter...",
+    );
+  },
+});
 ```
 
-## Fasady na zewnętrzne zależności
+## Fasady i adaptery na zewnętrzne zależności
 
-Załóżmy, że Twoja aplikacja korzysta z loggera o nazwie "SuperLogger". Co się stanie, gdy autor biblioteki przestanie ją wspierać i zostanie w nim wykryta podatność? Albo gdy pojawi się nowa, lepsza biblioteka, która będzie oferować więcej funkcji? Będziesz musiał przepisać **cały** kod, który korzysta z "SuperLoggera", żeby przejść na nową bibliotekę. To jest gigantyczny problem.
+Załóżmy, że Twoja aplikacja korzysta z loggera o nazwie "SuperLogger". Co się stanie, gdy autor biblioteki przestanie ją wspierać i zostanie w nim wykryta podatność? Albo gdy pojawi się nowa, lepsza biblioteka, która będzie oferować więcej funkcji? Będziesz musiał przepisać **cały** kod, który korzysta z "SuperLoggera", żeby przejść na nową bibliotekę.
 
 Zamiast tego, możesz stworzyć własną fasadę, która będzie opakowywać "SuperLoggera". Dzięki temu, gdy będziesz chciał zmienić bibliotekę, wystarczy, że zmodyfikujesz tylko tę fasadę, a reszta Twojego kodu pozostanie nienaruszona.
 
@@ -152,8 +159,7 @@ export const logger: Logger = {
 }
 ```
 
-W tym momencie możesz bez problemu przejść na inną bibliotekę, wystarczy, że zmienisz implementację w `logger.ts`, a reszta Twojego kodu będzie nadal korzystać z tej samej fasady.
-
+W tym momencie możesz łatwiej przejść na inną bibliotekę, wystarczy, że zmienisz implementację w `logger.ts`, a reszta Twojego kodu będzie nadal korzystać z tej samej fasady.
 
 ```ts title="logger.ts - zmiana implementacji fasady na inną bibliotekę"
 import { SuperLogger } from "super-logger"; // [!code --]
@@ -185,54 +191,70 @@ export const logger: Logger = {
 
 Fasada to taki "kontrakt", który mówi: "nie ważne, jakiego loggera używasz, ważne, żebyś korzystał z tej fasady". Dzięki temu masz większą kontrolę nad tym, jak Twoja aplikacja korzysta z zewnętrznych zależności i możesz łatwiej zarządzać zmianami w tych zależnościach.
 
-### Circuit breaker
-
-Sama fasada izoluje kod, ale nie chroni systemu przed problemami runtime.
-Jeśli zewnętrzna usługa zacznie odpowiadać wolno lub przestanie działać, Twoja aplikacja nadal będzie do niej próbować strzelać requestami.
-Tutaj pomaga circuit breaker.
-
-Jak to działa? Gdy wykryje, że zewnętrzna usługa jest niedostępna (np. na podstawie błędów, timeoutów lub wzrostu latency), to „przerywa obwód” i zaczyna zwracać błędy od razu, bez próby kontaktu z tą usługą.
-
-```ts title="Minimalna implementacja circuit breakera"
-if (circuitBreaker.isOpen()) {
-  throw new Error("Service unavailable");
-}
-
-try {
-  const result = await service.call();
-  circuitBreaker.success();
-  return result;
-} catch (e) {
-  circuitBreaker.failure();
-  throw e;
-}
-```
-
 ## Graceful shutdown
 
-Kuloodporna produkcja to nie tylko radzenie sobie z błędami, ale też umiejętność "godnego" zamykania aplikacji. Graceful shutdown to technika, która pozwala na bezpieczne zakończenie działania aplikacji, bez utraty danych czy przerwania obsługi użytkowników.
+Kuloodporna produkcja to nie tylko radzenie sobie z błędami, ale też umiejętność poprawnego zamykania aplikacji, bez utraty danych czy przerywania obsługi aktywnych użytkowników.
 
-Podczas shutdownu, aplikacja powinna:
+Podczas shutdownu aplikacja powinna przestać przyjmować nowe żądania, dokończyć obsługę aktualnych, zamknąć połączenia z bazą i innymi zasobami, a dopiero potem zakończyć działanie.
 
-1. Przestać przyjmować nowe żądania
-2. Dokończyć obsługę aktualnych żądań
-3. Zamknąć połączenia z bazą danych i innymi zasobami
-4. Zakończyć działanie
-5. Opcjonalnie, wysłać sygnał do systemu monitoringu, że aplikacja jest w trakcie zamykania
+W Node.js wygląda to mniej więcej tak:
 
-## Idea kuloodpornej produkcji
+```ts title="Graceful shutdown w Node.js"
+import { Server } from 'http';
 
-Wszystkie opisane wcześniej elementy: monitoring, rollbacki, healthchecki i fasady - mają wspólny cel.
+const server: Server = app.listen(8080);
 
-Nie są to niezależne techniki, tylko części jednego podejścia do projektowania systemów: **resilience engineering**, czyli projektowania systemów odpornych na błędy.
+function shutdown(signal: string) {
+  logger.info(`Otrzymano ${signal}. Rozpoczynam graceful shutdown...`);
 
-Każdy z tych elementów odpowiada za inny etap:
+  // 1. Hard kill switch - jeśli system orkiestracji (np. K8s) dał nam 30 sekund,
+  // my dajemy sobie 25 sekund na sprzątanie. Jeśli nie zdążymy, ubijamy proces sami.
+  const timeout = setTimeout(() => {
+    logger.error("Graceful shutdown przekroczył limit czasu! Wymuszam zamknięcie...");
+    process.exit(1);
+  }, 25000);
+  
+  // unref sprawia, że ten timer nie trzyma procesu Node.js przy życiu, jeśli wszystko inne się zamknie
+  timeout.unref();
 
-* **monitoring** → pozwala wykryć problem
-* **healthchecks** → ograniczają jego wpływ na ruch
-* **rollback** → pozwala szybko wrócić do stabilnego stanu
-* **fasady** → izolują system od zmian w zewnętrznych zależnościach
+  // 2. Przestajemy przyjmować nowy ruch HTTP (Kubernetes w tym czasie usuwa nas z Load Balancera)
+  server.close(async (err) => {
+    if (err) {
+      logger.error({ err }, "Błąd podczas zamykania serwera HTTP");
+      process.exit(1);
+    }
+    logger.info("Serwer HTTP zamknięty (brak aktywnych połączeń).");
+    process.exit(0);
+  });
 
-Wszystko sprowadza się do jednej rzeczy: **nie bać się produkcji**. Produkcja to nie jest miejsce, w którym powinieneś się bać, że coś pójdzie nie tak. To jest miejsce, w którym powinieneś być przygotowany na to, że coś pójdzie nie tak, i mieć mechanizmy, które pozwolą Ci szybko zareagować i naprawić problem. Lepiej jest mieć system, który błyskawicznie może wrócić do poprzedniego stanu, niż system, który jest "idealny", ale gdy coś pójdzie nie tak, to jest kompletnie nieprzydatny.
+  // 3. RÓWNOLEGLE zamykamy połączenia z bazami danych, kolejkami i pamięcią cache.
+  // Nie czekamy na zamknięcie serwera HTTP, bo wiszący klient HTTP zablokowałby zamknięcie bazy!
+  (async () => {
+    try {
+      logger.info("Zamykanie połączeń z bazą danych i zasobami...");
+      
+      // Tutaj czyścisz swoje zasoby równolegle
+      await Promise.all([
+        db.disconnect(),
+        redis.quit(),
+        rabbitMQ.close()
+      ]);
+      
+      logger.info("Wszystkie zasoby zostały bezpiecznie zwolnione.");
+    } catch (err) {
+      logger.error({ err }, "Błąd podczas zamykania zasobów");
+      process.exit(1);
+    }
+  })();
+}
 
-Polecam również zapoznać się z podobnym artykułem, który napisałem pt. ["Programowanie to systemy, nie kod"](https://maciej-garncarski.pl/blog/programowanie-to-systemy-nie-kod), który poszerza temat tworzenia oprogramowania z innej perspektywy.
+// Nasłuchiwanie na sygnały systemowe
+process.on('SIGTERM', () => shutdown('SIGTERM'));
+process.on('SIGINT', () => shutdown('SIGINT'));
+```
+
+## Podsumowanie
+
+Wszystko sprowadza się do jednej rzeczy: **nie bać się produkcji**. To jest miejsce, w którym powinieneś być przygotowany na to, że coś pójdzie nie tak, i mieć mechanizmy, które pozwolą Ci szybko zareagować i naprawić problem.
+
+Lepiej jest mieć system, który błyskawicznie może wrócić do poprzedniego stanu, niż system, który jest "idealny", ale gdy coś pójdzie nie tak, to jest kompletnie nieprzydatny.

@@ -97,45 +97,43 @@ const lastModified = updateDate ? updateDate : publishDate;
   document.addEventListener("astro:after-swap", initLink);
 </script>
 <header class="relative mx-auto flex w-full lg:max-w-[85ch] flex-col gap-6">
-  <div class="flex flex-col gap-6 md:flex-row-reverse md:items-start md:gap-10">
-    <div
-      class="flex flex-1 flex-col gap-3"
-      transition:name={`blog-header-${currPost?.id}`}
+  <div
+    class="flex flex-1 flex-col gap-4 md:gap-5"
+    transition:name={`blog-header-${currPost?.id}`}
+  >
+    <h1
+      class={clsx(
+        "max-w-[40rem] text-2xl leading-tight font-bold text-balance md:text-3xl ",
+        {
+          "lg:text-4xl": !isLongTitle,
+          "lg:text-3xl": isLongTitle,
+        },
+      )}
     >
-      <h1
-        class={clsx(
-          "max-w-[40rem] text-2xl leading-tight font-bold text-balance md:text-3xl ",
-          {
-            "lg:text-4xl": !isLongTitle,
-            "lg:text-3xl": isLongTitle,
-          },
-        )}
-      >
-        {title}
-      </h1>
+      {title}
+    </h1>
 
-      <div
-        class="text-foreground-secondary flex flex-wrap items-center gap-x-2 gap-y-1 text-sm md:text-base"
-      >
-        <time itemprop="datePublished" datetime={lastModifiedDateString}>
-          Ostatnia zmiana: {lastModified}
-        </time>
-        <span class="text-accent">&bull;</span>
-        <span>{readTime} min. czytania</span>
-        <span class="text-accent">&bull;</span>
-        <span>{words} słów</span>
-      </div>
-
-      {
-        sortedTags.length > 0 && (
-          <div class="flex flex-wrap items-center gap-1.5 pt-1">
-            {sortedTags.map((tag) => (
-              <Tag href={`/blog/tag/${normalizeTag(tag)}`}># {tag}</Tag>
-            ))}
-          </div>
-        )
-      }
+    <div
+      class="text-foreground-secondary flex flex-wrap items-center gap-x-2 gap-y-1 text-sm md:text-base"
+    >
+      <time itemprop="datePublished" datetime={lastModifiedDateString}>
+        Ostatnia zmiana: {lastModified}
+      </time>
+      <span class="text-accent">&bull;</span>
+      <span>{readTime} min. czytania</span>
+      <span class="text-accent">&bull;</span>
+      <span>{words} słów</span>
     </div>
+
+    {
+      sortedTags.length > 0 && (
+        <div class="flex flex-wrap items-center gap-1.5 md:gap-3 pt-1">
+          {sortedTags.map((tag) => (
+            <Tag href={`/blog/tag/${normalizeTag(tag)}`}># {tag}</Tag>
+          ))}
+        </div>
+      )
+    }
   </div>
 
   <div
