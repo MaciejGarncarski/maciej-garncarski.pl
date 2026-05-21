@@ -54,12 +54,18 @@ const relatedProjects = projects
     breadcrumbs={breadcrumbs}
   />
 
-  <article class="flex flex-col gap-8 lg:gap-12">
-    <BlogHero title={post.data.title} />
+  <article class="article-root flex flex-col gap-8 lg:gap-12">
+    <div class="anim-hero">
+      <BlogHero title={post.data.title} />
+    </div>
+
     <div class="relative mx-auto w-full max-w-full lg:max-w-[84ch]">
-      <TableOfContents />
+      <div class="anim-toc">
+        <TableOfContents />
+      </div>
+
       <div
-        class="animate-fade-in-up motion-reduce:animate-none pb-14 text-base leading-7 text-pretty md:text-lg"
+        class="anim-content motion-reduce:animation-none pb-14 text-base leading-7 text-pretty md:text-lg"
         data-blog
       >
         <Content />
@@ -67,7 +73,7 @@ const relatedProjects = projects
 
       {
         relatedProjects.length > 0 && (
-          <section class="border-border/40 bg-background-secondary/20 mt-2 rounded-2xl border p-5 md:p-6">
+          <section class="anim-related border-border/40 bg-background-secondary/20 mt-2 rounded-2xl border p-5 md:p-6">
             <h2 class="text-foreground text-xl font-semibold md:text-2xl">
               Powiazane projekty
             </h2>
@@ -75,8 +81,8 @@ const relatedProjects = projects
               Projekty, ktore rozwijaja podobne tematy jak ten artykul.
             </p>
             <ul class="mt-4 grid gap-3">
-              {relatedProjects.map((project) => (
-                <li>
+              {relatedProjects.map((project, i) => (
+                <li style={`--i: ${i}`} class="related-item">
                   <a
                     href={`/projekty/${project.id}`}
                     class="border-border/45 bg-background hover:border-accent/30 hover:bg-background-secondary/50 block rounded-xl border p-4 transition-colors"
@@ -94,48 +100,107 @@ const relatedProjects = projects
       }
     </div>
   </article>
-
-  <script>
-    function initCopyButtons() {
-      const codeBlocks = document.querySelectorAll(
-        "[data-rehype-pretty-code-figure]",
-      );
-
-      codeBlocks.forEach((figure) => {
-        if (figure.querySelector("[data-copy-btn]")) return;
-
-        const isCopyIgnored = figure
-          .querySelector("pre")
-          ?.hasAttribute("data-ignore-copy");
-
-        if (isCopyIgnored) {
-          return;
-        }
-
-        const code = figure.querySelector("code");
-        if (!code) return;
-
-        const btn = document.createElement("button");
-        btn.setAttribute("data-copy-btn", "");
-        btn.setAttribute("type", "button");
-        btn.setAttribute("aria-label", "Kopiuj kod");
-        btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
-
-        btn.addEventListener("click", async () => {
-          const text = code.textContent || "";
-          await navigator.clipboard.writeText(text);
-
-          btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>`;
-          setTimeout(() => {
-            btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
-          }, 2000);
-        });
-
-        figure.appendChild(btn);
-      });
-    }
-
-    initCopyButtons();
-    document.addEventListener("astro:after-swap", initCopyButtons);
-  </script>
 </Layout>
+
+<script>
+  function initCopyButtons() {
+    const codeBlocks = document.querySelectorAll(
+      "[data-rehype-pretty-code-figure]",
+    );
+
+    codeBlocks.forEach((figure) => {
+      if (figure.querySelector("[data-copy-btn]")) return;
+
+      const isCopyIgnored = figure
+        .querySelector("pre")
+        ?.hasAttribute("data-ignore-copy");
+
+      if (isCopyIgnored) {
+        return;
+      }
+
+      const code = figure.querySelector("code");
+      if (!code) return;
+
+      const btn = document.createElement("button");
+      btn.setAttribute("data-copy-btn", "");
+      btn.setAttribute("type", "button");
+      btn.setAttribute("aria-label", "Kopiuj kod");
+      btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
+
+      btn.addEventListener("click", async () => {
+        const text = code.textContent || "";
+        await navigator.clipboard.writeText(text);
+
+        btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>`;
+        setTimeout(() => {
+          btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
+        }, 2000);
+      });
+
+      figure.appendChild(btn);
+    });
+  }
+
+  initCopyButtons();
+  document.addEventListener("astro:after-swap", initCopyButtons);
+</script>
+
+<style>
+  @keyframes fadeSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .anim-hero {
+    opacity: 0;
+    animation: fadeSlideUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0ms forwards;
+  }
+
+  .anim-toc {
+    opacity: 0;
+    animation: fadeInOnly 0.35s cubic-bezier(0.22, 1, 0.36, 1) 120ms forwards;
+  }
+
+  .anim-content {
+    opacity: 0;
+    animation: fadeSlideUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 220ms forwards;
+  }
+
+  .anim-related {
+    opacity: 0;
+    animation: fadeSlideUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 340ms forwards;
+  }
+
+  @keyframes fadeInOnly {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .related-item {
+    opacity: 0;
+    animation: fadeSlideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: calc(380ms + var(--i) * 70ms);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .anim-hero,
+    .anim-toc,
+    .anim-content,
+    .anim-related,
+    .related-item {
+      opacity: 1;
+      animation: none;
+    }
+  }
+</style>

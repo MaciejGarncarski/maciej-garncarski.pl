@@ -81,10 +81,7 @@ const projectSchema = {
     </a>
 
     <header class="flex flex-col gap-4">
-      <h1
-        class="text-4xl font-bold tracking-tight md:text-5xl"
-        transition:name={`project-title-${project.id}`}
-      >
+      <h1 class="text-4xl font-bold tracking-tight md:text-5xl">
         {project.title}
       </h1>
       <p class="text-foreground-secondary text-lg leading-relaxed">
@@ -100,7 +97,6 @@ const projectSchema = {
         priority={true}
         src={project.thumbnail}
         alt={project.title}
-        transition:name={`project-image-${project.id}`}
         class="w-full object-contain rounded-xl border border-accent/12 shadow-accent shadow-xs"
       />
     </div>

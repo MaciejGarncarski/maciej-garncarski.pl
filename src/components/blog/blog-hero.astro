@@ -52,7 +52,7 @@ const lastModified = updateDate ? updateDate : publishDate;
   <a
     id="back-link"
     href="/blog"
-    class="text-foreground-secondary hover:text-foreground group inline-flex w-fit items-center gap-2 text-sm transition-colors"
+    class="text-foreground-secondary hover:text-foreground group inline-flex w-fit items-center mb-6 gap-2 text-sm transition-colors"
   >
     <ChevronIcon
       size={16}
@@ -63,44 +63,8 @@ const lastModified = updateDate ? updateDate : publishDate;
   </a>
 </div>
 
-<script>
-  function initLink() {
-    const backLink = document.getElementById("back-link");
-    if (!backLink) return;
-
-    backLink.onclick = (e) => {
-      const referrer = document.referrer;
-      let isSameOrigin = false;
-      let referrerPathname = "";
-
-      try {
-        if (referrer) {
-          const referrerUrl = new URL(referrer);
-          isSameOrigin = referrerUrl.origin === window.location.origin;
-          referrerPathname = referrerUrl.pathname;
-        }
-      } catch (err) {}
-
-      if (isSameOrigin) {
-        e.preventDefault();
-
-        if (referrerPathname === "/") {
-          window.location.href = "/blog";
-        } else {
-          history.back();
-        }
-      }
-    };
-  }
-
-  document.addEventListener("DOMContentLoaded", initLink);
-  document.addEventListener("astro:after-swap", initLink);
-</script>
 <header class="relative mx-auto flex w-full lg:max-w-[85ch] flex-col gap-6">
-  <div
-    class="flex flex-1 flex-col gap-4 md:gap-5"
-    transition:name={`blog-header-${currPost?.id}`}
-  >
+  <div class="flex flex-1 flex-col gap-4 md:gap-5">
     <h1
       class={clsx(
         "max-w-[40rem] text-2xl leading-tight font-bold text-balance md:text-3xl ",
@@ -141,3 +105,37 @@ const lastModified = updateDate ? updateDate : publishDate;
   >
   </div>
 </header>
+
+<script>
+  function initLink() {
+    const backLink = document.getElementById("back-link");
+    if (!backLink) return;
+
+    backLink.onclick = (e) => {
+      const referrer = document.referrer;
+      let isSameOrigin = false;
+      let referrerPathname = "";
+
+      try {
+        if (referrer) {
+          const referrerUrl = new URL(referrer);
+          isSameOrigin = referrerUrl.origin === window.location.origin;
+          referrerPathname = referrerUrl.pathname;
+        }
+      } catch (err) {}
+
+      if (isSameOrigin) {
+        e.preventDefault();
+
+        if (referrerPathname === "/") {
+          window.location.href = "/blog";
+        } else {
+          history.back();
+        }
+      }
+    };
+  }
+
+  document.addEventListener("DOMContentLoaded", initLink);
+  document.addEventListener("astro:after-swap", initLink);
+</script>

@@ -62,11 +62,6 @@
     tocList.innerHTML = "";
 
     const linksById = new Map<string, HTMLAnchorElement>();
-    const clickHandlers: Array<{
-      element: HTMLAnchorElement;
-      handler: (event: MouseEvent) => void;
-    }> = [];
-
     for (const heading of headings) {
       const id = heading.id;
 
@@ -90,17 +85,6 @@
       ]
         .filter(Boolean)
         .join(" ");
-
-      const onClick = (event: MouseEvent) => {
-        event.preventDefault();
-        const target = document.getElementById(id);
-        if (!target) return;
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-        history.replaceState(null, "", `#${id}`);
-      };
-
-      a.addEventListener("click", onClick);
-      clickHandlers.push({ element: a, handler: onClick });
       linksById.set(id, a);
 
       li.appendChild(a);
@@ -194,10 +178,6 @@
     window.__tocCleanup = () => {
       observer.disconnect();
       window.removeEventListener("scroll", onScroll);
-
-      for (const { element, handler } of clickHandlers) {
-        element.removeEventListener("click", handler);
-      }
     };
   }
 

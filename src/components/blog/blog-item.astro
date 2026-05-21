@@ -19,31 +19,30 @@ const { post, formattedTime } = Astro.props;
 
 <a href={"/blog/" + post.id} class="group block">
   <article
-    class="border-border bg-background-secondary/50 md:bg-background-secondary/30 md:border-border/70 md:backdrop-blur-sm flex flex-col overflow-hidden rounded-xl border shadow-xs transition-shadow md:items-center md:flex-row md:gap-8"
+    class="border-border bg-background-secondary/50 md:bg-background-secondary/30 md:border-border/70 hover:border-accent/20 md:backdrop-blur-sm flex flex-col overflow-hidden rounded-xl border shadow-xs transition-all md:flex-row md:items-stretch"
   >
-    <div
-      class="flex flex-col gap-1.5 px-4 py-3.5 md:p-6"
-      transition:name={`blog-header-${post.id}`}
-    >
-      <p class="text-foreground-secondary text-xs md:order-2 md:text-sm">
+    <div class="flex flex-col gap-1.5 px-4 py-3.5 md:flex-1 md:p-6">
+      <p class="text-foreground-secondary text-xs md:text-sm">
         <time datetime={formattedTime}>{formattedTime}</time>
       </p>
       <h2
-        class="text-base font-semibold text-pretty group-hover:text-accent transition-colors md:order-1 md:text-lg"
+        class="text-base font-semibold text-pretty group-hover:text-accent transition-colors md:text-lg"
       >
         {post.data.title}
       </h2>
       <p
-        class="text-foreground-secondary max-w-prose text-sm leading-relaxed line-clamp-2 text-pretty md:order-3"
+        class="text-foreground-secondary max-w-[60ch] text-sm md:text-base leading-relaxed line-clamp-2 text-pretty"
       >
         {post.data.description}
       </p>
     </div>
 
-    <ChevronIcon
-      size={24}
-      direction="right"
-      customStyles="hidden lg:block ml-auto mr-8 mt-1 shrink-0 text-foreground-secondary transition-transform group-hover:translate-x-1"
-    />
+    <div class="hidden md:flex shrink-0 items-start justify-center px-6 py-6">
+      <ChevronIcon
+        size={22}
+        direction="right"
+        customStyles="hidden lg:block shrink-0 text-foreground-secondary transition-transform group-hover:translate-x-1"
+      />
+    </div>
   </article>
 </a>

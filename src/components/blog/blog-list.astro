@@ -16,14 +16,53 @@ type Props = {
 const { posts } = Astro.props;
 ---
 
-<div class="grid gap-6">
+<div class="posts-grid">
   {
-    posts.map((post) => {
+    posts.map((post, index) => {
       const formattedTime = formatPostDate(
         post.data.updatedDate ? post.data.updatedDate : post.data.pubDate,
       );
 
-      return <BlogItem post={post} formattedTime={formattedTime} />;
+      return (
+        <div class="post-item" style={`--delay: ${index * 80}ms`}>
+          <BlogItem post={post} formattedTime={formattedTime} />
+        </div>
+      );
     })
   }
 </div>
+
+<style>
+  .posts-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .posts-grid {
+      gap: 1.75rem;
+    }
+  }
+
+  .post-item {
+    opacity: 0;
+    transform: translateY(18px);
+    animation: fadeSlideUp 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: var(--delay, 0ms);
+  }
+
+  @keyframes fadeSlideUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .post-item {
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .post-item:hover {
+    transform: translateY(-3px);
+  }
+</style>
