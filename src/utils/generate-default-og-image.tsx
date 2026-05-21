@@ -1,6 +1,13 @@
 import { fromJsx } from "takumi-js/helpers/jsx";
 import { faviconUrl, imageSources } from "@/utils/get-og-assets";
-import { renderer } from "@/utils/og-renderer";
+import ImageResponse from "takumi-js/response";
+import { readFileSync } from "node:fs";
+import path from "node:path";
+
+const FONT_BOLD_PATH = path.resolve("src/assets/fonts/Montserrat-Bold.ttf");
+const FONT_MEDIUM_PATH = path.resolve("src/assets/fonts/Montserrat-Medium.ttf");
+const fontBoldBuffer = new Uint8Array(readFileSync(FONT_BOLD_PATH));
+const fontMediumBuffer = new Uint8Array(readFileSync(FONT_MEDIUM_PATH));
 
 export async function generateDefaultOGImage() {
    const { node, stylesheets } = await fromJsx(
@@ -83,11 +90,27 @@ export async function generateDefaultOGImage() {
       </div>,
    );
 
-   return (await renderer.render(node, {
+   const res = await new ImageResponse(node, {
+      fonts: [
+         {
+            name: "Montserrat",
+            data: fontBoldBuffer,
+            weight: 700,
+            style: "normal",
+         },
+         {
+            name: "Montserrat",
+            data: fontMediumBuffer,
+            weight: 500,
+            style: "normal",
+         },
+      ],
       width: 1200,
       height: 630,
       format: "png",
       stylesheets,
       fetchedResources: imageSources,
-   })) as BodyInit;
+   })
+
+   return res.arrayBuffer()
 }

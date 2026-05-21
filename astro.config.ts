@@ -35,10 +35,10 @@ export default defineConfig({
    vite: {
       plugins: [tailwindcss()],
       optimizeDeps: {
-         exclude: ["@takumi-rs/core"],
+         exclude: ["@takumi-rs/core", "@takumi-rs/image-response"],
       },
       ssr: {
-         external: ["@takumi-rs/core"],
+         external: ["@takumi-rs/core", "@takumi-rs/image-response"],
       },
    },
    output: "static",

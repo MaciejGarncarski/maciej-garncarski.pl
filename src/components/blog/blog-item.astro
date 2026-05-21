@@ -19,10 +19,12 @@ const { post, formattedTime } = Astro.props;
 
 <a href={"/blog/" + post.id} class="group block">
   <article
-    transition:name={`blog-header-${post.id}`}
     class="border-border bg-background-secondary/50 md:bg-background-secondary/30 md:border-border/70 md:backdrop-blur-sm flex flex-col overflow-hidden rounded-xl border shadow-xs transition-shadow md:items-center md:flex-row md:gap-8"
   >
-    <div class="flex flex-col gap-1.5 px-4 py-3.5 md:p-6">
+    <div
+      class="flex flex-col gap-1.5 px-4 py-3.5 md:p-6"
+      transition:name={`blog-header-${post.id}`}
+    >
       <p class="text-foreground-secondary text-xs md:order-2 md:text-sm">
         <time datetime={formattedTime}>{formattedTime}</time>
       </p>
