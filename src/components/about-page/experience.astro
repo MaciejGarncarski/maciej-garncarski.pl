@@ -55,8 +55,8 @@ const experiences: Experience[] = [
 ];
 ---
 
-<section class="flex flex-col gap-6">
-  <SectionHeading title="Doświadczenie" />
+<section class="flex flex-col gap-6" aria-labelledby="doswiadczenie">
+  <SectionHeading title="Doświadczenie" id="doswiadczenie" />
   {
     experiences.map((exp) => (
       <div class="flex flex-col gap-4 md:flex-row md:gap-10">

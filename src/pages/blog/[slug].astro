@@ -65,8 +65,14 @@ const relatedProjects = post.data.relatedProjects || [];
 
       {
         relatedProjects.length > 0 && (
-          <section class="anim-related border-border/40 bg-background-secondary/20 rounded-2xl border p-5 md:p-6">
-            <h2 class="text-foreground text-xl font-semibold md:text-2xl">
+          <section
+            class="anim-related border-border/40 bg-background-secondary/20 rounded-2xl border p-5 md:p-6"
+            aria-labelledby="powiazane-projekty"
+          >
+            <h2
+              id="powiazane-projekty"
+              class="text-foreground text-xl font-semibold md:text-2xl"
+            >
               Powiązane projekty
             </h2>
             <p class="text-foreground-secondary mt-2 text-sm md:text-base">

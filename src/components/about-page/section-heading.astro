@@ -1,13 +1,15 @@
 ---
 type Props = {
-   title: string;
+  title: string;
+  id?: string;
 };
 
-const { title } = Astro.props;
+const { title, id } = Astro.props;
 ---
 
 <h2
   class="text-foreground-secondary text-xs md:text-sm font-semibold uppercase tracking-widest"
+  id={id}
 >
   {title}
 </h2>

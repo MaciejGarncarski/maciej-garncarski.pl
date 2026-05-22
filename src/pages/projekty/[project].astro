@@ -105,15 +105,15 @@ const projectSchema = {
       {project.descriptionSecondary}
     </p>
 
-    <section class="flex flex-col gap-3">
-      <SectionHeading title="Technologie" />
+    <section class="flex flex-col gap-3" aria-labelledby="technologie">
+      <SectionHeading title="Technologie" id="technologie" />
       <div class="flex flex-wrap gap-2" role="list">
         {project.tags.map((tag) => <Tag role="listitem">{tag}</Tag>)}
       </div>
     </section>
 
-    <section class="flex flex-col gap-3">
-      <SectionHeading title="Linki" />
+    <section class="flex flex-col gap-3" aria-labelledby="linki">
+      <SectionHeading title="Linki" id="linki" />
       <div class="flex gap-4 font-semibold md:gap-6">
         {project.demo ? <ProjectLink link={project.demo} type="demo" /> : null}
         <ProjectLink link={project.github} type="repo" />

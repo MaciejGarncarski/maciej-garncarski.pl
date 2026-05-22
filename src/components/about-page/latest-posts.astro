@@ -8,8 +8,8 @@ const allBlogPosts = await getPostsSorted();
 const latestPosts = allBlogPosts.slice(0, 3);
 ---
 
-<section class="flex flex-col gap-6">
-  <SectionHeading title="Ostatnie posty" />
+<section class="flex flex-col gap-6" aria-labelledby="ostatnie-posty">
+  <SectionHeading title="Ostatnie posty" id="ostatnie-posty" />
 
   <div class="grid gap-4">
     {
