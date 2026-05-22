@@ -12,10 +12,20 @@ type Project = {
    demo?: string;
    github: string;
    tags: string[];
-   thumbnail: ImageMetadata;
+   thumbnail: ImageMetadata | null;
 };
 
 export const projects: Project[] = [
+   {
+      id: "snack-rate",
+      title: "Snack Rate [Work in Progress]",
+      description:
+         "Snack Rate to aplikacja do oceniania przekąsek, umożliwiająca użytkownikom dzielenie się opiniami na temat różnych produktów spożywczych.",
+      descriptionSecondary: "Projekt skoncentrowany na prostocie i użyteczności, ale z pełnym zestawem narzędzi observability. Aplikacja zbudowana jest w TanStack Start - framework Fullstack, oraz ORPC dla łatwej komunikacji.",
+      github: "https://github.com/MaciejGarncarski/snack-rate",
+      tags: ["TanStack Start", "ORPC", "React", "Tailwind CSS", "OpenTelemetry", "PostgreSQL"],
+      thumbnail: null
+   },
    {
       id: "coin-control",
       title: "CoinControl",
@@ -62,3 +72,8 @@ export const projects: Project[] = [
       thumbnail: landing,
    },
 ] as const;
+
+
+export const projectsDict = Object.fromEntries(
+   projects.map((project) => [project.id, project])
+) as Record<(typeof projects)[number]["id"], (typeof projects)[number]>;

@@ -90,7 +90,6 @@
 
    --color-border: var(--border);
 
-   --animate-fade-in-up: fade-in-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
    --animate-border-shadow: add-border-shadow 1s ease-out forwards;
 
    @keyframes add-border-shadow {

@@ -8,8 +8,6 @@ import Layout from "@/layouts/layout.astro";
 import { Picture } from "astro:assets";
 import ChevronIcon from "@/components/ui/chevron-icon.astro";
 import AccentShimmer from "@/components/ui/accent-shimmer.astro";
-import { getPostsSorted } from "@/utils/get-posts-sorted";
-import { normalizeTag } from "@/utils/normalize-tag";
 
 export async function getStaticPaths() {
   return projects.map((project) => ({
@@ -22,20 +20,14 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const projectUrl = new URL(`/projekty/${project.id}`, Astro.site).toString();
-const projectImageUrl = new URL(project.thumbnail.src, Astro.site).toString();
+const projectImageUrl = project.thumbnail
+  ? new URL(project.thumbnail.src, Astro.site).toString()
+  : undefined;
 const breadcrumbs = [
   { name: "Home", url: new URL("/", Astro.site).toString() },
   { name: "Projekty", url: new URL("/projekty", Astro.site).toString() },
   { name: project.title, url: projectUrl },
 ];
-
-const allPosts = await getPostsSorted();
-const projectTagSlugs = new Set(project.tags.map((tag) => normalizeTag(tag)));
-const relatedPosts = allPosts
-  .filter((post) =>
-    post.data.tags.some((tag) => projectTagSlugs.has(normalizeTag(tag))),
-  )
-  .slice(0, 3);
 
 const projectSchema = {
   "@context": "https://schema.org",
@@ -91,15 +83,24 @@ const projectSchema = {
 
     <div class="relative">
       <AccentShimmer opacity={50} />
-      <Picture
-        formats={["avif", "webp"]}
-        layout="full-width"
-        priority={true}
-        src={project.thumbnail}
-        alt={project.title}
-        class="w-full object-contain rounded-xl border border-accent/12 shadow-accent shadow-xs"
-      />
+      {
+        project.thumbnail ? (
+          <Picture
+            formats={["avif", "webp"]}
+            layout="full-width"
+            priority={true}
+            src={project.thumbnail}
+            alt={project.title}
+            class="w-full object-contain rounded-xl border border-accent/12 shadow-accent shadow-xs"
+          />
+        ) : (
+          <div class="flex h-48 md:h-82 items-center justify-center rounded-xl border border-accent/12 bg-background-secondary/20 text-foreground-secondary">
+            Brak podglądu
+          </div>
+        )
+      }
     </div>
+
     <p class="text-foreground-secondary text-lg leading-relaxed">
       {project.descriptionSecondary}
     </p>
@@ -110,29 +111,6 @@ const projectSchema = {
         {project.tags.map((tag) => <Tag role="listitem">{tag}</Tag>)}
       </div>
     </section>
-
-    {
-      relatedPosts.length > 0 && (
-        <section class="flex flex-col gap-3">
-          <SectionHeading title="Powiazane artykuly" />
-          <ul class="grid gap-3">
-            {relatedPosts.map((post) => (
-              <li>
-                <a
-                  href={`/blog/${post.id}`}
-                  class="border-border/45 bg-background-secondary/20 hover:border-accent/30 hover:bg-background-secondary/35 block rounded-xl border p-4 transition-colors"
-                >
-                  <p class="text-foreground font-medium">{post.data.title}</p>
-                  <p class="text-foreground-secondary mt-1 text-sm leading-relaxed">
-                    {post.data.description}
-                  </p>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )
-    }
 
     <section class="flex flex-col gap-3">
       <SectionHeading title="Linki" />

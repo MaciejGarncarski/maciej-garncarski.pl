@@ -74,11 +74,11 @@
    }
 
    & ul:not([data-tab-panel="demo"] *) {
-      @apply marker:text-foreground/70 text-foreground-body list-hyphen my-7 flex list-inside flex-col gap-5;
+      @apply marker:text-accent/70 marker:font-bold text-foreground-body list-hyphen my-7 flex list-inside flex-col gap-5 ; 
    }
 
    & ol:not([data-tab-panel="demo"] *) {
-      @apply marker:text-foreground/70 text-foreground-body my-7 flex list-inside list-decimal flex-col gap-5;
+      @apply marker:text-accent/70 marker:font-bold text-foreground-body my-7 flex list-inside list-decimal flex-col gap-5;
    }
 }
 
@@ -112,20 +112,4 @@
 
 [data-figcaption] {
    @apply text-foreground-secondary -mt-5 mb-4 text-center text-sm;
-}
-
-@keyframes fade-in-up {
-   0% {
-      opacity: 0;
-      transform: translateY(16px);
-      filter: blur(4px);
-   }
-   60% {
-      filter: blur(0px);
-   }
-   100% {
-      opacity: 1;
-      transform: translateY(0);
-      filter: blur(0px);
-   }
 }
