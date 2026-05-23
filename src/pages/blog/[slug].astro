@@ -3,11 +3,11 @@ import "@/styles/codeblock.css";
 import "@/styles/blog.css";
 import { type CollectionEntry, render } from "astro:content";
 import BlogHero from "@components/blog/blog-hero.astro";
-import TableOfContents from "@components/blog/table-of-contents.astro";
+import BlogAside from "@components/blog/blog-aside.astro";
 import SEO from "@components/seo.astro";
 import Layout from "@layouts/layout.astro";
 import { getPosts } from "@/utils/get-posts";
-import { projectsDict } from "@/data/projects";
+import BlogRelatedMobile from "@/components/blog/blog-related-mobile.astro";
 
 export async function getStaticPaths() {
   const posts = await getPosts();
@@ -30,6 +30,7 @@ const breadcrumbs = [
 ];
 
 const relatedProjects = post.data.relatedProjects || [];
+const relatedPosts = post.data.relatedPosts || [];
 ---
 
 <Layout>
@@ -46,14 +47,17 @@ const relatedProjects = post.data.relatedProjects || [];
     breadcrumbs={breadcrumbs}
   />
 
-  <article class="article-root flex flex-col gap-8">
+  <article class="article-root flex flex-col gap-8 md:px-16">
     <div class="anim-hero">
       <BlogHero title={post.data.title} />
     </div>
 
-    <div class="relative mx-auto w-full max-w-full lg:max-w-[84ch]">
+    <div class="relative w-full max-w-full lg:max-w-[78ch]">
       <div class="anim-toc">
-        <TableOfContents />
+        <BlogAside
+          relatedPosts={relatedPosts}
+          relatedProjects={relatedProjects}
+        />
       </div>
 
       <div
@@ -63,49 +67,12 @@ const relatedProjects = post.data.relatedProjects || [];
         <Content />
       </div>
 
-      {
-        relatedProjects.length > 0 && (
-          <section
-            class="anim-related border-border/40 bg-background-secondary/20 rounded-2xl border p-5 md:p-6"
-            aria-labelledby="powiazane-projekty"
-          >
-            <h2
-              id="powiazane-projekty"
-              class="text-foreground text-xl font-semibold md:text-2xl"
-            >
-              Powiązane projekty
-            </h2>
-            <p class="text-foreground-secondary mt-2 text-sm md:text-base">
-              Projekty, które rozwijają podobne tematy.
-            </p>
-            <ul class="mt-4 grid gap-3">
-              {relatedProjects.map((project, i) => {
-                const projectData = projectsDict[project];
-
-                if (!projectData) {
-                  return null;
-                }
-
-                return (
-                  <li style={`--i: ${i}`} class="related-item">
-                    <a
-                      href={`/projekty/${projectData.id}`}
-                      class="border-border/45 bg-background hover:border-accent/30 hover:bg-background-secondary/50 block rounded-xl border p-4 transition-colors"
-                    >
-                      <p class="text-foreground font-medium">
-                        {projectData.title}
-                      </p>
-                      <p class="text-foreground-secondary mt-1 text-sm leading-relaxed">
-                        {projectData.description}
-                      </p>
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-          </section>
-        )
-      }
+      <div class="block lg:hidden">
+        <BlogRelatedMobile
+          relatedProjects={relatedProjects}
+          relatedPosts={relatedPosts}
+        />
+      </div>
     </div>
   </article>
 </Layout>

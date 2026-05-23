@@ -97,11 +97,6 @@ pre[data-language] {
    @apply px-0 leading-7 border-l-3 border-transparent;
 }
 
-[data-highlighted-line] {
-   @apply bg-accent/12;
-   box-shadow: inset 2px 0 0 var(--color-accent);
-}
-
 .has-diff [data-line] {
    @apply pr-3 pl-0;
 }
@@ -143,7 +138,7 @@ pre[data-language] {
    padding-right: 1rem;
 }
 
-/* ===== Diff ===== */
+/* ===== Diff and highlight ===== */
 [data-diff] {
    color: #a6accd80;
 }
@@ -152,13 +147,22 @@ pre[data-language] {
    @apply bg-code-green/20 border-code-green/60;
 }
 
+[data-highlighted-line] {
+   @apply bg-accent/20 border-accent/60;
+}
+
 code:not([data-line-numbers]) > [data-diff] {
    margin: 0 -1rem;
 }
 
-code:not([data-line-numbers]) > [data-line]:not([data-diff]) {
+code:not([data-line-numbers]) > [data-highlighted-line] {
+   margin: 0 -1rem;
+}
+
+code:not([data-line-numbers]) > [data-line]:not([data-diff], [data-highlighted-line]) {
    margin: 0 -5px;
 }
+
 
 [data-rehype-pretty-code-figure] code[data-line-numbers] > [data-diff="add"]::before {
    flex-shrink: 0;

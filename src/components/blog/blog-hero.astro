@@ -39,7 +39,8 @@ const sortedTags = tags.sort((a, b) =>
   a.localeCompare(b, undefined, { sensitivity: "base" }),
 );
 
-const isLongTitle = title.length > 60;
+const isShortTitle = title.length <= 40;
+const isMediumTitle = title.length > 40 && title.length <= 65;
 
 const lastModifiedDateString = new Date(
   currPost?.data.updatedDate || currPost?.data.pubDate || new Date(),
@@ -48,7 +49,7 @@ const lastModifiedDateString = new Date(
 const lastModified = updateDate ? updateDate : publishDate;
 ---
 
-<div class="lg:w-[85ch] lg:mx-auto">
+<div class="lg:w-[85ch]">
   <a
     id="back-link"
     href="/blog"
@@ -63,35 +64,36 @@ const lastModified = updateDate ? updateDate : publishDate;
   </a>
 </div>
 
-<header class="relative mx-auto flex w-full lg:max-w-[85ch] flex-col gap-6">
-  <div class="flex flex-1 flex-col gap-4 md:gap-5">
-    <h1
-      class={clsx(
-        "max-w-[40rem] text-2xl leading-tight font-bold text-balance md:text-3xl ",
-        {
-          "lg:text-4xl": !isLongTitle,
-          "lg:text-3xl": isLongTitle,
-        },
-      )}
-    >
-      {title}
-    </h1>
+<header class="relative flex w-full flex-col gap-6">
+  <div class="flex lg:flex-row flex-col gap-6 lg:gap-12 xl:gap-16">
+    <div class="flex flex-1 flex-col gap-4 md:gap-6">
+      <h1
+        class={clsx(
+          "text-2xl leading-tight font-bold text-pretty md:text-3xl",
+          {
+            "lg:text-4xl": isMediumTitle || isShortTitle,
+            "lg:text-3xl": !isShortTitle && !isMediumTitle,
+          },
+        )}
+      >
+        {title}
+      </h1>
 
-    <div
-      class="text-foreground-secondary flex flex-wrap items-center gap-x-2 gap-y-1 text-sm md:text-base"
-    >
-      <time itemprop="datePublished" datetime={lastModifiedDateString}>
-        Ostatnia zmiana: {lastModified}
-      </time>
-      <span class="text-accent">&bull;</span>
-      <span>{readTime} min. czytania</span>
-      <span class="text-accent">&bull;</span>
-      <span>{words} słów</span>
+      <div
+        class="text-foreground-secondary flex flex-wrap items-center gap-x-2 gap-y-1 text-sm md:text-base"
+      >
+        <time itemprop="datePublished" datetime={lastModifiedDateString}>
+          Ostatnia zmiana: {lastModified}
+        </time>
+        <span class="text-accent">&bull;</span>
+        <span>{readTime} min. czytania</span>
+        <span class="text-accent">&bull;</span>
+        <span>{words} słów</span>
+      </div>
     </div>
-
     {
       sortedTags.length > 0 && (
-        <div class="flex flex-wrap items-center gap-1.5 md:gap-3 pt-1">
+        <div class="flex flex-wrap items-center gap-1.5 md:gap-x-3 md:gap-y-0 lg:max-w-[33%] lg:items-end lg:justify-end">
           {sortedTags.map((tag) => (
             <Tag href={`/blog/tag/${normalizeTag(tag)}`}># {tag}</Tag>
           ))}
