@@ -14,7 +14,6 @@ const { title } = Astro.props;
 
 const allBlogPosts = await getPosts();
 const currPost = allBlogPosts.find((post) => post.data.title === title);
-const readTime = calculateReadingTime(currPost?.body || "");
 const words = currPost?.body ? currPost.body.split(/\s+/).length : 0;
 
 const publishDate = new Intl.DateTimeFormat("pl-PL", {
@@ -34,7 +33,9 @@ const updateDate = currPost?.data.updatedDate
   : null;
 
 const tags = currPost?.data.tags || [];
-
+const readTime = currPost?.readingTime
+  ? Math.ceil(currPost.readingTime)
+  : calculateReadingTime(currPost?.body || "");
 const sortedTags = tags.sort((a, b) =>
   a.localeCompare(b, undefined, { sensitivity: "base" }),
 );
@@ -82,7 +83,11 @@ const lastModified = updateDate ? updateDate : publishDate;
       <div
         class="text-foreground-secondary flex flex-wrap items-center gap-x-2 gap-y-1 text-sm md:text-base"
       >
-        <time itemprop="datePublished" datetime={lastModifiedDateString}>
+        <time
+          itemprop="datePublished"
+          datetime={lastModifiedDateString}
+          title={`Data publikacji: ${publishDate}, data ostatniej modyfikacji: ${lastModified}`}
+        >
           Ostatnia zmiana: {lastModified}
         </time>
         <span class="text-accent">&bull;</span>

@@ -4,11 +4,13 @@ import ChevronIcon from "@/components/ui/chevron-icon.astro";
 type Props = {
   post: {
     id: string;
+    readingTime: number;
     data: {
       title: string;
       description: string;
       pubDate: Date;
       updatedDate?: Date;
+      tags?: string[];
     };
   };
   formattedTime: string;
@@ -19,30 +21,41 @@ const { post, formattedTime } = Astro.props;
 
 <a href={"/blog/" + post.id} class="group block">
   <article
-    class="border-border bg-background-secondary/50 md:bg-background-secondary/30 md:border-border/70 hover:border-accent/20 md:backdrop-blur-sm flex flex-col overflow-hidden rounded-xl border shadow-xs transition-all md:flex-row md:items-stretch"
+    class="border-border bg-background-secondary/50 md:bg-background-secondary/30 md:border-border/70 hover:border-accent/20 md:backdrop-blur-sm flex flex-col overflow-hidden rounded-xl border shadow-xs transition-all duration-200"
   >
-    <div class="flex flex-col gap-1.5 px-4 py-3.5 md:flex-1 md:p-6">
-      <p class="text-foreground-secondary text-xs md:text-sm">
-        <time datetime={formattedTime}>{formattedTime}</time>
-      </p>
-      <h2
-        class="text-base font-semibold text-pretty group-hover:text-accent transition-colors md:text-lg"
+    <div class="flex flex-col gap-1.5 px-4 py-3.5 md:p-6">
+      <div
+        class="flex items-center gap-2 text-foreground-secondary text-xs md:text-sm"
       >
-        {post.data.title}
-      </h2>
+        <time datetime={formattedTime}>{formattedTime}</time>
+        {
+          post.readingTime && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span>{Math.ceil(post.readingTime)} min. czytania</span>
+            </>
+          )
+        }
+      </div>
+
+      <div class="flex items-start justify-between gap-4">
+        <h2
+          class="text-base font-semibold text-pretty group-hover:text-accent transition-colors duration-200 md:text-lg"
+        >
+          {post.data.title}
+        </h2>
+        <ChevronIcon
+          size={18}
+          direction="right"
+          customStyles="shrink-0 mt-0.5 text-foreground-secondary/50 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-accent"
+        />
+      </div>
+
       <p
         class="text-foreground-secondary max-w-[60ch] text-sm md:text-base leading-relaxed line-clamp-2 text-pretty"
       >
         {post.data.description}
       </p>
-    </div>
-
-    <div class="hidden md:flex shrink-0 items-start justify-center px-6 py-6">
-      <ChevronIcon
-        size={22}
-        direction="right"
-        customStyles="hidden lg:block shrink-0 text-foreground-secondary transition-transform group-hover:translate-x-1"
-      />
     </div>
   </article>
 </a>

@@ -1,10 +1,12 @@
 ---
 import SectionHeading from "@/components/about-page/section-heading.astro";
 import AccentShimmer from "@/components/ui/accent-shimmer.astro";
+import Tag from "../tag.astro";
 
 type Highlight = {
   title: string;
   description: string;
+  tags?: string[];
 };
 
 type Experience = {
@@ -13,6 +15,10 @@ type Experience = {
   role: string;
   highlights: Highlight[];
 };
+
+function capitalize(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
 
 const experiences: Experience[] = [
   {
@@ -23,32 +29,37 @@ const experiences: Experience[] = [
       {
         title: "System Kontroli Dostępu (RBAC)",
         description:
-          "granularny system uprawnień zwiększający bezpieczeństwo danych i precyzję zarządzania rolami użytkowników.",
+          "Granularny system uprawnień zwiększający bezpieczeństwo danych i precyzję zarządzania rolami użytkowników.",
+        tags: ["Node.js", "MySQL"],
       },
       {
         title: "Komunikacja Real-time",
         description:
-          "moduły oparte o WebSockets umożliwiające monitorowanie aktywności w czasie rzeczywistym przy minimalnym opóźnieniu.",
+          "Moduły oparte o WebSockets umożliwiające monitorowanie aktywności w czasie rzeczywistym przy minimalnym opóźnieniu.",
+        tags: ["WebSockets"],
       },
       {
         title: "Zaawansowany UI/UX",
         description:
-          "responsywny frontend (React + TypeScript) z komponentami Data Grid, filtrowaniem po stronie serwera i optymalizacją renderowania.",
+          "Responsywny frontend z komponentami Data Grid, filtrowaniem po stronie serwera i optymalizacją renderowania.",
+        tags: ["React", "TypeScript"],
       },
       {
         title: "Audyt i Logi",
         description:
-          "system logowania zdarzeń zapewniający transparentność działań administratorów i historyczność zmian.",
+          "System logowania zdarzeń zapewniający transparentność działań administratorów i historyczność zmian.",
+        tags: ["Prisma"],
       },
       {
         title: "Zarządzanie Danymi",
         description:
-          "optymalizacja zapytań i schematów bazodanowych (Prisma, MySQL) pod dużym obciążeniem.",
+          "Optymalizacja zapytań i schematów bazodanowych pod dużym obciążeniem.",
+        tags: ["Prisma", "MySQL"],
       },
       {
         title: "Maintenance & Security",
         description:
-          "utrzymanie długu technicznego, automatyzacja aktualizacji zależności i spójność architektury.",
+          "Utrzymanie długu technicznego, automatyzacja aktualizacji zależności i spójność architektury.",
       },
     ],
   },
@@ -71,16 +82,23 @@ const experiences: Experience[] = [
 
         <div class="flex flex-col gap-4">
           <h3 class="text-lg font-semibold">{exp.role}</h3>
-          <div class="grid gap-2.5 sm:grid-cols-2">
-            {exp.highlights.map(({ title, description }) => (
-              <div class="border-border/50 relative flex flex-col gap-1 rounded-md border bg-background-secondary/30 px-3.5 py-3">
+          <div class="grid gap-2.5 sm:grid-cols-2 sm:auto-rows-fr">
+            {exp.highlights.map(({ title, description, tags }) => (
+              <div class="border-border/50 relative flex flex-col gap-1.5 rounded-md border bg-background-secondary/30 px-3.5 py-3">
                 <AccentShimmer opacity={20} />
                 <span class="text-[0.8125rem] font-semibold text-foreground">
                   {title}
                 </span>
-                <span class="text-foreground-body text-[0.8125rem] leading-relaxed text-pretty">
-                  {description}
+                <span class="text-foreground-body text-[0.8125rem] leading-relaxed text-pretty flex-1">
+                  {capitalize(description)}
                 </span>
+                {tags && tags.length > 0 && (
+                  <div class="flex flex-wrap gap-1 mt-1">
+                    {tags.map((tag) => (
+                      <Tag variant="small">{tag}</Tag>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
           </div>

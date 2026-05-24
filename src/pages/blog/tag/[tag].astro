@@ -40,6 +40,7 @@ const posts = await getPostsSorted();
 const filteredPosts = posts.filter((post) => {
   return post.data.tags.includes(tag);
 });
+
 const robots =
   filteredPosts.length >= MIN_INDEXABLE_TAG_POSTS
     ? "index, follow"

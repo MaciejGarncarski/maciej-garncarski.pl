@@ -1,7 +1,17 @@
+import { calculateReadingTime } from "@/utils/calculate-read-time";
+import { readingTimeMap } from "@/utils/posts-read-time-map";
 import { getCollection, type InferEntrySchema } from "astro:content";
+
 
 export async function getPostsSorted() {
    const collection = await getCollection("blog");
+
+   collection.forEach((entry) => {
+      if (!readingTimeMap.has(entry.id)) {
+         const readingTime = calculateReadingTime(entry.body || "");
+         readingTimeMap.set(entry.id, readingTime);
+      }
+   });
 
    const posts = collection.toSorted((a, b) => {
       const getTime = (post: { data: InferEntrySchema<"blog"> }) => {
@@ -17,5 +27,10 @@ export async function getPostsSorted() {
       return getTime(b) - getTime(a);
    });
 
-   return posts;
+   const postsWithReadingTime = posts.map((entry) => ({
+      ...entry,
+      readingTime: readingTimeMap.get(entry.id) || 0,
+   }));
+
+   return postsWithReadingTime;
 }
