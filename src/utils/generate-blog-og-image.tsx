@@ -115,8 +115,8 @@ export async function generateBlogOGImage({ title, date, tags }: OgImage) {
       <div tw="flex flex-row items-center" style={{ gap: 32 }}>
         <img
           src={faviconUrl}
-          width={54}
-          height={54}
+          width={60}
+          height={60}
           alt=""
           style={{ borderRadius: 8, display: "flex" }}
         />
