@@ -1,5 +1,6 @@
 ---
-import logoIcon from "@assets/logoIcon.png";
+import logoLight from "@assets/logo-light-mode.png";
+import logoDark from "@assets/logo-dark-mode.png";
 import Picture from "astro/components/Picture.astro";
 import clsx from "clsx";
 import ThemeSwitcher from "@/components/theme-switcher.astro";
@@ -57,20 +58,25 @@ const isBlogPostPage =
 
       <a href="/" class="group relative flex shrink-0 items-center gap-2.5">
         <div
-          class="border-border/60 bg-background-secondary group-hover:border-accent/30 relative flex size-9 items-center justify-center overflow-hidden rounded-xl border transition-all duration-200 md:rounded-lg"
+          class="border-border/20 bg-background-secondary group-hover:border-accent/15 relative flex h-9 w-auto items-center justify-center overflow-hidden rounded-xl border transition-all duration-200 md:rounded-lg"
         >
-          <div
-            class="absolute inset-0 bg-linear-to-br from-accent/5 via-transparent to-transparent opacity-80 transition-opacity duration-200 group-hover:opacity-100"
-          >
-          </div>
           <Picture
             formats={["avif", "webp"]}
-            src={logoIcon}
+            src={logoDark}
             alt="Maciej Garncarski Logo"
             height={64}
             width={64}
             priority={true}
-            class="relative size-9 transition-transform duration-300 group-hover:scale-105 group-active:scale-97"
+            class="hidden dark:block relative size-9 transition-transform duration-300 group-hover:scale-105 group-active:scale-97"
+          />
+          <Picture
+            formats={["avif", "webp"]}
+            src={logoLight}
+            alt="Maciej Garncarski Logo"
+            height={64}
+            width={64}
+            priority={true}
+            class="block dark:hidden relative size-9 transition-transform duration-300 group-hover:scale-105 group-active:scale-97"
           />
         </div>
       </a>

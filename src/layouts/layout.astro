@@ -13,6 +13,22 @@ import SpeedInsights from "@vercel/speed-insights/astro";
 <!doctype html>
 <html lang="pl">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <slot name="head">
+      <SEO />
+    </slot>
+
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <Font cssVariable="--font-ui" preload />
+
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
     <script is:inline>
       const stored = localStorage.getItem("theme");
       const theme =
@@ -21,26 +37,10 @@ import SpeedInsights from "@vercel/speed-insights/astro";
           : window.matchMedia("(prefers-color-scheme: dark)").matches
             ? "dark"
             : "light";
-
       document.documentElement.className = theme;
     </script>
-    <Font cssVariable="--font-ui" preload />
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
 
-    <link rel="shortcut icon" href="/favicon.ico" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <ClientRouter />
-
-    <slot name="head">
-      <SEO />
-    </slot>
   </head>
   <body class="text-foreground bg-background min-h-screen p-4 md:p-9">
     <BackgroundPattern />

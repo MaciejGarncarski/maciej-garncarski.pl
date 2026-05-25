@@ -1,29 +1,13 @@
-<svg width="538" height="538" viewBox="0 0 538 538" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g filter="url(#filter0_d_3_3)">
-<g clip-path="url(#clip0_3_3)">
-<rect x="5" y="5" width="528" height="528" rx="64" fill="url(#paint0_linear_3_3)"/>
-<path d="M110.1 422V133.04H197.46L269.7 273.32L340.26 133.04H427.62V422H340.26V270.8L286.92 371.6H251.22L197.46 270.8V422H110.1Z" fill="black"/>
-</g>
-</g>
-<defs>
-<filter id="filter0_d_3_3" x="0" y="0" width="538" height="538" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feMorphology radius="1" operator="dilate" in="SourceAlpha" result="effect1_dropShadow_3_3"/>
-<feOffset/>
-<feGaussianBlur stdDeviation="2"/>
-<feComposite in2="hardAlpha" operator="out"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_3_3"/>
-<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_3_3" result="shape"/>
-</filter>
-<linearGradient id="paint0_linear_3_3" x1="96.74" y1="-31.0381" x2="598.562" y2="260.667" gradientUnits="userSpaceOnUse">
-<stop stop-color="#F2F2F3"/>
-<stop offset="0.4" stop-color="#F2F2F3"/>
-<stop offset="1" stop-color="#DDECEE"/>
-</linearGradient>
-<clipPath id="clip0_3_3">
-<rect x="5" y="5" width="528" height="528" rx="64" fill="white"/>
-</clipPath>
-</defs>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+<style>
+path {
+    fill: #1E1E1E;
+}
+@media (prefers-color-scheme: dark) {
+    path {
+    fill: #fff;
+    }
+}
+</style>
+<path id="favicon-svg-path" d="M172.933 251L249.387 99.001H322.914L223.427 297.325L191.591 357.489H152.908L94.6572 248.27V412.1H0V99.001H94.6572L172.933 251ZM412.791 99C449.198 99.0001 478.172 105.962 499.713 119.887L486.06 188.205C466.946 180.373 447.074 176.456 426.444 176.456C401.567 176.456 381.998 183.564 367.738 197.778C353.479 211.993 346.349 231.72 346.349 256.958C346.349 282.487 352.721 302.358 365.463 316.573C378.508 330.788 395.043 337.895 415.066 337.896C422.348 337.895 428.416 337.316 433.271 336.155V261.745L512 253.042V389.243C494.707 396.786 477.11 402.443 459.21 406.214C441.31 409.985 423.865 411.87 406.875 411.87C374.109 411.87 345.59 405.488 321.319 392.724C297.352 379.959 278.693 362.263 265.344 339.636C264.927 338.929 264.516 338.219 264.112 337.506L382.9 101.013C392.469 99.6713 402.433 99 412.791 99Z"/>
 </svg>
