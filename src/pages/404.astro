@@ -1,6 +1,4 @@
 ---
-import { Picture } from "astro:assets";
-import notFound from "@assets/not-found.png";
 import Layout from "@layouts/layout.astro";
 import Seo from "@/components/seo.astro";
 ---
@@ -16,7 +14,7 @@ import Seo from "@/components/seo.astro";
     class="mx-auto flex min-h-[60dvh] max-w-[55rem] flex-col items-center justify-center gap-10 py-8 md:py-12 text-center"
   >
     <div class="animate-fade-in-up flex flex-col items-center gap-6">
-      <p class="text-accent text-sm font-semibold uppercase tracking-widest">
+      <p class="text-accent text-lg font-semibold uppercase tracking-widest">
         Błąd 404
       </p>
       <h1 class="text-4xl font-bold tracking-tight md:text-5xl">
@@ -30,16 +28,6 @@ import Seo from "@/components/seo.astro";
       </p>
     </div>
 
-    <Picture
-      formats={["avif", "webp"]}
-      src={notFound}
-      width={240}
-      height={240}
-      priority
-      class="border-border w-60 rounded-xl border shadow-lg"
-      alt="Kot trzymający tekst not found"
-    />
-
     <div class="flex flex-col items-center gap-4 sm:flex-row">
       <a
         href="/"
@@ -49,7 +37,7 @@ import Seo from "@/components/seo.astro";
       </a>
       <a
         href="/blog"
-        class="text-foreground-secondary hover:text-foreground hover:bg-foreground/5 rounded-lg px-6 py-2.5 text-sm font-medium transition-all duration-200"
+        class="text-foreground-secondary bg-foreground/5 hover:text-foreground hover:bg-foreground/15 rounded-lg px-6 py-2.5 text-sm font-medium transition-all duration-200"
       >
         Przeglądaj blog
       </a>
