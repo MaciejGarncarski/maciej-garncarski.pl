@@ -1,9 +1,9 @@
 ---
-import Layout from "@layouts/layout.astro";
+import LayoutNotFoundPage from "@layouts/layout-404-page.astro";
 import Seo from "@/components/seo.astro";
 ---
 
-<Layout>
+<LayoutNotFoundPage>
   <Seo
     slot="head"
     title="404 - Nie znaleziono"
@@ -11,7 +11,7 @@ import Seo from "@/components/seo.astro";
   />
 
   <div
-    class="mx-auto flex min-h-[60dvh] max-w-[55rem] flex-col items-center justify-center gap-10 py-8 md:py-12 text-center"
+    class="mx-auto flex max-w-[55rem] flex-col items-center justify-center gap-10 pt-12 pb-24 md:pt-32 md:pb-48 text-center"
   >
     <div class="animate-fade-in-up flex flex-col items-center gap-6">
       <p class="text-accent text-lg font-semibold uppercase tracking-widest">
@@ -43,4 +43,4 @@ import Seo from "@/components/seo.astro";
       </a>
     </div>
   </div>
-</Layout>
+</LayoutNotFoundPage>
