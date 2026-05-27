@@ -27,7 +27,6 @@ import SpeedInsights from "@vercel/speed-insights/astro";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="manifest" href="/site.webmanifest" />
 
     <script is:inline>
       const stored = localStorage.getItem("theme");
@@ -41,6 +40,33 @@ import SpeedInsights from "@vercel/speed-insights/astro";
     </script>
 
     <ClientRouter />
+
+    <script is:inline>
+      const systemThemeQuery = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+      );
+
+      const faviconLightMode = "/favicon-light-theme.png";
+      const faviconDarkMode = "/favicon-dark-theme.png";
+
+      const updateFaviconColor = (isDark) => {
+        let link = document.querySelector("link[data-theme-favicon]");
+        if (!link) {
+          link = document.createElement("link");
+          link.rel = "icon";
+          link.type = "image/png";
+          link.setAttribute("data-theme-favicon", "");
+          document.head.appendChild(link);
+        }
+        link.href = isDark ? faviconDarkMode : faviconLightMode;
+      };
+
+      updateFaviconColor(systemThemeQuery.matches);
+
+      systemThemeQuery.addEventListener("change", (e) =>
+        updateFaviconColor(e.matches),
+      );
+    </script>
   </head>
   <body class="text-foreground bg-background min-h-screen p-4 md:p-9">
     <BackgroundPattern />
