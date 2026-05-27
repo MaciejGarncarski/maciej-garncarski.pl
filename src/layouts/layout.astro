@@ -39,34 +39,34 @@ import SpeedInsights from "@vercel/speed-insights/astro";
       document.documentElement.className = theme;
     </script>
 
-    <ClientRouter />
-
-    <script is:inline>
+    <script data-astro-rerun>
       const systemThemeQuery = window.matchMedia(
         "(prefers-color-scheme: dark)",
       );
-
       const faviconLightMode = "/favicon-light-theme.png";
       const faviconDarkMode = "/favicon-dark-theme.png";
 
       const updateFaviconColor = (isDark) => {
-        let link = document.querySelector("link[data-theme-favicon]");
-        if (!link) {
-          link = document.createElement("link");
-          link.rel = "icon";
-          link.type = "image/png";
-          link.setAttribute("data-theme-favicon", "");
-          document.head.appendChild(link);
-        }
+        document.querySelector("link[data-theme-favicon]")?.remove();
+        const link = document.createElement("link");
+        link.rel = "icon";
+        link.type = "image/png";
+        link.setAttribute("data-theme-favicon", "");
         link.href = isDark ? faviconDarkMode : faviconLightMode;
+        document.head.appendChild(link);
       };
 
-      updateFaviconColor(systemThemeQuery.matches);
+      const sync = () => updateFaviconColor(systemThemeQuery.matches);
 
-      systemThemeQuery.addEventListener("change", (e) =>
-        updateFaviconColor(e.matches),
+      document.addEventListener("astro:after-swap", sync, { once: true });
+      sync();
+
+      systemThemeQuery.addEventListener("change", () =>
+        updateFaviconColor(systemThemeQuery.matches),
       );
     </script>
+
+    <ClientRouter />
   </head>
   <body class="text-foreground bg-background min-h-screen p-4 md:p-9">
     <BackgroundPattern />
