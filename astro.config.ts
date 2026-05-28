@@ -6,6 +6,7 @@ import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, fontProviders } from "astro/config";
 
 import { markdownRehypePlugins } from "./rehype/plugins";
+import { unified } from "@astrojs/markdown-remark";
 
 // https://astro.build/config
 export default defineConfig({
@@ -29,8 +30,10 @@ export default defineConfig({
       react(),
    ],
    markdown: {
-      syntaxHighlight: false,
-      rehypePlugins: markdownRehypePlugins,
+      processor: unified({
+         rehypePlugins: markdownRehypePlugins,
+      }),
+   syntaxHighlight: false,
    },
    vite: {
       plugins: [tailwindcss()],
