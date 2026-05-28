@@ -95,21 +95,26 @@ export async function generateBlogOGImage({ title, date, tags }: OgImage) {
       </div>
 
       {/* MIDDLE: title */}
-      <span
-        tw="flex"
+      <div
+        tw="flex flex-1"
         style={{
-          fontSize: titleFontSize,
-          fontWeight: 700,
-          lineHeight: 1.3,
-          color: "#f5f8fc",
-          flexGrow: 1,
-          textWrap: "pretty",
-          paddingTop: 36, 
+          paddingTop: 40,
           paddingBottom: 20,
+          alignItems: "flex-start",
         }}
       >
-        {adjustedTitle}
-      </span>
+        <span
+          style={{
+            fontSize: titleFontSize,
+            fontWeight: 700,
+            lineHeight: 1.3,
+            color: "#f5f8fc",
+            textWrap: "pretty",
+          }}
+        >
+          {adjustedTitle}
+        </span>
+      </div>
 
       {/* BOTTOM: avatar + date only */}
       <div tw="flex flex-row items-center" style={{ gap: 32 }}>
