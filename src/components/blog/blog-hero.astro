@@ -66,7 +66,7 @@ const lastModified = updateDate ? updateDate : publishDate;
 </div>
 
 <header class="relative flex w-full flex-col gap-6">
-  <div class="flex lg:flex-row flex-col gap-6 lg:gap-12 xl:gap-16">
+  <div class="flex lg:flex-row flex-col gap-4 lg:gap-12 xl:gap-16">
     <div class="flex flex-1 flex-col gap-4 md:gap-6">
       <h1
         class={clsx(
@@ -81,7 +81,7 @@ const lastModified = updateDate ? updateDate : publishDate;
       </h1>
 
       <div
-        class="text-foreground-secondary flex flex-wrap items-center gap-x-2 gap-y-1 text-sm md:text-base"
+        class="text-foreground-secondary flex flex-col md:flex-row items-start flex-wrap md:items-center gap-x-2 gap-y-1 text-sm md:text-base"
       >
         <time
           itemprop="datePublished"
@@ -90,9 +90,9 @@ const lastModified = updateDate ? updateDate : publishDate;
         >
           Ostatnia zmiana: {lastModified}
         </time>
-        <span class="text-accent text-sm">&bull;</span>
+        <span class="text-accent text-sm hidden md:inline">&bull;</span>
         <span>{readTime} min. czytania</span>
-        <span class="text-accent text-sm">&bull;</span>
+        <span class="text-accent text-sm hidden md:inline">&bull;</span>
         <span>{words} słów</span>
       </div>
     </div>
