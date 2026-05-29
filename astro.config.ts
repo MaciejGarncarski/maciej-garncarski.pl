@@ -10,9 +10,6 @@ import { unified } from "@astrojs/markdown-remark";
 
 // https://astro.build/config
 export default defineConfig({
-   experimental: {
-      clientPrerender: true,
-   },
    fonts: [
       {
          provider: fontProviders.google(),
@@ -33,7 +30,7 @@ export default defineConfig({
       processor: unified({
          rehypePlugins: markdownRehypePlugins,
       }),
-   syntaxHighlight: false,
+      syntaxHighlight: false,
    },
    vite: {
       plugins: [tailwindcss()],
