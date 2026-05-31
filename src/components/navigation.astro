@@ -4,6 +4,7 @@ import logoDark from "@assets/logo-dark-mode.png";
 import Picture from "astro/components/Picture.astro";
 import clsx from "clsx";
 import ThemeSwitcher from "@/components/theme-switcher.astro";
+import { fade } from "astro:transitions";
 
 type Link = {
   url: string;
@@ -45,6 +46,7 @@ const isBlogPostPage =
   <div class="w-full max-w-[63rem]">
     <nav
       class="border-border/50 border-t-border/30 border-x-border/40 bg-background/90 shadow-xs relative flex items-center justify-between gap-2 overflow-hidden rounded-2xl border px-3 py-2.5 backdrop-blur-lg"
+      transition:animate={fade({ duration: "0.5s" })}
     >
       <div
         class="pointer-events-none absolute inset-0 bg-linear-to-r from-transparent via-accent/5 to-transparent"
