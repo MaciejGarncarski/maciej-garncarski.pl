@@ -46,6 +46,10 @@ import hono from "@components/technologies/hono.astro";
 import openapi from "@components/technologies/openapi.astro";
 import playwright from "@components/technologies/playwright.astro";
 import msw from "@components/technologies/msw.astro";
+import githubactions from "@components/technologies/githubactions.astro";
+import grafana from "@components/technologies/grafana.astro";
+import otel from "@components/technologies/otel.astro";
+import prometheus from "@components/technologies/prometheus.astro";
 import type { AstroComponentFactory } from "astro/runtime/server/index.js";
 
 type Technology = {
@@ -425,6 +429,32 @@ export const groups: TechnologyGroup[] = [
       ],
    },
    {
+      label: "Monitoring i observability",
+      techs: [
+         {
+            name: "Grafana",
+            color: "#F46800",
+            iconColor: "#F46800",
+            icon: grafana,
+            link: "https://grafana.com"
+         },
+         {
+            name: "OpenTelemetry",
+            color: "#000000",
+            iconColor: "#000000",
+            icon: otel,
+            link: "https://opentelemetry.io"
+         },
+         {
+            name: "Prometheus",
+            color: "#E6522C",
+            iconColor: "#E6522C",
+            icon: prometheus,
+            link: "https://prometheus.io"
+         }
+      ],
+   },
+   {
       label: "Infrastruktura",
       techs: [
          {
@@ -433,6 +463,13 @@ export const groups: TechnologyGroup[] = [
             iconColor: "#2496ED",
             icon: docker,
             link: "https://www.docker.com",
+         },
+         {
+            name: "GitHub Actions",
+            color: "#2088FF",
+            iconColor: "#2088FF",
+            icon: githubactions,
+            link: "https://github.com/features/actions"
          },
          {
             name: "Linux",
