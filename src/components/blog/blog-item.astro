@@ -29,12 +29,12 @@ const { post, formattedTime } = Astro.props;
       >
         <time datetime={formattedTime}>{formattedTime}</time>
         {
-          post.readingTime && (
+          post.readingTime ? (
             <>
               <span aria-hidden="true">·</span>
               <span>{Math.ceil(post.readingTime)} min. czytania</span>
             </>
-          )
+          ) : null
         }
       </div>
 
