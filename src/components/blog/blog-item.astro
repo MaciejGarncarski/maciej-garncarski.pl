@@ -1,5 +1,6 @@
 ---
 import ChevronIcon from "@/components/ui/chevron-icon.astro";
+import Tag from "../tag.astro";
 
 type Props = {
   post: {
@@ -21,11 +22,11 @@ const { post, formattedTime } = Astro.props;
 
 <a href={"/blog/" + post.id} class="group block">
   <article
-    class="border-border bg-background-secondary/50 md:bg-background-secondary/30 md:border-border/70 hover:border-accent/20 md:backdrop-blur-sm flex flex-col overflow-hidden rounded-xl border shadow-xs transition-all duration-200"
+    class="border-border bg-linear-to-br from-accent/4 to-background-secondary/50 md:from-accent/3 md:to-background-secondary/20 md:border-border/70 hover:border-accent/20 hover:from-accent/6 md:backdrop-blur-sm flex flex-col overflow-hidden rounded-xl border shadow-xs transition-all duration-200"
   >
     <div class="flex flex-col gap-1.5 px-4 py-3.5 md:p-6">
       <div
-        class="flex items-center gap-2 text-foreground-secondary text-xs md:text-sm"
+        class="flex items-center gap-2 md:gap-2.5 text-foreground-secondary text-xs md:text-sm"
       >
         <time datetime={formattedTime}>{formattedTime}</time>
         {
