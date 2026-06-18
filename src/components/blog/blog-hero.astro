@@ -48,6 +48,7 @@ const lastModifiedDateString = new Date(
 ).toISOString();
 
 const lastModified = updateDate ? updateDate : publishDate;
+const isModified = updateDate && updateDate !== publishDate;
 ---
 
 <div class="lg:w-[85ch]">
@@ -86,9 +87,15 @@ const lastModified = updateDate ? updateDate : publishDate;
         <time
           itemprop="datePublished"
           datetime={lastModifiedDateString}
-          title={`Data publikacji: ${publishDate}, data ostatniej modyfikacji: ${lastModified}`}
+          title={isModified
+            ? `Data publikacji: ${publishDate}, data ostatniej modyfikacji: ${lastModified}`
+            : `Data publikacji: ${publishDate}`}
         >
-          Ostatnia zmiana: {lastModified}
+          {
+            isModified
+              ? `Aktualizacja: ${lastModified}`
+              : `Publikacja: ${publishDate}`
+          }
         </time>
         <span class="text-accent text-sm hidden md:inline">&bull;</span>
         <span>{readTime} min. czytania</span>
