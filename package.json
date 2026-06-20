@@ -23,14 +23,14 @@
       "@types/react-dom": "^19.2.3",
       "@vercel/analytics": "^2.0.1",
       "@vercel/speed-insights": "^2.0.0",
-      "astro": "^6.4.2",
+      "astro": "^6.4.8",
       "clsx": "^2.1.1",
-      "react": "^19.2.5",
-      "react-dom": "^19.2.5",
+      "react": "^19.2.7",
+      "react-dom": "^19.2.7",
       "rehype-autolink-headings": "^7.1.0",
       "rehype-pretty-code": "^0.14.3",
-      "sharp": "^0.34.5",
-      "takumi-js": "^1.5.1"
+      "sharp": "^0.35.2",
+      "takumi-js": "^1.8.6"
    },
    "devDependencies": {
       "@astrojs/check": "^0.9.9",
