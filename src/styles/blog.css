@@ -117,3 +117,11 @@
 [data-figcaption] {
    @apply text-foreground-secondary -mt-5 mb-4 text-center text-sm;
 }
+
+figure[data-with-padding="true"] [data-blog-img] {
+   @apply p-2;
+}
+
+figure[data-with-solid-background="true"] [data-blog-img] {
+   @apply bg-slate-300;
+}

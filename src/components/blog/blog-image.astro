@@ -5,12 +5,17 @@ type Props = {
   src: ImageMetadata;
   alt: string;
   caption?: string;
+  withPadding?: boolean;
+  withSolidBackground?: boolean;
 };
 
 const props = Astro.props;
 ---
 
-<figure>
+<figure
+  data-with-padding={props.withPadding}
+  data-with-solid-background={props.withSolidBackground}
+>
   <Picture
     formats={["avif", "webp"]}
     data-blog-img

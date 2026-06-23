@@ -27,10 +27,14 @@ export async function getPostsSorted() {
       return getTime(b) - getTime(a);
    });
 
-   const postsWithReadingTime = posts.map((entry) => ({
-      ...entry,
-      readingTime: readingTimeMap.get(entry.id) || 0,
-   }));
+   const postsWithReadingTime = posts.flatMap((entry) => {
+      if(entry.data.published === false) {
+         return [];
+      }
+      
+      const readingTime = readingTimeMap.get(entry.id) || 0;
+      return { ...entry, readingTime };
+   });
 
    return postsWithReadingTime;
 }
