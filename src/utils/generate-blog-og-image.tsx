@@ -20,10 +20,8 @@ const intlFormatter = new Intl.DateTimeFormat("pl-PL", {
    year: "numeric",
 });
 
-// INCREASED: Boosted limit from 74 to 110 characters since we have much more vertical canvas space
 const TITLE_CHAR_LIMIT = 110;
 
-// IMPROVED: Bumped up font sizes globally and added smoother scaling thresholds
 function getTitleFontSize(length: number): number {
   if (length <= 35) return 82; // Massive, punchy text for short titles
   if (length <= 60) return 72; // Larger default size
