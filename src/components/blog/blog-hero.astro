@@ -105,7 +105,7 @@ const isModified = updateDate && updateDate !== publishDate;
     </div>
     {
       sortedTags.length > 0 && (
-        <div class="flex flex-wrap items-center gap-1.5 md:gap-x-3 md:gap-y-0 lg:max-w-[33%] lg:items-end lg:justify-end">
+        <div class="flex mt-auto flex-wrap items-center gap-1.5 md:gap-x-3 md:gap-y-6 lg:max-w-[33%] lg:items-end lg:justify-end">
           {sortedTags.map((tag) => (
             <Tag href={`/blog/tag/${normalizeTag(tag)}`}># {tag}</Tag>
           ))}
