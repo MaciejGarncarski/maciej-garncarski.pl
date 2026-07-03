@@ -117,10 +117,10 @@ Jak to zaimplementować? W node najprostszy sposób, to użycie biblioteki `p-re
 import pRetry from 'p-retry';
 
 await pRetry(() => checkDatabaseOnce(dbPool, timeoutMs), {
-  retries: 4,      // Maksymalnie 4 próby
-  minTimeout: 100, // Pierwsza próba po 100ms
-  maxTimeout: 3000,// Maksymalny odstęp między próbami to 3 sekundy
-  factor: 2,       // Każda kolejna próba czeka 2x dłużej (100ms, 200ms, 400ms...)
+  retries: 4,       // Maksymalnie 4 próby
+  minTimeout: 100,  // Pierwsza próba po 100ms
+  maxTimeout: 3000, // Maksymalny odstęp między próbami to 3 sekundy
+  factor: 2,        // Każda kolejna próba czeka 2x dłużej (100ms, 200ms, 400ms...)
   // p-retry automatycznie dodaje do powyższego czasu losowy Jitter (około +/- 10-20%),
   // dzięki czemu rozbija synchronizację jednoczesnych strzałów z wielu instancji aplikacji.
   onFailedAttempt: (error) => {

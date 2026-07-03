@@ -148,17 +148,12 @@ const relatedPosts = post.data.relatedPosts || [];
 
   .anim-toc {
     opacity: 0;
-    animation: fadeInOnly 0.35s cubic-bezier(0.22, 1, 0.36, 1) 120ms forwards;
+    animation: fadeInOnly 0.35s cubic-bezier(0.22, 1, 0.36, 1) 150ms forwards;
   }
 
   .anim-content {
     opacity: 0;
     animation: fadeSlideUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 220ms forwards;
-  }
-
-  .anim-related {
-    opacity: 0;
-    animation: fadeSlideUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 340ms forwards;
   }
 
   @keyframes fadeInOnly {
@@ -170,18 +165,10 @@ const relatedPosts = post.data.relatedPosts || [];
     }
   }
 
-  .related-item {
-    opacity: 0;
-    animation: fadeSlideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    animation-delay: calc(380ms + var(--i) * 70ms);
-  }
-
   @media (prefers-reduced-motion: reduce) {
     .anim-hero,
     .anim-toc,
-    .anim-content,
-    .anim-related,
-    .related-item {
+    .anim-content {
       opacity: 1;
       animation: none;
     }
