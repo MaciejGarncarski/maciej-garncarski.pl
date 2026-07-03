@@ -2,7 +2,7 @@
 title: "Zmniejszanie rozmiaru dysku w WSL"
 description: "Jak odzyskać miejsce z wirtualnego dysku w Windows Subsystem for Linux (WSL) i zmniejszyć jego rozmiar."
 publishedDate: 2026-04-13
-tags: ["Linux"]
+tags: ["DevOps"]
 ---
 
 ## Problem: rosnący rozmiar dysku w WSL
@@ -17,7 +17,7 @@ Funkcja `autoMemoryReclaim` dotyczy głównie pamięci RAM i częściowo przestr
 
 ## Jak to rozwiązałem
 
-### Krok 1: Instalacja narzędzia ncdu na WSL
+### 1. Instalacja narzędzia ncdu na WSL
 
 ```bash title="WSL"
 sudo apt update
@@ -27,7 +27,7 @@ sudo apt install ncdu
 Przyda się do zidentyfikowania, które katalogi zajmują najwięcej miejsca.
 
 
-### Krok 2: Znalezienie katalogów zajmujących dużo miejsca
+### 2. Znalezienie katalogów zajmujących dużo miejsca
 
 ```bash title="WSL"
 ncdu -x /home
@@ -36,7 +36,7 @@ ncdu -x /home
 Postanowiłem ograniczyć zakres analizy do katalogu `/home`, ponieważ nie chciałem ingerować w katalogi systemowe.
 
 
-### Krok 3: Usunięcie niepotrzebnych plików
+### 3. Usunięcie niepotrzebnych plików
 
 Najwięcej miejsca zajmowały katalogi cache `pnpm`, `bun` i `node_modules`. Usunąłem je, ponieważ były to pliki tymczasowe, które można łatwo odtworzyć.
 
@@ -44,19 +44,19 @@ Równie dobrze możemy usunąć nieużywane wersje Node.js, Javy, PHP czy czego 
 
 W efekcie udało mi się odzyskać około 50 GB miejsca.
 
-### Krok 4: Wyłącz WSL
+### 4. Wyłącz WSL
 
 ```bash title="PowerShell z uprawnieniami administratora"
 wsl --shutdown
 ```
 
-### Krok 5: Odnalezienie pliku vhdx
+### 5. Odnalezienie pliku vhdx
 
 W moim przypadku plik `.vhdx` znajdował się w katalogu:
 
 `C:\Users\<Nazwa_użytkownika>\AppData\Local\wsl\<ID_dystrybucji>\ext4.vhdx`
 
-### Krok 6: Zmniejszenie rozmiaru pliku vhdx
+### 6. Zmniejszenie rozmiaru pliku vhdx
 
 ```bash title="PowerShell z uprawnieniami administratora"
 Optimize-VHD -Path "C:\Users\<Nazwa_użytkownika>\AppData\Local\wsl\<ID_dystrybucji>\ext4.vhdx" -Mode Full
