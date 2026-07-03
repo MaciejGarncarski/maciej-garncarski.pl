@@ -1,6 +1,6 @@
 ---
 import BlogItem from "@/components/blog/blog-item.astro";
-import { formatPostDate } from "@/utils/format-post-date";
+import { formatPostDate } from "@/lib/format-post-date";
 
 type Props = {
   posts: Array<{
@@ -9,7 +9,7 @@ type Props = {
     data: {
       title: string;
       description: string;
-      pubDate: Date;
+      publishedDate: Date;
       updatedDate?: Date;
     };
   }>;
@@ -21,10 +21,10 @@ const { posts } = Astro.props;
   {
     posts.map((post, index) => {
       const formattedTime = formatPostDate(
-        post.data.updatedDate ? post.data.updatedDate : post.data.pubDate,
+        post.data.updatedDate ? post.data.updatedDate : post.data.publishedDate,
       );
 
-      const delay = index < 8 ? index * 80 : 0;
+      const delay = index < 8 ? index * 80 : 20;
 
       return (
         <div class="post-item" style={`--delay: ${delay}ms`}>

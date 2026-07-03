@@ -1,5 +1,5 @@
-import { calculateReadingTime } from "@/utils/calculate-read-time";
-import { readingTimeMap } from "@/utils/posts-read-time-map";
+import { calculateReadingTime } from "@/lib/calculate-read-time";
+import { readingTimeMap } from "@/lib/posts-read-time-map";
 import { getCollection, type InferEntrySchema } from "astro:content";
 
 
@@ -18,8 +18,8 @@ export async function getPostsSorted() {
          if (post.data.updatedDate) {
             return new Date(post.data.updatedDate).getTime();
          }
-         if (post.data.pubDate) {
-            return new Date(post.data.pubDate).getTime();
+         if (post.data.publishedDate) {
+            return new Date(post.data.publishedDate).getTime();
          }
          return 0;
       };

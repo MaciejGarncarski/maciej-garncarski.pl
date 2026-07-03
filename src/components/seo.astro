@@ -8,7 +8,7 @@ type Props = {
   description?: string;
   ogImage?: string;
   canonicalUrl?: string;
-  pubDate?: string;
+  publishedDate?: string;
   updatedDate?: string;
   category?: string;
   tags?: Array<string>;
@@ -23,7 +23,7 @@ const {
   description = defaultDescription,
   title,
   ogImage = "/og.png",
-  pubDate,
+  publishedDate,
   updatedDate,
   canonicalUrl: manualCanonical,
   category = "Technology",
@@ -52,8 +52,8 @@ const organizationId = `${siteUrl}#organization`;
 const personId = `${siteUrl}#person`;
 const websiteId = `${siteUrl}#website`;
 
-const formattedDate = pubDate
-  ? new Date(pubDate).toISOString()
+const formattedDate = publishedDate
+  ? new Date(publishedDate).toISOString()
   : new Date().toISOString();
 const formattedModifiedDate = updatedDate
   ? new Date(updatedDate).toISOString()
@@ -182,7 +182,8 @@ const itemListSchema = itemListItems?.length
     }
   : null;
 
-const jsonLdType = Astro.props.jsonLdType || (pubDate ? "Article" : "WebPage");
+const jsonLdType =
+  Astro.props.jsonLdType || (publishedDate ? "Article" : "WebPage");
 const structuredData = [
   webSiteSchema,
   publisherSchema,
@@ -203,7 +204,7 @@ const structuredData = [
 {robots && <meta name="robots" content={robots} />}
 <link rel="canonical" href={canonicalUrl} />
 
-<meta property="og:type" content={pubDate ? "article" : "website"} />
+<meta property="og:type" content={publishedDate ? "article" : "website"} />
 <meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonicalUrl} />
@@ -211,7 +212,7 @@ const structuredData = [
 <meta property="og:site_name" content={"Maciej Garncarski"} />
 
 {
-  pubDate && (
+  publishedDate && (
     <>
       <meta property="article:published_time" content={formattedDate} />
       <meta property="article:author" content="https://maciej-garncarski.pl" />

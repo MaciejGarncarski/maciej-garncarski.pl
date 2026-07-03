@@ -1,5 +1,5 @@
-import { calculateReadingTime } from "@/utils/calculate-read-time";
-import { readingTimeMap } from "@/utils/posts-read-time-map";
+import { calculateReadingTime } from "@/lib/calculate-read-time";
+import { readingTimeMap } from "@/lib/posts-read-time-map";
 import { getCollection, type InferEntrySchema } from "astro:content";
 
 export type Post = InferEntrySchema<"blog">;

@@ -6,7 +6,7 @@ import BlogHero from "@components/blog/blog-hero.astro";
 import BlogAside from "@components/blog/blog-aside.astro";
 import SEO from "@components/seo.astro";
 import Layout from "@layouts/layout.astro";
-import { getPosts } from "@/utils/get-posts";
+import { getPosts } from "@/lib/get-posts";
 import BlogRelatedMobile from "@/components/blog/blog-related-mobile.astro";
 
 export async function getStaticPaths() {
@@ -47,7 +47,7 @@ const relatedPosts = post.data.relatedPosts || [];
     description={post.data.description}
     title={post.data.title}
     canonicalUrl={canonicalUrl}
-    pubDate={post.data.pubDate.toISOString()}
+    publishedDate={post.data.publishedDate.toISOString()}
     updatedDate={post.data.updatedDate?.toISOString()}
     ogImage={`/blog/${post.id}/og.png`}
     category={post.data.tags?.[0]}

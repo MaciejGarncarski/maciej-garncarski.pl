@@ -1,5 +1,5 @@
 import { fromJsx } from "takumi-js/helpers/jsx";
-import { faviconUrl, imageSources } from "@/utils/get-og-assets";
+import { faviconUrl, imageSources } from "@/lib/get-og-assets";
 import ImageResponse from "takumi-js/response";
 import { readFileSync } from "node:fs";
 import path from "node:path";

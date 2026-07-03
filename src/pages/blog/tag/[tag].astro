@@ -4,9 +4,9 @@ import BlogContainer from "@/components/blog/blog-container.astro";
 import BlogList from "@/components/blog/blog-list.astro";
 import BlogTags from "@/components/blog/blog-tags.astro";
 import Seo from "@/components/seo.astro";
-import { getPosts } from "@/utils/get-posts";
-import { getPostsSorted } from "@/utils/get-posts-sorted";
-import { normalizeTag } from "@/utils/normalize-tag";
+import { getPosts } from "@/lib/get-posts";
+import { getPostsSorted } from "@/lib/get-posts-sorted";
+import { normalizeTag } from "@/lib/normalize-tag";
 import BlogSearch from "@/components/blog/blog-search.astro";
 
 const MIN_INDEXABLE_TAG_POSTS = 2;

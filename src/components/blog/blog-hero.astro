@@ -1,7 +1,7 @@
 ---
-import { calculateReadingTime } from "@utils/calculate-read-time";
-import { getPosts } from "@/utils/get-posts";
-import { normalizeTag } from "@/utils/normalize-tag";
+import { calculateReadingTime } from "@/lib/calculate-read-time";
+import { getPosts } from "@/lib/get-posts";
+import { normalizeTag } from "@/lib/normalize-tag";
 import Tag from "@/components/tag.astro";
 import ChevronIcon from "@/components/ui/chevron-icon.astro";
 import clsx from "clsx";
@@ -21,7 +21,9 @@ const publishDate = new Intl.DateTimeFormat("pl-PL", {
   month: "long",
   day: "numeric",
 }).format(
-  currPost?.data.pubDate ? new Date(currPost.data.pubDate) : new Date(),
+  currPost?.data.publishedDate
+    ? new Date(currPost.data.publishedDate)
+    : new Date(),
 );
 
 const updateDate = currPost?.data.updatedDate
@@ -44,7 +46,7 @@ const isShortTitle = title.length <= 40;
 const isMediumTitle = title.length > 40 && title.length <= 65;
 
 const lastModifiedDateString = new Date(
-  currPost?.data.updatedDate || currPost?.data.pubDate || new Date(),
+  currPost?.data.updatedDate || currPost?.data.publishedDate || new Date(),
 ).toISOString();
 
 const lastModified = updateDate ? updateDate : publishDate;

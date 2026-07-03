@@ -1,6 +1,6 @@
 ---
 import { projectsDict } from "@/data/projects";
-import { getPosts } from "@/utils/get-posts";
+import { getPosts } from "@/lib/get-posts";
 import AccentShimmer from "../ui/accent-shimmer.astro";
 
 type Props = {
@@ -42,7 +42,9 @@ const isEmpty = relatedProjects.length === 0 && relatedPosts.length === 0;
                                 const postData = postsDict.get(post);
 
                                 if (!postData) {
-                                    return null;
+                                    throw new Error(
+                                        `Post with id "${post}" not found in postsDict.`,
+                                    );
                                 }
 
                                 return (

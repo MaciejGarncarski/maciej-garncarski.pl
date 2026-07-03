@@ -1,5 +1,5 @@
 ---
-import { getPostsSorted } from "@/utils/get-posts-sorted";
+import { getPostsSorted } from "@/lib/get-posts-sorted";
 import BlogSearchResultItem from "@/components/blog/blog-search-result-item.astro";
 
 const blogPosts = await getPostsSorted();
@@ -142,7 +142,7 @@ const searchItems = blogPosts.map((post) => ({
 </div>
 
 <script>
-  import { setupBlogSearch } from "@/utils/blog-search-modal";
+  import { setupBlogSearch } from "@/lib/blog-search-modal";
 
   declare global {
     interface Window {

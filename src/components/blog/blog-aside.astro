@@ -1,6 +1,6 @@
 ---
 import { projectsDict } from "@/data/projects";
-import { getPosts } from "@/utils/get-posts";
+import { getPosts } from "@/lib/get-posts";
 
 type Props = {
   relatedProjects?: string[];
@@ -52,7 +52,12 @@ const relatedPosts = Astro.props.relatedPosts ?? [];
               <ul class="flex flex-col gap-0.5 border-l border-accent/12 pl-2">
                 {relatedPosts.map((id) => {
                   const post = postsDict.get(id);
-                  if (!post) return null;
+
+                  if (!post) {
+                    throw new Error(
+                      `Post with id "${post}" not found in postsDict.`,
+                    );
+                  }
                   return (
                     <li>
                       <a

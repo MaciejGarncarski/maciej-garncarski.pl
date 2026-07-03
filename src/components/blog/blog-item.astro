@@ -10,7 +10,7 @@ type Props = {
     data: {
       title: string;
       description: string;
-      pubDate: Date;
+      publishedDate: Date;
       updatedDate?: Date;
       tags?: string[];
     };
@@ -28,7 +28,7 @@ const { post, formattedTime } = Astro.props;
     <AccentShimmer />
     <div class="flex flex-col gap-1.5 px-4 py-3.5 md:p-6">
       <div
-        class="flex items-center gap-2 md:gap-2.5 text-foreground-secondary text-xs md:text-sm"
+        class="flex items-center gap-2 text-foreground-secondary text-xs md:text-sm"
       >
         <time datetime={formattedTime}>{formattedTime}</time>
         {
@@ -41,7 +41,7 @@ const { post, formattedTime } = Astro.props;
         }
       </div>
 
-      <div class="flex items-start justify-between gap-4">
+      <div class="flex items-center justify-between gap-4">
         <h2
           class="text-base font-semibold text-pretty group-hover:text-accent transition-colors duration-200 md:text-lg"
         >
@@ -55,7 +55,7 @@ const { post, formattedTime } = Astro.props;
       </div>
 
       <p
-        class="text-foreground-secondary max-w-[60ch] text-sm md:text-base leading-relaxed line-clamp-2 text-pretty"
+        class="text-foreground-secondary max-w-[60ch] text-sm md:text-base leading-relaxed line-clamp-3 text-pretty"
       >
         {post.data.description}
       </p>

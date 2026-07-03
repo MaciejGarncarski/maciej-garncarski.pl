@@ -1,8 +1,8 @@
 ---
 import SectionHeading from "@/components/about-page/section-heading.astro";
 import AccentShimmer from "@/components/ui/accent-shimmer.astro";
-import { formatPostDate } from "@/utils/format-post-date";
-import { getPostsSorted } from "@/utils/get-posts-sorted";
+import { formatPostDate } from "@/lib/format-post-date";
+import { getPostsSorted } from "@/lib/get-posts-sorted";
 
 const allBlogPosts = await getPostsSorted();
 const latestPosts = allBlogPosts.slice(0, 3);
@@ -15,8 +15,8 @@ const latestPosts = allBlogPosts.slice(0, 3);
     {
       latestPosts.map((post) => {
         const slug = post.id;
-        const { title, description, pubDate, updatedDate } = post.data;
-        const date = formatPostDate(updatedDate ? updatedDate : pubDate);
+        const { title, description, publishedDate, updatedDate } = post.data;
+        const date = formatPostDate(updatedDate ? updatedDate : publishedDate);
 
         return (
           <a
