@@ -5,7 +5,7 @@ import { getCollection, type InferEntrySchema } from "astro:content";
 export type Post = InferEntrySchema<"blog">;
 
 export async function getPosts() {
-   const collection = await getCollection("blog", ({ data }) => !data.published);
+   const collection = await getCollection("blog", ({ data }) => data.public && !data.draft);
 
    collection.forEach((entry) => {
       if (!readingTimeMap.has(entry.id)) {

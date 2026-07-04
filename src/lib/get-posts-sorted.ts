@@ -3,7 +3,7 @@ import { readingTimeMap } from "@/lib/posts-read-time-map";
 import { getCollection, type InferEntrySchema } from "astro:content";
 
 export async function getPostsSorted() {
-   const collection = await getCollection("blog", ({ data }) => !data.published);
+   const collection = await getCollection("blog", ({ data }) => data.public && !data.draft);
 
    collection.forEach((entry) => {
       if (!readingTimeMap.has(entry.id)) {

@@ -12,12 +12,10 @@ import BlogRelatedMobile from "@/components/blog/blog-related-mobile.astro";
 export async function getStaticPaths() {
   const posts = await getPosts();
 
-  return posts
-    .filter((post) => post.data.published !== false)
-    .map((post) => ({
-      params: { slug: post.id },
-      props: post,
-    }));
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: post,
+  }));
 }
 
 type Props = CollectionEntry<"blog">;
