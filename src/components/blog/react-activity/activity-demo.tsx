@@ -1,4 +1,4 @@
-/** biome-ignore-all lint/suspicious/noArrayIndexKey: <explanation> */
+/** biome-ignore-all lint/suspicious/noArrayIndexKey: <Its demo component> */
 import { Activity, useState, useEffect } from "react";
 
 const TABS = [

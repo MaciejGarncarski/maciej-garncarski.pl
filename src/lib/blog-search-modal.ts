@@ -146,7 +146,7 @@ function rankItem(item: IndexedSearchItem, normalizedQuery: string, queryTerms: 
       let tagScore = 0;
       for (const tag of tags) {
          const tagIndex = tag.indexOf(term);
-         if (tagIndex === 0)    tagScore = Math.max(tagScore, 85);
+         if (tagIndex === 0) tagScore = Math.max(tagScore, 85);
          else if (tagIndex > 0) tagScore = Math.max(tagScore, 60);
       }
       termScore += tagScore;
@@ -417,9 +417,15 @@ export function setupBlogSearch(): () => void {
                   normalizedBody: item.normalized.body,
                   tags: item.tags,
                   score,
-                  bodyPreview: score > 0
-                     ? getBodyPreview(item.body, item.normalized.body, normalizedQuery, queryTerms)
-                     : null,
+                  bodyPreview:
+                     score > 0
+                        ? getBodyPreview(
+                             item.body,
+                             item.normalized.body,
+                             normalizedQuery,
+                             queryTerms,
+                          )
+                        : null,
                };
             })
             .filter(({ score }) => score > 0)

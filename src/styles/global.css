@@ -20,7 +20,11 @@
       color-scheme: light;
 
       --background: oklch(98% 0.01 260);
-      --background-secondary: color-mix(in oklab, oklch(96.913% 0.0104 261.895) 93%, var(--accent) 7%);
+      --background-secondary: color-mix(
+         in oklab,
+         oklch(96.913% 0.0104 261.895) 93%,
+         var(--accent) 7%
+      );
 
       --foreground: oklch(18% 0.02 260);
       --foreground-secondary: oklch(40% 0.02 260);

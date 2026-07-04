@@ -78,7 +78,7 @@
    }
 
    & ul:not([data-tab-panel="demo"] *) {
-      @apply marker:text-accent/70 marker:font-bold text-foreground-body list-hyphen my-8 flex list-inside flex-col gap-5 ; 
+      @apply marker:text-accent/70 marker:font-bold text-foreground-body list-hyphen my-8 flex list-inside flex-col gap-5;
    }
 
    & ol:not([data-tab-panel="demo"] *) {

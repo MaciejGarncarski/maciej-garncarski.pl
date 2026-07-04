@@ -5,7 +5,7 @@ import { getCollection, type InferEntrySchema } from "astro:content";
 export type Post = InferEntrySchema<"blog">;
 
 export async function getPosts() {
-   const collection = await getCollection("blog");
+   const collection = await getCollection("blog", ({ data }) => !data.published);
 
    collection.forEach((entry) => {
       if (!readingTimeMap.has(entry.id)) {
@@ -13,7 +13,6 @@ export async function getPosts() {
          readingTimeMap.set(entry.id, readingTime);
       }
    });
-
 
    return collection.map((entry) => ({
       ...entry,

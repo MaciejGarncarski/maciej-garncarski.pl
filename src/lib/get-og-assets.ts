@@ -1,7 +1,7 @@
 import type { ImageSource } from "takumi-js";
 
-export const faviconUrl = "https://raw.githubusercontent.com/MaciejGarncarski/maciej-garncarski.pl/refs/heads/main/public/favicon.svg";
-
+export const faviconUrl =
+   "https://raw.githubusercontent.com/MaciejGarncarski/maciej-garncarski.pl/refs/heads/main/public/favicon.svg";
 
 const svgInline = `
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">

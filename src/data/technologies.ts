@@ -436,22 +436,22 @@ export const groups: TechnologyGroup[] = [
             color: "#F46800",
             iconColor: "#F46800",
             icon: grafana,
-            link: "https://grafana.com"
+            link: "https://grafana.com",
          },
          {
             name: "OpenTelemetry",
             color: "#000000",
             iconColor: "#000000",
             icon: otel,
-            link: "https://opentelemetry.io"
+            link: "https://opentelemetry.io",
          },
          {
             name: "Prometheus",
             color: "#E6522C",
             iconColor: "#E6522C",
             icon: prometheus,
-            link: "https://prometheus.io"
-         }
+            link: "https://prometheus.io",
+         },
       ],
    },
    {
@@ -469,7 +469,7 @@ export const groups: TechnologyGroup[] = [
             color: "#2088FF",
             iconColor: "#2088FF",
             icon: githubactions,
-            link: "https://github.com/features/actions"
+            link: "https://github.com/features/actions",
          },
          {
             name: "Linux",
