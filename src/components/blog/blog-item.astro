@@ -1,6 +1,7 @@
 ---
 import ChevronIcon from "@/components/ui/chevron-icon.astro";
 import AccentShimmer from "../ui/accent-shimmer.astro";
+import Tag from "@/components/tag.astro";
 
 type Props = {
   post: {
@@ -59,6 +60,16 @@ const { post, formattedTime, isoDate } = Astro.props;
       >
         {post.data.description}
       </p>
+
+      {
+        post.data.tags && post.data.tags.length > 0 && (
+          <div class="flex flex-wrap gap-1.5 mt-2">
+            {post.data.tags.map((tag) => (
+              <Tag variant="small">{tag}</Tag>
+            ))}
+          </div>
+        )
+      }
     </div>
   </article>
 </a>
