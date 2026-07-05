@@ -1,6 +1,6 @@
 import type { APIContext, APIRoute } from "astro";
 import { getPosts } from "@/lib/get-posts";
-import { generateBlogOGImage } from "@/lib/generate-blog-og-image";
+import { generateBlogOGImage } from "@/lib/og";
 
 export const GET: APIRoute = async ({ props }: APIContext) => {
    const { post } = props as Props;

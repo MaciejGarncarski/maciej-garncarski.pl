@@ -1,6 +1,5 @@
 ---
 import ChevronIcon from "@/components/ui/chevron-icon.astro";
-import Tag from "../tag.astro";
 import AccentShimmer from "../ui/accent-shimmer.astro";
 
 type Props = {
@@ -16,9 +15,10 @@ type Props = {
     };
   };
   formattedTime: string;
+  isoDate: string;
 };
 
-const { post, formattedTime } = Astro.props;
+const { post, formattedTime, isoDate } = Astro.props;
 ---
 
 <a href={"/blog/" + post.id} class="group block">
@@ -30,7 +30,7 @@ const { post, formattedTime } = Astro.props;
       <div
         class="flex items-center gap-2 text-foreground-secondary text-xs md:text-sm"
       >
-        <time datetime={formattedTime}>{formattedTime}</time>
+        <time datetime={isoDate}>{formattedTime}</time>
         {
           post.readingTime ? (
             <>

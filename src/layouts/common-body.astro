@@ -1,0 +1,28 @@
+---
+import Navigation from "@components/navigation.astro";
+import Footer from "@components/footer.astro";
+import BackgroundPattern from "@components/background-pattern.astro";
+import Analytics from "@vercel/analytics/astro";
+import SpeedInsights from "@vercel/speed-insights/astro";
+
+type Props = {
+  withSpacer?: boolean;
+  mainClass?: string;
+};
+
+const { withSpacer = true, mainClass = "" } = Astro.props;
+---
+
+<BackgroundPattern />
+<Analytics />
+<SpeedInsights />
+<div
+  class="relative z-10 mx-auto flex max-w-[69rem] flex-col gap-6 md:gap-10"
+>
+  {withSpacer && <div class="hidden md:block md:h-14.5"></div>}
+  <Navigation />
+  <main class={`flex flex-col gap-8 lg:gap-10${mainClass}`}>
+    <slot />
+  </main>
+</div>
+<Footer />

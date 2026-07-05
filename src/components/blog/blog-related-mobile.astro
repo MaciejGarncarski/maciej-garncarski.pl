@@ -1,6 +1,5 @@
 ---
-import { projectsDict } from "@/data/projects";
-import { getPosts } from "@/lib/get-posts";
+import { getRelatedPosts, getRelatedProjects } from "@/lib/get-related-content";
 import AccentShimmer from "../ui/accent-shimmer.astro";
 
 type Props = {
@@ -8,13 +7,13 @@ type Props = {
     relatedPosts?: string[];
 };
 
-const posts = await getPosts();
-const postsDict = new Map(posts.map((post) => [post.id, post]));
-
 const relatedProjects = Astro.props.relatedProjects || [];
 const relatedPosts = Astro.props.relatedPosts || [];
 
 const isEmpty = relatedProjects.length === 0 && relatedPosts.length === 0;
+
+const relatedPostData = relatedPosts.length > 0 ? await getRelatedPosts(relatedPosts) : [];
+const relatedProjectData = relatedProjects.length > 0 ? getRelatedProjects(relatedProjects) : [];
 ---
 
 {
@@ -38,34 +37,24 @@ const isEmpty = relatedProjects.length === 0 && relatedPosts.length === 0;
                             Inne wpisy na blogu, które mogą Cię zainteresować.
                         </p>
                         <ul class=" grid gap-3">
-                            {relatedPosts.map((post, i) => {
-                                const postData = postsDict.get(post);
-
-                                if (!postData) {
-                                    throw new Error(
-                                        `Post with id "${post}" not found in postsDict.`,
-                                    );
-                                }
-
-                                return (
-                                    <li
-                                        style={`--i: ${i}`}
-                                        class="related-item"
+                            {relatedPostData.map((post, i) => (
+                                <li
+                                    style={`--i: ${i}`}
+                                    class="related-item"
+                                >
+                                    <a
+                                        href={`/blog/${post.id}`}
+                                        class="border-border/45 bg-background hover:border-accent/30 hover:bg-background-secondary/50 block rounded-xl border p-4 transition-colors"
                                     >
-                                        <a
-                                            href={`/blog/${postData.id}`}
-                                            class="border-border/45 bg-background hover:border-accent/30 hover:bg-background-secondary/50 block rounded-xl border p-4 transition-colors"
-                                        >
-                                            <p class="text-foreground font-medium">
-                                                {postData.data.title}
-                                            </p>
-                                            <p class="text-foreground-secondary mt-1 text-sm leading-relaxed">
-                                                {postData.data.description}
-                                            </p>
-                                        </a>
-                                    </li>
-                                );
-                            })}
+                                        <p class="text-foreground font-medium">
+                                            {post.data.title}
+                                        </p>
+                                        <p class="text-foreground-secondary mt-1 text-sm leading-relaxed">
+                                            {post.data.description}
+                                        </p>
+                                    </a>
+                                </li>
+                            ))}
                         </ul>
                     </div>
                 )}
@@ -76,32 +65,24 @@ const isEmpty = relatedProjects.length === 0 && relatedPosts.length === 0;
                             Projekty, które rozwijają podobne tematy.
                         </p>
                         <ul class=" grid gap-3">
-                            {relatedProjects.map((project, i) => {
-                                const projectData = projectsDict[project];
-
-                                if (!projectData) {
-                                    return null;
-                                }
-
-                                return (
-                                    <li
-                                        style={`--i: ${i}`}
-                                        class="related-item"
+                            {relatedProjectData.map((project, i) => (
+                                <li
+                                    style={`--i: ${i}`}
+                                    class="related-item"
+                                >
+                                    <a
+                                        href={`/projekty/${project.id}`}
+                                        class="border-border/45 bg-background hover:border-accent/30 hover:bg-background-secondary/50 block rounded-xl border p-4 transition-colors"
                                     >
-                                        <a
-                                            href={`/projekty/${projectData.id}`}
-                                            class="border-border/45 bg-background hover:border-accent/30 hover:bg-background-secondary/50 block rounded-xl border p-4 transition-colors"
-                                        >
-                                            <p class="text-foreground font-medium">
-                                                {projectData.title}
-                                            </p>
-                                            <p class="text-foreground-secondary mt-1 text-sm leading-relaxed">
-                                                {projectData.description}
-                                            </p>
-                                        </a>
-                                    </li>
-                                );
-                            })}
+                                        <p class="text-foreground font-medium">
+                                            {project.title}
+                                        </p>
+                                        <p class="text-foreground-secondary mt-1 text-sm leading-relaxed">
+                                            {project.description}
+                                        </p>
+                                    </a>
+                                </li>
+                            ))}
                         </ul>
                     </div>
                 )}

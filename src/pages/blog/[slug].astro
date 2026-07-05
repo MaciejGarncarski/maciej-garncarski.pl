@@ -18,7 +18,7 @@ export async function getStaticPaths() {
   }));
 }
 
-type Props = CollectionEntry<"blog">;
+type Props = CollectionEntry<"blog"> & { readingTime: number };
 const post = Astro.props;
 const { Content } = await render(post);
 const canonicalUrl = `/blog/${post.id}`;
@@ -49,7 +49,7 @@ const relatedPosts = post.data.relatedPosts || [];
 
   <article class="article-root flex flex-col gap-8 md:px-16">
     <div class="anim-hero">
-      <BlogHero title={post.data.title} />
+      <BlogHero post={post} />
     </div>
 
     <div class="relative w-full max-w-full lg:max-w-[76ch]">

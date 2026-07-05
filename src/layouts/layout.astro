@@ -1,93 +1,20 @@
 ---
-import "@/styles/global.css";
-import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
-import Footer from "@components/footer.astro";
-import Navigation from "@components/navigation.astro";
-import SEO from "@components/seo.astro";
-import BackgroundPattern from "@components/background-pattern.astro";
-import Analytics from "@vercel/analytics/astro";
-import SpeedInsights from "@vercel/speed-insights/astro";
+import CommonHead from "./common-head.astro";
+import CommonBody from "./common-body.astro";
 ---
 
 <!doctype html>
 <html lang="pl">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <slot name="head">
-      <SEO />
-    </slot>
-
-    <link rel="sitemap" href="/sitemap-index.xml" />
-    <Font cssVariable="--font-ui" preload />
-
-    <link rel="icon" href="/favicon.ico" sizes="48x48" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-
-    <link rel="icon" type="image/png" data-theme-favicon />
-
-    <script is:inline>
-      const stored = localStorage.getItem("theme");
-      const theme =
-        stored === "light" || stored === "dark"
-          ? stored
-          : window.matchMedia("(prefers-color-scheme: dark)").matches
-            ? "dark"
-            : "light";
-      document.documentElement.className = theme;
-    </script>
-
-    <script is:inline>
-      (() => {
-        const systemThemeQuery = window.matchMedia(
-          "(prefers-color-scheme: dark)",
-        );
-
-        const faviconLightMode = "/favicon-light-theme.png";
-        const faviconDarkMode = "/favicon-dark-theme.png";
-
-        function getCurrentTheme() {
-          const stored = localStorage.getItem("theme");
-          if (stored === "light" || stored === "dark") return stored;
-          return systemThemeQuery.matches ? "dark" : "light";
-        }
-
-        function syncFavicon() {
-          const favicon = document.querySelector("link[data-theme-favicon]");
-          if (!favicon) return;
-          favicon.href =
-            getCurrentTheme() === "dark" ? faviconDarkMode : faviconLightMode;
-        }
-
-        syncFavicon();
-        document.addEventListener("astro:after-swap", syncFavicon);
-
-        if (!window.__themeFaviconInitialized) {
-          window.__themeFaviconInitialized = true;
-          systemThemeQuery.addEventListener("change", syncFavicon);
-          window.addEventListener("theme-changed", syncFavicon);
-        }
-      })();
-    </script>
+    <CommonHead>
+      <slot name="head" slot="head" />
+    </CommonHead>
     <ClientRouter />
   </head>
   <body class="text-foreground bg-background min-h-screen p-4 md:p-9 md:pt-7">
-    <BackgroundPattern />
-    <Analytics />
-    <SpeedInsights />
-    <div
-      class="relative z-10 mx-auto flex max-w-[69rem] flex-col gap-6 md:gap-10"
-    >
-      <div class="hidden md:block md:h-14.5"></div>
-      <Navigation />
-      <main class="flex min-h-[45rem] flex-col gap-8 lg:gap-10">
-        <slot />
-      </main>
-    </div>
-    <Footer />
+    <CommonBody mainClass=" min-h-[45rem]" withSpacer={true}>
+      <slot />
+    </CommonBody>
   </body>
 </html>

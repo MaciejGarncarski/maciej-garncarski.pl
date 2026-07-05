@@ -1,8 +1,8 @@
-import { generateDefaultOGImage } from "@/lib/generate-default-og-image";
+import { generateWebsiteOgImage } from "@/lib/og";
 import type { APIRoute } from "astro";
 
 export const GET: APIRoute = async () => {
-   const imageBuffer = await generateDefaultOGImage();
+   const imageBuffer = await generateWebsiteOgImage();
 
    return new Response(imageBuffer, {
       headers: {

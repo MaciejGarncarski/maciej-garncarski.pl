@@ -7,7 +7,7 @@
          "@layouts/*": ["./src/layouts/*"],
          "@pages/*": ["./src/pages/*"],
          "@components/*": ["./src/components/*"],
-         "@lib/*": ["src/lib/*"],
+         "@lib/*": ["./src/lib/*"],
          "@assets/*": ["./src/assets/*"]
       },
       "jsx": "react-jsx",

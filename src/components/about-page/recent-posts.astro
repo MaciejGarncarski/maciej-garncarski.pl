@@ -1,7 +1,7 @@
 ---
 import SectionHeading from "@/components/about-page/section-heading.astro";
 import AccentShimmer from "@/components/ui/accent-shimmer.astro";
-import { formatPostDate } from "@/lib/format-post-date";
+import { formatPostDate } from "@/lib/utils";
 import { getPostsSorted } from "@/lib/get-posts-sorted";
 
 const allBlogPosts = await getPostsSorted();
@@ -11,7 +11,7 @@ const latestPosts = allBlogPosts.slice(0, 3);
 <section class="flex flex-col gap-6" aria-labelledby="ostatnie-posty">
   <SectionHeading title="Ostatnie posty" id="ostatnie-posty" />
 
-  <div class="grid gap-4">
+  <div class="grid gap-4 md:gap-6">
     {
       latestPosts.map((post) => {
         const slug = post.id;

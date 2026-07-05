@@ -1,43 +1,40 @@
 ---
-import { calculateReadingTime } from "@/lib/calculate-read-time";
-import { getPosts } from "@/lib/get-posts";
-import { normalizeTag } from "@/lib/normalize-tag";
+import { calculateReadingTime, normalizeTag, dateFormatter } from "@/lib/utils";
 import Tag from "@/components/tag.astro";
 import ChevronIcon from "@/components/ui/chevron-icon.astro";
 import clsx from "clsx";
 
 type Props = {
-  title: string;
+  post: {
+    id: string;
+    body?: string;
+    readingTime: number;
+    data: {
+      title: string;
+      publishedDate: Date;
+      updatedDate?: Date;
+      tags?: string[];
+    };
+  };
 };
 
-const { title } = Astro.props;
+const { post } = Astro.props;
+const { title } = post.data;
 
-const allBlogPosts = await getPosts();
-const currPost = allBlogPosts.find((post) => post.data.title === title);
-const words = currPost?.body ? currPost.body.split(/\s+/).length : 0;
+const words = post.body ? post.body.split(/\s+/).length : 0;
 
-const publishDate = new Intl.DateTimeFormat("pl-PL", {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-}).format(
-  currPost?.data.publishedDate
-    ? new Date(currPost.data.publishedDate)
-    : new Date(),
+const publishDate = dateFormatter.format(
+  new Date(post.data.publishedDate),
 );
 
-const updateDate = currPost?.data.updatedDate
-  ? new Intl.DateTimeFormat("pl-PL", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    }).format(new Date(currPost.data.updatedDate))
+const updateDate = post.data.updatedDate
+  ? dateFormatter.format(new Date(post.data.updatedDate))
   : null;
 
-const tags = currPost?.data.tags || [];
-const readTime = currPost?.readingTime
-  ? Math.ceil(currPost.readingTime)
-  : calculateReadingTime(currPost?.body || "");
+const tags = post.data.tags || [];
+const readTime = post.readingTime
+  ? Math.ceil(post.readingTime)
+  : calculateReadingTime(post.body || "");
 const sortedTags = tags.sort((a, b) =>
   a.localeCompare(b, undefined, { sensitivity: "base" }),
 );
@@ -46,7 +43,7 @@ const isShortTitle = title.length <= 40;
 const isMediumTitle = title.length > 40 && title.length <= 65;
 
 const lastModifiedDateString = new Date(
-  currPost?.data.updatedDate || currPost?.data.publishedDate || new Date(),
+  post.data.updatedDate || post.data.publishedDate || new Date(),
 ).toISOString();
 
 const lastModified = updateDate ? updateDate : publishDate;

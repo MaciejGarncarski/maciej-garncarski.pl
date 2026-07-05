@@ -72,11 +72,13 @@
     icons.sun?.classList.remove("transition-all", "duration-500");
     icons.moon?.classList.remove("transition-all", "duration-500");
 
-    setTimeout(() => {
-      button.classList.add("transition-transform", "duration-200");
-      icons.sun?.classList.add("transition-all", "duration-500");
-      icons.moon?.classList.add("transition-all", "duration-500");
-    }, 200);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        button.classList.add("transition-transform", "duration-200");
+        icons.sun?.classList.add("transition-all", "duration-500");
+        icons.moon?.classList.add("transition-all", "duration-500");
+      });
+    });
 
     function getEffectiveTheme(): Theme {
       const stored = localStorage.getItem("theme");

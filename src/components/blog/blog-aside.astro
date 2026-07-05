@@ -1,16 +1,16 @@
 ---
-import { projectsDict } from "@/data/projects";
-import { getPosts } from "@/lib/get-posts";
+import { getRelatedPosts, getRelatedProjects } from "@/lib/get-related-content";
 
 type Props = {
   relatedProjects?: string[];
   relatedPosts?: string[];
 };
 
-const posts = await getPosts();
-const postsDict = new Map(posts.map((post) => [post.id, post]));
 const relatedProjects = Astro.props.relatedProjects ?? [];
 const relatedPosts = Astro.props.relatedPosts ?? [];
+
+const relatedPostData = relatedPosts.length > 0 ? await getRelatedPosts(relatedPosts) : [];
+const relatedProjectData = relatedProjects.length > 0 ? getRelatedProjects(relatedProjects) : [];
 ---
 
 <aside
@@ -50,27 +50,18 @@ const relatedPosts = Astro.props.relatedPosts ?? [];
                 <div class="h-px flex-1 bg-linear-to-r from-accent/20 to-transparent" />
               </div>
               <ul class="flex flex-col gap-0.5 border-l border-accent/12 pl-2">
-                {relatedPosts.map((id) => {
-                  const post = postsDict.get(id);
-
-                  if (!post) {
-                    throw new Error(
-                      `Post with id "${post}" not found in postsDict.`,
-                    );
-                  }
-                  return (
-                    <li>
-                      <a
-                        href={`/blog/${post.id}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="block wrap-break-word text-pretty rounded-md px-2.5 py-1 text-xs leading-4 font-normal transition-all duration-200 text-foreground-secondary/85 hover:text-foreground hover:bg-accent/5"
-                      >
-                        {post.data.title}
-                      </a>
-                    </li>
-                  );
-                })}
+                {relatedPostData.map((post) => (
+                  <li>
+                    <a
+                      href={`/blog/${post.id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="block wrap-break-word text-pretty rounded-md px-2.5 py-1 text-xs leading-4 font-normal transition-all duration-200 text-foreground-secondary/85 hover:text-foreground hover:bg-accent/5"
+                    >
+                      {post.data.title}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
           )}
@@ -84,22 +75,18 @@ const relatedPosts = Astro.props.relatedPosts ?? [];
                 <div class="h-px flex-1 bg-linear-to-r from-accent/20 to-transparent" />
               </div>
               <ul class="flex flex-col gap-0.5 border-l border-accent/12 pl-2">
-                {relatedProjects.map((id) => {
-                  const project = projectsDict[id];
-                  if (!project) return null;
-                  return (
-                    <li>
-                      <a
-                        href={`/projekty/${project.id}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="block wrap-break-word text-pretty rounded-md px-2.5 py-1 text-xs leading-4 font-normal transition-all duration-200 text-foreground-secondary/85 hover:text-foreground hover:bg-accent/5"
-                      >
-                        {project.title}
-                      </a>
-                    </li>
-                  );
-                })}
+                {relatedProjectData.map((project) => (
+                  <li>
+                    <a
+                      href={`/projekty/${project.id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="block wrap-break-word text-pretty rounded-md px-2.5 py-1 text-xs leading-4 font-normal transition-all duration-200 text-foreground-secondary/85 hover:text-foreground hover:bg-accent/5"
+                    >
+                      {project.title}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
           )}
