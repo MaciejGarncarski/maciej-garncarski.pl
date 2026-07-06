@@ -7,7 +7,7 @@ import Seo from "@/components/seo.astro";
 import { getPosts } from "@/lib/get-posts";
 import { getPostsSorted } from "@/lib/get-posts-sorted";
 import { normalizeTag } from "@/lib/utils";
-import BlogSearch from "@/components/blog/blog-search.astro";
+import { BlogSearch } from "@/components/blog/blog-search";
 
 export async function getStaticPaths() {
   const posts = await getPosts();
@@ -34,6 +34,14 @@ export async function getStaticPaths() {
 
 const { tag, canonicalUrl } = Astro.props;
 const posts = await getPostsSorted();
+
+const searchItems = posts.map((post) => ({
+  id: post.id,
+  title: post.data.title,
+  description: post.data.description,
+  tags: post.data.tags,
+  body: post.body ?? "",
+}));
 
 const filteredPosts = posts.filter((post) => {
   return post.data.tags.includes(tag);
@@ -73,7 +81,7 @@ const seoData = {
   />
   <BlogContainer>
     <BlogTags selectedTag={tag} />
-    <BlogSearch />
+    <BlogSearch items={searchItems} client:load />
     <BlogList posts={filteredPosts} />
   </BlogContainer>
 </Layout>

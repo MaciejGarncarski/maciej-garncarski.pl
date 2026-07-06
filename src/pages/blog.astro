@@ -1,13 +1,21 @@
 ---
 import BlogContainer from "@components/blog/blog-container.astro";
 import BlogList from "@components/blog/blog-list.astro";
-import BlogSearch from "@components/blog/blog-search.astro";
+import { BlogSearch } from "@components/blog/blog-search";
 import BlogTags from "@components/blog/blog-tags.astro";
 import Layout from "@layouts/layout.astro";
 import Seo from "@/components/seo.astro";
 import { getPostsSorted } from "@/lib/get-posts-sorted";
 
 const posts = await getPostsSorted();
+
+const searchItems = posts.map((post) => ({
+  id: post.id,
+  title: post.data.title,
+  description: post.data.description,
+  tags: post.data.tags,
+  body: post.body ?? "",
+}));
 
 const seoData = {
   title: "Blog",
@@ -20,7 +28,7 @@ const seoData = {
   <Seo slot="head" description={seoData.description} title={seoData.title} />
   <BlogContainer>
     <BlogTags />
-    <BlogSearch />
+    <BlogSearch items={searchItems} client:load />
     <BlogList posts={posts} />
   </BlogContainer>
 </Layout>
