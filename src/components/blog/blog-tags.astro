@@ -1,6 +1,6 @@
 ---
 import { getPostsSorted } from "@/lib/get-posts-sorted";
-import { normalizeTag } from "@/lib/utils";
+import { collectAllTags, normalizeTag } from "@/lib/utils";
 import Tag from "@/components/tag.astro";
 
 type Props = {
@@ -8,20 +8,10 @@ type Props = {
 };
 
 const posts = await getPostsSorted();
-const allTags = new Set<string>();
-
-posts.forEach((post) => {
-  post.data.tags.forEach((tag: string) => {
-    allTags.add(tag);
-  });
-});
-
-const sortedTags = Array.from(allTags).sort((a, b) =>
-  a.localeCompare(b, undefined, { sensitivity: "base" }),
-);
+const allTags = await collectAllTags(posts);
 
 const isTagSelected = Astro.props.selectedTag
-  ? sortedTags.includes(Astro.props.selectedTag)
+  ? allTags.includes(Astro.props.selectedTag)
   : false;
 ---
 
@@ -30,7 +20,7 @@ const isTagSelected = Astro.props.selectedTag
     <Tag variant="filter" active={!isTagSelected} href="/blog"> Wszystkie </Tag>
   </li>
   {
-    sortedTags.map((tag) => {
+    allTags.map((tag) => {
       const isActive = tag === Astro.props.selectedTag;
       const normalizedPath = "/blog/tag/" + normalizeTag(tag);
 

@@ -9,8 +9,6 @@ import { getPostsSorted } from "@/lib/get-posts-sorted";
 import { normalizeTag } from "@/lib/utils";
 import BlogSearch from "@/components/blog/blog-search.astro";
 
-const MIN_INDEXABLE_TAG_POSTS = 2;
-
 export async function getStaticPaths() {
   const posts = await getPosts();
   const tagsMap = new Map();
@@ -41,11 +39,6 @@ const filteredPosts = posts.filter((post) => {
   return post.data.tags.includes(tag);
 });
 
-const robots =
-  filteredPosts.length >= MIN_INDEXABLE_TAG_POSTS
-    ? "index, follow"
-    : "noindex, follow";
-
 const tagUrl = new URL(canonicalUrl, Astro.site).toString();
 const itemListItems = filteredPosts.map((post) => {
   const postUrl = new URL(`/blog/${post.id}`, Astro.site).toString();
@@ -75,7 +68,6 @@ const seoData = {
     canonicalUrl={canonicalUrl}
     title={seoData.title}
     jsonLdType="CollectionPage"
-    robots={robots}
     itemListItems={itemListItems}
     breadcrumbs={breadcrumbs}
   />

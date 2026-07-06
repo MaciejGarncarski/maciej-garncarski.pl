@@ -23,9 +23,7 @@ const { title } = post.data;
 
 const words = post.body ? post.body.split(/\s+/).length : 0;
 
-const publishDate = dateFormatter.format(
-  new Date(post.data.publishedDate),
-);
+const publishDate = dateFormatter.format(new Date(post.data.publishedDate));
 
 const updateDate = post.data.updatedDate
   ? dateFormatter.format(new Date(post.data.updatedDate))
@@ -35,9 +33,6 @@ const tags = post.data.tags || [];
 const readTime = post.readingTime
   ? Math.ceil(post.readingTime)
   : calculateReadingTime(post.body || "");
-const sortedTags = tags.sort((a, b) =>
-  a.localeCompare(b, undefined, { sensitivity: "base" }),
-);
 
 const isShortTitle = title.length <= 40;
 const isMediumTitle = title.length > 40 && title.length <= 65;
@@ -103,9 +98,9 @@ const isModified = updateDate && updateDate !== publishDate;
       </div>
     </div>
     {
-      sortedTags.length > 0 && (
+      tags.length > 0 && (
         <div class="flex mt-auto flex-wrap items-center gap-1.5 md:gap-x-3 md:gap-y-6 lg:max-w-[33%] lg:items-end lg:justify-end">
-          {sortedTags.map((tag) => (
+          {tags.map((tag) => (
             <Tag href={`/blog/tag/${normalizeTag(tag)}`}># {tag}</Tag>
           ))}
         </div>

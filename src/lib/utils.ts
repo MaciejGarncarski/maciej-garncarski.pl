@@ -1,16 +1,21 @@
+import type { PostWithReadingTime } from "@/lib/get-posts";
+
 export function calculateReadingTime(mdxContent: string, wordsPerMinute: number = 210) {
    const text = mdxContent.replace(/<\/?[^>]+(>|$)/g, "");
    const wordCount = text.split(/\s+/).filter(Boolean).length;
    return Math.max(1, Math.ceil(wordCount / wordsPerMinute));
 }
 
-export function withReadingTime<T extends { id: string; body?: string }>(
-   entries: T[],
-): (T & { readingTime: number })[] {
-   return entries.map((entry) => ({
+export function addReadingTime<T extends { body?: string }>(entry: T): T & { readingTime: number } {
+   return { ...entry, readingTime: calculateReadingTime(entry.body ?? "") };
+}
+
+export function sortTags<T extends { tags?: string[] }>(entry: T): T & { tags: string[] } {
+   return {
       ...entry,
-      readingTime: calculateReadingTime(entry.body ?? ""),
-   }));
+      tags:
+         entry.tags?.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" })) ?? [],
+   };
 }
 
 export function normalizeTag(tag: string): string {
@@ -31,4 +36,18 @@ export const dateFormatter = new Intl.DateTimeFormat("pl-PL", {
 
 export function formatPostDate(dateString: string | Date): string {
    return dateFormatter.format(new Date(dateString));
+}
+
+const allTags = new Set<string>();
+
+export async function collectAllTags(allPosts: PostWithReadingTime[]) {
+   allPosts.forEach((post) => {
+      post.data.tags.forEach((tag: string) => {
+         allTags.add(tag);
+      });
+   });
+
+   return Array.from(allTags).sort((a, b) =>
+      a.localeCompare(b, undefined, { sensitivity: "base" }),
+   );
 }

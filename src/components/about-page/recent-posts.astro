@@ -5,7 +5,7 @@ import { formatPostDate } from "@/lib/utils";
 import { getPostsSorted } from "@/lib/get-posts-sorted";
 
 const allBlogPosts = await getPostsSorted();
-const latestPosts = allBlogPosts.slice(0, 3);
+const recentPosts = allBlogPosts.slice(0, 3);
 ---
 
 <section class="flex flex-col gap-6" aria-labelledby="ostatnie-posty">
@@ -13,7 +13,7 @@ const latestPosts = allBlogPosts.slice(0, 3);
 
   <div class="grid gap-4 md:gap-6">
     {
-      latestPosts.map((post) => {
+      recentPosts.map((post) => {
         const slug = post.id;
         const { title, description, publishedDate, updatedDate } = post.data;
         const date = formatPostDate(updatedDate ? updatedDate : publishedDate);
