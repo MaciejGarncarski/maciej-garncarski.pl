@@ -1,30 +1,31 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
+type ModalState = "closed" | "entering" | "open" | "closing";
+
 export function useBlogSearch() {
    const triggerRef = useRef<HTMLButtonElement>(null);
    const inputRef = useRef<HTMLInputElement>(null);
    const closeTimerRef = useRef<number>(0);
 
-   const [shouldRender, setShouldRender] = useState(false);
-   const [visible, setVisible] = useState(false);
+   const [state, setState] = useState<ModalState>("closed");
 
    const isOpenRef = useRef(false);
-   isOpenRef.current = shouldRender;
+   isOpenRef.current = state !== "closed";
 
    const openModal = useCallback(() => {
-      setShouldRender(true);
+      setState("entering");
       requestAnimationFrame(() => {
-         setVisible(true);
+         setState("open");
          inputRef.current?.focus();
       });
       document.body.style.overflow = "hidden";
    }, []);
 
    const closeModal = useCallback(() => {
-      setVisible(false);
+      setState("closing");
       window.clearTimeout(closeTimerRef.current);
       closeTimerRef.current = window.setTimeout(() => {
-         setShouldRender(false);
+         setState("closed");
          triggerRef.current?.focus();
       }, 200);
       document.body.style.overflow = "";
@@ -49,7 +50,7 @@ export function useBlogSearch() {
       };
    }, []);
 
-   const showResultClasses = shouldRender && visible;
+   const showResultClasses = state === "open";
 
-   return { triggerRef, inputRef, shouldRender, visible, openModal, closeModal, showResultClasses };
+   return { triggerRef, inputRef, state, openModal, closeModal, showResultClasses };
 }

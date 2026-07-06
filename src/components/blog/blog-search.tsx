@@ -28,7 +28,7 @@ export function BlogSearch({ items }: Props) {
             ref={search.triggerRef}
             onClick={search.openModal}
             aria-haspopup="dialog"
-            aria-expanded={search.shouldRender}
+            aria-expanded={search.state !== "closed"}
             aria-controls="blog-search-modal"
             className="cursor-pointer border-border bg-background-secondary/60 text-foreground-secondary shadow-accent-sm hover:border-accent/30 hover:text-foreground focus-visible:ring-accent/30 inline-flex w-full items-center justify-between gap-3 rounded-xl border px-3.5 py-2 text-left transition-all duration-200 focus-visible:ring-2 focus-visible:outline-none md:px-4"
          >
@@ -54,31 +54,28 @@ export function BlogSearch({ items }: Props) {
             </span>
          </button>
 
-         {search.shouldRender && (
-            <button
-               type="button"
-               data-search-backdrop
-               onClick={search.closeModal}
-               aria-label="Zamknij wyszukiwarkę"
-               className={`fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-200 z-190 cursor-default ${
-                  search.showResultClasses ? "opacity-100" : "opacity-0 pointer-events-none"
-               }`}
-            />
-         )}
+{search.state !== "closed" && (
+             <button
+                type="button"
+                data-search-backdrop
+                onClick={search.closeModal}
+                aria-label="Zamknij wyszukiwarkę"
+                className={`fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-200 z-190 cursor-default ${
+                   search.showResultClasses ? "opacity-100" : "opacity-0 pointer-events-none"
+                }`}
+             />
+          )}
 
-         {search.shouldRender && (
+          {search.state !== "closed" && (
             <div
                id="blog-search-modal"
                data-search-dialog
                role="dialog"
                aria-modal="true"
                aria-labelledby="blog-search-title"
-               onClick={(e) => {
-                  if (e.target === e.currentTarget) search.closeModal();
-               }}
-               onKeyDown={(e) => {
-                  if (e.target === e.currentTarget && e.key === "Escape") search.closeModal();
-               }}
+                onClick={(e) => {
+                   if (e.target === e.currentTarget) search.closeModal();
+                }}
                className={`fixed z-200 inset-0 flex items-start justify-center p-3 pt-[12vh] transition-opacity duration-200 md:p-6 md:pt-[15vh] ${
                   search.showResultClasses ? "opacity-100" : "opacity-0 pointer-events-none"
                }`}

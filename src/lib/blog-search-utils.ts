@@ -43,15 +43,6 @@ export function normalizeValue(value: string) {
       .replace(/[\u0300-\u036f]/g, "");
 }
 
-export function escapeHtml(value: string) {
-   return value
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#39;");
-}
-
 export function stripMarkdown(value: string) {
    return value
       .replace(/^---[\s\S]*?---\s*/m, " ")
