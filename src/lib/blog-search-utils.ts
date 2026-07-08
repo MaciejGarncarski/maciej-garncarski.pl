@@ -1,3 +1,8 @@
+import { unified } from "unified";
+import remarkParse from "remark-parse";
+import remarkGfm from "remark-gfm";
+import type { Code, Html, InlineCode, Nodes, Text } from "mdast";
+
 export type SearchItem = {
    id: string;
    title: string;
@@ -43,32 +48,32 @@ export function normalizeValue(value: string) {
       .replace(/[\u0300-\u036f]/g, "");
 }
 
+function extractTextFromNode(node: Nodes): string {
+   switch (node.type) {
+      case "text":
+         return (node as Text).value;
+      case "inlineCode":
+         return (node as InlineCode).value;
+      case "code":
+         return (node as Code).value;
+      case "html":
+         return (node as Html).value.replace(/<[^>]+>/g, " ").trim();
+      default: {
+         if ("children" in node && Array.isArray((node as { children: Nodes[] }).children)) {
+            return (node as { children: Nodes[] }).children.map(extractTextFromNode).join(" ");
+         }
+         return "";
+      }
+   }
+}
+
+const stripProcessor = unified().use(remarkParse).use(remarkGfm);
+
 export function stripMarkdown(value: string) {
-   return value
-      .replace(/^---[\s\S]*?---\s*/m, " ")
-      .replace(/^\s*import\s+.+$/gm, " ")
-      .replace(/^\s*export\s+.+$/gm, " ")
-      .replace(/```[\s\S]*?```/g, " ")
-      .replace(/`([^`]+)`/g, "$1")
-      .replace(/<([A-Z][A-Za-z0-9._-]*)(?:\s[^>]*)?>[\s\S]*?<\/\1>/g, " ")
-      .replace(/<([A-Z][A-Za-z0-9._-]*)(?:\s[^>]*)?\/>/g, " ")
-      .replace(/<[^>]+>/g, " ")
-      .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, "$1")
-      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1")
-      .replace(/^\s{0,3}#{1,6}\s+/gm, "")
-      .replace(/^\s{0,3}[-*+]\s+/gm, "")
-      .replace(/^\s*\d+\.\s+/gm, "")
-      .replace(/^\s{0,3}>\s?/gm, "")
-      .replace(/\*\*([^*]+)\*\*/g, "$1")
-      .replace(/__([^_]+)__/g, "$1")
-      .replace(/\*([^*]+)\*/g, "$1")
-      .replace(/_([^_]+)_/g, "$1")
-      .replace(/~~([^~]+)~~/g, "$1")
-      .replace(/\{[^{}]*\}/g, " ")
-      .replace(/\n{2,}/g, "\n")
+   const ast = stripProcessor.parse(value);
+   return extractTextFromNode(ast)
+      .replace(/\n{3,}/g, "\n\n")
       .replace(/[ \t]{2,}/g, " ")
-      .replace(/\s+\n/g, "\n")
-      .replace(/\n\s+/g, "\n")
       .trim();
 }
 
@@ -151,13 +156,14 @@ function getBodyPreview(
       matchIndex = normalizedBody.indexOf(fallbackTerm);
    }
 
+   const plainBody = stripMarkdown(body);
    const previewRadius = 80;
    const start = Math.max(0, matchIndex - previewRadius);
-   const end = Math.min(body.length, matchIndex + matchTerm.length + previewRadius);
+   const end = Math.min(plainBody.length, matchIndex + matchTerm.length + previewRadius);
 
    const prefix = start > 0 ? "..." : "";
-   const suffix = end < body.length ? "..." : "";
-   const snippet = `${prefix}${body.slice(start, end).trim()}${suffix}`;
+   const suffix = end < plainBody.length ? "..." : "";
+   const snippet = `${prefix}${plainBody.slice(start, end).trim()}${suffix}`;
 
    return { snippet, matchTerm };
 }

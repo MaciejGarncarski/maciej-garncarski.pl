@@ -54,28 +54,29 @@ export function BlogSearch({ items }: Props) {
             </span>
          </button>
 
-{search.state !== "closed" && (
-             <button
-                type="button"
-                data-search-backdrop
-                onClick={search.closeModal}
-                aria-label="Zamknij wyszukiwarkę"
-                className={`fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-200 z-190 cursor-default ${
-                   search.showResultClasses ? "opacity-100" : "opacity-0 pointer-events-none"
-                }`}
-             />
-          )}
+         {search.state !== "closed" && (
+            <button
+               type="button"
+               data-search-backdrop
+               onClick={search.closeModal}
+               aria-label="Zamknij wyszukiwarkę"
+               className={`fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-200 z-190 cursor-default ${
+                  search.showResultClasses ? "opacity-100" : "opacity-0 pointer-events-none"
+               }`}
+            />
+         )}
 
-          {search.state !== "closed" && (
+         {search.state !== "closed" && (
+            // biome-ignore lint/a11y/useKeyWithClickEvents: <backdrop>
             <div
                id="blog-search-modal"
                data-search-dialog
                role="dialog"
                aria-modal="true"
                aria-labelledby="blog-search-title"
-                onClick={(e) => {
-                   if (e.target === e.currentTarget) search.closeModal();
-                }}
+               onClick={(e) => {
+                  if (e.target === e.currentTarget) search.closeModal();
+               }}
                className={`fixed z-200 inset-0 flex items-start justify-center p-3 pt-[12vh] transition-opacity duration-200 md:p-6 md:pt-[15vh] ${
                   search.showResultClasses ? "opacity-100" : "opacity-0 pointer-events-none"
                }`}

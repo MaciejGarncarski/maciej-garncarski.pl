@@ -21,16 +21,18 @@ export function useBlogSearchResults({ items }: { items: SearchItem[] }) {
 
    const indexedItems = useMemo<IndexedItem[]>(
       () =>
-         items.map((item, index) => ({
-            ...item,
-            index,
-            normalized: {
-               title: normalizeValue(item.title),
-               description: normalizeValue(item.description),
-               body: normalizeValue(stripMarkdown(item.body)),
-               tags: item.tags.map((tag) => normalizeValue(tag)),
-            },
-         })),
+         items.map((item, index) => {
+            return {
+               ...item,
+               index,
+               normalized: {
+                  title: normalizeValue(item.title),
+                  description: normalizeValue(item.description),
+                  body: normalizeValue(stripMarkdown(item.body)),
+                  tags: item.tags.map((tag) => normalizeValue(tag)),
+               },
+            };
+         }),
       [items],
    );
 
