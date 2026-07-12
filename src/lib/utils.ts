@@ -51,3 +51,14 @@ export async function collectAllTags(allPosts: PostWithReadingTime[]) {
       a.localeCompare(b, undefined, { sensitivity: "base" }),
    );
 }
+
+export function getTitleFontSize(length: number): number {
+   if (length <= 35) return 82;
+   if (length <= 60) return 72;
+   if (length <= 85) return 60;
+   return 48;
+}
+
+export function capitalizeFirst(str: string): string {
+   return str.charAt(0).toUpperCase() + str.slice(1);
+}
