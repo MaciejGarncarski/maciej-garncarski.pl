@@ -1,0 +1,16 @@
+---
+title: "AI (jeszcze) nie jest w stanie ogarnąć dużych projektów"
+publishedDate: 2026-07-12
+---
+
+> **Kontekst**: Testuję ostatnio małe darmowe modele w ramach darmowego opencode.
+
+Tworząc nowe funkcjonalności oraz iterując nad moim portfolio, zauważyłem, że AI radzi sobie świetnie. Opisałem 2-3 zdania taska, kliknąłem enter, za chwilę miałem gotowy i w miarę dobry kod.
+
+Z drugiej strony, gdy próbowałem użyć AI do banalnego feature'a w moim projekcie `snack-rate`, który jest dość duży i ma sporo zależności, AI nie było w stanie wygenerować poprawnego kodu. Dopiero gdy rozbiłem taska z jednego dużego na kilka mniejszych, to LLM był w stanie wygenerować dobry kod. Myślę, że więcej czasu straciłem na to, żeby wytłumaczyć AI kontekst projektu, niż na napisanie kodu samemu, nie licząc poprawek.
+
+Zauważyłem też, że kontekst modeli to fałszywa metryka. Modele realnie "wiedzą co robią" do około 40% zapełnienia kontekstu. Powyżej tego halucynacje są tak częste, że nie da się z tego korzystać.
+
+Kolejna obserwacja, to nadmiar skilli (pliki markdown, np. Claude.md, AGENTS.md). Nie polecam używania dużej ilości skilli w jednym projekcie. Im więcej tych skilli, tym większa szansa, że model pod spodem się "nadpisuje". Polecam faktycznie te, które mają dane na temat tego jak programuje się "domyślnie" aplikacje w danym języku. Na przykład, jeśli używasz Node.js, no to logiczne powinno być, że do uploadu plików używa się `streamów`, a nie `buforowania` całego pliku w pamięci. Wtedy model będzie miał większą szansę, że wygeneruje poprawny kod.
+
+Podsumowując: w moim przypadku AI nie jest idealnym rozwiązaniem do dużych tasków. Być może modele "SOTA" to ogarniają, ale nie jest mi to aż tak potrzebne na ten moment.
