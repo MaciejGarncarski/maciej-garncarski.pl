@@ -1,0 +1,98 @@
+---
+title: "TIL: Next.js nie duplikuje zapytań fetch w RSC"
+publishedDate: 2026-07-13
+---
+
+Dwie rzeczy o Next.js, które dziś w końcu do mnie dotarły.
+
+## 1. Ten sam fetch w wielu Server Components = JEDNO zapytanie
+
+Jeśli kilka Server Components w trakcie tego samego renderu odpala `fetch()`
+z tym samym URL-em i opcjami, Next automatycznie to deduplikuje. Nie ważne,
+że masz to w trzech różnych komponentach — request poleci tylko raz.
+
+```tsx
+// components/user-name.tsx
+async function UserName({ id }: { id: string }) {
+  const res = await fetch(`https://api.example.com/users/${id}`);
+  const user = await res.json();
+  return <span>{user.name}</span>;
+}
+
+// components/user-avatar.tsx
+async function UserAvatar({ id }: { id: string }) {
+  // ten sam URL
+  const res = await fetch(`https://api.example.com/users/${id}`);
+  const user = await res.json();
+  return <img src={user.avatarUrl} alt={user.name} />;
+}
+
+// page.tsx
+export default function Page({ params }: { params: { id: string } }) {
+  return (
+    <div>
+      <UserAvatar id={params.id} />
+      <UserName id={params.id} />
+    </div>
+  );
+}
+```
+
+Mimo że `fetch` odpala się w dwóch niezależnych komponentach, w Network
+zobaczysz tylko jedno żądanie do `/users/:id`. To działa dzięki request
+memoization — cache trzyma się tylko przez czas jednego renderu (server-side
+`fetch` cache w React/Next), nie między requestami.
+
+## 2. Rewalidacja cache NIE resetuje stanu
+
+Byłem przekonany, że po inwalidacji danych np. przez `cacheTag` +
+`revalidateTag` w Next 16+, Server Component się "remountuje" od zera i
+zeruje cały stan pod nim.
+
+```tsx
+// actions.ts
+'use server';
+import { revalidateTag } from 'next/cache';
+
+export async function updatePrice(id: string, price: number) {
+  await db.products.update(id, { price });
+  revalidateTag(`product-${id}`);
+}
+```
+
+```tsx
+// product-price.tsx (Server Component)
+async function ProductPrice({ id }: { id: string }) {
+  'use cache';
+  cacheTag(`product-${id}`);
+  const product = await getProduct(id);
+  return <PriceWidget price={product.price} />;
+}
+
+// price-widget.tsx (Client Component)
+'use client';
+function PriceWidget({ price }: { price: number }) {
+  const [expanded, setExpanded] = useState(false); // <- ten stan PRZEŻYWA rerender
+  return (
+    <div onClick={() => setExpanded(!expanded)}>
+      {price} zł {expanded && '(szczegóły...)'}
+    </div>
+  );
+}
+```
+**TL;DR:** RSC rerender ≠ remount. Cache tagi inwalidują dane, nie state.
+
+Po `revalidateTag('product-123')` React po prostu re-renderuje drzewo Server
+Components z nowymi danymi i scala wynik z istniejącym drzewem, czyli dokładnie
+tak jak normalna rekoncyliacja w Reakcie. Client Component w środku (jego
+`useState`, `useRef` itd.) zostaje przy życiu, bo jego pozycja w drzewie się
+nie zmienia. Zmienia się tylko `price` jako prop.
+
+Wychodzi na to, że RSC mają być szkieletem danych. Nie było to dla mnie oczywiste.
+
+
+Im dłużej z tym siedzę, tym bardziej mnie Next przekonuje jako framework,
+ale naprawdę przydałby się hard reset: wywalić przestarzałe API (Pages
+Router jako legacy-only, stare konwencje data fetchingu) i zostawić jeden,
+oficjalny "domyślny" sposób pisania aplikacji zamiast czterech
+konkurujących ze sobą podejść.

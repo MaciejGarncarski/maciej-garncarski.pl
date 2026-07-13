@@ -10,7 +10,6 @@ const seoData = {
   title: "Dzienniki",
   description: "Codzienne notatki, ciekawostki i krótkie refleksje.",
 };
-console.log(posts);
 ---
 
 <Layout>
@@ -35,7 +34,7 @@ console.log(posts);
 
     {
       posts.length > 0 ? (
-        <ul class="flex flex-col gap-3 md:gap-4">
+        <ul class="flex flex-col gap-3 md:gap-6">
           {posts.map((post, index) => {
             const displayDate = post.data.updatedDate
               ? post.data.updatedDate
