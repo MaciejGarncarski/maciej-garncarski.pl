@@ -50,6 +50,14 @@ import githubactions from "@components/technologies/githubactions.astro";
 import grafana from "@components/technologies/grafana.astro";
 import otel from "@components/technologies/otel.astro";
 import prometheus from "@components/technologies/prometheus.astro";
+import opencode from "@components/technologies/opencode.astro";
+import githubcopilot from "@components/technologies/githubcopilot.astro";
+import chatgpt from "@components/technologies/chatgpt.astro";
+import claude from "@components/technologies/claude.astro";
+import claudecode from "@components/technologies/claudecode.astro";
+import codex from "@components/technologies/codex.astro";
+import coderabbit from "@components/technologies/coderabbit.astro";
+import cursor from "@components/technologies/cursor.astro";
 import type { AstroComponentFactory } from "astro/runtime/server/index.js";
 
 type Technology = {
@@ -108,7 +116,7 @@ export const groups: TechnologyGroup[] = [
       ],
    },
    {
-      label: "Frontend",
+      label: "Frontend & UI",
       techs: [
          {
             name: "React",
@@ -126,6 +134,13 @@ export const groups: TechnologyGroup[] = [
             link: "https://nextjs.org",
          },
          {
+            name: "Astro",
+            color: "#BC52EE",
+            iconColor: "#BC52EE",
+            icon: astroicon,
+            link: "https://astro.build",
+         },
+         {
             name: "TanStack",
             color: "#BCF124",
             iconColor: "#28384f",
@@ -133,18 +148,6 @@ export const groups: TechnologyGroup[] = [
             icon: tanstack,
             link: "https://tanstack.com",
          },
-         {
-            name: "Astro",
-            color: "#BC52EE",
-            iconColor: "#BC52EE",
-            icon: astroicon,
-            link: "https://astro.build",
-         },
-      ],
-   },
-   {
-      label: "UI",
-      techs: [
          {
             name: "Tailwind CSS",
             color: "#06B6D4",
@@ -231,6 +234,70 @@ export const groups: TechnologyGroup[] = [
             darkIconColor: "#ffffff",
             icon: socketio,
             link: "https://socket.io",
+         },
+      ],
+   },
+   {
+      label: "AI",
+      techs: [
+         {
+            name: "Cursor",
+            color: "#000000",
+            iconColor: "#000000",
+            icon: cursor,
+            link: "https://www.cursor.com",
+         },
+         {
+            name: "OpenCode",
+            color: "#000000",
+            iconColor: "#000000",
+            darkIconColor: "#ffffff",
+            icon: opencode,
+            link: "https://opencode.ai",
+         },
+         {
+            name: "GitHub Copilot",
+            color: "#000000",
+            iconColor: "#000000",
+            darkIconColor: "#ffffff",
+            icon: githubcopilot,
+            link: "https://github.com/features/copilot",
+         },
+         {
+            name: "ChatGPT",
+            color: "#10A37F",
+            iconColor: "#10A37F",
+            icon: chatgpt,
+            link: "https://chatgpt.com",
+         },
+         {
+            name: "Codex",
+            color: "#10A37F",
+            iconColor: "#000",
+            darkIconColor: "#fff",
+            icon: codex,
+            link: "https://openai.com/codex",
+         },
+         {
+            name: "Claude",
+            color: "#D97757",
+            iconColor: "#D97757",
+            icon: claude,
+            link: "https://claude.ai",
+         },
+         {
+            name: "Claude Code",
+            color: "#D97757",
+            iconColor: "#D97757",
+            icon: claudecode,
+            link: "https://docs.anthropic.com/en/docs/claude-code/overview",
+         },
+         {
+            name: "CodeRabbit",
+            color: "#FF570A",
+            iconColor: "#FF570A",
+            icon: coderabbit,
+            link: "https://coderabbit.ai",
          },
       ],
    },
