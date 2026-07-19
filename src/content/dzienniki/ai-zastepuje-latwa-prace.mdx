@@ -1,0 +1,34 @@
+---
+title: "AI zastępuje tylko część pracy, i to nie tę ważną"
+publishedDate: 2026-07-19
+---
+
+Rok temu bałem się, że AI mnie zastąpi. Teraz wiem, że zastępuje tylko część pracy, i to nie tę ważną.
+
+Po wyjściu Opusa 4.5 myślałem, że postęp LLM będzie tak ogromny, że za pół roku nastąpią masowe zwolnienia w branży.
+
+Dziś siedzę z Claude na co dzień. Moja opinia jest taka, że model to jedno, a `harness`, czyli sposób w jaki z niego korzystasz, to drugie.
+
+## Co działa bardzo dobrze:
+
+* Używanie LLM jako dokumentacji kodu. Wystarczy, że opiszesz czego szukasz w bazie kodu, a model znajdzie odpowiednie fragmenty. To jest bardzo przydatne, bo nie trzeba przeszukiwać całego repozytorium.
+* Generowanie boilerplate'u. O dziwo lepiej działa na backendzie niż na frontendzie. Wydaje mi się, że to dlatego, że backend jest bardziej "jednolity" i łatwiej jest znaleźć wzorce.
+* Pisanie łatwych testów jednostkowych. Model potrafi wygenerować testy, które sprawdzają podstawową funkcjonalność. Jednak w przypadku bardziej złożonych przypadków, model często generuje testy, które nie mają sensu lub są niekompletne.
+
+To wszystko jest super, oszczędza czas. Ale to nie jest ta część pracy, która była trudna.
+
+## Czego AI nie zastąpiło:
+
+* Decyzji, czy kod ma sens. Problem z modelami jest taki, że mają tymczasowy kontekst. Model nie jest w stanie ocenić, dlaczego kod napisany przed nim był napisany w taki, a nie inny sposób. Brakuje im zrozumienia dlaczego coś się zepsuło w kontekście całego systemu, a nie kilku plików.
+* Wiedzy, kiedy działa nie znaczy, że działa dobrze. LLM może źle zrozumieć wymagania biznesowe, albo nie poznać ich wcale przez słaby prompt. Wtedy kod może działać powierzchownie, ale nie spełniać wszystkich wymagań. Wtedy trzeba poświęcić pojemność kognitywną na przeczytanie kodu, zrozumienie go i dopiero wtedy ocenić, czy spełnia wymagania. To jest bardzo czasochłonne.
+* Skalowalności rozwiązań. LLM rzadko domyślnie generuje kod z myślą o skalowalności. Zauważyłem, że często stosuje bufory zamiast streamów, co w przypadku dużych plików może prowadzić do problemów z pamięcią.
+* Myślenia o tym, co nie jest opisane wprost. Wymagania rzadko są kompletne od razu, wychodzą w trakcie rozmowy z klientem albo zespołem, kiedy ktoś dopowie coś "przy okazji". LLM nie zada pytania, którego nie wiedział, że powinien zadać.
+
+
+Podumowując, AI to kolejne narzędzie, a nie lekarstwo na wszystkie problemy. LLM zastępuje tylko część pracy, nie zawsze z zyskiem czasowym.
+
+Pytanie co, gdy na rynku skończą się programiści entry-mid level, a zostanie większość seniorów. Czy będą musieli być one-man army?
+
+Jest to bardzo ciekawe, bo dziś junior uczy się właśnie na tym, co AI robi najlepiej — na boilerplate'cie, prostych testach, przeszukiwaniu kodu. Jeśli to zniknie, pytanie brzmi: gdzie w takim razie senior weźmie się za kilka lat?
+
+Z drugiej strony, ceny za dostęp do najlepszych modeli rosną, a nie maleją. Jeśli firmy zaczną liczyć realny koszt (subskrypcje, tokeny, czas na review tego, co model wygenerował), może się okazać, że tańszy junior wcale nie jest gorszym wyborem niż drogi model plus senior do poprawiania. Wtedy pytanie o wymierających juniorów samo się rozwiąże, nie dzięki dobrej woli firm, tylko dzięki rachunkowi zysków i strat. Firmy zazwyczaj nie myślą długoterminowo.
