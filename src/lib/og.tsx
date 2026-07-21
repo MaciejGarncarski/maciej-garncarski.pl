@@ -343,7 +343,7 @@ function GradientBorders() {
                left: 0,
                right: "15%",
                height: 6,
-               background: `linear-gradient(to right, rgba(99, 151, 238, 0.35), transparent)`,
+               background: `linear-gradient(to right, rgba(99, 151, 238, 0.5), transparent)`,
             }}
          />
 
@@ -354,7 +354,7 @@ function GradientBorders() {
                bottom: "15%",
                left: 0,
                width: 6,
-               background: `linear-gradient(to bottom, rgba(99, 151, 238, 0.35), transparent)`,
+               background: `linear-gradient(to bottom, rgba(99, 151, 238, 0.5), transparent)`,
             }}
          />
       </>
