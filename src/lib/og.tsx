@@ -33,7 +33,6 @@ const FAVICON_URL =
 const TITLE_CHAR_LIMIT = 110;
 const OG_WIDTH = 1200;
 const OG_HEIGHT = 630;
-const BG_COLOR = "#12141c";
 const TEXT_COLOR = "#f5f8fc";
 const ACCENT_COLOR = "#6397ee";
 const FONT_FAMILY = "Montserrat";
@@ -60,7 +59,7 @@ async function createOgResponse(node: Node, stylesheets: string[]) {
       height: OG_HEIGHT,
       format: "png",
       stylesheets,
-      fetchedResources: getImageSources(),
+      images: getImageSources(),
    });
 
    return res.arrayBuffer();
@@ -73,7 +72,6 @@ export async function generateWebsiteOgImage() {
          style={{
             width: OG_WIDTH,
             height: OG_HEIGHT,
-            backgroundColor: BG_COLOR,
             color: "white",
             fontFamily: FONT_FAMILY,
             overflow: "hidden",
@@ -82,14 +80,25 @@ export async function generateWebsiteOgImage() {
             gap: 30,
          }}
       >
+         <GradientBackground />
          <div
             tw="absolute"
             style={{
                top: 0,
                left: "15%",
                right: "15%",
-               height: 1,
+               height: 3,
                background: `linear-gradient(to right, transparent, rgba(99, 151, 238, 0.5), transparent)`,
+            }}
+         />
+         <div
+            tw="absolute"
+            style={{
+               bottom: 0,
+               left: "25%",
+               right: "25%",
+               height: 3,
+               background: `linear-gradient(to right, transparent, rgba(99, 151, 238, 0.3), transparent)`,
             }}
          />
 
@@ -126,17 +135,6 @@ export async function generateWebsiteOgImage() {
          >
             Software Engineer
          </span>
-
-         <div
-            tw="absolute"
-            style={{
-               bottom: 0,
-               left: "25%",
-               right: "25%",
-               height: 1,
-               background: `linear-gradient(to right, transparent, rgba(99, 151, 238, 0.3), transparent)`,
-            }}
-         />
       </div>,
    );
 
@@ -166,7 +164,6 @@ export async function generateBlogOGImage({ title, date, tags }: OgImage) {
          style={{
             width: OG_WIDTH,
             height: OG_HEIGHT,
-            backgroundColor: BG_COLOR,
             color: "white",
             fontFamily: FONT_FAMILY,
             overflow: "visible",
@@ -174,27 +171,8 @@ export async function generateBlogOGImage({ title, date, tags }: OgImage) {
             justifyContent: "space-between",
          }}
       >
-         <div
-            tw="absolute"
-            style={{
-               top: 0,
-               left: "15%",
-               right: "15%",
-               height: 2,
-               background: `linear-gradient(to right, transparent, rgba(99, 151, 238, 0.6), transparent)`,
-            }}
-         />
-
-         <div
-            tw="absolute"
-            style={{
-               bottom: 0,
-               left: "20%",
-               right: "20%",
-               height: 2,
-               background: `linear-gradient(to right, transparent, rgba(99, 151, 238, 0.6), transparent)`,
-            }}
-         />
+         <GradientBackground />
+         <GradientBorders />
 
          <div tw="flex flex-row" style={{ flexWrap: "wrap", gap: 12 }}>
             {tags.map((tag) => (
@@ -272,7 +250,6 @@ export async function generateJournalOg({ title, date }: OgImage) {
          style={{
             width: OG_WIDTH,
             height: OG_HEIGHT,
-            backgroundColor: BG_COLOR,
             color: "white",
             fontFamily: FONT_FAMILY,
             overflow: "visible",
@@ -280,27 +257,8 @@ export async function generateJournalOg({ title, date }: OgImage) {
             justifyContent: "space-between",
          }}
       >
-         <div
-            tw="absolute"
-            style={{
-               top: 0,
-               left: "15%",
-               right: "15%",
-               height: 2,
-               background: `linear-gradient(to right, transparent, rgba(99, 151, 238, 0.6), transparent)`,
-            }}
-         />
-
-         <div
-            tw="absolute"
-            style={{
-               bottom: 0,
-               left: "20%",
-               right: "20%",
-               height: 2,
-               background: `linear-gradient(to right, transparent, rgba(99, 151, 238, 0.6), transparent)`,
-            }}
-         />
+         <GradientBackground />
+         <GradientBorders />
 
          <div tw="flex flex-row" style={{ flexWrap: "wrap", gap: 12 }}>
             <span
@@ -361,4 +319,44 @@ export async function generateJournalOg({ title, date }: OgImage) {
    );
 
    return createOgResponse(node, stylesheets);
+}
+
+function GradientBackground() {
+   return (
+      <div
+         tw="absolute"
+         style={{
+            inset: 0,
+            background: `linear-gradient(135deg, #12141c 0%, #12141c 50%, #1e2a4a 100%)`,
+         }}
+      />
+   );
+}
+
+function GradientBorders() {
+   return (
+      <>
+         <div
+            tw="absolute"
+            style={{
+               top: 0,
+               left: 0,
+               right: "15%",
+               height: 6,
+               background: `linear-gradient(to right, rgba(99, 151, 238, 0.35), transparent)`,
+            }}
+         />
+
+         <div
+            tw="absolute"
+            style={{
+               top: 6,
+               bottom: "15%",
+               left: 0,
+               width: 6,
+               background: `linear-gradient(to bottom, rgba(99, 151, 238, 0.35), transparent)`,
+            }}
+         />
+      </>
+   );
 }
